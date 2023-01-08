@@ -30,7 +30,6 @@ Cloud依赖版本管理
 
 [open-module-libs](https://github.com/amaoai/open-black/tree/master/open-module-libs) 模块主要用于整合开发工具包，以及各个依赖的管理。父模块只需要配置好开头列出开的三大框架版本即可（``SpringBoot``, ``SpringCloud``, ``CloudAlibaba``）。
 
-[open-module-libs/spring-boot-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module) 模块下管理了spring的各种依赖包，例如 
-[open-module-libs/spring-boot-module/boot-mysql-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module/boot-mysql-module) 模块它的作用就是整合了 ``mysql``, ``mybatis-plus``, ``druid`` 等框架
+[open-module-libs/spring-boot-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module) 模块下管理了spring的各种依赖包，例如 [boot-mysql-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module/boot-mysql-module) 模块它的作用就是整合了 ``mysql``, ``mybatis-plus``, ``druid`` 等框架
 
 目的就是为了引入一个模块，就可以将所有必备的配套工具整合一并引入。
