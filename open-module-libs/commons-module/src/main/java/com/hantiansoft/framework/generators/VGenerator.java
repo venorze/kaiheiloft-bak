@@ -34,7 +34,7 @@ import java.util.Random;
  *
  * @author Vincent Luo
  */
-public class Generators {
+public class VGenerator {
 
     ////////////////////////////////////////////////////////////
     /// SHA256生成
@@ -168,7 +168,7 @@ public class Generators {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++)
             sb.append(STATIC_NUMBERS_AND_LETTERS_CHAR_ARRAY[
-                    Generators.random_of_number(STATIC_NUMBERS_AND_LETTERS_CHAR_ARRAY.length)]);
+                    VGenerator.random_of_number(STATIC_NUMBERS_AND_LETTERS_CHAR_ARRAY.length)]);
         return sb.toString();
     }
 
@@ -187,7 +187,7 @@ public class Generators {
     public static String random_simple_captcha(int length) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++)
-            sb.append(Generators.random_of_number(10));
+            sb.append(VGenerator.random_of_number(10));
         return sb.toString();
     }
 

@@ -21,13 +21,11 @@ package com.hantiansoft.framework.io;
 /* Creates on 2022/8/9. */
 
 import com.hantiansoft.framework.Asserts;
-import com.hantiansoft.framework.generators.Generators;
+import com.hantiansoft.framework.generators.VGenerator;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.security.MessageDigest;
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -267,7 +265,7 @@ public final class FileUtils {
      * @return sha256
      */
     public static String vsha256(String path) {
-        return Generators.vsha256(read(path));
+        return VGenerator.vsha256(read(path));
     }
 
 }
