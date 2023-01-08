@@ -14,8 +14,8 @@
         <module>open-module-libs/spring-boot-module</module>
             <module>open-module-libs/spring-boot-module/boot-mysql-module</module>
             <module>open-module-libs/spring-boot-module/cloud-alibaba-module</module>
-        <!-- 主要业务模块 -->
         <module>distance</module>
+        <module>sdk</module>
     </modules>
 
     <properties>

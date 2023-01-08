@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/main-business/pom.xml" />
         <option value="$PROJECT_DIR$/open-black-main/pom.xml" />
         <option value="$PROJECT_DIR$/open-module-libs/spring-boot-module/boot-nacos-module/pom.xml" />
+        <option value="$PROJECT_DIR$/sdk/sdkface/pom.xml" />
       </set>
     </option>
   </component>
