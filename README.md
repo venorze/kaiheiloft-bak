@@ -12,6 +12,7 @@ Cloud依赖版本管理
 
 - [Nacos 2.2.0](https://github.com/alibaba/nacos)
 - [Java 8u151-b12](https://repo.huaweicloud.com/java/jdk/8u151-b12/)
+- [redis](https://redis.io/)
 
 # 模块介绍
 
