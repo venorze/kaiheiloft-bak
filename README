@@ -1,0 +1,4 @@
+Project Version Management:
+    spring boot: 2.3.12.RELEASE
+    spring cloud: Hoxton.SR12
+    cloud alibaba: 2.2.9.RELEASE

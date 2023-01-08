@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: DISTANCE_SERVER
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.101.7:8848
