@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu;
+package com.hantiansoft.framework.test;
 
 /* ************************************************************************
  *
@@ -20,28 +20,20 @@ package com.hantiansoft.qiniu;
 
 /* Creates on 2023/1/9. */
 
-import com.hantiansoft.adapter.PutPolicy;
-import com.hantiansoft.adapter.StoreAdapter;
+import com.hantiansoft.framework.io.FileUtils;
 import org.junit.Test;
-
-import java.util.Properties;
 
 /**
  * No Descript.
  *
  * @author Vincent Luo
  */
-public class UploadFileTest {
+public class GetFileSHA256 {
 
     @Test
-    public void uploadLocalFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "open-distance");
-        PutPolicy putPolicy = StoreAdapter.createPutPolicy(QiniuPutPolicy.class, props);
-
-        putPolicy.putFile("C:\\Users\\open-\\Desktop\\doge.jpg", "a/{}", "doge.jpg");
+    public void GetFileSHA256() throws Exception{
+        String filepath = "D:\\USR\\PRIVATE\\Bin\\apache-maven-3.6.3\\repository\\com\\oracle\\database\\jdbc\\ojdbc-bom\\21.3.0.0\\LinaMigurtt1.mp4";
+        System.out.println(FileUtils.vsha256(filepath).toUpperCase());
     }
 
 }

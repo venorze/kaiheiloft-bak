@@ -25,6 +25,7 @@ import com.hantiansoft.framework.HackFunction11;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -65,7 +66,6 @@ public class Generators {
     public static Long snowflake_id(Integer dataCenterId, Integer machineId) {
         return InternalSnowflakesIdGenerator.nextId(dataCenterId, machineId);
     }
-
 
     ////////////////////////////////////////////////////////////
     /// 随机数生成

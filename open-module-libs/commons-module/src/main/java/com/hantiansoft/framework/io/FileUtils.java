@@ -25,6 +25,8 @@ import com.hantiansoft.framework.Asserts;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -255,6 +257,51 @@ public final class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 计算文件的Sha256值
+     *
+     * @param path 文件路径
+     * @return sha256
+     */
+    public static String vsha256(String path) {
+        String hashString = "";
+        File file = new File(path);
+
+        try {
+            BufferedInputStream in = new BufferedInputStream(Files.newInputStream(file.toPath()));
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            int bufferSize = 16384;
+            byte[] buffer = new byte[bufferSize];
+            int sizeRead = -1;
+
+            while ((sizeRead = in.read(buffer)) != -1) {
+                digest.update(buffer, 0, sizeRead);
+            }
+
+            in.close();
+
+            // 生成 Sha256 字符串
+            byte[] hash = digest.digest();
+            StringBuilder sb = new StringBuilder(hash.length * 2);
+            for (byte b : hash) {
+                String hex = Integer.toHexString(b);
+                if (hex.length() == 1) {
+                    sb.append("0");
+                } else if (hex.length() == 8) {
+                    hex = hex.substring(6);
+                }
+                sb.append(hex);
+            }
+
+            hashString = sb.toString().toLowerCase(Locale.getDefault());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return hashString;
     }
 
 }

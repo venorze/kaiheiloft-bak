@@ -55,6 +55,11 @@ public final class IOUtils {
     public static OutputStream stderr = System.err;
 
     /**
+     * 空的字节数组
+     */
+    public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
+    /**
      * 换行符
      */
     public static final byte[] LINE_SEPARATOR =
