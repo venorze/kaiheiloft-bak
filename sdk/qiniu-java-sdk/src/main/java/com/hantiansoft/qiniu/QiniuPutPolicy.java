@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.hantiansoft.adapter.PutPolicy;
 import com.hantiansoft.framework.StringUtils;
 import com.hantiansoft.framework.io.ByteBuf;
+import com.hantiansoft.framework.io.FileUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;

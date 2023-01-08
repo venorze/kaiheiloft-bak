@@ -25,6 +25,7 @@ import com.hantiansoft.framework.HackFunction11;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.Random;
 
@@ -34,6 +35,54 @@ import java.util.Random;
  * @author Vincent Luo
  */
 public class Generators {
+
+    ////////////////////////////////////////////////////////////
+    /// SHA256生成
+    ////////////////////////////////////////////////////////////
+
+    /**
+     * 根据Byte数组生成对应的Sha256值
+     *
+     * @param a      byte数组
+     * @return sha256
+     */
+    public static String vsha256(byte[] a) {
+        return vsha256(a, 0, a.length);
+    }
+
+    /**
+     * 根据Byte数组生成对应的Sha256值
+     *
+     * @param a      byte数组
+     * @param offset 数组偏移量
+     * @param len    截取长度
+     * @return sha256
+     */
+    public static String vsha256(byte[] a, int offset, int len) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(a, offset, len);
+            byte[] hash = digest.digest();
+
+            // 生成 Sha256 字符串
+            StringBuilder sb = new StringBuilder(hash.length * 2);
+            for (byte b : hash) {
+                String hex = Integer.toHexString(b);
+                if (hex.length() == 1) {
+                    sb.append("0");
+                } else if (hex.length() == 8) {
+                    hex = hex.substring(6);
+                }
+                sb.append(hex);
+            }
+
+            return sb.toString().toLowerCase(Locale.getDefault());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 
     ////////////////////////////////////////////////////////////
     /// 唯一Id生成
@@ -152,18 +201,15 @@ public class Generators {
     /**
      * 生成验证码图片 base64 编码；
      *
-     * @param f_gencode
-     *        lambda 函数，可选有:
-     *
-     *          - Generators::random_complex_captcha(int);
-     *          - Generators::random_simple_captcha(int);
-     *
-     * @param n 验证码长度
-     *
-     * 生成代码示例：<code>
-     *     Generators::generate_captcha_image(Generators::random_complex_captcha, 4);
-     * </code>
-     *
+     * @param f_gencode lambda 函数，可选有:
+     *                  <p>
+     *                  - Generators::random_complex_captcha(int);
+     *                  - Generators::random_simple_captcha(int);
+     * @param n         验证码长度
+     *                  <p>
+     *                  生成代码示例：<code>
+     *                  Generators::generate_captcha_image(Generators::random_complex_captcha, 4);
+     *                  </code>
      * @return 图像 base64 字符串
      */
     public static Captcha random_captcha_image(HackFunction11<Integer, String> f_gencode, int n) {
@@ -177,16 +223,14 @@ public class Generators {
     /**
      * 生成验证码图片 base64 编码；
      *
-     * @param f_gencode
-     *        lambda 函数，可选有:
-     *
-     *          - Generators::random_complex_captcha();
-     *          - Generators::random_simple_captcha();
-     *
-     * 生成代码示例：<code>
-     *     Generators::generate_captcha_image(Generators::random_complex_captcha);
-     * </code>
-     *
+     * @param f_gencode lambda 函数，可选有:
+     *                  <p>
+     *                  - Generators::random_complex_captcha();
+     *                  - Generators::random_simple_captcha();
+     *                  <p>
+     *                  生成代码示例：<code>
+     *                  Generators::generate_captcha_image(Generators::random_complex_captcha);
+     *                  </code>
      * @return 图像 base64 字符串
      */
     public static Captcha random_captcha_image(HackFunction01<String> f_gencode) {

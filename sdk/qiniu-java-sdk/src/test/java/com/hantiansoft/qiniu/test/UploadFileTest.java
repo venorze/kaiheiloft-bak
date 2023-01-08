@@ -42,7 +42,7 @@ public class UploadFileTest {
         props.put("bucket", "open-distance");
         PutPolicy putPolicy = StoreAdapter.createPutPolicy(QiniuPutPolicy.class, props);
 
-        putPolicy.putFile("C:\\Users\\open-\\Desktop\\doge.jpg", "a/{}", "doge.jpg");
+        putPolicy.putFile("C:\\Users\\open-\\Desktop\\doge.jpg", "avatar/doge.jpg");
     }
 
 }

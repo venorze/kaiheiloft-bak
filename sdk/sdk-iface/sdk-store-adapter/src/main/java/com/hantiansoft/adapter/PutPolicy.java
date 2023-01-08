@@ -20,6 +20,7 @@ package com.hantiansoft.adapter;
 
 /* Creates on 2023/1/9. */
 
+import com.hantiansoft.framework.StringUtils;
 import com.hantiansoft.framework.io.ByteBuf;
 
 import java.io.InputStream;

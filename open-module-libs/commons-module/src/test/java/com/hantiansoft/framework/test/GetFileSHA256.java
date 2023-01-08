@@ -20,6 +20,7 @@ package com.hantiansoft.framework.test;
 
 /* Creates on 2023/1/9. */
 
+import com.hantiansoft.framework.JUnits;
 import com.hantiansoft.framework.io.FileUtils;
 import org.junit.Test;
 
@@ -32,8 +33,14 @@ public class GetFileSHA256 {
 
     @Test
     public void GetFileSHA256() throws Exception{
-        String filepath = "D:\\USR\\PRIVATE\\Bin\\apache-maven-3.6.3\\repository\\com\\oracle\\database\\jdbc\\ojdbc-bom\\21.3.0.0\\LinaMigurtt1.mp4";
-        System.out.println(FileUtils.vsha256(filepath).toUpperCase());
+        JUnits.performance(() -> {
+            String filepath = "C:\\Users\\open-\\Desktop\\doge.jpg";
+            System.out.println(FileUtils.vsha256(filepath).toUpperCase());
+            System.out.println(FileUtils.vsha256(filepath).toUpperCase());
+            System.out.println(FileUtils.vsha256(filepath).toUpperCase());
+            System.out.println(FileUtils.vsha256(filepath).toUpperCase());
+            System.out.println(FileUtils.vsha256(filepath).toUpperCase());
+        });
     }
 
 }
