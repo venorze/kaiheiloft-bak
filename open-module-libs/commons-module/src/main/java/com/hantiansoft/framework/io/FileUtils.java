@@ -32,6 +32,27 @@ import java.util.Objects;
  * @author Vincent Luo
  */
 public final class FileUtils {
+
+    /**
+     * 2mb = 2000000 bytes
+     */
+    public static final long SIZE_OF_MB_2 = 2000000;
+
+    /**
+     * 4mb = 4000000 bytes
+     */
+    public static final long SIZE_OF_MB_4 = 4000000;
+
+    /**
+     * 8mb = 8000000 bytes
+     */
+    public static final long SIZE_OF_MB_8 = 8000000;
+
+    /**
+     * 16mb = 16000000 bytes
+     */
+    public static final long SIZE_OF_MB_16 = 16000000;
+
     /**
      * 从Resources目录读取文件
      */
