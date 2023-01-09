@@ -21,7 +21,6 @@ package com.hantiansoft.distance.controller;
 /* Creates on 2023/1/9. */
 
 import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.framework.exception.BusinessException;
 import com.hantiansoft.framework.generators.VGenerator;
@@ -32,9 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * 文件上传相关的控制器
@@ -58,7 +54,15 @@ public class UploadController {
 
         try {
             byte[] byteBuf = avatarFile.getBytes();
-            return R.ok(sourcePolicy.putBytes(byteBuf, "avatar/{}", VGenerator.vsha256(byteBuf)));
+            String fileSha256 = VGenerator.vsha256(byteBuf);
+
+            // 计算文件存放在哪个位置，随机取SHA256中的两个字符作为保存区域
+            int len = fileSha256.length();
+            int i = VGenerator.random_of_number(len - 2); // len - 2 避免随机到名称末尾
+
+            // 上传文件
+            String region = fileSha256.substring(i, i + 2);
+            return R.ok(sourcePolicy.putBytes(byteBuf, "v1/{}/{}", region, fileSha256));
         } catch (Exception e) {
             throw new BusinessException("文件上传失败，请重试", e);
         }
