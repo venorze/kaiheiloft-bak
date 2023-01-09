@@ -1,5 +1,5 @@
 server:
-  port: 86002
+  port: 8602
 
 spring:
   application:
@@ -10,7 +10,10 @@ spring:
     #
     nacos:
       discovery:
-        server-addr: 192.168.101.7:8848
+        server-addr: 123.60.211.203:8848
+        username: nacos
+        password: nacos
+        namespace: dev
   servlet:
     #
     # 文件上传大小配置
