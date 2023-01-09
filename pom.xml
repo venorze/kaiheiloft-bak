@@ -16,6 +16,7 @@
             <module>open-module-libs/spring-boot-module/cloud-alibaba-module</module>
         <module>distance</module>
         <module>sdk</module>
+        <module>authentication</module>
     </modules>
 
     <properties>
