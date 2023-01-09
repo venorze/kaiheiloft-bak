@@ -42,7 +42,7 @@ public class T_MOVE_FILE {
         props.put("bucket", "store-distance-avatar");
         SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
 
-        sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg");
+        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
     }
 
 }

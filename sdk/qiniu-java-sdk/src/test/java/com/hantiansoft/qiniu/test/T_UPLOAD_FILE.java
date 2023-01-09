@@ -42,7 +42,7 @@ public class T_UPLOAD_FILE {
         props.put("bucket", "store-distance-avatar");
         SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
 
-        sourcePolicy.putFile("C:\\Users\\open-\\Desktop\\doge.jpg", "avatar/doge.jpg");
+        System.out.println("save location: " + sourcePolicy.putFile("C:\\Users\\open-\\Desktop\\doge.jpg", "avatar/doge.jpg"));
     }
 
 }

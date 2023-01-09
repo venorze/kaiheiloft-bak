@@ -35,26 +35,30 @@ public interface SourcePolicy {
      * @param path 文件路径
      * @param fmt  上传保存的文件名
      * @param args 字符串格式化参数（如果有，例如：avatar/{}）
+     * @return 返回文件保存位置
      */
-    void putFile(String path, String fmt, Object... args);
+    String putFile(String path, String fmt, Object... args);
 
     /**
      * 通过字节流上传文件
      *
      * @param byteBuf 字节数组缓冲区
-     * @param fmt  上传保存的文件名
-     * @param args 字符串格式化参数（如果有，例如：avatar/{}）
+     * @param fmt     上传保存的文件名
+     * @param args    字符串格式化参数（如果有，例如：avatar/{}）
+     *
+     * @return 返回文件保存位置
      */
-    void putBytes(byte[] byteBuf, String fmt, Object... args);
+    String putBytes(byte[] byteBuf, String fmt, Object... args);
 
     /**
      * 通过数据流上传文件
      *
      * @param inputStream 输入流
-     * @param fmt  上传保存的文件名
-     * @param args 字符串格式化参数（如果有，例如：avatar/{}）
+     * @param fmt         上传保存的文件名
+     * @param args        字符串格式化参数（如果有，例如：avatar/{}）
+     * @return 返回文件保存位置
      */
-    void putInputStream(InputStream inputStream, String fmt, Object... args);
+    String putInputStream(InputStream inputStream, String fmt, Object... args);
 
     /**
      * 获取文件信息
@@ -67,9 +71,10 @@ public interface SourcePolicy {
     /**
      * 移动文件到其他文件夹
      *
-     * @param srcPath 源文件路径
-     * @param distPath 移动目标文件路径
+     * @param srcPath  源文件路径
+     * @param distPath 移动目标文件路径（需要带上文件名）
+     * @return 返回新的文件位置
      */
-    void move(String srcPath, String distPath);
+    String move(String srcPath, String distPath);
 
 }

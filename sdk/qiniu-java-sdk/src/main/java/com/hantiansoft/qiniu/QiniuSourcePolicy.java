@@ -90,36 +90,48 @@ public class QiniuSourcePolicy implements SourcePolicy {
     }
 
     @Override
-    public void putFile(String filepath, String fmt, Object... args) {
+    public String putFile(String filepath, String fmt, Object... args) {
+        String finalFilePath = StringUtils.vfmt(fmt, args);
+
         try {
             Response response =
-                    this.uploadManager.put(filepath, StringUtils.vfmt(fmt, args), this.uploadToken);
+                    this.uploadManager.put(filepath, finalFilePath, this.uploadToken);
             System.out.println(JSON.toJSONString(response));
         } catch (QiniuException e) {
             throw new RuntimeException(e);
         }
+
+        return finalFilePath;
     }
 
     @Override
-    public void putBytes(byte[] byteBuf, String fmt, Object... args) {
+    public String putBytes(byte[] byteBuf, String fmt, Object... args) {
+        String finalFilePath = StringUtils.vfmt(fmt, args);
+
         try {
             Response response =
-                    this.uploadManager.put(byteBuf, StringUtils.vfmt(fmt, args), this.uploadToken);
+                    this.uploadManager.put(byteBuf, finalFilePath, this.uploadToken);
             System.out.println(JSON.toJSONString(response));
         } catch (QiniuException e) {
             throw new RuntimeException(e);
         }
+
+        return finalFilePath;
     }
 
     @Override
-    public void putInputStream(InputStream inputStream, String fmt, Object... args) {
+    public String putInputStream(InputStream inputStream, String fmt, Object... args) {
+        String finalFilePath = StringUtils.vfmt(fmt, args);
+
         try {
             Response response =
-                    this.uploadManager.put(inputStream, StringUtils.vfmt(fmt, args), this.uploadToken, null, null);
+                    this.uploadManager.put(inputStream, finalFilePath, this.uploadToken, null, null);
             System.out.println(JSON.toJSONString(response));
         } catch (QiniuException e) {
             throw new RuntimeException(e);
         }
+
+        return finalFilePath;
     }
 
     @Override
@@ -138,7 +150,7 @@ public class QiniuSourcePolicy implements SourcePolicy {
     }
 
     @Override
-    public void move(String srcPath, String distPath) {
+    public String move(String srcPath, String distPath) {
         try {
             Response response =
                     this.bucketManager.move(this.bucket, srcPath, this.bucket, distPath);
@@ -146,6 +158,8 @@ public class QiniuSourcePolicy implements SourcePolicy {
         } catch (QiniuException e) {
             throw new RuntimeException(e);
         }
+
+        return distPath;
     }
 
 }
