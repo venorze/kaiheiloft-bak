@@ -20,10 +20,17 @@ package com.hantiansoft.distance;
 
 /* Creates on 2023/1/8. */
 
+import com.hantiansoft.adapter.SourcePolicy;
+import com.hantiansoft.adapter.StoreAdapter;
+import com.hantiansoft.qiniu.QiniuSourcePolicy;
 import com.hantiansoft.spring.framework.annotation.EnableBootModule;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+
+import java.util.Properties;
 
 /**
  * @author Vincent Luo
@@ -33,8 +40,32 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 public class DistanceBootstrap {
 
+    @Value("${sdk.qiniu.access}")
+    private String qiniuAccess;
+
+    @Value("${sdk.qiniu.secret}")
+    private String qiniuSecret;
+
+    @Value("${sdk.qiniu.bucket}")
+    private String qiniuBucket;
+
+    /**
+     * 入口函数
+     */
     public static void main(String[] args) {
         SpringApplication.run(DistanceBootstrap.class, args);
+    }
+
+    /**
+     * 创建对象储存SDK对象
+     */
+    @Bean
+    public SourcePolicy sourcePolicy() {
+        Properties props = new Properties();
+        props.put("access", qiniuAccess);
+        props.put("secret", qiniuSecret);
+        props.put("bucket", qiniuBucket);
+        return StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
     }
 
 }
