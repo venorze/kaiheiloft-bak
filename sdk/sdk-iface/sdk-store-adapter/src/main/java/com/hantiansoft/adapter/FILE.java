@@ -20,25 +20,43 @@ package com.hantiansoft.adapter;
 
 /* Creates on 2023/1/9. */
 
-import com.hantiansoft.framework.refection.ClassUtils;
-
-import java.util.Properties;
+import java.util.Date;
 
 /**
- * 对象存储SDK适配器
+ * 文件信息
  *
  * @author Vincent Luo
  */
-public class StoreAdapter {
+public interface FILE {
 
     /**
-     * 获取储存策略对象
-     *
-     * @param clazz PutPolicy接口实现对象
-     * @param props 初始化配置信息
+     * @return 文件名
      */
-    public static SourcePolicy createSourcePolicy(Class<? extends SourcePolicy> clazz, Properties props) {
-        return ClassUtils.newInstance(clazz, props);
-    }
+    String getName();
+
+    /**
+     * @return 文件的hash值
+     */
+    String getHash();
+
+    /**
+     * @return 文件的md5值
+     */
+    String getMd5();
+
+    /**
+     * @return 文件大小
+     */
+    long getSize();
+
+    /**
+     * @return 文件类型
+     */
+    String getType();
+
+    /**
+     * @return 获取上传时间
+     */
+    Date getPutTime();
 
 }

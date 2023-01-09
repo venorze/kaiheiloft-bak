@@ -1,4 +1,4 @@
-package com.hantiansoft.adapter;
+package com.hantiansoft.qiniu.test;
 
 /* ************************************************************************
  *
@@ -20,25 +20,29 @@ package com.hantiansoft.adapter;
 
 /* Creates on 2023/1/9. */
 
-import com.hantiansoft.framework.refection.ClassUtils;
+import com.hantiansoft.adapter.SourcePolicy;
+import com.hantiansoft.adapter.StoreAdapter;
+import com.hantiansoft.qiniu.QiniuSourcePolicy;
+import org.junit.Test;
 
 import java.util.Properties;
 
 /**
- * 对象存储SDK适配器
+ * No Descript.
  *
  * @author Vincent Luo
  */
-public class StoreAdapter {
+public class T_UPLOAD_FILE {
 
-    /**
-     * 获取储存策略对象
-     *
-     * @param clazz PutPolicy接口实现对象
-     * @param props 初始化配置信息
-     */
-    public static SourcePolicy createSourcePolicy(Class<? extends SourcePolicy> clazz, Properties props) {
-        return ClassUtils.newInstance(clazz, props);
+    @Test
+    public void uploadLocalFile() {
+        Properties props = new Properties();
+        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
+        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
+        props.put("bucket", "store-distance-avatar");
+        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
+
+        sourcePolicy.putFile("C:\\Users\\open-\\Desktop\\doge.jpg", "avatar/doge.jpg");
     }
 
 }
