@@ -24,15 +24,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
+import com.hantiansoft.distance.model.UserProfile;
 import com.hantiansoft.distance.reqmod.EditMailReqmod;
 import com.hantiansoft.distance.reqmod.EditPasswdReqmod;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
-import com.hantiansoft.distance.model.UserProfile;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
