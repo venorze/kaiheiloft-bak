@@ -21,7 +21,9 @@ package com.hantiansoft.distance.enties;
 /* Creates on 2022/12/22. */
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -29,7 +31,8 @@ import java.util.Date;
  * @author Vincent Luo
  */
 @Data
-public class SuperModel {
+@EqualsAndHashCode(callSuper = false)
+public class SuperModel<T extends Model<T>> extends Model<T> {
 
     /**
      * ID

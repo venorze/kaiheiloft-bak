@@ -64,9 +64,9 @@ public class UserSignUpReqmod {
     private Date birthday;
 
     /**
-     * 用户性别, M 男， W 女， U 未知
+     * 用户性别, M 男， W 女
      */
-    @Pattern(regexp = "^|M|W|U|$", message = "用户性别不正确")
+    @Pattern(regexp = "^|M|W|$", message = "用户性别不正确")
     private String gender;
 
 }

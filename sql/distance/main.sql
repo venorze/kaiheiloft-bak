@@ -12,6 +12,7 @@ CREATE TABLE `userinfo`
     `avatar`       varchar(255) NOT NULL DEFAULT 'N' COMMENT '用户头像',
     `birthday`     timestamp    NOT NULL COMMENT '生日',
     `bio`          varchar(180) COMMENT '用户个人经历、介绍',
+    `gender`       varchar(1)   NOT NULL COMMENT '性别, M 男，W 女',
     `phone_number` int                   DEFAULT NULL COMMENT '手机号',
     `email`        varchar(32)           DEFAULT NULL COMMENT '电子邮箱',
     `realname`     char(1)      NOT NULL DEFAULT 'N' COMMENT '是否实名认证，N否 Y是，默认：N',

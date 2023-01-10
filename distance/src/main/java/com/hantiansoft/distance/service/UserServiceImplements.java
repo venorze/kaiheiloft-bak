@@ -25,7 +25,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
-import com.hantiansoft.distance.respmod.UserProfile;
+import com.hantiansoft.distance.model.UserProfile;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
@@ -42,6 +42,18 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     private SnowflakeGenerator snowflakeGenerator;
 
     @Override
+    public User of_user_id(Long userid) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", userid);
+
+        // 根据ID查询用户信息
+        User user = getOne(wrapper);
+        Asserts.throwIfNull(user, "用户不存在");
+
+        return user;
+    }
+
+    @Override
     public void sign_up(UserSignUpReqmod userSignUpReqmod) {
         // 属性拷贝
         User user = BeanUtils.copyProperties(userSignUpReqmod, User.class);
@@ -53,14 +65,16 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
 
     @Override
     public UserProfile profile(Long userid) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", userid);
-
         // 根据ID查询用户信息
-        User user = getOne(wrapper);
-        Asserts.throwIfNull(user, "用户不存在");
+        return BeanUtils.copyProperties(of_user_id(userid), UserProfile.class);
+    }
 
-        return BeanUtils.copyProperties(user, UserProfile.class);
+    @Override
+    public void profile_edit(Long userid, UserProfile userProfile) {
+        User user = of_user_id(userid);
+        BeanUtils.copyProperties(userProfile, user);
+        // 更新用户信息
+        updateById(user);
     }
 
 }

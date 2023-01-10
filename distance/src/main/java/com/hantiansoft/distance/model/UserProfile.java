@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.respmod;
+package com.hantiansoft.distance.model;
 
 /* ************************************************************************
  *
@@ -21,7 +21,11 @@ package com.hantiansoft.distance.respmod;
 /* Creates on 2023/1/10. */
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -33,21 +37,31 @@ public class UserProfile {
     /**
      * 用户昵称
      */
+    @NotBlank(message = "用户昵称不能为空")
+    @Length(max = 16, message = "用户昵称超出规定长度")
     private String nickname;
 
     /**
      * 用户头像
      */
+    @NotBlank(message = "用户头像不能为空")
     private String avatar;
 
     /**
      * 用户生日
      */
+    @NotNull(message = "用户生日不能为空")
     private Date birthday;
 
     /**
      * 自我介绍
      */
     private String bio;
+
+    /**
+     * 用户性别, M 男， W 女
+     */
+    @Pattern(regexp = "^|M|W|$", message = "用户性别不正确")
+    private String gender;
 
 }

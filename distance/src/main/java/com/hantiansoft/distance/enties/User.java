@@ -34,7 +34,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("userinfo")
-public class User extends SuperModel {
+public class User extends SuperModel<User> {
 
     /**
      * 用户名
@@ -65,6 +65,11 @@ public class User extends SuperModel {
      * 自我介绍
      */
     private String bio;
+
+    /**
+     * 性别
+     */
+    private String gender;
 
     /**
      * 手机号
