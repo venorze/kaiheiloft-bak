@@ -24,6 +24,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 /**
  * 用户信息表
  *
@@ -53,6 +55,16 @@ public class User extends SuperModel {
      * 用户头像
      */
     private String avatar;
+
+    /**
+     * 生日
+     */
+    private Date birthday;
+
+    /**
+     * 自我介绍
+     */
+    private String bio;
 
     /**
      * 手机号

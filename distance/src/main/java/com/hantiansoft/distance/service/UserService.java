@@ -23,7 +23,7 @@ package com.hantiansoft.distance.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
-import com.hantiansoft.distance.respmod.PersonalInfo;
+import com.hantiansoft.distance.respmod.UserProfile;
 
 /**
  * @author Vincent Luo
@@ -38,6 +38,6 @@ public interface UserService extends IService<User> {
     /**
      * 获取个人信息
      */
-    PersonalInfo personal_info(Long userid);
+    UserProfile profile(Long userid);
 
 }

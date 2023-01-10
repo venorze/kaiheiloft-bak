@@ -25,7 +25,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
-import com.hantiansoft.distance.respmod.PersonalInfo;
+import com.hantiansoft.distance.respmod.UserProfile;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
@@ -52,7 +52,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public PersonalInfo personal_info(Long userid) {
+    public UserProfile profile(Long userid) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("id", userid);
 
@@ -60,7 +60,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
         User user = getOne(wrapper);
         Asserts.throwIfNull(user, "用户不存在");
 
-        return BeanUtils.copyProperties(user, PersonalInfo.class);
+        return BeanUtils.copyProperties(user, UserProfile.class);
     }
 
 }

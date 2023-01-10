@@ -22,16 +22,13 @@ package com.hantiansoft.distance.respmod;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author Vincent Luo
  */
 @Data
-public class PersonalInfo {
-
-    /**
-     * 用户名
-     */
-    private String username;
+public class UserProfile {
 
     /**
      * 用户昵称
@@ -42,5 +39,15 @@ public class PersonalInfo {
      * 用户头像
      */
     private String avatar;
+
+    /**
+     * 用户生日
+     */
+    private Date birthday;
+
+    /**
+     * 自我介绍
+     */
+    private String bio;
 
 }

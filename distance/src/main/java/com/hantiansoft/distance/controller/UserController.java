@@ -21,7 +21,7 @@ package com.hantiansoft.distance.controller;
 /* Creates on 2023/1/10. */
 
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
-import com.hantiansoft.distance.respmod.PersonalInfo;
+import com.hantiansoft.distance.respmod.UserProfile;
 import com.hantiansoft.distance.service.UserService;
 import com.hantiansoft.framework.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ import javax.validation.Valid;
  * @author Vincent Luo
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
     @Autowired
@@ -53,9 +53,9 @@ public class UserController {
     /**
      * 获取用户个人信息
      */
-    @GetMapping("/personal_info/{userid}")
-    public R<PersonalInfo> personal_info(@PathVariable("userid") Long userid) {
-        return R.ok(userService.personal_info(userid));
+    @GetMapping("/profile/{userid}")
+    public R<UserProfile> profile(@PathVariable("userid") Long userid) {
+        return R.ok(userService.profile(userid));
     }
 
 }

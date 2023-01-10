@@ -24,7 +24,9 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 /**
  * 用户注册请求体
@@ -54,6 +56,12 @@ public class UserSignUpReqmod {
     @NotBlank(message = "用户密码不能为空")
     @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
     private String password;
+
+    /**
+     * 用户生日
+     */
+    @NotNull(message = "用户生日不能为空")
+    private Date birthday;
 
     /**
      * 用户性别, M 男， W 女， U 未知
