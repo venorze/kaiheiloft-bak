@@ -11,9 +11,11 @@
 
     <modules>
         <module>open-module-libs/commons-module</module>
+        <module>open-module-libs/cache-redis-module</module>
         <module>open-module-libs/spring-boot-module</module>
             <module>open-module-libs/spring-boot-module/boot-mysql-module</module>
             <module>open-module-libs/spring-boot-module/cloud-alibaba-module</module>
+            <module>open-module-libs/spring-boot-module/boot-redis-module</module>
         <module>distance</module>
         <module>sdk</module>
         <module>authentication</module>

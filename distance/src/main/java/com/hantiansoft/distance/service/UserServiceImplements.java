@@ -32,6 +32,7 @@ import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**

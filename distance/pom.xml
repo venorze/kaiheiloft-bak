@@ -29,6 +29,11 @@
         </dependency>
         <dependency>
             <groupId>com.hantiansoft</groupId>
+            <artifactId>boot-redis-module</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
             <artifactId>cloud-alibaba-module</artifactId>
             <version>v1.0</version>
         </dependency>

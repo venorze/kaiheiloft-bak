@@ -34,6 +34,13 @@ spring:
       max-wait: 3000
       validation-query: select 1
       driver-class-name: com.mysql.cj.jdbc.Driver
+  #
+  # redis配置
+  #
+  redis:
+    host: 123.60.211.203
+    port: 6379
+    timeout: 3000
 
 #
 # 文件存储 SDK 配置
