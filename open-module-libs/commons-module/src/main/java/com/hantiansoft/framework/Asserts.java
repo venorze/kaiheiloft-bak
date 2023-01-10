@@ -98,7 +98,7 @@ public class Asserts {
      */
     public static void throwIfError(CallbackFunctionNoReturnValue call, String message, Object... args) {
         try {
-            call.apply();
+
         } catch (Throwable e) {
             if (StringUtils.isNotEmpty(message))
                 throw new IllegalArgumentException(StringUtils.vfmt(message, args), e);

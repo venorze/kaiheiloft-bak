@@ -29,7 +29,7 @@ import sun.misc.Unsafe;
  *
  * @author Vincent Luo
  */
-public final class ClassLoaderUtils {
+public final class ClassLoaders {
 
     /* Unsafe类 */
     private static final Unsafe theUnsafe = Unsafes.getUnsafe();
@@ -53,7 +53,7 @@ public final class ClassLoaderUtils {
      * 外面的字节码就可以共享类库，使用当前项目的类。
      */
     public static Class<?> loadClass(String fullname, byte[] a, int off, int len) {
-        return loadClass(fullname, a, off, len, ClassLoaderUtils.getDefaultClassLoader());
+        return loadClass(fullname, a, off, len, ClassLoaders.getDefaultClassLoader());
     }
 
     /**

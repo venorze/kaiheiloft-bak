@@ -69,10 +69,8 @@ public class JavaMail {
      * 发送邮件
      */
     public void send(MailMessage mailMessage) {
-        Transport transport = null;
 
-        try {
-            transport = this.session.getTransport();
+        try (Transport transport = this.session.getTransport()) {
             transport.connect(
                     mailSessionProperties.getSmtpHost(),
                     mailSessionProperties.getUser(),
@@ -91,12 +89,6 @@ public class JavaMail {
 
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                if (transport != null)
-                    transport.close(); // 关闭连接
-            } catch (MessagingException ignore) { // ignore exception. }
-            }
         }
     }
 

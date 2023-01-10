@@ -216,7 +216,7 @@ public final class FileUtils {
             e.printStackTrace();
         }
 
-        return new byte[]{};
+        return IOUtils.EMPTY_BYTE_ARRAY;
     }
 
     /**
