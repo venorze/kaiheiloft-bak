@@ -20,6 +20,8 @@ package com.hantiansoft.distance.controller;
 
 /* Creates on 2023/1/10. */
 
+import com.hantiansoft.distance.reqmod.EditMailReqmod;
+import com.hantiansoft.distance.reqmod.EditPasswdReqmod;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
 import com.hantiansoft.distance.model.UserProfile;
 import com.hantiansoft.distance.service.UserService;
@@ -61,9 +63,27 @@ public class UserController {
     /**
      * 修改用户个人信息
      */
-    @PostMapping("/profile/{userid}/edit")
+    @PostMapping("/edit/{userid}/profile")
     public R<Void> profile_edit(@PathVariable("userid") Long userid, @RequestBody @Valid UserProfile userProfile) {
         userService.profile_edit(userid, userProfile);
+        return R.ok();
+    }
+
+    /**
+     * 用户密码修改
+     */
+    @PostMapping("/edit/{userid}/passwd")
+    public R<Void> passwd_edit(@PathVariable("userid") Long userid, @RequestBody @Valid EditPasswdReqmod editPasswdReqmod) {
+        userService.passwd_edit(userid, editPasswdReqmod);
+        return R.ok();
+    }
+
+    /**
+     * 用户邮箱修改
+     */
+    @PostMapping("/edit/{userid}/mail")
+    public R<Void> mail_edit(@PathVariable("userid") Long userid, @RequestBody @Valid EditMailReqmod editMailReqmod) {
+        userService.mail_edit(userid, editMailReqmod);
         return R.ok();
     }
 

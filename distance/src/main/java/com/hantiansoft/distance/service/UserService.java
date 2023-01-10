@@ -22,6 +22,8 @@ package com.hantiansoft.distance.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.distance.enties.User;
+import com.hantiansoft.distance.reqmod.EditMailReqmod;
+import com.hantiansoft.distance.reqmod.EditPasswdReqmod;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
 import com.hantiansoft.distance.model.UserProfile;
 
@@ -41,13 +43,22 @@ public interface UserService extends IService<User> {
     void sign_up(UserSignUpReqmod userSignUpReqmod);
 
     /**
-     * 获取个人信息
+     * 个人信息获取
      */
     UserProfile profile(Long userid);
 
     /**
-     * 修改用户个人信息
+     * 个人信息修改
      */
     void profile_edit(Long userid, UserProfile userProfile);
 
+    /**
+     * 密码修改
+     */
+    void passwd_edit(Long userid, EditPasswdReqmod editPasswdReqmod);
+
+    /**
+     * 邮箱修改
+     */
+    void mail_edit(Long userid, EditMailReqmod editMailReqmod);
 }
