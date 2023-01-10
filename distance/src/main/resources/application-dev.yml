@@ -26,7 +26,7 @@ spring:
     # druid 数据源配置
     #
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/distance?useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://123.60.211.203:3306/distance?useSSL=false&serverTimezone=UTC
       username: root
       password: root
       initial-size: 5
