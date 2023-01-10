@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.enties;
+package com.hantiansoft.distance.respmod;
 
 /* ************************************************************************
  *
@@ -18,33 +18,29 @@ package com.hantiansoft.distance.enties;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/22. */
+/* Creates on 2023/1/10. */
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author Vincent Luo
  */
 @Data
-public class SuperModel {
+public class PersonalInfo {
 
     /**
-     * ID
+     * 用户名
      */
-    @TableId
-    private Long id;
+    private String username;
 
     /**
-     * 创建时间
+     * 用户昵称
      */
-    private Date createTime;
+    private String nickname;
 
     /**
-     * 更新时间
+     * 用户头像
      */
-    private Date updateTime;
+    private String avatar;
 
 }

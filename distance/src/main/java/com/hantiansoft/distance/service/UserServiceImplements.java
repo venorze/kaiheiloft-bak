@@ -20,11 +20,16 @@ package com.hantiansoft.distance.service;
 
 /* Creates on 2022/12/22. */
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
 import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
+import com.hantiansoft.distance.respmod.PersonalInfo;
+import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
+import com.hantiansoft.framework.generators.SnowflakeGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,10 +38,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImplements extends ServiceImpl<UserMapper, User> implements UserService {
 
+    @Autowired
+    private SnowflakeGenerator snowflakeGenerator;
+
     @Override
     public void sign_up(UserSignUpReqmod userSignUpReqmod) {
+        // 属性拷贝
+        User user = BeanUtils.copyProperties(userSignUpReqmod, User.class);
+        user.setId(snowflakeGenerator.nextId());
+
         // 注册成功
-        save(BeanUtils.copyProperties(userSignUpReqmod, User.class));
+        save(user);
+    }
+
+    @Override
+    public PersonalInfo personal_info(Long userid) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", userid);
+
+        // 根据ID查询用户信息
+        User user = getOne(wrapper);
+        Asserts.throwIfNull(user, "用户不存在");
+
+        return BeanUtils.copyProperties(user, PersonalInfo.class);
     }
 
 }

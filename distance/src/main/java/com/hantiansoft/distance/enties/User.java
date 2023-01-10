@@ -21,7 +21,6 @@ package com.hantiansoft.distance.enties;
 /* Creates on 2022/12/22. */
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.hantiansoft.framework.StringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -69,12 +68,5 @@ public class User extends SuperModel {
      * 是否实名认证
      */
     private String realname;
-
-    /**
-     * @return 返回 Boolean 类型的 realname。
-     */
-    public boolean isRealname() {
-        return StringUtils.equals("Y", this.realname);
-    }
 
 }
