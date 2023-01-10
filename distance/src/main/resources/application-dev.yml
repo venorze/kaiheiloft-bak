@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: DISTANCE_SERVER
+    name: DISTANCE
   cloud:
     #
     # nacos配置
@@ -21,6 +21,19 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  datasource:
+    #
+    # druid 数据源配置
+    #
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/distance?useSSL=false&serverTimezone=UTC
+      username: root
+      password: root
+      initial-size: 5
+      max-active: 20
+      max-wait: 3000
+      validation-query: select 1
+      driver-class-name: com.mysql.cj.jdbc.Driver
 
 #
 # 文件存储 SDK 配置

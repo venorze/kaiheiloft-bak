@@ -23,6 +23,7 @@ package com.hantiansoft.distance.enties;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hantiansoft.framework.StringUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 用户信息表
@@ -30,7 +31,8 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-@TableName("open_user_info")
+@EqualsAndHashCode(callSuper = true)
+@TableName("userinfo")
 public class User extends SuperModel {
 
     /**
