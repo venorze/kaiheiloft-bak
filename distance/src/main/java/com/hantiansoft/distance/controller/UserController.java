@@ -61,7 +61,7 @@ public class UserController {
     /**
      * 修改用户个人信息
      */
-    @GetMapping("/profile/{userid}/edit")
+    @PostMapping("/profile/{userid}/edit")
     public R<Void> profile_edit(@PathVariable("userid") Long userid, @RequestBody @Valid UserProfile userProfile) {
         userService.profile_edit(userid, userProfile);
         return R.ok();

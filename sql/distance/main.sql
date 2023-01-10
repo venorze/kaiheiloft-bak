@@ -1,6 +1,7 @@
 -- ---------------------------------
 -- 用户信息表
 -- ---------------------------------
+DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo`
 (
     `id`           varchar(32)  NOT NULL COMMENT '主键ID',
@@ -24,6 +25,7 @@ CREATE TABLE `userinfo`
 -- ---------------------------------
 -- 实名认证表
 -- ---------------------------------
+DROP TABLE IF EXISTS `realname`;
 CREATE TABLE `realname`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
@@ -40,6 +42,7 @@ CREATE TABLE `realname`
 -- ---------------------------------
 -- 登录日志表
 -- ---------------------------------
+DROP TABLE IF EXISTS `logon_logs`;
 CREATE TABLE `logon_logs`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
