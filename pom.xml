@@ -17,6 +17,7 @@
         <module>distance</module>
         <module>sdk</module>
         <module>authentication</module>
+        <module>context</module>
     </modules>
 
     <properties>
