@@ -5,7 +5,7 @@ package com.hantiansoft.framework.generators;
  * Copyright (C) 2020 Vincent Luo All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not useEnv this file except in compliance with the License.
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
@@ -18,14 +18,15 @@ package com.hantiansoft.framework.generators;
  *
  * ************************************************************************/
 
-/* Creates on 2022/8/8. */
+/* Creates on 2023/1/10. */
 
 /**
- * 雪花算法生成器
+ * 雪花算法生成器实例化对象.
  *
  * @author Vincent Luo
  */
-class InternalSnowflakesIdGenerator {
+public class SnowflakeGenerator {
+
     //起始时间戳( 2020-12-26 00:00:00 )
     private static final long START_STAMP = 1608912000000L;
 
@@ -54,12 +55,37 @@ class InternalSnowflakesIdGenerator {
     private static long lastStamp; // 上一次时间戳
 
     /**
+     * 数据中心ID
+     */
+    private final int dataCenterId;
+
+    /**
+     * 机器ID
+     */
+    private final int machineId;
+
+    /**
+     * 实例化雪花算法ID对象
+     */
+    public SnowflakeGenerator(int dataCenterId, int machineId) {
+        this.dataCenterId = dataCenterId;
+        this.machineId = machineId;
+    }
+
+    /**
+     * 生成ID
+     */
+    public long nextId() {
+        return staticNextId(this.dataCenterId, this.machineId);
+    }
+
+    /**
      * 生成Id
      *
      * @param dataCenterId 数据中心
      * @param machineId    机器标识
      */
-    public static synchronized long nextId(Integer dataCenterId, Integer machineId) {
+    public static synchronized long staticNextId(Integer dataCenterId, Integer machineId) {
 
         long currentStamp = System.currentTimeMillis();
 
@@ -106,4 +132,5 @@ class InternalSnowflakesIdGenerator {
     private static long getCurrentStamp() {
         return System.currentTimeMillis();
     }
+
 }

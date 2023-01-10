@@ -29,7 +29,7 @@ import org.junit.Test;
  *
  * @author Vincent Luo
  */
-public class GetFileSHA256 {
+public class T_GET_FILE_SHA256 {
 
     @Test
     public void GetFileSHA256() throws Exception{

@@ -33,7 +33,7 @@ import java.util.Random;
  *
  * @author Vincent Luo
  */
-class InternalCaptchaImageGenerator {
+class CaptchaImageGenerator {
     private final int width;
     private final int height;
     private final Random random = new Random();
@@ -41,7 +41,7 @@ class InternalCaptchaImageGenerator {
     private final String[] fontsName = {"宋体", "华文楷体", "黑体", "华文新魏", "华文隶书", "微软雅黑", "楷体_GB2312"};
     private String code;
 
-    public InternalCaptchaImageGenerator(String code) {
+    public CaptchaImageGenerator(String code) {
         this.code = code;
         this.width = 50 * code.length();
         this.height = 80;

@@ -22,6 +22,7 @@ package com.hantiansoft.distance;
 
 import com.hantiansoft.adapter.SourcePolicy;
 import com.hantiansoft.adapter.StoreAdapter;
+import com.hantiansoft.framework.generators.SnowflakeGenerator;
 import com.hantiansoft.qiniu.QiniuSourcePolicy;
 import com.hantiansoft.spring.framework.annotation.EnableBootModule;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,6 +67,15 @@ public class DistanceBootstrap {
         props.put("secret", qiniuSecret);
         props.put("bucket", qiniuBucket);
         return StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
+    }
+
+
+    /**
+     * 创建雪花算法ID生成器
+     */
+    @Bean
+    public SnowflakeGenerator snowflakeGenerator() {
+        return new SnowflakeGenerator(0, 1);
     }
 
 }

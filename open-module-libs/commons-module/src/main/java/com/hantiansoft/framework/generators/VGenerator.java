@@ -109,13 +109,6 @@ public class VGenerator {
         return (i + number) >= len ? uuid.substring(len - number, len) : uuid.substring(i, i + number);
     }
 
-    /**
-     * @return 使用雪花算法生成的ID
-     */
-    public static Long snowflake_id(Integer dataCenterId, Integer machineId) {
-        return InternalSnowflakesIdGenerator.nextId(dataCenterId, machineId);
-    }
-
     ////////////////////////////////////////////////////////////
     /// 随机数生成
     ////////////////////////////////////////////////////////////
@@ -216,7 +209,7 @@ public class VGenerator {
         String code = f_gencode.call(n);
         return new Captcha(
                 code,
-                new InternalCaptchaImageGenerator(code).generateImageBase64Code()
+                new CaptchaImageGenerator(code).generateImageBase64Code()
         );
     }
 
@@ -237,7 +230,7 @@ public class VGenerator {
         String code = f_gencode.call();
         return new Captcha(
                 code,
-                new InternalCaptchaImageGenerator(code).generateImageBase64Code()
+                new CaptchaImageGenerator(code).generateImageBase64Code()
         );
     }
 
