@@ -56,7 +56,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public User qcx_username(String username) {
+    public User qcx_user_name(String username) {
         return getOne(
                 new LambdaQueryWrapper<User>()
                         .eq(User::getUsername, username)
@@ -66,7 +66,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public void sign_up(UserSignUpMod userSignUpMod) {
         // 判断用户名是否已被注册
-        Asserts.throwIfBool(qcx_username(userSignUpMod.getUsername()) == null, "当前用户名已被注册");
+        Asserts.throwIfBool(qcx_user_name(userSignUpMod.getUsername()) == null, "当前用户名已被注册");
         // 注册成功
         save(BeanUtils.copyProperties(userSignUpMod, User.class));
     }

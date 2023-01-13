@@ -46,7 +46,7 @@ public interface UserService extends IService<User> {
     /**
      * 根据用户名查询用户
      */
-    User qcx_username(String username);
+    User qcx_user_name(String username);
 
     /**
      * 用户注册
