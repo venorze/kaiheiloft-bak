@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.model;
+package com.hantiansoft.distance.mod;
 
 /* ************************************************************************
  *
@@ -32,7 +32,7 @@ import java.util.Date;
  * @author Vincent Luo
  */
 @Data
-public class UserProfile {
+public class UserProfileMod {
 
     /**
      * 用户昵称

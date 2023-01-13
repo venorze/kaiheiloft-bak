@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.reqmod;
+package com.hantiansoft.distance.mod;
 
 /* ************************************************************************
  *
@@ -21,7 +21,6 @@ package com.hantiansoft.distance.reqmod;
 /* Creates on 2023/1/10. */
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -32,7 +31,7 @@ import jakarta.validation.constraints.Pattern;
  * @author Vincent Luo
  */
 @Data
-public class EditMailReqmod {
+public class EditMailMod {
 
     /**
      * 用户密码

@@ -22,7 +22,7 @@ package com.hantiansoft.distance.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.distance.enties.Community;
-import com.hantiansoft.distance.reqmod.CreateCommunityWebMod;
+import com.hantiansoft.distance.mod.CreateCommunityMod;
 
 /**
  * @author Vincent Luo
@@ -32,6 +32,6 @@ public interface CommunityService extends IService<Community> {
     /**
      * 创建社区
      */
-    void create(CreateCommunityWebMod createCommunityWebMod);
+    void create(CreateCommunityMod createCommunityMod);
 
 }

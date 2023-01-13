@@ -20,10 +20,10 @@ package com.hantiansoft.distance.controller;
 
 /* Creates on 2023/1/10. */
 
-import com.hantiansoft.distance.reqmod.EditMailReqmod;
-import com.hantiansoft.distance.reqmod.EditPasswdReqmod;
-import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
-import com.hantiansoft.distance.model.UserProfile;
+import com.hantiansoft.distance.mod.EditMailMod;
+import com.hantiansoft.distance.mod.EditPasswdMod;
+import com.hantiansoft.distance.mod.UserSignUpMod;
+import com.hantiansoft.distance.mod.UserProfileMod;
 import com.hantiansoft.distance.service.UserService;
 import com.hantiansoft.framework.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +47,8 @@ public class UserController {
      * 用户注册
      */
     @PostMapping("/sign_up")
-    public R<Void> sign_up(@RequestBody @Valid UserSignUpReqmod userSignUpReqmod) {
-        userService.sign_up(userSignUpReqmod);
+    public R<Void> sign_up(@RequestBody @Valid UserSignUpMod userSignUpMod) {
+        userService.sign_up(userSignUpMod);
         return R.ok();
     }
 
@@ -56,7 +56,7 @@ public class UserController {
      * 获取用户个人信息
      */
     @GetMapping("/profile/{userid}")
-    public R<UserProfile> profile(@PathVariable("userid") Long userid) {
+    public R<UserProfileMod> profile(@PathVariable("userid") Long userid) {
         return R.ok(userService.profile(userid));
     }
 
@@ -64,8 +64,8 @@ public class UserController {
      * 修改用户个人信息
      */
     @PostMapping("/edit/{userid}/profile")
-    public R<Void> profile_edit(@PathVariable("userid") Long userid, @RequestBody @Valid UserProfile userProfile) {
-        userService.profile_edit(userid, userProfile);
+    public R<Void> profile_edit(@PathVariable("userid") Long userid, @RequestBody @Valid UserProfileMod userProfileMod) {
+        userService.profile_edit(userid, userProfileMod);
         return R.ok();
     }
 
@@ -73,8 +73,8 @@ public class UserController {
      * 用户密码修改
      */
     @PostMapping("/edit/{userid}/passwd")
-    public R<Void> passwd_edit(@PathVariable("userid") Long userid, @RequestBody @Valid EditPasswdReqmod editPasswdReqmod) {
-        userService.passwd_edit(userid, editPasswdReqmod);
+    public R<Void> passwd_edit(@PathVariable("userid") Long userid, @RequestBody @Valid EditPasswdMod editPasswdMod) {
+        userService.passwd_edit(userid, editPasswdMod);
         return R.ok();
     }
 
@@ -82,8 +82,8 @@ public class UserController {
      * 用户邮箱修改
      */
     @PostMapping("/edit/{userid}/mail")
-    public R<Void> mail_edit(@PathVariable("userid") Long userid, @RequestBody @Valid EditMailReqmod editMailReqmod) {
-        userService.mail_edit(userid, editMailReqmod);
+    public R<Void> mail_edit(@PathVariable("userid") Long userid, @RequestBody @Valid EditMailMod editMailMod) {
+        userService.mail_edit(userid, editMailMod);
         return R.ok();
     }
 

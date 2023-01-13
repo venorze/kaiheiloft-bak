@@ -20,7 +20,7 @@ package com.hantiansoft.distance.controller;
 
 /* Creates on 2023/1/13. */
 
-import com.hantiansoft.distance.reqmod.CreateCommunityWebMod;
+import com.hantiansoft.distance.mod.CreateCommunityMod;
 import com.hantiansoft.distance.service.CommunityService;
 import com.hantiansoft.framework.R;
 import jakarta.validation.Valid;
@@ -44,8 +44,8 @@ public class CommunityController {
      * 创建社区
      */
     @PostMapping("/create")
-    public R<Void> create(@RequestBody @Valid CreateCommunityWebMod createCommunityWebMod) {
-        communityService.create(createCommunityWebMod);
+    public R<Void> create(@RequestBody @Valid CreateCommunityMod createCommunityMod) {
+        communityService.create(createCommunityMod);
         return R.ok();
     }
 

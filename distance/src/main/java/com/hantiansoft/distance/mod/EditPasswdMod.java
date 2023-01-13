@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.reqmod;
+package com.hantiansoft.distance.mod;
 
 /* ************************************************************************
  *
@@ -31,7 +31,7 @@ import jakarta.validation.constraints.NotBlank;
  * @author Vincent Luo
  */
 @Data
-public class EditPasswdReqmod {
+public class EditPasswdMod {
 
     /**
      * 用户密码

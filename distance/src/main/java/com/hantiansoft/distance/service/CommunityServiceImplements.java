@@ -25,7 +25,7 @@ import com.hantiansoft.distance.enties.Community;
 import com.hantiansoft.distance.mapper.CommunityAnnouncementMapper;
 import com.hantiansoft.distance.mapper.CommunityMapper;
 import com.hantiansoft.distance.mapper.CommunityMemberMapper;
-import com.hantiansoft.distance.reqmod.CreateCommunityWebMod;
+import com.hantiansoft.distance.mod.CreateCommunityMod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +42,7 @@ public class CommunityServiceImplements extends ServiceImpl<CommunityMapper, Com
     private CommunityMemberMapper communityMemberMapper;
 
     @Override
-    public void create(CreateCommunityWebMod createCommunityWebMod) {
+    public void create(CreateCommunityMod createCommunityMod) {
     }
 
 }

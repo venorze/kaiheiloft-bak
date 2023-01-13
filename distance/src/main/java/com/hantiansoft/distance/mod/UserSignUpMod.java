@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.reqmod;
+package com.hantiansoft.distance.mod;
 
 /* ************************************************************************
  *
@@ -34,7 +34,7 @@ import java.util.Date;
  * @author Vincent Luo
  */
 @Data
-public class UserSignUpReqmod {
+public class UserSignUpMod {
 
     /**
      * 用户名

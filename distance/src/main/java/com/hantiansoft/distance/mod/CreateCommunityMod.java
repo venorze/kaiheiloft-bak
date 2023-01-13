@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.reqmod;
+package com.hantiansoft.distance.mod;
 
 /* ************************************************************************
  *
@@ -25,5 +25,5 @@ package com.hantiansoft.distance.reqmod;
  *
  * @author Vincent Luo
  */
-public class CreateCommunityWebMod {
+public class CreateCommunityMod {
 }

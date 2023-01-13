@@ -24,10 +24,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
-import com.hantiansoft.distance.model.UserProfile;
-import com.hantiansoft.distance.reqmod.EditMailReqmod;
-import com.hantiansoft.distance.reqmod.EditPasswdReqmod;
-import com.hantiansoft.distance.reqmod.UserSignUpReqmod;
+import com.hantiansoft.distance.mod.UserProfileMod;
+import com.hantiansoft.distance.mod.EditMailMod;
+import com.hantiansoft.distance.mod.EditPasswdMod;
+import com.hantiansoft.distance.mod.UserSignUpMod;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
@@ -56,9 +56,9 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public void sign_up(UserSignUpReqmod userSignUpReqmod) {
+    public void sign_up(UserSignUpMod userSignUpMod) {
         // 属性拷贝
-        User user = BeanUtils.copyProperties(userSignUpReqmod, User.class);
+        User user = BeanUtils.copyProperties(userSignUpMod, User.class);
         user.setId(snowflakeGenerator.nextId());
 
         // 注册成功
@@ -66,26 +66,26 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public UserProfile profile(Long userid) {
+    public UserProfileMod profile(Long userid) {
         // 根据ID查询用户信息
-        return BeanUtils.copyProperties(of_user_id(userid), UserProfile.class);
+        return BeanUtils.copyProperties(of_user_id(userid), UserProfileMod.class);
     }
 
     @Override
-    public void profile_edit(Long userid, UserProfile userProfile) {
+    public void profile_edit(Long userid, UserProfileMod userProfileMod) {
         User user = of_user_id(userid);
-        BeanUtils.copyProperties(userProfile, user);
+        BeanUtils.copyProperties(userProfileMod, user);
         // 更新用户信息
         updateById(user);
     }
 
     @Override
-    public void passwd_edit(Long userid, EditPasswdReqmod editPasswdReqmod) {
+    public void passwd_edit(Long userid, EditPasswdMod editPasswdMod) {
 
     }
 
     @Override
-    public void mail_edit(Long userid, EditMailReqmod editMailReqmod) {
+    public void mail_edit(Long userid, EditMailMod editMailMod) {
 
     }
 }
