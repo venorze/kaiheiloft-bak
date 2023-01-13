@@ -21,26 +21,27 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  #
+  # 数据源配置
+  #
   datasource:
-    #
-    # druid 数据源配置
-    #
+    url: jdbc:mysql://123.60.211.203:3306/distance?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
-      url: jdbc:mysql://123.60.211.203:3306/distance?useSSL=false&serverTimezone=UTC
-      username: root
-      password: root
       initial-size: 5
       max-active: 20
       max-wait: 3000
       validation-query: select 1
-      driver-class-name: com.mysql.cj.jdbc.Driver
-  #
-  # redis配置
-  #
-  redis:
-    host: 123.60.211.203
-    port: 6379
-    timeout: 3000
+  data:
+    #
+    # redis配置
+    #
+    redis:
+      host: 123.60.211.203
+      port: 6379
+      timeout: 3000
 
 #
 # 文件存储 SDK 配置

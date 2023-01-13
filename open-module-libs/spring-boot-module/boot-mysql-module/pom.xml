@@ -13,18 +13,13 @@
     <artifactId>boot-mysql-module</artifactId>
 
     <properties>
-        <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <druid.version>1.2.8</druid.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <druid.version>1.2.15</druid.version>
         <mysql.version>8.0.30</mysql.version>
     </properties>
 
     <dependencies>
         <!-- druid -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
