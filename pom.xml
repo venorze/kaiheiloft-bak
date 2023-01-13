@@ -20,6 +20,7 @@
         <module>sdk</module>
         <module>authentication</module>
         <module>application-context</module>
+        <module>homing-pigeon</module>
     </modules>
 
     <properties>
