@@ -20,13 +20,13 @@ package com.hantiansoft.distance.service;
 
 /* Creates on 2022/12/22. */
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
-import com.hantiansoft.distance.mod.UserProfileMod;
 import com.hantiansoft.distance.mod.EditMailMod;
 import com.hantiansoft.distance.mod.EditPasswdMod;
+import com.hantiansoft.distance.mod.UserProfileMod;
 import com.hantiansoft.distance.mod.UserSignUpMod;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
@@ -44,19 +44,29 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     private SnowflakeGenerator snowflakeGenerator;
 
     @Override
-    public User of_user_id(Long userid) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", userid);
+    public User qcxe_user_id(Long userid) {
+        var wrapper = new LambdaQueryWrapper<User>()
+                .eq(User::getId, userid);
 
         // 根据ID查询用户信息
-        User user = getOne(wrapper);
+        var user = getOne(wrapper);
         Asserts.throwIfNull(user, "用户不存在");
 
         return user;
     }
 
     @Override
+    public User qcx_username(String username) {
+        return getOne(
+                new LambdaQueryWrapper<User>()
+                        .eq(User::getUsername, username)
+        );
+    }
+
+    @Override
     public void sign_up(UserSignUpMod userSignUpMod) {
+        // 判断用户名是否已被注册
+        Asserts.throwIfBool(qcx_username(userSignUpMod.getUsername()) == null, "当前用户名已被注册");
         // 注册成功
         save(BeanUtils.copyProperties(userSignUpMod, User.class));
     }
@@ -64,12 +74,12 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public UserProfileMod profile(Long userid) {
         // 根据ID查询用户信息
-        return BeanUtils.copyProperties(of_user_id(userid), UserProfileMod.class);
+        return BeanUtils.copyProperties(qcxe_user_id(userid), UserProfileMod.class);
     }
 
     @Override
     public void profile_edit(Long userid, UserProfileMod userProfileMod) {
-        User user = of_user_id(userid);
+        User user = qcxe_user_id(userid);
         BeanUtils.copyProperties(userProfileMod, user);
         // 更新用户信息
         updateById(user);
