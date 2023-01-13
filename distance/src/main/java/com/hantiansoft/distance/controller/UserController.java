@@ -37,7 +37,7 @@ import jakarta.validation.Valid;
  * @author Vincent Luo
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
