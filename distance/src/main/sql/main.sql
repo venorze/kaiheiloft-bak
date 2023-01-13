@@ -64,7 +64,7 @@ CREATE TABLE `community`
     `id`          varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `name`        varchar(16)  NOT NULL COMMENT '社区名称',
+    `name`        varchar(8)  NOT NULL COMMENT '社区名称',
     `avatar`      varchar(160) NOT NULL COMMENT '社区头像',
     `introduce`   varchar(180) COMMENT '社区介绍',
     `tags`        varchar(24) COMMENT '社区标签，用空格分割，最多支持5个',

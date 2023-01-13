@@ -20,10 +20,13 @@ package com.hantiansoft.framework;
 
 /* Creates on 2020/3/11. */
 
+import com.hantiansoft.framework.collections.Lists;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -332,6 +335,64 @@ final class StringUtils {
         }
 
         return strWriter.toString();
+    }
+
+    /**
+     * 从字符串开始位置根据指定数字删除
+     *
+     * @param src 源字符串
+     * @param n   要删除几个字符
+     */
+    public static String remove_of_start(String src, int n) {
+        return src.substring(n);
+    }
+
+    /**
+     * 从字符串开始位置根据指定字符删除
+     *
+     * @param src     源字符串
+     * @param vdelete 要删除的字符串，如果匹配到没有这个字符串则不会删除。
+     */
+    public static String remove_of_start(String src, String vdelete) {
+        return src.startsWith(vdelete) ? remove_of_start(src, vdelete.length()) : src;
+    }
+
+    /**
+     * 从字符串末尾开始根据指定数字删除
+     *
+     * @param src 源字符串
+     * @param n   要删除几个字符
+     */
+    public static String remove_of_end(String src, int n) {
+        return src.substring(0, src.length() - n);
+    }
+
+    /**
+     * 从字符串末尾开始根据指定字符删除
+     *
+     * @param src     源字符串
+     * @param vdelete 要删除的字符串，如果匹配到没有这个字符串则不会删除。
+     */
+    public static String remove_of_end(String src, String vdelete) {
+        return src.endsWith(vdelete) ? remove_of_end(src, vdelete.length()) : src;
+    }
+
+    /**
+     * 合并字符串集合
+     *
+     * @param list      集合对象
+     * @param separator 分隔符
+     */
+    public static String list_merge(List<String> list, String separator) {
+        if (Lists.isEmpty(list))
+            return "";
+
+        // 合并字符
+        StringBuilder builder = new StringBuilder();
+        for (String str : list)
+            builder.append(str).append(separator);
+
+        return remove_of_end(builder.toString(), separator);
     }
 
 }

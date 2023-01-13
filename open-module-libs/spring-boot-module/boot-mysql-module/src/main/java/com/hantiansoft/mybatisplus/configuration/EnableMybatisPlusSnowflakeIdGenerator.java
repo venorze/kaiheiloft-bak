@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.enties;
+package com.hantiansoft.mybatisplus.configuration;
 
 /* ************************************************************************
  *
@@ -18,37 +18,23 @@ package com.hantiansoft.distance.enties;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/22. */
+/* Creates on 2023/1/13. */
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.context.annotation.Import;
 
-import java.util.Date;
+import java.lang.annotation.*;
 
 /**
+ * 使用Mybatis Plus自定义雪花ID生成器
+ *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class SuperModel<T extends Model<T>> extends Model<T> {
-
-    /**
-     * ID
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    private Long id;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Import({
+        MybatisPlusSnowflakeIdGenerator.class,
+})
+@Documented
+public @interface EnableMybatisPlusSnowflakeIdGenerator {
 }

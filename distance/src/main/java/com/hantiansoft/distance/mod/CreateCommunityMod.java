@@ -20,10 +20,37 @@ package com.hantiansoft.distance.mod;
 
 /* Creates on 2023/1/13. */
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
+
 /**
- * No Descript.
+ * 创建社区请求对象
  *
  * @author Vincent Luo
  */
+@Data
 public class CreateCommunityMod {
+
+    /**
+     * 社区名称
+     */
+    @NotBlank(message = "社区名称是必填项")
+    @Length(min = 2, max = 8, message = "社区名称范围 2 - 8 个字符")
+    private String name;
+
+    /**
+     * 社区头像
+     */
+    private String avatar;
+
+    /**
+     * 社区标签
+     */
+    @Size(max = 5, message = "标签最多可选择5个")
+    private List<String> tags;
+
 }

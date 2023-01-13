@@ -26,6 +26,8 @@ import com.hantiansoft.distance.mapper.CommunityAnnouncementMapper;
 import com.hantiansoft.distance.mapper.CommunityMapper;
 import com.hantiansoft.distance.mapper.CommunityMemberMapper;
 import com.hantiansoft.distance.mod.CreateCommunityMod;
+import com.hantiansoft.framework.BeanUtils;
+import com.hantiansoft.framework.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,11 @@ public class CommunityServiceImplements extends ServiceImpl<CommunityMapper, Com
 
     @Override
     public void create(CreateCommunityMod createCommunityMod) {
+        // 创建社区对象
+        var community = BeanUtils.copyProperties(createCommunityMod, Community.class);
+        community.setTags(StringUtils.list_merge(createCommunityMod.getTags(), " ")); // 添加社区标签
+
+        save(community);
     }
 
 }

@@ -23,6 +23,7 @@ package com.hantiansoft.distance;
 import com.hantiansoft.adapter.SourcePolicy;
 import com.hantiansoft.adapter.StoreAdapter;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
+import com.hantiansoft.mybatisplus.configuration.EnableMybatisPlusSnowflakeIdGenerator;
 import com.hantiansoft.qiniu.QiniuSourcePolicy;
 import com.hantiansoft.spring.framework.annotation.EnableBootModule;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +39,7 @@ import java.util.Properties;
  */
 @EnableBootModule
 @EnableDiscoveryClient
+@EnableMybatisPlusSnowflakeIdGenerator
 @SpringBootApplication
 public class DistanceBootstrap {
 

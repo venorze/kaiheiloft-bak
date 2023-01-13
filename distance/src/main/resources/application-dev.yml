@@ -44,6 +44,15 @@ spring:
       timeout: 3000
 
 #
+# mybatis plus配置
+#
+mybatis-plus:
+  enable-snowflake-assign:
+    dataCenterId: 1000
+    machineId: 1000
+
+
+#
 # 文件存储 SDK 配置
 #
 sdk:

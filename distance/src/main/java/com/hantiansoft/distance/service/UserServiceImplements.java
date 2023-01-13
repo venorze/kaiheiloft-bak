@@ -57,12 +57,8 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
 
     @Override
     public void sign_up(UserSignUpMod userSignUpMod) {
-        // 属性拷贝
-        User user = BeanUtils.copyProperties(userSignUpMod, User.class);
-        user.setId(snowflakeGenerator.nextId());
-
         // 注册成功
-        save(user);
+        save(BeanUtils.copyProperties(userSignUpMod, User.class));
     }
 
     @Override

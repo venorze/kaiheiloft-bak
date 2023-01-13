@@ -39,28 +39,28 @@ public class UserSignUpMod {
     /**
      * 用户名
      */
-    @NotBlank(message = "用户名不能为空")
+    @NotBlank(message = "用户名是必填项")
     @Length(min = 6, max = 16, message = "用户长度需要 6 - 16 位字母或数字组成")
     private String username;
 
     /**
      * 用户昵称
      */
-    @NotBlank(message = "用户昵称不能为空")
+    @NotBlank(message = "用户昵称是必填项")
     @Length(max = 16, message = "用户昵称超出规定长度")
     private String nickname;
 
     /**
      * 用户密码
      */
-    @NotBlank(message = "用户密码不能为空")
+    @NotBlank(message = "用户密码是必填项")
     @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
     private String password;
 
     /**
      * 用户生日
      */
-    @NotNull(message = "用户生日不能为空")
+    @NotNull(message = "用户生日是必填项")
     private Date birthday;
 
     /**
