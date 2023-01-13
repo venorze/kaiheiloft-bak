@@ -80,21 +80,6 @@ public abstract class ByteBuf {
     }
 
     /**
-     * @return 创建缓冲区，分配在直接内存中。初始大小默认4kb。缓冲区最大值取决于
-     *         计算机内存大小。
-     */
-    public static ByteBuf allocDirect() {
-        return allocDirect(IOUtils.DEFAULT_BUFFER_SIZE);
-    }
-
-    /**
-     * @return 创建缓冲区，分配在直接内存中。根据参数分配缓冲区初始大小。
-     */
-    public static ByteBuf allocDirect(int size) {
-        return new DirectByteBuf(size);
-    }
-
-    /**
      * @return 使用对象包装后的ByteBuf
      */
     public static ByteBuf wrap(Object object) {

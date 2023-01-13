@@ -7,16 +7,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/main-business/pom.xml" />
-        <option value="$PROJECT_DIR$/open-black-main/pom.xml" />
-        <option value="$PROJECT_DIR$/open-module-libs/spring-boot-module/boot-nacos-module/pom.xml" />
-        <option value="$PROJECT_DIR$/sdk/sdkface/pom.xml" />
-      </set>
-    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="azul-1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="corretto-19" project-jdk-type="JavaSDK" />
 </project>

@@ -13,8 +13,6 @@
     <artifactId>cache-redis-module</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
         <jedis.version>3.1.0</jedis.version>
     </properties>
 

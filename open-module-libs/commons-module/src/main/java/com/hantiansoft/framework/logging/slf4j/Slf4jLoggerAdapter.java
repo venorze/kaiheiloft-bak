@@ -20,11 +20,11 @@ package com.hantiansoft.framework.logging.slf4j;
 
 /* Creates on 2022/8/18. */
 
+import com.hantiansoft.framework.exception.NotImplementsException;
 import com.hantiansoft.framework.logging.Logger;
 import com.hantiansoft.framework.logging.LoggerAdapter;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.NOPLogger;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * No Descript.
@@ -55,7 +55,7 @@ public class Slf4jLoggerAdapter implements LoggerAdapter {
      */
     private org.slf4j.Logger checkNopLogger(org.slf4j.Logger logger) {
         if (logger instanceof NOPLogger)
-            throw new NotImplementedException();
+            throw new NotImplementsException();
 
         return logger;
     }

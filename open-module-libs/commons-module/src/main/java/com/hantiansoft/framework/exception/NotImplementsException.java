@@ -1,11 +1,11 @@
-package com.hantiansoft.framework.refection;
+package com.hantiansoft.framework.exception;
 
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not useEnv this file except in compliance with the License.
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
@@ -18,27 +18,27 @@ package com.hantiansoft.framework.refection;
  *
  * ************************************************************************/
 
-/* Creates on 2022/8/16. */
+/* Creates on 2023/1/12. */
 
 /**
- * 类加载器工具类
+ * No Descript.
  *
  * @author Vincent Luo
  */
-public final class ClassLoaders {
+public class NotImplementsException extends FmtRuntimeException {
 
-    /**
-     * 获取当前类加载器，获取顺序是：
-     * 当前线程的上下文类加载器 -> 当前类加载器 -> 系统类加载器
-     */
-    public static ClassLoader getDefaultClassLoader() {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-
-        if (cl == null)
-            if ((cl = ClassUtils.class.getClassLoader()) == null)
-                cl = ClassLoader.getSystemClassLoader();
-
-        return cl;
+    public NotImplementsException() {
     }
 
+    public NotImplementsException(String message, Object... args) {
+        super(message, args);
+    }
+
+    public NotImplementsException(String message, Throwable cause, Object... args) {
+        super(message, cause, args);
+    }
+
+    public NotImplementsException(Throwable cause) {
+        super(cause);
+    }
 }
