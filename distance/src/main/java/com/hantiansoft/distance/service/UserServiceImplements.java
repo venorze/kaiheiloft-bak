@@ -30,8 +30,6 @@ import com.hantiansoft.distance.modx.UserProfileModx;
 import com.hantiansoft.distance.modx.UserSignUpModx;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
-import com.hantiansoft.framework.generators.SnowflakeGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,9 +37,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImplements extends ServiceImpl<UserMapper, User> implements UserService {
-
-    @Autowired
-    private SnowflakeGenerator snowflakeGenerator;
 
     @Override
     public User queryByUserId(Long userid) {
