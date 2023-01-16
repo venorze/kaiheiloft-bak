@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>commons-module</artifactId>
+    <artifactId>project-devtools-libs</artifactId>
 
     <properties>
         <fastjson.version>2.0.10</fastjson.version>

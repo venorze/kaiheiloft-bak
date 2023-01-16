@@ -22,7 +22,7 @@ Cloud依赖版本管理
 
 - [distance](https://github.com/amaoai/open-black/tree/master/distance)
 - [open-module-libs](https://github.com/amaoai/open-black/tree/master/open-module-libs)
-- [open-module-libs/commons-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/commons-module)
+- [open-module-libs/project-devtools-libs](https://github.com/amaoai/open-black/tree/master/open-module-libs/project-devtools-libs)
 - [open-module-libs/spring-boot-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module)
 - [open-module-libs/spring-boot-module/boot-mysql-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module/boot-mysql-module)
 - [open-module-libs/spring-boot-module/cloud-alibaba-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module/cloud-alibaba-module)

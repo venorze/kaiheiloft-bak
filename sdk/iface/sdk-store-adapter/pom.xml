@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>com.hantiansoft</groupId>
-            <artifactId>commons-module</artifactId>
+            <artifactId>project-devtools-libs</artifactId>
             <version>v1.0</version>
         </dependency>
     </dependencies>

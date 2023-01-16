@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>open-module-libs/commons-module</module>
+        <module>open-module-libs/project-devtools-libs</module>
         <module>open-module-libs/spring-boot-libs</module>
         <module>open-module-libs/spring-cloud-alibaba-libs</module>
         <module>distance</module>
