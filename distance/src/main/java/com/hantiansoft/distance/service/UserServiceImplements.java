@@ -45,18 +45,16 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
 
     @Override
     public User queryByUserId(Long userid) {
-        var wrapper = new LambdaQueryWrapper<User>()
-                .eq(User::getId, userid);
-
         // 根据ID查询用户信息
-        var user = getOne(wrapper);
-        Asserts.throwIfNull(user, "用户不存在");
-
-        return user;
+        return getOne(
+                new LambdaQueryWrapper<User>()
+                        .eq(User::getId, userid)
+        );
     }
 
     @Override
     public User queryByUsername(String username) {
+        // 根据用户名查询用户信息
         return getOne(
                 new LambdaQueryWrapper<User>()
                         .eq(User::getUsername, username)
@@ -72,9 +70,9 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public UserProfileMod profile(Long userid) {
+    public UserProfileMod profile(String username) {
         // 根据ID查询用户信息
-        return BeanUtils.copyProperties(queryByUserId(userid), UserProfileMod.class);
+        return BeanUtils.copyProperties(queryByUsername(username), UserProfileMod.class);
     }
 
     @Override

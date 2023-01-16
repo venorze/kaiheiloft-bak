@@ -50,7 +50,7 @@ public interface UserService extends IService<User> {
     /**
      * 个人信息获取
      */
-    UserProfileMod profile(Long userid);
+    UserProfileMod profile(String username);
 
     /**
      * 个人信息修改

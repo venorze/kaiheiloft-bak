@@ -44,20 +44,11 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户注册
-     */
-    @PostMapping("/sign_up")
-    public R<Void> sign_up(@RequestBody @Valid UserSignUpMod userSignUpMod) {
-        userService.sign_up(userSignUpMod);
-        return R.ok();
-    }
-
-    /**
      * 获取用户个人信息
      */
-    @GetMapping("/profile/{userid}")
-    public R<UserProfileMod> profile(@PathVariable("userid") Long userid) {
-        return R.ok(userService.profile(userid));
+    @GetMapping("/profile/{username}")
+    public R<UserProfileMod> profile(@PathVariable("username") String username) {
+        return R.ok(userService.profile(username));
     }
 
     /**
