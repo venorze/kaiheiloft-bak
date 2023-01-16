@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hantiansoft</groupId>
-    <artifactId>OpenVC</artifactId>
+    <artifactId>openvc</artifactId>
     <version>v1.0</version>
     <packaging>pom</packaging>
 
