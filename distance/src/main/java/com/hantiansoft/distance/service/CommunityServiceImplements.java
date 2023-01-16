@@ -45,7 +45,7 @@ public class CommunityServiceImplements extends ServiceImpl<CommunityMapper, Com
     private CommunityMemberMapper communityMemberMapper;
 
     @Override
-    public Community qcx_community_id(Long communityId) {
+    public Community queryByCommunityId(Long communityId) {
         return null;
     }
 

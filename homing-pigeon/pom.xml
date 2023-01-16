@@ -12,8 +12,20 @@
     <artifactId>homing-pigeon</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <netty.version>4.1.87.Final</netty.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>commons-module</artifactId>
+            <version>v1.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

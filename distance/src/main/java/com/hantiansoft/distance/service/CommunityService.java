@@ -33,7 +33,7 @@ public interface CommunityService extends IService<Community> {
     /**
      * 通过ID查询社区对象
      */
-    Community qcx_community_id(Long communityId);
+    Community queryByCommunityId(Long communityId);
 
     /**
      * 创建社区

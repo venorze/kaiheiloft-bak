@@ -28,12 +28,6 @@ import com.hantiansoft.distance.mod.UserSignUpMod;
 import com.hantiansoft.distance.mod.UserProfileMod;
 
 /**
- * qcx 前缀为 QueryCurrentServiceObject 简写，qc，x代表未知，也就是查询参数。
- * 理解为 Query_Current_Service_Object_By_XXXX。
- *
- * qcxe 前缀前面的 qcx 和上面介绍一样，e表示异常，如果查询为空就会抛出异常。所以查询当前对象如果为空
- * 或其他会抛异常，就使用 qcxe 作为查询前缀。
- *
  * @author Vincent Luo
  */
 public interface UserService extends IService<User> {
@@ -41,12 +35,12 @@ public interface UserService extends IService<User> {
     /**
      * 根据用户ID查询用户
      */
-    User qcxe_user_id(Long userid);
+    User queryByUserId(Long userid);
 
     /**
      * 根据用户名查询用户
      */
-    User qcx_user_name(String username);
+    User queryByUsername(String username);
 
     /**
      * 用户注册

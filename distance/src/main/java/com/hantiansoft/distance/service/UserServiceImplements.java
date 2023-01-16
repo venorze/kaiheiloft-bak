@@ -44,7 +44,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     private SnowflakeGenerator snowflakeGenerator;
 
     @Override
-    public User qcxe_user_id(Long userid) {
+    public User queryByUserId(Long userid) {
         var wrapper = new LambdaQueryWrapper<User>()
                 .eq(User::getId, userid);
 
@@ -56,7 +56,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public User qcx_user_name(String username) {
+    public User queryByUsername(String username) {
         return getOne(
                 new LambdaQueryWrapper<User>()
                         .eq(User::getUsername, username)
@@ -66,7 +66,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public void sign_up(UserSignUpMod userSignUpMod) {
         // 判断用户名是否已被注册
-        Asserts.throwIfBool(qcx_user_name(userSignUpMod.getUsername()) == null, "当前用户名已被注册");
+        Asserts.throwIfBool(queryByUsername(userSignUpMod.getUsername()) == null, "当前用户名已被注册");
         // 注册成功
         save(BeanUtils.copyProperties(userSignUpMod, User.class));
     }
@@ -74,12 +74,12 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public UserProfileMod profile(Long userid) {
         // 根据ID查询用户信息
-        return BeanUtils.copyProperties(qcxe_user_id(userid), UserProfileMod.class);
+        return BeanUtils.copyProperties(queryByUserId(userid), UserProfileMod.class);
     }
 
     @Override
     public void profile_edit(Long userid, UserProfileMod userProfileMod) {
-        User user = qcxe_user_id(userid);
+        User user = queryByUserId(userid);
         BeanUtils.copyProperties(userProfileMod, user);
         // 更新用户信息
         updateById(user);
