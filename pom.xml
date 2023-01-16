@@ -15,6 +15,7 @@
         <module>open-module-libs/spring-cloud-alibaba-libs</module>
         <module>distance</module>
         <module>sdk</module>
+        <module>opensso</module>
     </modules>
 
     <properties>
