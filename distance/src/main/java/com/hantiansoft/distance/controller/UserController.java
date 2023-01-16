@@ -22,14 +22,12 @@ package com.hantiansoft.distance.controller;
 
 import com.hantiansoft.distance.mod.EditMailMod;
 import com.hantiansoft.distance.mod.EditPasswdMod;
-import com.hantiansoft.distance.mod.UserSignUpMod;
 import com.hantiansoft.distance.mod.UserProfileMod;
 import com.hantiansoft.distance.service.UserService;
 import com.hantiansoft.framework.R;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
 
 /**
  * No Descript.
