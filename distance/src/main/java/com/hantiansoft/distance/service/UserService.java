@@ -22,10 +22,10 @@ package com.hantiansoft.distance.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.distance.enties.User;
-import com.hantiansoft.distance.mod.EditMailMod;
-import com.hantiansoft.distance.mod.EditPasswdMod;
-import com.hantiansoft.distance.mod.UserSignUpMod;
-import com.hantiansoft.distance.mod.UserProfileMod;
+import com.hantiansoft.distance.modx.EditMailModx;
+import com.hantiansoft.distance.modx.EditPasswordModx;
+import com.hantiansoft.distance.modx.UserSignUpModx;
+import com.hantiansoft.distance.modx.UserProfileModx;
 
 /**
  * @author Vincent Luo
@@ -45,25 +45,25 @@ public interface UserService extends IService<User> {
     /**
      * 用户注册
      */
-    void sign_up(UserSignUpMod userSignUpMod);
+    void sign_up(UserSignUpModx userSignUpModx);
 
     /**
      * 个人信息获取
      */
-    UserProfileMod profile(String username);
+    UserProfileModx profile(String username);
 
     /**
      * 个人信息修改
      */
-    void profile_edit(Long userid, UserProfileMod userProfileMod);
+    void editProfile(Long userid, UserProfileModx userProfileModx);
 
     /**
      * 密码修改
      */
-    void passwd_edit(Long userid, EditPasswdMod editPasswdMod);
+    void editPassword(Long userid, EditPasswordModx editPasswordModx);
 
     /**
      * 邮箱修改
      */
-    void mail_edit(Long userid, EditMailMod editMailMod);
+    void editMail(Long userid, EditMailModx editMailModx);
 }

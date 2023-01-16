@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.mod;
+package com.hantiansoft.distance.modx;
 
 /* ************************************************************************
  *
@@ -18,39 +18,26 @@ package com.hantiansoft.distance.mod;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/1/10. */
+
+import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
-import java.util.List;
+import jakarta.validation.constraints.Pattern;
 
 /**
- * 创建社区请求对象
+ * No Descript.
  *
  * @author Vincent Luo
  */
 @Data
-public class CreateCommunityMod {
+public class EditMailModx {
 
     /**
-     * 社区名称
+     * 用户密码
      */
-    @NotBlank(message = "社区名称是必填项")
-    @Length(min = 2, max = 8, message = "社区名称范围 2 - 8 个字符")
-    private String name;
-
-    /**
-     * 社区头像
-     */
-    private String avatar;
-
-    /**
-     * 社区标签
-     */
-    @Size(max = 5, message = "标签最多可选择5个")
-    private List<String> tags;
+    @NotBlank(message = "邮箱不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$", message = "邮箱格式不正确")
+    private String mail;
 
 }

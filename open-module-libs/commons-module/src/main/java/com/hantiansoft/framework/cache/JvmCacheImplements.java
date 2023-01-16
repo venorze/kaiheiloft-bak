@@ -58,7 +58,7 @@ class JvmCacheImplements implements JvmCache {
         scheduledThreadPoolExecutor.scheduleAtFixedRate(() -> {
             final List<String> expiredKeys = Lists.newArrayList();
 
-            if (!is_empty()) {
+            if (!isEmpty()) {
                 for (Map.Entry<String, JvmCacheDelayValue> entry : internalCacheHashMap.entrySet()) {
                     JvmCacheDelayValue odv = entry.getValue();
                     if (odv.expired())
@@ -77,7 +77,7 @@ class JvmCacheImplements implements JvmCache {
     }
 
     @Override
-    public boolean is_empty() {
+    public boolean isEmpty() {
         return internalCacheHashMap.isEmpty();
     }
 

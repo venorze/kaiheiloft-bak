@@ -41,7 +41,7 @@ public interface JvmCache {
     /**
      * @return 是否为空
      */
-    boolean is_empty();
+    boolean isEmpty();
 
     /**
      * 遍历缓存中的所有数据

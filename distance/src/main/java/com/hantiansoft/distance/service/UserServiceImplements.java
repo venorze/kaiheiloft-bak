@@ -24,10 +24,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.distance.enties.User;
 import com.hantiansoft.distance.mapper.UserMapper;
-import com.hantiansoft.distance.mod.EditMailMod;
-import com.hantiansoft.distance.mod.EditPasswdMod;
-import com.hantiansoft.distance.mod.UserProfileMod;
-import com.hantiansoft.distance.mod.UserSignUpMod;
+import com.hantiansoft.distance.modx.EditMailModx;
+import com.hantiansoft.distance.modx.EditPasswordModx;
+import com.hantiansoft.distance.modx.UserProfileModx;
+import com.hantiansoft.distance.modx.UserSignUpModx;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
@@ -62,34 +62,34 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public void sign_up(UserSignUpMod userSignUpMod) {
+    public void sign_up(UserSignUpModx userSignUpModx) {
         // 判断用户名是否已被注册
-        Asserts.throwIfBool(queryByUsername(userSignUpMod.getUsername()) == null, "当前用户名已被注册");
+        Asserts.throwIfBool(queryByUsername(userSignUpModx.getUsername()) == null, "当前用户名已被注册");
         // 注册成功
-        save(BeanUtils.copyProperties(userSignUpMod, User.class));
+        save(BeanUtils.copyProperties(userSignUpModx, User.class));
     }
 
     @Override
-    public UserProfileMod profile(String username) {
+    public UserProfileModx profile(String username) {
         // 根据ID查询用户信息
-        return BeanUtils.copyProperties(queryByUsername(username), UserProfileMod.class);
+        return BeanUtils.copyProperties(queryByUsername(username), UserProfileModx.class);
     }
 
     @Override
-    public void profile_edit(Long userid, UserProfileMod userProfileMod) {
+    public void editProfile(Long userid, UserProfileModx userProfileModx) {
         User user = queryByUserId(userid);
-        BeanUtils.copyProperties(userProfileMod, user);
+        BeanUtils.copyProperties(userProfileModx, user);
         // 更新用户信息
         updateById(user);
     }
 
     @Override
-    public void passwd_edit(Long userid, EditPasswdMod editPasswdMod) {
+    public void editPassword(Long userid, EditPasswordModx editPasswordModx) {
 
     }
 
     @Override
-    public void mail_edit(Long userid, EditMailMod editMailMod) {
+    public void editMail(Long userid, EditMailModx editMailModx) {
 
     }
 }

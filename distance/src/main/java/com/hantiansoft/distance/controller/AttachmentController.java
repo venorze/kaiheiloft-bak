@@ -27,10 +27,7 @@ import com.hantiansoft.framework.exception.BusinessException;
 import com.hantiansoft.framework.generators.VGenerator;
 import com.hantiansoft.framework.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -39,8 +36,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Vincent Luo
  */
 @RestController
-@RequestMapping("/put")
-public class UploadController {
+@RequestMapping("/upload/attachment")
+public class AttachmentController {
 
     @Autowired
     private SourcePolicy sourcePolicy;
@@ -48,8 +45,8 @@ public class UploadController {
     /**
      * 上传头像
      */
-    @PostMapping("/avatar")
-    public R<String> putAvatar(@RequestPart MultipartFile avatarFile) {
+    @PutMapping("/avatar")
+    public R<String> uploadAvatar(@RequestPart MultipartFile avatarFile) {
         if (avatarFile.getSize() > FileUtils.SIZE_OF_MB_2)
             throw new BusinessException("文件大小不能超过2MB");
 

@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.mod;
+package com.hantiansoft.distance.modx;
 
 /* ************************************************************************
  *
@@ -18,26 +18,10 @@ package com.hantiansoft.distance.mod;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/10. */
-
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
-import jakarta.validation.constraints.NotBlank;
+/* Creates on 2023/1/13. */
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
-@Data
-public class EditPasswdMod {
-
-    /**
-     * 用户密码
-     */
-    @NotBlank(message = "用户密码不能为空")
-    @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
-    private String password;
-
+public class EditCommunityModx {
 }

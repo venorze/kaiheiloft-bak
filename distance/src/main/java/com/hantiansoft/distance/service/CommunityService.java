@@ -22,8 +22,8 @@ package com.hantiansoft.distance.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.distance.enties.Community;
-import com.hantiansoft.distance.mod.CreateCommunityMod;
-import com.hantiansoft.distance.mod.EditCommunityMod;
+import com.hantiansoft.distance.modx.CreateCommunityModx;
+import com.hantiansoft.distance.modx.EditCommunityModx;
 
 /**
  * @author Vincent Luo
@@ -38,12 +38,12 @@ public interface CommunityService extends IService<Community> {
     /**
      * 创建社区
      */
-    void create(CreateCommunityMod createCommunityMod);
+    void create(CreateCommunityModx createCommunityModx);
 
     /**
      * 编辑社区信息
      */
-    void edit(EditCommunityMod editCommunityMod);
+    void edit(EditCommunityModx editCommunityModx);
 
     /**
      * 解散社区
@@ -68,6 +68,6 @@ public interface CommunityService extends IService<Community> {
     /**
      * 发布社区公告
      */
-    void publish_announcement(Long communityId, String announcement);
+    void publishAnnouncement(Long communityId, String announcement);
 
 }

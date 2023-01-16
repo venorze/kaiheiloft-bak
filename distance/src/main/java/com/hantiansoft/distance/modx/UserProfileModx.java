@@ -1,4 +1,4 @@
-package com.hantiansoft.distance.mod;
+package com.hantiansoft.distance.modx;
 
 /* ************************************************************************
  *
@@ -18,7 +18,7 @@ package com.hantiansoft.distance.mod;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/22. */
+/* Creates on 2023/1/10. */
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -29,39 +29,34 @@ import jakarta.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
- * 用户注册请求体
- *
  * @author Vincent Luo
  */
 @Data
-public class UserSignUpMod {
-
-    /**
-     * 用户名
-     */
-    @NotBlank(message = "用户名是必填项")
-    @Length(min = 6, max = 16, message = "用户长度需要 6 - 16 位字母或数字组成")
-    private String username;
+public class UserProfileModx {
 
     /**
      * 用户昵称
      */
-    @NotBlank(message = "用户昵称是必填项")
+    @NotBlank(message = "用户昵称不能为空")
     @Length(max = 16, message = "用户昵称超出规定长度")
     private String nickname;
 
     /**
-     * 用户密码
+     * 用户头像
      */
-    @NotBlank(message = "用户密码是必填项")
-    @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
-    private String password;
+    @NotBlank(message = "用户头像不能为空")
+    private String avatar;
 
     /**
      * 用户生日
      */
-    @NotNull(message = "用户生日是必填项")
+    @NotNull(message = "用户生日不能为空")
     private Date birthday;
+
+    /**
+     * 自我介绍
+     */
+    private String bio;
 
     /**
      * 用户性别, M 男， W 女

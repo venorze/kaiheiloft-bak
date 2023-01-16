@@ -49,10 +49,6 @@ final class StringUtils {
         return input == null || input.length() == 0;
     }
 
-    public static boolean isNotEmpty(final String input) {
-        return !isEmpty(input);
-    }
-
     /**
      * 两个字符串做比较
      */
@@ -65,7 +61,7 @@ final class StringUtils {
      *
      * @return true表示当前不为空，false反之
      */
-    public static boolean is_not_empty(final String input) {
+    public static boolean isNotEmpty(final String input) {
         return !isEmpty(input);
     }
 
@@ -146,7 +142,7 @@ final class StringUtils {
     /**
      * 将字符串合并成一行
      */
-    public static String toLine(String text) {
+    public static String toline(String text) {
         StringBuilder content = new StringBuilder();
         StringTokenizer tokenizer = new StringTokenizer(text);
         while (tokenizer.hasMoreTokens()) {
@@ -159,7 +155,7 @@ final class StringUtils {
     /**
      * 把某个字符替换成空格
      */
-    public static String replaceNull(String input, String... patterns) {
+    public static String replace_null(String input, String... patterns) {
         for (String pattern : patterns) {
             input = input.replaceAll(pattern, "");
         }
@@ -169,7 +165,7 @@ final class StringUtils {
     /**
      * 驼峰转下划线
      */
-    public static String hump_to_underline(String string) {
+    public static String humpToUnderline(String string) {
         StringBuilder builder = new StringBuilder(string);
         int temp = 0; // 定位
         for (int i = 0, len = string.length(); i < len; i++) {
@@ -184,14 +180,14 @@ final class StringUtils {
     /**
      * 下划线转驼峰
      */
-    public static String underline_to_hump(String string) {
-        return character_to_hump(string, "_");
+    public static String underlineToHump(String string) {
+        return characterToHump(string, "_");
     }
 
     /**
      * 根据某个字符分割然后转驼峰命名
      */
-    public static String character_to_hump(String string, String ch) {
+    public static String characterToHump(String string, String ch) {
         StringBuilder builder = new StringBuilder();
         String[] strs = string.split(ch);
         builder.append(strs[0]);
@@ -202,122 +198,6 @@ final class StringUtils {
         }
 
         return builder.toString();
-    }
-
-    public static String asString(Object input) {
-        return asString(input, null);
-    }
-
-    public static String asString(Object input, String def) {
-        try {
-            if (input != null) {
-                if (input instanceof String) {
-                    return (String) input;
-                } else {
-                    return input.toString();
-                }
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
-    }
-
-    public static Integer asInteger(Object input) {
-        return asInteger(input, 0);
-    }
-
-    public static Integer asInteger(Object input, Integer def) {
-        try {
-            if (input != null) {
-                String strValue = asString(input);
-                return Integer.valueOf(strValue);
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
-    }
-
-
-    public static Long asLong(Object input) {
-        return asLong(input, 0L);
-    }
-
-    public static Long asLong(Object input, Long def) {
-        try {
-            if (input != null) {
-                String strValue = asString(input);
-                return Long.valueOf(strValue);
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
-    }
-
-    public static Float asFloat(Object input) {
-        return asFloat(input, 0F);
-    }
-
-    public static Float asFloat(Object input, Float def) {
-        try {
-            if (input != null) {
-                String strValue = asString(input);
-                return Float.valueOf(strValue);
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
-    }
-
-    public static Double asDouble(Object input) {
-        return asDouble(input, 0D);
-    }
-
-    public static Double asDouble(Object input, Double def) {
-        try {
-            if (input != null) {
-                String strValue = asString(input);
-                return Double.valueOf(strValue);
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
-    }
-
-    public static Boolean asBoolean(Object input) {
-        return asBoolean(input, false);
-    }
-
-    public static Boolean asBoolean(Object input, Boolean def) {
-        try {
-            if (input != null) {
-                String strValue = asString(input);
-                return Boolean.valueOf(strValue);
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
-    }
-
-    public static BigDecimal asBigDecimal(Object input) {
-        return asBigDecimal(input, null);
-    }
-
-    public static BigDecimal asBigDecimal(Object input, BigDecimal def) {
-        try {
-            if (input != null) {
-                String strValue = asString(input);
-                return new BigDecimal(strValue);
-            }
-        } catch (Exception ignored) {
-        }
-
-        return def;
     }
 
     /**
@@ -343,7 +223,7 @@ final class StringUtils {
      * @param src 源字符串
      * @param n   要删除几个字符
      */
-    public static String remove_of_start(String src, int n) {
+    public static String removeOfStart(String src, int n) {
         return src.substring(n);
     }
 
@@ -353,8 +233,8 @@ final class StringUtils {
      * @param src     源字符串
      * @param vdelete 要删除的字符串，如果匹配到没有这个字符串则不会删除。
      */
-    public static String remove_of_start(String src, String vdelete) {
-        return src.startsWith(vdelete) ? remove_of_start(src, vdelete.length()) : src;
+    public static String removeOfStart(String src, String vdelete) {
+        return src.startsWith(vdelete) ? removeOfStart(src, vdelete.length()) : src;
     }
 
     /**
@@ -363,7 +243,7 @@ final class StringUtils {
      * @param src 源字符串
      * @param n   要删除几个字符
      */
-    public static String remove_of_end(String src, int n) {
+    public static String removeOfEnd(String src, int n) {
         return src.substring(0, src.length() - n);
     }
 
@@ -373,8 +253,8 @@ final class StringUtils {
      * @param src     源字符串
      * @param vdelete 要删除的字符串，如果匹配到没有这个字符串则不会删除。
      */
-    public static String remove_of_end(String src, String vdelete) {
-        return src.endsWith(vdelete) ? remove_of_end(src, vdelete.length()) : src;
+    public static String removeOfEnd(String src, String vdelete) {
+        return src.endsWith(vdelete) ? removeOfEnd(src, vdelete.length()) : src;
     }
 
     /**
@@ -383,7 +263,7 @@ final class StringUtils {
      * @param list      集合对象
      * @param separator 分隔符
      */
-    public static String list_merge(List<String> list, String separator) {
+    public static String listMerge(List<String> list, String separator) {
         if (Lists.isEmpty(list))
             return "";
 
@@ -392,7 +272,7 @@ final class StringUtils {
         for (String str : list)
             builder.append(str).append(separator);
 
-        return remove_of_end(builder.toString(), separator);
+        return removeOfEnd(builder.toString(), separator);
     }
 
 }

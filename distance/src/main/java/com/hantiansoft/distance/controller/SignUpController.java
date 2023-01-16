@@ -20,7 +20,7 @@ package com.hantiansoft.distance.controller;
 
 /* Creates on 2023/1/16. */
 
-import com.hantiansoft.distance.mod.UserSignUpMod;
+import com.hantiansoft.distance.modx.UserSignUpModx;
 import com.hantiansoft.distance.service.UserService;
 import com.hantiansoft.framework.R;
 import jakarta.validation.Valid;
@@ -46,8 +46,8 @@ public class SignUpController {
      * 用户注册
      */
     @PostMapping("/sign_up")
-    public R<Void> sign_up(@RequestBody @Valid UserSignUpMod userSignUpMod) {
-        userService.sign_up(userSignUpMod);
+    public R<Void> sign_up(@RequestBody @Valid UserSignUpModx userSignUpModx) {
+        userService.sign_up(userSignUpModx);
         return R.ok();
     }
 

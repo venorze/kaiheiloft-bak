@@ -92,7 +92,7 @@ public class Algorithms {
         key = key.replaceAll("\r\n", "");
         key = key.replaceAll("\n", "");
 
-        return XBASE64(StringUtils.toLine(key));
+        return XBASE64(StringUtils.toline(key));
     }
 
     /**

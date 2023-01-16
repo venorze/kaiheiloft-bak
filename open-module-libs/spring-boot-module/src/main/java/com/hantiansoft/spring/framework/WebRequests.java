@@ -90,7 +90,7 @@ public class WebRequests {
      * 获取请求属性
      */
     public static String getString(String key) {
-        return StringUtils.asString(getHttpServletRequest().getAttribute(key));
+        return String.valueOf(getHttpServletRequest().getAttribute(key));
     }
 
 }

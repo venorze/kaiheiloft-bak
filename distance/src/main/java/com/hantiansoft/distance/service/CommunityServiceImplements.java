@@ -25,8 +25,8 @@ import com.hantiansoft.distance.enties.Community;
 import com.hantiansoft.distance.mapper.CommunityAnnouncementMapper;
 import com.hantiansoft.distance.mapper.CommunityMapper;
 import com.hantiansoft.distance.mapper.CommunityMemberMapper;
-import com.hantiansoft.distance.mod.CreateCommunityMod;
-import com.hantiansoft.distance.mod.EditCommunityMod;
+import com.hantiansoft.distance.modx.CreateCommunityModx;
+import com.hantiansoft.distance.modx.EditCommunityModx;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,16 +50,16 @@ public class CommunityServiceImplements extends ServiceImpl<CommunityMapper, Com
     }
 
     @Override
-    public void create(CreateCommunityMod createCommunityMod) {
+    public void create(CreateCommunityModx createCommunityModx) {
         // 创建社区对象
-        var community = BeanUtils.copyProperties(createCommunityMod, Community.class);
-        community.setTags(StringUtils.list_merge(createCommunityMod.getTags(), " ")); // 添加社区标签
+        var community = BeanUtils.copyProperties(createCommunityModx, Community.class);
+        community.setTags(StringUtils.listMerge(createCommunityModx.getTags(), " ")); // 添加社区标签
 
         save(community);
     }
 
     @Override
-    public void edit(EditCommunityMod editCommunityMod) {
+    public void edit(EditCommunityModx editCommunityModx) {
 
     }
 
@@ -84,7 +84,7 @@ public class CommunityServiceImplements extends ServiceImpl<CommunityMapper, Com
     }
 
     @Override
-    public void publish_announcement(Long communityId, String announcement) {
+    public void publishAnnouncement(Long communityId, String announcement) {
 
     }
 
