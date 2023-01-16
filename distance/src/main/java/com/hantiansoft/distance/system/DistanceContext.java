@@ -1,4 +1,4 @@
-package com.hantiansoft.authentication;
+package com.hantiansoft.distance.system;
 
 /* ************************************************************************
  *
@@ -18,19 +18,18 @@ package com.hantiansoft.authentication;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/10. */
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+/* Creates on 2023/1/16. */
 
 /**
+ * 当前应用系统上下文
+ *
  * @author Vincent Luo
  */
-@SpringBootApplication
-public class AuthenticationBootstrap {
+public class DistanceContext {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AuthenticationBootstrap.class, args);
-    }
+    /**
+     * 头像附件保存根路径
+     */
+    public static final String ATTACHMENT_OF_AVATAR = "/v1";
 
 }

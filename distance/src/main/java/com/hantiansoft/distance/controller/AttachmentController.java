@@ -21,7 +21,7 @@ package com.hantiansoft.distance.controller;
 /* Creates on 2023/1/9. */
 
 import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.context.DistanceConst;
+import com.hantiansoft.distance.system.DistanceContext;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.framework.exception.BusinessException;
 import com.hantiansoft.framework.generators.VGenerator;
@@ -60,7 +60,7 @@ public class AttachmentController {
 
             // 上传文件
             String region = fileSha256.substring(i, i + 2);
-            return R.ok(sourcePolicy.putBytes(byteBuf, "{}/{}/{}", DistanceConst.STORE_PATH_OF_AVATAR, region, fileSha256));
+            return R.ok(sourcePolicy.putBytes(byteBuf, "{}/{}/{}", DistanceContext.ATTACHMENT_OF_AVATAR, region, fileSha256));
         } catch (Exception e) {
             throw new BusinessException("文件上传失败，请重试", e);
         }
