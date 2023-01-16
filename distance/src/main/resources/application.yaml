@@ -11,8 +11,8 @@ spring:
       config:
         enabled: true
         server-addr: 123.60.211.203:8848
-        namespace: dev
+        namespace: ${spring.profiles.active}
         group: DISTANCE_GROUP
   config:
     import:
-      - optional:nacos:application-dev.yml
+      - optional:nacos:distance-application.yml
