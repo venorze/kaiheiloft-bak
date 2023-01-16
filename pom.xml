@@ -19,7 +19,6 @@
             <module>open-module-libs/spring-boot-module/cloud-feign-module</module>
         <module>distance</module>
         <module>sdk</module>
-        <module>homing-pigeon</module>
     </modules>
 
     <properties>
