@@ -25,7 +25,7 @@ package com.hantiansoft.distance.system;
  *
  * @author Vincent Luo
  */
-public class DistanceContext {
+public class DistanceApplicationContext {
 
     /**
      * 头像附件保存根路径
