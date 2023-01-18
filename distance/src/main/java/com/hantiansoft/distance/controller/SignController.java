@@ -23,6 +23,7 @@ package com.hantiansoft.distance.controller;
 import com.hantiansoft.distance.modx.UserSignUpModx;
 import com.hantiansoft.distance.service.UserService;
 import com.hantiansoft.framework.R;
+import com.hantiansoft.linkmod.distance.UserSignInModx;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,14 @@ public class SignController {
     @PostMapping("/sign_up")
     public R<Void> sign_up(@RequestBody @Valid UserSignUpModx userSignUpModx) {
         userService.sign_up(userSignUpModx);
+        return R.ok();
+    }
+
+    /**
+     * 用户登录接口（不对外暴露）
+     */
+    @GetMapping("/nopen/sign_in/private")
+    public R<Void> sign_in(@RequestBody @Valid UserSignInModx userSignInModx) {
         return R.ok();
     }
 

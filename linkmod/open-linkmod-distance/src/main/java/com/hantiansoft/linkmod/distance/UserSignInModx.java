@@ -1,4 +1,4 @@
-package com.hantiansoft.opensso.feign;
+package com.hantiansoft.linkmod.distance;
 
 /* ************************************************************************
  *
@@ -20,23 +20,30 @@ package com.hantiansoft.opensso.feign;
 
 /* Creates on 2023/1/18. */
 
-import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.distance.UserSignInModx;
-import jakarta.validation.Valid;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
+ * 用户登录模块
+ *
  * @author Vincent Luo
  */
-@FeignClient("DISTANCE-SRV")
-public interface UserServiceFeign {
+@Data
+public class UserSignInModx {
 
     /**
-     * 用户登录接口
+     * 用户名
      */
-    @GetMapping("/nopen/sign_in/private")
-    R<Void> sign_in(@RequestBody @Valid UserSignInModx userSignInModx);
+    @NotBlank(message = "用户名是必填项")
+    @Length(min = 6, max = 16, message = "用户长度需要 6 - 16 位字母或数字组成")
+    private String username;
+
+    /**
+     * 用户密码
+     */
+    @NotBlank(message = "用户密码是必填项")
+    @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
+    private String password;
 
 }

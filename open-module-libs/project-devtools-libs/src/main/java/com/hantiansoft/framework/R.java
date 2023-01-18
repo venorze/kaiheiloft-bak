@@ -37,6 +37,9 @@ public class R<T> {
     private String message;
     private Object data;
 
+    /**
+     * HTTP状态
+     */
     public interface Status {
         String S200 = "200";
         String S500 = "500";

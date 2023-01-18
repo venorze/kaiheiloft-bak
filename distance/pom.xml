@@ -45,6 +45,12 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>v1.0</version>
         </dependency>
+        <!-- linkmod -->
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>open-linkmod-distance</artifactId>
+            <version>v1.0</version>
+        </dependency>
     </dependencies>
 
 </project>
