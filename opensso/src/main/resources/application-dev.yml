@@ -1,0 +1,14 @@
+server:
+  port: 8603
+
+spring:
+  cloud:
+    #
+    # nacos配置
+    #
+    nacos:
+      discovery:
+        server-addr: 123.60.211.203:8848
+        username: nacos
+        password: nacos
+        namespace: dev
