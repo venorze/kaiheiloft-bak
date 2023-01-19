@@ -87,26 +87,26 @@ public class AuthenticationTokenGenerator {
         this.expireTimeSeconds = seconds;
     }
 
-    public String create_token(String k0, Object v0) {
-        return create_token(Maps.ofMap(k0, v0));
+    public String createToken(String k0, Object v0) {
+        return createToken(Maps.ofMap(k0, v0));
     }
 
-    public String create_token(String k0, Object v0, String k1, Object v1) {
-        return create_token(Maps.ofMap(k0, v0, k1, v1));
+    public String createToken(String k0, Object v0, String k1, Object v1) {
+        return createToken(Maps.ofMap(k0, v0, k1, v1));
     }
 
-    public String create_token(String k0, Object v0, String k1, Object v1, String k2, Object v2) {
-        return create_token(Maps.ofMap(k0, v0, k1, v1, k2, v2));
+    public String createToken(String k0, Object v0, String k1, Object v1, String k2, Object v2) {
+        return createToken(Maps.ofMap(k0, v0, k1, v1, k2, v2));
     }
 
     /**
      * @return 创建后的 token 字符串
      */
-    public String create_token(Map<String, Object> tokenClaims) {
-        JwtBuilder builder = Jwts.builder().setExpiration(calculate_expire_time());
+    public String createToken(Map<String, Object> tokenClaims) {
+        JwtBuilder builder = Jwts.builder().setExpiration(calculateExpireTime());
 
         // 设置过期时间
-        Date exp = calculate_expire_time();
+        Date exp = calculateExpireTime();
         builder.setExpiration(exp);
 
         if (tokenClaims == null)
@@ -128,7 +128,7 @@ public class AuthenticationTokenGenerator {
      * @return 获取 token 数据
      */
     @SuppressWarnings("unchecked")
-    public <T> T value_of(String token, String key) {
+    public <T> T getPayload(String token, String key) {
         JwtParser jwtParser = Jwts.parser();
 
         /* 使用不同的算法解析token */
@@ -148,7 +148,7 @@ public class AuthenticationTokenGenerator {
      */
     public boolean validate(String token) {
         try {
-            value_of(token, "_");
+            getPayload(token, "_");
             return true;
         } catch (Exception e) {
             return false;
@@ -159,11 +159,11 @@ public class AuthenticationTokenGenerator {
      * 获取token过期时间
      */
     public Date expire(String token) {
-        return DateUtils.parse(value_of(token, JWTMAP_EXPIRE));
+        return DateUtils.parse(getPayload(token, JWTMAP_EXPIRE));
     }
 
     /* 获取过期时间 */
-    private Date calculate_expire_time() {
+    private Date calculateExpireTime() {
         return TimeUnits.SECONDS.plus((int) expireTimeSeconds);
     }
 
