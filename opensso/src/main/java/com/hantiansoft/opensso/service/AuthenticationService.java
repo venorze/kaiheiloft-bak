@@ -1,4 +1,4 @@
-package com.hantiansoft.opensso.feign;
+package com.hantiansoft.opensso.service;
 
 /* ************************************************************************
  *
@@ -18,25 +18,30 @@ package com.hantiansoft.opensso.feign;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/18. */
+/* Creates on 2023/1/20. */
 
-import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.distance.UserSignInModx;
-import jakarta.validation.Valid;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.Map;
 
 /**
+ * JWT认证服务.
+ *
  * @author Vincent Luo
  */
-@FeignClient("DISTANCE-SRV")
-public interface UserServiceFeign {
+public interface AuthenticationService {
 
     /**
-     * 用户登录接口
+     * 创建token
      */
-    @GetMapping("/nopen/sign_in/private")
-    R<Void> sign_in(@RequestBody @Valid UserSignInModx userSignInModx);
+    String createToken(Map<String, Object> payload);
+
+    /**
+     * 获取荷载内容
+     */
+    String getPayload(String token, String payloadName);
+
+    /**
+     * 验证token
+     */
+    boolean validToken(String token);
 
 }

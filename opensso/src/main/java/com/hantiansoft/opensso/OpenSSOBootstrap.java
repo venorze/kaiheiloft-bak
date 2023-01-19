@@ -20,10 +20,13 @@ package com.hantiansoft.opensso;
 
 /* Creates on 2023/1/17. */
 
+import com.hantiansoft.framework.security.AuthenticationTokenGenerator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author Vincent Luo
@@ -33,8 +36,19 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 public class OpenSSOBootstrap {
 
+    @Value("${jwt.token.secret}")
+    private String tokenSecret;
+
+    @Value("${jwt.token.expire}")
+    private Long tokenExpire;
+
     public static void main(String[] args) {
         SpringApplication.run(OpenSSOBootstrap.class, args);
+    }
+
+    @Bean
+    public AuthenticationTokenGenerator authenticationTokenGenerator() {
+        return new AuthenticationTokenGenerator(tokenSecret, tokenExpire);
     }
 
 }

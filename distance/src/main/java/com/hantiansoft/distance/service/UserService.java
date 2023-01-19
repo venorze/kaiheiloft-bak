@@ -43,6 +43,11 @@ public interface UserService extends IService<User> {
     User queryByUsername(String username);
 
     /**
+     * 用户登录
+     */
+    User login(String username, String password);
+
+    /**
      * 用户注册
      */
     void sign_up(UserSignUpModx userSignUpModx);
@@ -66,4 +71,5 @@ public interface UserService extends IService<User> {
      * 邮箱修改
      */
     void editMail(Long userid, EditMailModx editMailModx);
+
 }

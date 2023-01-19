@@ -57,6 +57,15 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
+    public User login(String username, String password) {
+        return getOne(
+                new LambdaQueryWrapper<User>()
+                        .eq(User::getUsername, username)
+                        .eq(User::getPassword, password)
+        );
+    }
+
+    @Override
     public void sign_up(UserSignUpModx userSignUpModx) {
         // 判断用户名是否已被注册
         Asserts.throwIfBool(queryByUsername(userSignUpModx.getUsername()) == null, "当前用户名已被注册");

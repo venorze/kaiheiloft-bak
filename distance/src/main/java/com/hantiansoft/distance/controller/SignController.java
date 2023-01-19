@@ -22,8 +22,10 @@ package com.hantiansoft.distance.controller;
 
 import com.hantiansoft.distance.modx.UserSignUpModx;
 import com.hantiansoft.distance.service.UserService;
+import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.distance.UserSignInModx;
+import com.hantiansoft.linkmod.distance.UserInfoLinkMod;
+import com.hantiansoft.linkmod.distance.UserSignInLinkMod;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,8 +55,12 @@ public class SignController {
      * 用户登录接口（不对外暴露）
      */
     @GetMapping("/nopen/sign_in/private")
-    public R<Void> sign_in(@RequestBody @Valid UserSignInModx userSignInModx) {
-        return R.ok();
+    public R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod) {
+        var user = userService.login(userSignInLinkMod.getUsername(), userSignInLinkMod.getPassword());
+        if (user == null)
+            return R.fail("登陆失败，用户名或密码错误！");
+
+        return R.ok(BeanUtils.copyProperties(user, UserInfoLinkMod.class));
     }
 
 }
