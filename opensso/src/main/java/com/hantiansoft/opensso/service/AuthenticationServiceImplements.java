@@ -37,12 +37,12 @@ public class AuthenticationServiceImplements implements AuthenticationService {
 
     @Override
     public String createToken(Map<String, Object> payload) {
-        return authenticationTokenGenerator.create_token(payload);
+        return authenticationTokenGenerator.createToken(payload);
     }
 
     @Override
     public String getPayload(String token, String payloadName) {
-        return authenticationTokenGenerator.value_of(token, payloadName);
+        return authenticationTokenGenerator.getPayload(token, payloadName);
     }
 
     @Override
