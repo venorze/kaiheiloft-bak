@@ -23,6 +23,7 @@ package com.hantiansoft.framework.refection;
 import com.hantiansoft.framework.collections.Lists;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -61,4 +62,14 @@ public final class ClassUtils {
         return parametersClassArray;
     }
 
+    /**
+     * 获取成员对象但不抛出异常
+     */
+    public static Field getDeclaredField(Class<?> sourceClass, String targetFieldName) {
+        try {
+            return sourceClass.getDeclaredField(targetFieldName);
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
+    }
 }
