@@ -25,12 +25,13 @@ import com.hantiansoft.adapter.StoreAdapter;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
 import com.hantiansoft.mybatisplus.configuration.EnableMybatisPlusSnowflakeIdGenerator;
 import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import com.hantiansoft.spring.framework.annotation.EnableBootModule;
+import com.hantiansoft.spring.framework.annotation.EnableCommonsConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Properties;
@@ -38,7 +39,7 @@ import java.util.Properties;
 /**
  * @author Vincent Luo
  */
-@EnableBootModule
+@EnableCommonsConfiguration
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableMybatisPlusSnowflakeIdGenerator
@@ -55,10 +56,15 @@ public class DistanceBootstrap {
     private String qiniuBucket;
 
     /**
+     * 全局上下文
+     */
+    public static ConfigurableApplicationContext ApplicationContext = null;
+
+    /**
      * 入口函数
      */
     public static void main(String[] args) {
-        SpringApplication.run(DistanceBootstrap.class, args);
+        ApplicationContext = SpringApplication.run(DistanceBootstrap.class, args);
     }
 
     /**

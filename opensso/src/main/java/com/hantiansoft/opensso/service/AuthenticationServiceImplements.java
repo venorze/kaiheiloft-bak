@@ -41,12 +41,12 @@ public class AuthenticationServiceImplements implements AuthenticationService {
     }
 
     @Override
-    public String getPayload(String token, String payloadName) {
-        return authenticationTokenGenerator.getPayload(token, payloadName);
+    public Map<String, Object> getClaims(String token) {
+        return authenticationTokenGenerator.getClaims(token);
     }
 
     @Override
-    public boolean validToken(String token) {
+    public boolean verifier(String token) {
         return authenticationTokenGenerator.verifier(token);
     }
 

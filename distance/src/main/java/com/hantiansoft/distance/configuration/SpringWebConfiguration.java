@@ -1,4 +1,4 @@
-package com.hantiansoft.spring.framework.annotation;
+package com.hantiansoft.distance.configuration;
 
 /* ************************************************************************
  *
@@ -18,29 +18,27 @@ package com.hantiansoft.spring.framework.annotation;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/23. */
+/* Creates on 2023/1/22. */
 
-import com.hantiansoft.spring.framework.configuration.GlobalExceptionHandler;
-import com.hantiansoft.spring.framework.configuration.ValidationConfiguration;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import com.hantiansoft.distance.remotecall.OpenSSORemoteCall;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
- * 整合通用配置的启动注解，包含以下配置：
- *
- *      1. 全局异常处理配置
- *      2. 请求参数校验配置
- *
  * @author Vincent Luo
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Import({
-        GlobalExceptionHandler.class,
-        ValidationConfiguration.class
-})
-@Documented
-public @interface EnableBootModule {
+@Configuration
+public class SpringWebConfiguration extends WebMvcConfigurationSupport {
+
+    /**
+     * 添加拦截器
+     */
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        // 设置拦截器
+        registry.addInterceptor(new SpringInterceptorConfiguration());
+    }
+
 }

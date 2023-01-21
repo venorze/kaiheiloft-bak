@@ -26,6 +26,7 @@ import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.linkmod.distance.UserInfoLinkMod;
 import com.hantiansoft.linkmod.distance.UserSignInLinkMod;
+import com.hantiansoft.spring.framework.annotation.OpenAPI;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,7 @@ public class SignController {
     /**
      * 用户注册
      */
+    @OpenAPI
     @PostMapping("/sign_up")
     public R<Void> sign_up(@RequestBody @Valid UserSignUpModx userSignUpModx) {
         userService.sign_up(userSignUpModx);
@@ -54,6 +56,7 @@ public class SignController {
     /**
      * 用户登录接口（不对外暴露）
      */
+    @OpenAPI
     @PostMapping("/nopen/sign_in/private")
     public R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod) {
         var user = userService.login(userSignInLinkMod.getUsername(), userSignInLinkMod.getPassword());

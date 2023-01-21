@@ -1,4 +1,4 @@
-package com.hantiansoft.opensso.service;
+package com.hantiansoft.distance.remotecall;
 
 /* ************************************************************************
  *
@@ -18,30 +18,27 @@ package com.hantiansoft.opensso.service;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/20. */
+/* Creates on 2023/1/22. */
+
+import com.hantiansoft.framework.R;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.Map;
 
 /**
- * JWT认证服务.
+ * 认证服务调用
  *
  * @author Vincent Luo
  */
-public interface AuthenticationService {
+@FeignClient(name = "OPENSSO-SRV")
+public interface OpenSSORemoteCall {
 
     /**
-     * 创建token
+     * 验证Token是否正确
      */
-    String createToken(Map<String, Object> payload);
-
-    /**
-     * 获取荷载内容
-     */
-    Map<String, Object> getClaims(String token);
-
-    /**
-     * 验证token
-     */
-    boolean verifier(String token);
+    @PostMapping("/nopen/verifier/private")
+    R<Map<String, Object>> verifier(@RequestHeader("Authorization") String authorization);
 
 }

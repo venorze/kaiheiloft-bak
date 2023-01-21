@@ -28,10 +28,7 @@ import com.hantiansoft.opensso.remotecall.UserServiceRemoteCall;
 import com.hantiansoft.opensso.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -67,6 +64,16 @@ public class SignTokenController {
                 "user", userinfo,
                 "token", authenticationService.createToken(payload)
         );
+    }
+
+    /**
+     * 验证token
+     */
+    @PostMapping("/nopen/verifier/private")
+    public R<Map<String, Object>> verifier(@RequestHeader("Authorization") String authorization) {
+        return authenticationService.verifier(authorization) ? R.ok(authenticationService.getClaims(authorization)) :
+                R.fail("token不正确或已过期");
+
     }
 
 }

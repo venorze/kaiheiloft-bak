@@ -110,12 +110,10 @@ public class AuthenticationTokenGenerator {
     /**
      * @return 获取 token 数据
      */
-    @SuppressWarnings("unchecked")
-    public <T> T getPayload(String token, String key) {
-        return (T) JWT.decode(token)
+    public Map<String, Object> getClaims(String token) {
+        return JWT.decode(token)
                 .getClaim("claims")
-                .asMap()
-                .get(key);
+                .asMap();
     }
 
     /**

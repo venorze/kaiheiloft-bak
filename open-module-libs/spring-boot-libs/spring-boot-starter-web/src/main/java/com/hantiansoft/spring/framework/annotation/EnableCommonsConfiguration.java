@@ -1,4 +1,4 @@
-package com.hantiansoft.opensso.service;
+package com.hantiansoft.spring.framework.annotation;
 
 /* ************************************************************************
  *
@@ -18,30 +18,29 @@ package com.hantiansoft.opensso.service;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/20. */
+/* Creates on 2022/12/23. */
 
-import java.util.Map;
+import com.hantiansoft.spring.framework.configuration.GlobalExceptionHandler;
+import com.hantiansoft.spring.framework.configuration.ValidationConfiguration;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
- * JWT认证服务.
+ * 整合通用配置的启动注解，包含以下配置：
+ *
+ *      1. 全局异常处理配置
+ *      2. 请求参数校验配置
  *
  * @author Vincent Luo
  */
-public interface AuthenticationService {
-
-    /**
-     * 创建token
-     */
-    String createToken(Map<String, Object> payload);
-
-    /**
-     * 获取荷载内容
-     */
-    Map<String, Object> getClaims(String token);
-
-    /**
-     * 验证token
-     */
-    boolean verifier(String token);
-
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Import({
+        GlobalExceptionHandler.class,
+        ValidationConfiguration.class
+})
+@Documented
+public @interface EnableCommonsConfiguration {
 }
