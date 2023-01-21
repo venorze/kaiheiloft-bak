@@ -20,16 +20,18 @@ package com.hantiansoft.framework.security;
 
 /* Creates on 2022/8/8. */
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.hantiansoft.framework.collections.Maps;
+import com.hantiansoft.framework.exception.UnImplementsException;
 import com.hantiansoft.framework.time.DateUtils;
 import com.hantiansoft.framework.time.TimeUnits;
-import io.jsonwebtoken.*;
-import lombok.Getter;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,11 +40,16 @@ import java.util.Map;
  * @author Vincent Luo
  */
 public class AuthenticationTokenGenerator {
-    private final AuthenticationSignatureAlgorithm authenticationSignatureAlgorithm;  /* 加密方式 */
-    private final long expireTimeSeconds;            /* 过期时间 */
-    private final String SECRET;                   /* 秘钥 */
-    private final PublicKey PUBLIC_KEY;               /* 公钥 */
-    private final PrivateKey PRIVATE_KEY;              /* 私钥 */
+
+    /**
+     * 过期时间
+     */
+    private final long expireTimeSeconds;
+
+    /**
+     * 加密算法
+     */
+    private final Algorithm algorithm;
 
     /**
      * jwt过期时间
@@ -50,40 +57,30 @@ public class AuthenticationTokenGenerator {
     private static final String JWTMAP_EXPIRE = "VEXP";
 
     /**
-     * 支持的加密算法列表
+     * HS256加密
      */
-    enum AuthenticationSignatureAlgorithm {
-        RS256(SignatureAlgorithm.RS256),
-        HS256(SignatureAlgorithm.HS256),
-        ;
+    public static final String SIGNATURE_ALGORITHM_OF_HS256 = "HS256";
 
-        @Getter
-        private final SignatureAlgorithm signatureAlgorithm;
+    /**
+     * RS256加密
+     */
+    public static final String SIGNATURE_ALGORITHM_OF_RS256 = "HS256";
 
-        AuthenticationSignatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
-            this.signatureAlgorithm = signatureAlgorithm;
-        }
-    }
+    /**
+     * token发行者
+     */
+    private static final String TOKEN_ISSUER = "auth0";
 
     /**
      * 创建Token生成器，默认使用HS256加密方式
      */
     public AuthenticationTokenGenerator(String secret, long seconds) {
-        this("HS256", (null), (null), secret, seconds);
-    }
+        // 设置加密算法
+        this.algorithm = switch (SIGNATURE_ALGORITHM_OF_HS256) {
+            case SIGNATURE_ALGORITHM_OF_HS256 -> Algorithm.HMAC256(secret);
+            default -> throw new UnImplementsException("不支持的加密算法");
+        };
 
-    /**
-     * 创建Token生成器，默认使用RS256加密方式
-     */
-    public AuthenticationTokenGenerator(PublicKey publicKey, PrivateKey privateKey, long seconds) {
-        this("RS256", publicKey, privateKey, (null), seconds);
-    }
-
-    public AuthenticationTokenGenerator(String algorithm, PublicKey publicKey, PrivateKey privateKey, String secret, long seconds) {
-        this.authenticationSignatureAlgorithm = AuthenticationSignatureAlgorithm.valueOf(algorithm);
-        this.SECRET = secret;
-        this.PUBLIC_KEY = publicKey;
-        this.PRIVATE_KEY = privateKey;
         this.expireTimeSeconds = seconds;
     }
 
@@ -103,25 +100,11 @@ public class AuthenticationTokenGenerator {
      * @return 创建后的 token 字符串
      */
     public String createToken(Map<String, Object> tokenClaims) {
-        JwtBuilder builder = Jwts.builder().setExpiration(calculateExpireTime());
-
-        // 设置过期时间
-        Date exp = calculateExpireTime();
-        builder.setExpiration(exp);
-
-        if (tokenClaims == null)
-            tokenClaims = new HashMap<>();
-
-        tokenClaims.put(JWTMAP_EXPIRE, DateUtils.vfmt(exp)); // 设置过期时间
-        builder.setClaims(tokenClaims);
-
-        if (authenticationSignatureAlgorithm == AuthenticationSignatureAlgorithm.RS256)
-            builder.signWith(authenticationSignatureAlgorithm.getSignatureAlgorithm(), PRIVATE_KEY);
-
-        if (authenticationSignatureAlgorithm == AuthenticationSignatureAlgorithm.HS256)
-            builder.signWith(authenticationSignatureAlgorithm.getSignatureAlgorithm(), SECRET);
-
-        return builder.compact();
+        return JWT.create()
+                .withIssuer(TOKEN_ISSUER)
+                .withExpiresAt(calculateExpireTime())
+                .withClaim("claims", tokenClaims)
+                .sign(this.algorithm);
     }
 
     /**
@@ -129,37 +112,25 @@ public class AuthenticationTokenGenerator {
      */
     @SuppressWarnings("unchecked")
     public <T> T getPayload(String token, String key) {
-        JwtParser jwtParser = Jwts.parser();
-
-        /* 使用不同的算法解析token */
-        if (authenticationSignatureAlgorithm == AuthenticationSignatureAlgorithm.RS256)
-            jwtParser.setSigningKey(PUBLIC_KEY);
-
-        if (authenticationSignatureAlgorithm == AuthenticationSignatureAlgorithm.HS256)
-            jwtParser.setSigningKey(SECRET);
-
-        Claims claims = jwtParser.parseClaimsJws(token).getBody();
-
-        return (T) claims.get(key);
+        return (T) JWT.decode(token)
+                .getClaim("claims")
+                .asMap()
+                .get(key);
     }
 
     /**
      * @return token是否过期
      */
-    public boolean validate(String token) {
+    public boolean verifier(String token) {
         try {
-            getPayload(token, "_");
+            JWTVerifier verifierBuilder = JWT.require(this.algorithm)
+                    .withIssuer(TOKEN_ISSUER)
+                    .build();
+            verifierBuilder.verify(token);
             return true;
-        } catch (Exception e) {
+        } catch (JWTVerificationException e) {
             return false;
         }
-    }
-
-    /**
-     * 获取token过期时间
-     */
-    public Date expire(String token) {
-        return DateUtils.parse(getPayload(token, JWTMAP_EXPIRE));
     }
 
     /* 获取过期时间 */

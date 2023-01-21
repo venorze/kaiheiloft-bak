@@ -47,7 +47,7 @@ public class AuthenticationServiceImplements implements AuthenticationService {
 
     @Override
     public boolean validToken(String token) {
-        return authenticationTokenGenerator.validate(token);
+        return authenticationTokenGenerator.verifier(token);
     }
 
 }

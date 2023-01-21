@@ -54,7 +54,7 @@ public class SignController {
     /**
      * 用户登录接口（不对外暴露）
      */
-    @GetMapping("/nopen/sign_in/private")
+    @PostMapping("/nopen/sign_in/private")
     public R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod) {
         var user = userService.login(userSignInLinkMod.getUsername(), userSignInLinkMod.getPassword());
         if (user == null)

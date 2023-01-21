@@ -25,21 +25,19 @@ import com.hantiansoft.linkmod.distance.UserInfoLinkMod;
 import com.hantiansoft.linkmod.distance.UserSignInLinkMod;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author Vincent Luo
  */
-@Service
 @FeignClient("DISTANCE-SRV")
 public interface UserServiceRemoteCall {
 
     /**
      * 用户登录接口
      */
-    @GetMapping("/nopen/sign_in/private")
+    @PostMapping("/nopen/sign_in/private")
     R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod);
 
 }

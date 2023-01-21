@@ -12,3 +12,11 @@ spring:
         username: nacos
         password: nacos
         namespace: dev
+
+#
+# 系统配置
+#
+opensso:
+  jwt:
+    secret: OPENSSO
+    expire: 86400 # 1天

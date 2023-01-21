@@ -17,7 +17,7 @@
         <lombok.version>1.18.24</lombok.version>
         <joda-time.version>2.10.14</joda-time.version>
         <okhttp.version>4.10.0</okhttp.version>
-        <jwt.version>0.9.1</jwt.version>
+        <java-jwt.version>4.2.2</java-jwt.version>
         <slf4j.version>1.7.36</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.21</slf4j.version>
@@ -52,9 +52,9 @@
         </dependency>
         <!-- jwt -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jwt.version}</version>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java-jwt.version}</version>
         </dependency>
         <!-- 日志支持 -->
         <dependency>

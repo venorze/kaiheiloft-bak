@@ -53,18 +53,18 @@ public class SignTokenController {
      */
     @GetMapping("/sign_in")
     public R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod) {
-        R<UserInfoLinkMod> userInfoResult = userServiceRemoteCall.sign_in(userSignInLinkMod);
+        R<UserInfoLinkMod> ret = userServiceRemoteCall.sign_in(userSignInLinkMod);
         // 判断是否登录错误
-        if (!userInfoResult.isSuccess())
-            return userInfoResult;
+        if (!ret.isSuccess())
+            return ret;
 
         // 构建token荷载
-        var userinfo = (UserInfoLinkMod) userInfoResult.getData();
+        var userinfo = ret.to(UserInfoLinkMod.class);
         Map<String, Object> payload = Maps.ofMap("uid", userinfo.getId(), "uname", userinfo.getUsername());
 
         // 登录成功
         return R.ok(
-                "user", userInfoResult.getData(),
+                "user", userinfo,
                 "token", authenticationService.createToken(payload)
         );
     }

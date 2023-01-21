@@ -20,6 +20,8 @@ package com.hantiansoft.framework;
 
 /* Creates on 2022/4/15. */
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.hantiansoft.framework.collections.Maps;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -94,6 +96,13 @@ public class R<T> {
      */
     public boolean isSuccess() {
         return StringUtils.equals(code, Status.S200);
+    }
+
+    /**
+     * 获取数据并转换成对应的对象
+     */
+    public T to(Class<T> clazz) {
+        return JSON.to(clazz, this.data);
     }
 
 }

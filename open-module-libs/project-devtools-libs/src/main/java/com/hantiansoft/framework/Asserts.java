@@ -20,8 +20,6 @@ package com.hantiansoft.framework;
 
 /* Creates on 2020/3/11. */
 
-import io.jsonwebtoken.lang.Collections;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -124,7 +122,7 @@ public class Asserts {
      * 断言一个集合对象，如果是空字符串或者是null则抛出异常
      */
     public static <T> void throwIfEmpty(Collection<T> input, String message) {
-        if (Collections.isEmpty(input))
+        if (input == null || input.isEmpty())
             throw new IllegalArgumentException(message);
     }
 
@@ -136,7 +134,7 @@ public class Asserts {
      * 断言一个Map对象，如果是空字符串或者是null则抛出异常
      */
     public static <K, V> void throwIfEmpty(Map<K, V> input, String message) {
-        if (Collections.isEmpty(input))
+        if (input == null || input.isEmpty())
             throw new IllegalArgumentException(message);
     }
 

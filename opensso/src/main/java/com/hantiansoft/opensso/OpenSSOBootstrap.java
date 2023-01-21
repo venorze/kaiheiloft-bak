@@ -36,10 +36,10 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class OpenSSOBootstrap {
 
-    @Value("${jwt.token.secret}")
+    @Value("${opensso.jwt.secret}")
     private String tokenSecret;
 
-    @Value("${jwt.token.expire}")
+    @Value("${opensso.jwt.expire}")
     private Long tokenExpire;
 
     public static void main(String[] args) {
