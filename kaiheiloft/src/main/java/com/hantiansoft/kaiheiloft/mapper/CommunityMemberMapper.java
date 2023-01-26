@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.kaiheiloft.mapper;
 
 /* ************************************************************************
  *
@@ -18,31 +18,15 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2023/1/13. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
-
-import java.util.Properties;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hantiansoft.kaiheiloft.enties.CommunityMember;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
-
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
-
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
-    }
-
+@Mapper
+public interface CommunityMemberMapper extends BaseMapper<CommunityMember> {
 }

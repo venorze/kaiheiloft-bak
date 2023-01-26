@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,31 +18,30 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2022/12/22. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
-
-import java.util.Properties;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * No Descript.
+ * 社区成员表
  *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("community_member")
+public class CommunityMember extends SuperModel<CommunityMember> {
 
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
+    /**
+     * 社区ID
+     */
+    private String communityId;
 
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
-    }
+    /**
+     * 用户ID
+     */
+    private String userId;
 
 }

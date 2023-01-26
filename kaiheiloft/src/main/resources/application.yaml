@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: KAIHEILOFT-SRV
+#  cloud:
+#    nacos:
+#      #
+#      # 配置中心
+#      #
+#      config:
+#        enabled: true
+#        server-addr: 123.60.211.203:8848
+#        namespace: ${spring.profiles.active}
+#        group: KAIHEILOFT_GROUP
+#  config:
+#    import:
+#      - optional:nacos:kaiheiloft-application.yml

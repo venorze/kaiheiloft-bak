@@ -22,8 +22,8 @@ package com.hantiansoft.opensso.controller;
 
 import com.hantiansoft.framework.R;
 import com.hantiansoft.framework.collections.Maps;
-import com.hantiansoft.linkmod.distance.UserInfoLinkMod;
-import com.hantiansoft.linkmod.distance.UserSignInLinkMod;
+import com.hantiansoft.linkmod.kaiheiloft.UserInfoLinkMod;
+import com.hantiansoft.linkmod.kaiheiloft.UserSignInLinkMod;
 import com.hantiansoft.opensso.remotecall.UserServiceRemoteCall;
 import com.hantiansoft.opensso.service.AuthenticationService;
 import jakarta.validation.Valid;

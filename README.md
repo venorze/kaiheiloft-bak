@@ -1,4 +1,4 @@
-# Distance Project.
+# Kaiheiloft Project.
 
 > 欢迎来到**Disdtance**开黑交流软件后台。主要用于帖子讨论，游戏玩家开黑等业务为基础而建立的项目。
 
@@ -20,7 +20,7 @@ Cloud依赖版本管理
 
 模块列表
 
-- [distance](https://github.com/amaoai/open-black/tree/master/distance)
+- [kaiheiloft](https://github.com/amaoai/open-black/tree/master/kaiheiloft)
 - [open-module-libs](https://github.com/amaoai/open-black/tree/master/open-module-libs)
 - [open-module-libs/project-devtools-libs](https://github.com/amaoai/open-black/tree/master/open-module-libs/project-devtools-libs)
 - [open-module-libs/spring-boot-module](https://github.com/amaoai/open-black/tree/master/open-module-libs/spring-boot-module)
@@ -29,7 +29,7 @@ Cloud依赖版本管理
 
 ----
 
-[distance](https://github.com/amaoai/open-black/tree/master/distance) 模块为主要的业务模块，项目中所有核心业务都在该模块内开发实现。
+[kaiheiloft](https://github.com/amaoai/open-black/tree/master/kaiheiloft) 模块为主要的业务模块，项目中所有核心业务都在该模块内开发实现。
 
 [open-module-libs](https://github.com/amaoai/open-black/tree/master/open-module-libs) 模块主要用于整合开发工具包，以及各个依赖的管理。父模块只需要配置好开头列出开的三大框架版本即可（``SpringBoot``, ``SpringCloud``, ``CloudAlibaba``）。
 

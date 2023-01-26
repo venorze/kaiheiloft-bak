@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,31 +18,37 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2022/12/22. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Properties;
+import java.util.Date;
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SuperModel<T extends Model<T>> extends Model<T> {
 
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
+    /**
+     * ID
+     */
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
 
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
-    }
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 
 }

@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.kaiheiloft.configuration;
 
 /* ************************************************************************
  *
@@ -18,31 +18,25 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2023/1/22. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
-
-import java.util.Properties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
+@Configuration
+public class SpringWebConfiguration extends WebMvcConfigurationSupport {
 
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
-
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
+    /**
+     * 添加拦截器
+     */
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        // 设置拦截器
+        registry.addInterceptor(new SpringInterceptorConfiguration());
     }
 
 }

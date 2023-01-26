@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.kaiheiloft.remotecall;
 
 /* ************************************************************************
  *
@@ -18,31 +18,27 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2023/1/22. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
+import com.hantiansoft.framework.R;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.util.Properties;
+import java.util.Map;
 
 /**
- * No Descript.
+ * 认证服务调用
  *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
+@FeignClient(name = "OPENSSO-SRV")
+public interface OpenSSORemoteCall {
 
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
-
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
-    }
+    /**
+     * 验证Token是否正确
+     */
+    @PostMapping("/nopen/verifier/private")
+    R<Map<String, Object>> verifier(@RequestHeader("Authorization") String authorization);
 
 }

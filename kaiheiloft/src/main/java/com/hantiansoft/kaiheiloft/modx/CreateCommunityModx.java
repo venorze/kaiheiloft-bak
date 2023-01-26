@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -18,31 +18,39 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2023/1/13. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
-import java.util.Properties;
+import java.util.List;
 
 /**
- * No Descript.
+ * 创建社区请求对象
  *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
+@Data
+public class CreateCommunityModx {
 
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
+    /**
+     * 社区名称
+     */
+    @NotBlank(message = "社区名称是必填项")
+    @Length(min = 2, max = 8, message = "社区名称范围 2 - 8 个字符")
+    private String name;
 
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
-    }
+    /**
+     * 社区头像
+     */
+    private String avatar;
+
+    /**
+     * 社区标签
+     */
+    @Size(max = 5, message = "标签最多可选择5个")
+    private List<String> tags;
 
 }

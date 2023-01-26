@@ -41,7 +41,7 @@ public class T_GET_FILE_INFO {
         Properties props = new Properties();
         props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
         props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "open-distance");
+        props.put("bucket", "open-kaiheiloft");
         SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
 
         FILE stat = sourcePolicy.stat("avatar/doge.jpg");

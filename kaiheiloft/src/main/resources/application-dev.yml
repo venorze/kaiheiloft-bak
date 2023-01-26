@@ -1,0 +1,60 @@
+server:
+  port: 8602
+
+spring:
+  cloud:
+    #
+    # nacos配置
+    #
+    nacos:
+      discovery:
+        server-addr: 123.60.211.203:8848
+        username: nacos
+        password: nacos
+        namespace: dev
+  servlet:
+    #
+    # 文件上传大小配置
+    #
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  #
+  # 数据源配置
+  #
+  datasource:
+    url: jdbc:mysql://123.60.211.203:3306/kaiheiloft?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 5
+      max-active: 20
+      max-wait: 3000
+      validation-query: select 1
+  data:
+    #
+    # redis配置
+    #
+    redis:
+      host: 123.60.211.203
+      port: 6379
+      timeout: 3000
+
+#
+# mybatis plus配置
+#
+mybatis-plus:
+  enable-snowflake-assign:
+    dataCenterId: 1000
+    machineId: 1000
+
+
+#
+# 文件存储 SDK 配置
+#
+sdk:
+  qiniu:
+    access: tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp
+    secret: hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp
+    bucket: store-kaiheiloft-avatar

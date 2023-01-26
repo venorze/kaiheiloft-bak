@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hantiansoft</groupId>
-    <artifactId>openvc</artifactId>
+    <artifactId>kaiheiloft-project</artifactId>
     <version>v1.0</version>
     <packaging>pom</packaging>
 
@@ -13,7 +13,7 @@
         <module>open-module-libs/project-devtools-libs</module>
         <module>open-module-libs/spring-boot-libs</module>
         <module>open-module-libs/spring-cloud-alibaba-libs</module>
-        <module>distance</module>
+        <module>kaiheiloft</module>
         <module>sdk</module>
         <module>opensso</module>
         <module>linkmod</module>

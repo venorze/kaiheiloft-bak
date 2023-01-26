@@ -1,4 +1,4 @@
-package com.hantiansoft.opensso.remotecall;
+package com.hantiansoft.kaiheiloft.controller;
 
 /* ************************************************************************
  *
@@ -18,26 +18,35 @@ package com.hantiansoft.opensso.remotecall;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/18. */
+/* Creates on 2023/1/13. */
 
+import com.hantiansoft.kaiheiloft.modx.CreateCommunityModx;
+import com.hantiansoft.kaiheiloft.service.CommunityService;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.kaiheiloft.UserInfoLinkMod;
-import com.hantiansoft.linkmod.kaiheiloft.UserSignInLinkMod;
 import jakarta.validation.Valid;
-import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Vincent Luo
  */
-@FeignClient("KAIHEILOFT-SRV")
-public interface UserServiceRemoteCall {
+@RestController
+@RequestMapping("/community")
+public class CommunityController {
+
+    @Autowired
+    private CommunityService communityService;
 
     /**
-     * 用户登录接口
+     * 创建社区
      */
-    @PostMapping("/nopen/sign_in/private")
-    R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod);
+    @PostMapping("/create")
+    public R<Void> create(@RequestBody @Valid CreateCommunityModx createCommunityModx) {
+        communityService.create(createCommunityModx);
+        return R.ok();
+    }
 
 }

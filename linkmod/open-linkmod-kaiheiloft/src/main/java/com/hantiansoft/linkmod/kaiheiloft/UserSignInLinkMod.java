@@ -1,4 +1,4 @@
-package com.hantiansoft.qiniu.test;
+package com.hantiansoft.linkmod.kaiheiloft;
 
 /* ************************************************************************
  *
@@ -18,31 +18,32 @@ package com.hantiansoft.qiniu.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/9. */
+/* Creates on 2023/1/18. */
 
-import com.hantiansoft.adapter.SourcePolicy;
-import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.qiniu.QiniuSourcePolicy;
-import org.junit.Test;
-
-import java.util.Properties;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
- * No Descript.
+ * 用户登录模块
  *
  * @author Vincent Luo
  */
-public class T_MOVE_FILE {
+@Data
+public class UserSignInLinkMod {
 
-    @Test
-    public void moveFile() {
-        Properties props = new Properties();
-        props.put("access", "tchS3evhxj_qcf_x9JIJlZDD7Xv83fNTMuARj8Xp");
-        props.put("secret", "hB22f61gS6art-d2XDxvCl-ka3gcovxfuaKncbBp");
-        props.put("bucket", "store-kaiheiloft-avatar");
-        SourcePolicy sourcePolicy = StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
+    /**
+     * 用户名
+     */
+    @NotBlank(message = "用户名是必填项")
+    @Length(min = 6, max = 16, message = "用户长度需要 6 - 16 位字母或数字组成")
+    private String username;
 
-        System.out.println("move location: " + sourcePolicy.move("avatar/doge.jpg", "a/doge.jpg"));
-    }
+    /**
+     * 用户密码
+     */
+    @NotBlank(message = "用户密码是必填项")
+    @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
+    private String password;
 
 }

@@ -9,12 +9,25 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>opensso</artifactId>
+    <artifactId>kaiheiloft</artifactId>
+
+    <properties>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>spring-boot-starter-mysql</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
             <version>v1.0</version>
         </dependency>
         <dependency>
@@ -25,6 +38,11 @@
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
             <version>v1.0</version>
         </dependency>
         <!-- linkmod -->
