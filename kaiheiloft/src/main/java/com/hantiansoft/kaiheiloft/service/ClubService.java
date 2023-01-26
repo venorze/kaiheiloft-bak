@@ -21,53 +21,53 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/1/13. */
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hantiansoft.kaiheiloft.enties.Community;
-import com.hantiansoft.kaiheiloft.modx.CreateCommunityModx;
-import com.hantiansoft.kaiheiloft.modx.EditCommunityModx;
+import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
+import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 
 /**
  * @author Vincent Luo
  */
-public interface CommunityService extends IService<Community> {
+public interface ClubService extends IService<Club> {
 
     /**
-     * 通过ID查询社区对象
+     * 通过ID查询俱乐部对象
      */
-    Community queryByCommunityId(Long communityId);
+    Club queryByClubId(Long clubId);
 
     /**
-     * 创建社区
+     * 创建俱乐部
      */
-    void create(CreateCommunityModx createCommunityModx);
+    void create(CreateClubModx createClubModx);
 
     /**
-     * 编辑社区信息
+     * 编辑俱乐部信息
      */
-    void edit(EditCommunityModx editCommunityModx);
+    void edit(EditClubModx editClubModx);
 
     /**
-     * 解散社区
+     * 解散俱乐部
      */
-    void disband(Long communityId);
+    void disband(Long clubId);
 
     /**
-     * 加入社区
+     * 加入俱乐部
      */
-    void join(Long userId, Long communityId);
+    void join(Long userId, Long clubId);
 
     /**
-     * 踢出社区
+     * 踢出俱乐部
      */
-    void kick(Long userId, Long communityId);
+    void kick(Long userId, Long clubId);
 
     /**
-     * 退出社区
+     * 退出俱乐部
      */
-    void quit(Long userId, Long communityId);
+    void quit(Long userId, Long clubId);
 
     /**
-     * 发布社区公告
+     * 发布俱乐部公告
      */
-    void publishAnnouncement(Long communityId, String announcement);
+    void publishAnnouncement(Long clubId, String announcement);
 
 }

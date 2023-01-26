@@ -20,8 +20,8 @@ package com.hantiansoft.kaiheiloft.controller;
 
 /* Creates on 2023/1/13. */
 
-import com.hantiansoft.kaiheiloft.modx.CreateCommunityModx;
-import com.hantiansoft.kaiheiloft.service.CommunityService;
+import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
+import com.hantiansoft.kaiheiloft.service.ClubService;
 import com.hantiansoft.framework.R;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +34,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Vincent Luo
  */
 @RestController
-@RequestMapping("/community")
-public class CommunityController {
+@RequestMapping("/club")
+public class ClubController {
 
     @Autowired
-    private CommunityService communityService;
+    private ClubService clubService;
 
     /**
-     * 创建社区
+     * 创建俱乐部
      */
     @PostMapping("/create")
-    public R<Void> create(@RequestBody @Valid CreateCommunityModx createCommunityModx) {
-        communityService.create(createCommunityModx);
+    public R<Void> create(@RequestBody @Valid CreateClubModx createClubModx) {
+        clubService.create(createClubModx);
         return R.ok();
     }
 

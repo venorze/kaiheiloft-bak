@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.mapper;
+package com.hantiansoft.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -20,13 +20,8 @@ package com.hantiansoft.kaiheiloft.mapper;
 
 /* Creates on 2023/1/13. */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hantiansoft.kaiheiloft.enties.CommunityMember;
-import org.apache.ibatis.annotations.Mapper;
-
 /**
  * @author Vincent Luo
  */
-@Mapper
-public interface CommunityMemberMapper extends BaseMapper<CommunityMember> {
+public class EditClubModx {
 }

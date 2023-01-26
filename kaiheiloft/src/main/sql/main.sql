@@ -56,33 +56,33 @@ CREATE TABLE `logon_logs`
   COLLATE = utf8mb3_bin;
 
 -- ---------------------------------
--- 社区表
+-- 俱乐部表
 -- ---------------------------------
-DROP TABLE IF EXISTS `community`;
-CREATE TABLE `community`
+DROP TABLE IF EXISTS `club`;
+CREATE TABLE `club`
 (
     `id`          varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `name`        varchar(8)  NOT NULL COMMENT '社区名称',
-    `avatar`      varchar(160) NOT NULL COMMENT '社区头像',
-    `introduce`   varchar(180) COMMENT '社区介绍',
-    `tags`        varchar(24) COMMENT '社区标签，用空格分割，最多支持5个',
+    `name`        varchar(8)  NOT NULL COMMENT '俱乐部名称',
+    `avatar`      varchar(160) NOT NULL COMMENT '俱乐部头像',
+    `introduce`   varchar(180) COMMENT '俱乐部介绍',
+    `tags`        varchar(24) COMMENT '俱乐部标签，用空格分割，最多支持5个',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
   COLLATE = utf8mb3_bin;
 
 -- ---------------------------------
--- 社区公告表
+-- 俱乐部公告表
 -- ---------------------------------
-DROP TABLE IF EXISTS `community_announcement`;
-CREATE TABLE `community_announcement`
+DROP TABLE IF EXISTS `club_announcement`;
+CREATE TABLE `club_announcement`
 (
     `id`           varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `community_id` varchar(160) NOT NULL COMMENT '社区ID',
+    `club_id` varchar(160) NOT NULL COMMENT '俱乐部ID',
     `content`      varchar(562) COMMENT '公告内容',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -90,15 +90,15 @@ CREATE TABLE `community_announcement`
   COLLATE = utf8mb3_bin;
 
 -- ---------------------------------
--- 社区成员表
+-- 俱乐部成员表
 -- ---------------------------------
-DROP TABLE IF EXISTS `community_member`;
-CREATE TABLE `community_member`
+DROP TABLE IF EXISTS `club_member`;
+CREATE TABLE `club_member`
 (
     `id`           varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `community_id` varchar(160) NOT NULL COMMENT '社区ID',
+    `club_id` varchar(160) NOT NULL COMMENT '俱乐部ID',
     `user_id`      varchar(562) COMMENT '用户ID',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB

@@ -25,19 +25,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 社区成员表
+ * 俱乐部成员表
  *
  * @author Vincent Luo
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("community_member")
-public class CommunityMember extends SuperModel<CommunityMember> {
+@TableName("club_member")
+public class ClubMember extends SuperModel<ClubMember> {
 
     /**
-     * 社区ID
+     * 俱乐部ID
      */
-    private String communityId;
+    private String clubId;
 
     /**
      * 用户ID

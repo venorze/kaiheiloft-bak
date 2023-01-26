@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.enties;
+package com.hantiansoft.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -18,30 +18,39 @@ package com.hantiansoft.kaiheiloft.enties;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/22. */
+/* Creates on 2023/1/13. */
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
 
 /**
- * 社区公告表
+ * 创建俱乐部请求对象
  *
  * @author Vincent Luo
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("community_announcement")
-public class CommunityAnnouncement extends SuperModel<CommunityAnnouncement> {
+public class CreateClubModx {
 
     /**
-     * 社区ID
+     * 俱乐部名称
      */
-    private String communityId;
+    @NotBlank(message = "俱乐部名称是必填项")
+    @Length(min = 2, max = 8, message = "俱乐部名称范围 2 - 8 个字符")
+    private String name;
 
     /**
-     * 公告内容
+     * 俱乐部头像
      */
-    private String content;
+    private String avatar;
+
+    /**
+     * 俱乐部标签
+     */
+    @Size(max = 5, message = "标签最多可选择5个")
+    private List<String> tags;
 
 }

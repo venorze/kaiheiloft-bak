@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,10 +18,30 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2022/12/22. */
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 俱乐部公告表
+ *
  * @author Vincent Luo
  */
-public class EditCommunityModx {
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("club_announcement")
+public class ClubAnnouncement extends SuperModel<ClubAnnouncement> {
+
+    /**
+     * 俱乐部ID
+     */
+    private String clubId;
+
+    /**
+     * 公告内容
+     */
+    private String content;
+
 }

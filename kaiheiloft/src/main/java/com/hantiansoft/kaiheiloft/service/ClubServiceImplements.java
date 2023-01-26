@@ -21,12 +21,12 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/1/13. */
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hantiansoft.kaiheiloft.enties.Community;
-import com.hantiansoft.kaiheiloft.mapper.CommunityAnnouncementMapper;
-import com.hantiansoft.kaiheiloft.mapper.CommunityMapper;
-import com.hantiansoft.kaiheiloft.mapper.CommunityMemberMapper;
-import com.hantiansoft.kaiheiloft.modx.CreateCommunityModx;
-import com.hantiansoft.kaiheiloft.modx.EditCommunityModx;
+import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
+import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
+import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
+import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
+import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,55 +36,55 @@ import org.springframework.stereotype.Service;
  * @author Vincent Luo
  */
 @Service
-public class CommunityServiceImplements extends ServiceImpl<CommunityMapper, Community> implements CommunityService {
+public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> implements ClubService {
 
     @Autowired
-    private CommunityAnnouncementMapper communityAnnouncementMapper;
+    private ClubAnnouncementMapper clubAnnouncementMapper;
 
     @Autowired
-    private CommunityMemberMapper communityMemberMapper;
+    private ClubMemberMapper clubMemberMapper;
 
     @Override
-    public Community queryByCommunityId(Long communityId) {
+    public Club queryByClubId(Long clubId) {
         return null;
     }
 
     @Override
-    public void create(CreateCommunityModx createCommunityModx) {
-        // 创建社区对象
-        var community = BeanUtils.copyProperties(createCommunityModx, Community.class);
-        community.setTags(StringUtils.listMerge(createCommunityModx.getTags(), " ")); // 添加社区标签
+    public void create(CreateClubModx createClubModx) {
+        // 创建俱乐部对象
+        var club = BeanUtils.copyProperties(createClubModx, Club.class);
+        club.setTags(StringUtils.listMerge(createClubModx.getTags(), " ")); // 添加俱乐部标签
 
-        save(community);
+        save(club);
     }
 
     @Override
-    public void edit(EditCommunityModx editCommunityModx) {
-
-    }
-
-    @Override
-    public void disband(Long communityId) {
+    public void edit(EditClubModx editClubModx) {
 
     }
 
     @Override
-    public void join(Long userId, Long communityId) {
+    public void disband(Long clubId) {
 
     }
 
     @Override
-    public void kick(Long userId, Long communityId) {
+    public void join(Long userId, Long clubId) {
 
     }
 
     @Override
-    public void quit(Long userId, Long communityId) {
+    public void kick(Long userId, Long clubId) {
 
     }
 
     @Override
-    public void publishAnnouncement(Long communityId, String announcement) {
+    public void quit(Long userId, Long clubId) {
+
+    }
+
+    @Override
+    public void publishAnnouncement(Long clubId, String announcement) {
 
     }
 

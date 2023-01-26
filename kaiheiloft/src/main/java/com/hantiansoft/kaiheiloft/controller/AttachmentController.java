@@ -45,7 +45,7 @@ public class AttachmentController {
     /**
      * 上传头像
      */
-    @PutMapping("/avatar")
+    @PostMapping("/avatar")
     public R<String> uploadAvatar(@RequestPart MultipartFile avatarFile) {
         if (avatarFile.getSize() > FileUtils.SIZE_OF_MB_2)
             throw new BusinessException("文件大小不能超过2MB");

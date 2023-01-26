@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.mapper;
+package com.hantiansoft.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,15 +18,40 @@ package com.hantiansoft.kaiheiloft.mapper;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2022/12/22. */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hantiansoft.kaiheiloft.enties.CommunityAnnouncement;
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 俱乐部表
+ *
  * @author Vincent Luo
  */
-@Mapper
-public interface CommunityAnnouncementMapper extends BaseMapper<CommunityAnnouncement> {
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("club")
+public class Club extends SuperModel<Club> {
+
+    /**
+     * 俱乐部名称
+     */
+    private String name;
+
+    /**
+     * 俱乐部头像
+     */
+    private String avatar;
+
+    /**
+     * 俱乐部介绍
+     */
+    private String introduce;
+
+    /**
+     * 俱乐部标签
+     */
+    private String tags;
+
 }

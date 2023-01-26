@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mapper;
 
 /* ************************************************************************
  *
@@ -20,37 +20,13 @@ package com.hantiansoft.kaiheiloft.modx;
 
 /* Creates on 2023/1/13. */
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
-import java.util.List;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hantiansoft.kaiheiloft.enties.ClubAnnouncement;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 创建社区请求对象
- *
  * @author Vincent Luo
  */
-@Data
-public class CreateCommunityModx {
-
-    /**
-     * 社区名称
-     */
-    @NotBlank(message = "社区名称是必填项")
-    @Length(min = 2, max = 8, message = "社区名称范围 2 - 8 个字符")
-    private String name;
-
-    /**
-     * 社区头像
-     */
-    private String avatar;
-
-    /**
-     * 社区标签
-     */
-    @Size(max = 5, message = "标签最多可选择5个")
-    private List<String> tags;
-
+@Mapper
+public interface ClubAnnouncementMapper extends BaseMapper<ClubAnnouncement> {
 }
