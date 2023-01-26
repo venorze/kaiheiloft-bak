@@ -32,4 +32,13 @@ public class KaiheiloftApplicationContext {
      */
     public static final String ATTACHMENT_OF_AVATAR = "/v1";
 
+    /***
+     * web请求用户ID属性
+     */
+    public static final String WEB_REQUEST_ATTRIBUTE_USER_ID = "uid";
+
+    /***
+     * web请求用户名称属性
+     */
+    public static final String WEB_REQUEST_ATTRIBUTE_USERNAME = "uname";
 }

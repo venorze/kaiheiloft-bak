@@ -33,7 +33,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("userinfo")
+@TableName("khl_userinfo")
 public class User extends SuperModel<User> {
 
     /**

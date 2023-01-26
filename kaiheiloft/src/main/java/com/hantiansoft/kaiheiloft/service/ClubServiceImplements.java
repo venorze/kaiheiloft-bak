@@ -50,11 +50,11 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
-    public void create(CreateClubModx createClubModx) {
+    public void create(CreateClubModx createClubModx, Long userid) {
         // 创建俱乐部对象
         var club = BeanUtils.copyProperties(createClubModx, Club.class);
-        club.setTags(StringUtils.listMerge(createClubModx.getTags(), " ")); // 添加俱乐部标签
-
+        // 添加俱乐部标签
+        club.setTags(StringUtils.listMerge(createClubModx.getTags(), " "));
         save(club);
     }
 

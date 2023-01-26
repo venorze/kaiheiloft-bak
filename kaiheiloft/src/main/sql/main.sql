@@ -1,8 +1,8 @@
 -- ---------------------------------
 -- 用户信息表
 -- ---------------------------------
-DROP TABLE IF EXISTS `userinfo`;
-CREATE TABLE `userinfo`
+DROP TABLE IF EXISTS `khl_userinfo`;
+CREATE TABLE `khl_userinfo`
 (
     `id`           varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -25,8 +25,8 @@ CREATE TABLE `userinfo`
 -- ---------------------------------
 -- 实名认证表
 -- ---------------------------------
-DROP TABLE IF EXISTS `realname`;
-CREATE TABLE `realname`
+DROP TABLE IF EXISTS `khl_realname`;
+CREATE TABLE `khl_realname`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -42,8 +42,8 @@ CREATE TABLE `realname`
 -- ---------------------------------
 -- 登录日志表
 -- ---------------------------------
-DROP TABLE IF EXISTS `logon_logs`;
-CREATE TABLE `logon_logs`
+DROP TABLE IF EXISTS `khl_logon_logs`;
+CREATE TABLE `khl_logon_logs`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -58,13 +58,13 @@ CREATE TABLE `logon_logs`
 -- ---------------------------------
 -- 俱乐部表
 -- ---------------------------------
-DROP TABLE IF EXISTS `club`;
-CREATE TABLE `club`
+DROP TABLE IF EXISTS `khl_club`;
+CREATE TABLE `khl_club`
 (
     `id`          varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `name`        varchar(8)  NOT NULL COMMENT '俱乐部名称',
+    `name`        varchar(8)   NOT NULL COMMENT '俱乐部名称',
     `avatar`      varchar(160) NOT NULL COMMENT '俱乐部头像',
     `introduce`   varchar(180) COMMENT '俱乐部介绍',
     `tags`        varchar(24) COMMENT '俱乐部标签，用空格分割，最多支持5个',
@@ -76,14 +76,14 @@ CREATE TABLE `club`
 -- ---------------------------------
 -- 俱乐部公告表
 -- ---------------------------------
-DROP TABLE IF EXISTS `club_announcement`;
-CREATE TABLE `club_announcement`
+DROP TABLE IF EXISTS `khl_club_announcement`;
+CREATE TABLE `khl_club_announcement`
 (
-    `id`           varchar(32)  NOT NULL COMMENT '主键ID',
-    `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id` varchar(160) NOT NULL COMMENT '俱乐部ID',
-    `content`      varchar(562) COMMENT '公告内容',
+    `id`          varchar(32)  NOT NULL COMMENT '主键ID',
+    `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `club_id`     varchar(160) NOT NULL COMMENT '俱乐部ID',
+    `content`     varchar(562) COMMENT '公告内容',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
@@ -92,14 +92,31 @@ CREATE TABLE `club_announcement`
 -- ---------------------------------
 -- 俱乐部成员表
 -- ---------------------------------
-DROP TABLE IF EXISTS `club_member`;
-CREATE TABLE `club_member`
+DROP TABLE IF EXISTS `khl_club_member`;
+CREATE TABLE `khl_club_member`
 (
-    `id`           varchar(32)  NOT NULL COMMENT '主键ID',
-    `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id` varchar(160) NOT NULL COMMENT '俱乐部ID',
-    `user_id`      varchar(562) COMMENT '用户ID',
+    `id`          varchar(32)  NOT NULL COMMENT '主键ID',
+    `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `club_id`     varchar(160) NOT NULL COMMENT '俱乐部ID',
+    `user_id`     varchar(562) COMMENT '用户ID',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  COLLATE = utf8mb3_bin;
+
+-- ---------------------------------
+-- 俱乐部管理员表
+-- ---------------------------------
+DROP TABLE IF EXISTS `khl_club_admin`;
+CREATE TABLE `khl_club_admin`
+(
+    `id`          varchar(32)  NOT NULL COMMENT '主键ID',
+    `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `club_id`     varchar(160) NOT NULL COMMENT '俱乐部ID',
+    `user_id`     varchar(562) COMMENT '用户ID',
+    `superadmin`  char(1)      NOT NULL DEFAULT 'N' COMMENT '是否超级管理员，N否 Y是，默认：N',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3

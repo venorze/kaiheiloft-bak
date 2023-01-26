@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.enties;
+package com.hantiansoft.kaiheiloft.mapper;
 
 /* ************************************************************************
  *
@@ -18,30 +18,15 @@ package com.hantiansoft.kaiheiloft.enties;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/22. */
+/* Creates on 2023/1/13. */
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hantiansoft.kaiheiloft.enties.ClubAdminn;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 俱乐部成员表
- *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("khl_club_member")
-public class ClubMember extends SuperModel<ClubMember> {
-
-    /**
-     * 俱乐部ID
-     */
-    private String clubId;
-
-    /**
-     * 用户ID
-     */
-    private String userId;
-
+@Mapper
+public interface ClubAdminMapper extends BaseMapper<ClubAdminn> {
 }

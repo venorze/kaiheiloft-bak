@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/club")
-public class ClubController {
+public class ClubController extends SuperController {
 
     @Autowired
     private ClubService clubService;
@@ -45,7 +45,7 @@ public class ClubController {
      */
     @PostMapping("/create")
     public R<Void> create(@RequestBody @Valid CreateClubModx createClubModx) {
-        clubService.create(createClubModx);
+        clubService.create(createClubModx, getUserId());
         return R.ok();
     }
 

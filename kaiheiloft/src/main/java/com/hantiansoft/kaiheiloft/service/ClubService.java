@@ -38,7 +38,7 @@ public interface ClubService extends IService<Club> {
     /**
      * 创建俱乐部
      */
-    void create(CreateClubModx createClubModx);
+    void create(CreateClubModx createClubModx, Long userid);
 
     /**
      * 编辑俱乐部信息

@@ -31,8 +31,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("khl_club_member")
-public class ClubMember extends SuperModel<ClubMember> {
+@TableName("khl_club_admin")
+public class ClubAdminn extends SuperModel<ClubAdminn> {
 
     /**
      * 俱乐部ID
@@ -43,5 +43,10 @@ public class ClubMember extends SuperModel<ClubMember> {
      * 用户ID
      */
     private String userId;
+
+    /**
+     * 是否超级管理员
+     */
+    private String superadmin;
 
 }

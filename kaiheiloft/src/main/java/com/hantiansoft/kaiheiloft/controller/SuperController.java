@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.enties;
+package com.hantiansoft.kaiheiloft.controller;
 
 /* ************************************************************************
  *
@@ -18,30 +18,30 @@ package com.hantiansoft.kaiheiloft.enties;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/22. */
+/* Creates on 2023/1/27. */
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.hantiansoft.spring.framework.WebRequests;
 
 /**
- * 俱乐部成员表
+ * 所有Controller的父类
  *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("khl_club_member")
-public class ClubMember extends SuperModel<ClubMember> {
+public class SuperController {
 
     /**
-     * 俱乐部ID
+     * @return 获取当前请求用户ID
      */
-    private String clubId;
+    protected Long getUserId() {
+        return Long.valueOf(WebRequests.getString(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID));
+    }
 
     /**
-     * 用户ID
+     * @return 获取当前请求用户名称
      */
-    private String userId;
+    protected String getUsername() {
+        return WebRequests.getString(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME);
+    }
 
 }
