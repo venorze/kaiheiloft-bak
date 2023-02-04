@@ -35,7 +35,7 @@ public interface UserService extends IService<User> {
     /**
      * 根据用户ID查询用户
      */
-    User queryByUserId(Long userid);
+    User queryByUserId(Long userId);
 
     /**
      * 根据用户名查询用户
@@ -60,16 +60,16 @@ public interface UserService extends IService<User> {
     /**
      * 个人信息修改
      */
-    void editProfile(Long userid, UserProfileModx userProfileModx);
+    void editProfile(Long userId, UserProfileModx userProfileModx);
 
     /**
      * 密码修改
      */
-    void editPassword(Long userid, EditPasswordModx editPasswordModx);
+    void editPassword(Long userId, EditPasswordModx editPasswordModx);
 
     /**
      * 邮箱修改
      */
-    void editMail(Long userid, EditMailModx editMailModx);
+    void editMail(Long userId, EditMailModx editMailModx);
 
 }

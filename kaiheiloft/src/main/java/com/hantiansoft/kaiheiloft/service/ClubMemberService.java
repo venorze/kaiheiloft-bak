@@ -33,6 +33,6 @@ public interface ClubMemberService extends IService<ClubMember> {
     /**
      * 添加俱乐部成员
      */
-    void addMember(Long clubId, Long userid);
+    void addMember(Long clubId, Long userId);
 
 }

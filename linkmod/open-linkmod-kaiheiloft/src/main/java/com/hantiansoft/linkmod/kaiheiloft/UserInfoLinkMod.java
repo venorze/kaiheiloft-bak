@@ -33,7 +33,7 @@ import java.util.Date;
 public class UserInfoLinkMod {
 
     /**
-     * userid
+     * userId
      */
     private Long id;
 

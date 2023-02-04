@@ -54,51 +54,51 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Override
     @Transactional
-    public void create(CreateClubModx createClubModx, Long userid) {
+    public void create(CreateClubModx createClubModx, Long operatorId) {
         // 创建俱乐部对象
         var club = BeanUtils.copyProperties(createClubModx, Club.class);
         save(club);
 
         // 添加成员表
-        clubMemberService.addMember(club.getId(), userid);
+        clubMemberService.addMember(club.getId(), operatorId);
 
         // 添加管理员表
-        clubAdminService.addSuperAdmin(club.getId(), userid);
+        clubAdminService.addSuperAdmin(club.getId(), operatorId);
     }
 
     @Override
-    public void edit(EditClubModx editClubModx, Long userid) {
+    public void edit(EditClubModx editClubModx, Long operatorId) {
         Club club = getById(editClubModx.getId());
         Asserts.throwIfNull(club, "俱乐部不存在");
 
         // 管理员有权限修改
-        Asserts.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), userid), "用户无权限");
+        Asserts.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), operatorId), "用户无权限");
         BeanUtils.copyProperties(editClubModx, club);
         updateById(club);
     }
 
     @Override
-    public void disband(Long clubId) {
+    public void disband(Long clubId, Long operatorId) {
 
     }
 
     @Override
-    public void join(Long userId, Long clubId) {
+    public void join(Long clubId, Long userId, Long inviteId) {
 
     }
 
     @Override
-    public void kick(Long userId, Long clubId) {
+    public void kick(Long clubId, Long userId, Long operatorId) {
 
     }
 
     @Override
-    public void quit(Long userId, Long clubId) {
+    public void quit(Long clubId, Long userId) {
 
     }
 
     @Override
-    public void publishAnnouncement(Long clubId, String announcement) {
+    public void publishAnnouncement(Long clubId, String announcement, Long operatorId) {
 
     }
 

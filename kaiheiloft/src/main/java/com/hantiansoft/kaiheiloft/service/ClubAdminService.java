@@ -33,21 +33,21 @@ public interface ClubAdminService extends IService<ClubAdmin> {
     /**
      * 添加管理员
      */
-    void addAdmin(Long clubId, Long userid);
+    void addAdmin(Long clubId, Long userId);
 
     /**
      * 添加超级管理员
      */
-    void addSuperAdmin(Long clubId, Long userid);
+    void addSuperAdmin(Long clubId, Long userId);
 
     /**
      * 是否是管理员
      */
-    boolean isAdmin(Long clubId, Long userid);
+    boolean isAdmin(Long clubId, Long userId);
 
     /**
      * 是否是超级管理员
      */
-    boolean isSuperAdmin(Long clubId, Long userid);
+    boolean isSuperAdmin(Long clubId, Long userId);
 
 }

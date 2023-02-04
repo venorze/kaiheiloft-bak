@@ -38,36 +38,36 @@ public interface ClubService extends IService<Club> {
     /**
      * 创建俱乐部
      */
-    void create(CreateClubModx createClubModx, Long userid);
+    void create(CreateClubModx createClubModx, Long operatorId);
 
     /**
      * 编辑俱乐部信息
      */
-    void edit(EditClubModx editClubModx, Long userid);
+    void edit(EditClubModx editClubModx, Long operatorId);
 
     /**
      * 解散俱乐部
      */
-    void disband(Long clubId);
+    void disband(Long clubId, Long operatorId);
 
     /**
      * 加入俱乐部
      */
-    void join(Long userId, Long clubId);
+    void join(Long clubId, Long userId, Long inviteId);
 
     /**
      * 踢出俱乐部
      */
-    void kick(Long userId, Long clubId);
+    void kick(Long clubId, Long userId, Long operatorId);
 
     /**
      * 退出俱乐部
      */
-    void quit(Long userId, Long clubId);
+    void quit(Long clubId, Long userId);
 
     /**
      * 发布俱乐部公告
      */
-    void publishAnnouncement(Long clubId, String announcement);
+    void publishAnnouncement(Long clubId, String announcement, Long operatorId);
 
 }

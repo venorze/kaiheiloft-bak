@@ -33,10 +33,10 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
         implements ClubMemberService {
 
     @Override
-    public void addMember(Long clubId, Long userid) {
+    public void addMember(Long clubId, Long userId) {
         var clubMember = new ClubMember();
         clubMember.setClubId(clubId);
-        clubMember.setUserId(userid);
+        clubMember.setUserId(userId);
         save(clubMember);
     }
 

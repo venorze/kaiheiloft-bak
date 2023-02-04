@@ -39,11 +39,11 @@ import org.springframework.stereotype.Service;
 public class UserServiceImplements extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    public User queryByUserId(Long userid) {
+    public User queryByUserId(Long userId) {
         // 根据ID查询用户信息
         return getOne(
                 new LambdaQueryWrapper<User>()
-                        .eq(User::getId, userid)
+                        .eq(User::getId, userId)
         );
     }
 
@@ -82,20 +82,20 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     }
 
     @Override
-    public void editProfile(Long userid, UserProfileModx userProfileModx) {
-        User user = queryByUserId(userid);
+    public void editProfile(Long userId, UserProfileModx userProfileModx) {
+        User user = queryByUserId(userId);
         BeanUtils.copyProperties(userProfileModx, user);
         // 更新用户信息
         updateById(user);
     }
 
     @Override
-    public void editPassword(Long userid, EditPasswordModx editPasswordModx) {
+    public void editPassword(Long userId, EditPasswordModx editPasswordModx) {
 
     }
 
     @Override
-    public void editMail(Long userid, EditMailModx editMailModx) {
+    public void editMail(Long userId, EditMailModx editMailModx) {
 
     }
 }

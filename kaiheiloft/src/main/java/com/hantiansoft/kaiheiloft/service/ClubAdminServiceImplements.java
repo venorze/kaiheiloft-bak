@@ -53,49 +53,49 @@ public class ClubAdminServiceImplements extends ServiceImpl<ClubAdminMapper, Clu
     /**
      * 查询俱乐部管理员
      */
-    private ClubAdmin queryClubAdmin(Long clubId, Long userid) {
+    private ClubAdmin queryClubAdmin(Long clubId, Long userId) {
         return getOne(
                 new LambdaQueryWrapper<ClubAdmin>()
                         .eq(ClubAdmin::getClubId, clubId)
-                        .eq(ClubAdmin::getUserId, userid)
+                        .eq(ClubAdmin::getUserId, userId)
         );
     }
 
     @Override
-    public void addAdmin(Long clubId, Long userid) {
-        addAnyAdmin(clubId, userid, KaiheiloftApplicationContext.DB_BOOL_OF_FALSE);
+    public void addAdmin(Long clubId, Long userId) {
+        addAnyAdmin(clubId, userId, KaiheiloftApplicationContext.DB_BOOL_OF_FALSE);
     }
 
     @Override
-    public void addSuperAdmin(Long clubId, Long userid) {
-        addAnyAdmin(clubId, userid, KaiheiloftApplicationContext.DB_BOOL_OF_TRUE);
+    public void addSuperAdmin(Long clubId, Long userId) {
+        addAnyAdmin(clubId, userId, KaiheiloftApplicationContext.DB_BOOL_OF_TRUE);
     }
 
-    private void addAnyAdmin(Long clubId, Long userid, String superadmin) {
+    private void addAnyAdmin(Long clubId, Long userId, String superadmin) {
         var clubAdmin = new ClubAdmin();
         clubAdmin.setClubId(clubId);
-        clubAdmin.setUserId(userid);
+        clubAdmin.setUserId(userId);
         clubAdmin.setSuperadmin(superadmin); // 创建人默认为超级管理员
         save(clubAdmin);
     }
 
     @Override
-    public boolean isAdmin(Long clubId, Long userid) {
-        return Bits.compare(adminFlag(clubId, userid) & ADMIN_FLAG_BIT);
+    public boolean isAdmin(Long clubId, Long userId) {
+        return Bits.compare(adminFlag(clubId, userId) & ADMIN_FLAG_BIT);
     }
 
     @Override
-    public boolean isSuperAdmin(Long clubId, Long userid) {
-        return Bits.compare(adminFlag(clubId, userid) & SUPER_ADMIN_FLAG_BIT);
+    public boolean isSuperAdmin(Long clubId, Long userId) {
+        return Bits.compare(adminFlag(clubId, userId) & SUPER_ADMIN_FLAG_BIT);
     }
 
     /**
      * 使用标志位判断
      */
-    private int adminFlag(Long clubId, Long userid) {
+    private int adminFlag(Long clubId, Long userId) {
         int bit = MEMBER_FLAG_BIT;
 
-        ClubAdmin clubAdmin = queryClubAdmin(clubId, userid);
+        ClubAdmin clubAdmin = queryClubAdmin(clubId, userId);
         if (clubAdmin == null)
             return bit;
 
