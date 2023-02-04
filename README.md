@@ -1,6 +1,6 @@
-# Kaiheiloft Project.
+# Kaiheiloft Project | [官网](http://kaiheiloft.com).
 
-> 欢迎来到**Disdtance**开黑交流软件后台。主要用于帖子讨论，游戏玩家开黑等业务为基础而建立的项目。
+> 欢迎来到**kaiheiloft**开黑交流软件后台。主要用于帖子讨论，游戏玩家开黑等业务为基础而建立的项目。
 
 Cloud依赖版本管理
 
