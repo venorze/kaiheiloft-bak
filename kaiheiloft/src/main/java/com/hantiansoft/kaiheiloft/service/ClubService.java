@@ -22,6 +22,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 
@@ -63,9 +64,23 @@ public interface ClubService extends IService<Club> {
     void invite(Long clubId, Long userId, Long inviterId);
 
     /**
-     * 加入俱乐部
+     * 申请加入俱乐部
      */
-    void join(Long clubId, Long userId);
+    void join(ClubApplyJoinModx clubApplyJoinModx, Long userId);
+
+    /**
+     * 同意新成员吧加入俱乐部
+     *
+     * @param applyId 申请ID
+     */
+    void agreeJoin(Long applyId, Long operatorId);
+
+    /**
+     * 拒绝新成员吧加入俱乐部
+     *
+     * @param applyId 申请ID
+     */
+    void refuseJoin(Long applyId, String reason, Long operatorId);
 
     /**
      * 踢出俱乐部

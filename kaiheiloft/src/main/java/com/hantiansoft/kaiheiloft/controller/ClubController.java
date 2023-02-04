@@ -20,11 +20,14 @@ package com.hantiansoft.kaiheiloft.controller;
 
 /* Creates on 2023/1/13. */
 
+import com.hantiansoft.framework.R;
+import com.hantiansoft.kaiheiloft.enties.ClubApplyIdModx;
+import com.hantiansoft.kaiheiloft.enties.ClubApplyRefuseModx;
+import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.ClubIdModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import com.hantiansoft.kaiheiloft.service.ClubService;
-import com.hantiansoft.framework.R;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +68,34 @@ public class ClubController extends SuperController {
     @PostMapping("/disband")
     public R<Void> disband(@RequestBody @Valid ClubIdModx clubIdModx) {
         clubService.disband(clubIdModx.getId(), getUserId());
+        return R.ok();
+    }
+
+    /**
+     * 申请加入俱乐部
+     */
+    @PostMapping("/join")
+    public R<Void> join(@RequestBody @Valid ClubApplyJoinModx clubApplyJoinModx) {
+        clubService.join(clubApplyJoinModx, getUserId());
+        return R.ok();
+    }
+
+    /**
+     * 申请加入俱乐部
+     */
+    @PostMapping("/apply/agree")
+    public R<Void> applyAgree(@RequestBody @Valid ClubApplyIdModx clubApplyIdModx) {
+        clubService.agreeJoin(clubApplyIdModx.getId(), getUserId());
+        return R.ok();
+    }
+
+
+    /**
+     * 申请加入俱乐部
+     */
+    @PostMapping("/apply/refuse")
+    public R<Void> applyRefuse(@RequestBody @Valid ClubApplyRefuseModx clubApplyRefuseModx) {
+        clubService.refuseJoin(clubApplyRefuseModx.getId(), clubApplyRefuseModx.getReason(), getUserId());
         return R.ok();
     }
 

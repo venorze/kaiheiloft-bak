@@ -20,13 +20,14 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/1/13. */
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
+import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Autowired
     private ClubAdminService clubAdminService;
+
+    @Autowired
+    private ClubApplyJoinService clubApplyJoinService;
 
     @Override
     public Club queryByClubId(Long clubId) {
@@ -105,8 +109,29 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
-    public void join(Long clubId, Long userId) {
+    public void join(ClubApplyJoinModx clubApplyJoinModx, Long userId) {
+        // 判断俱乐部是否存在
+        queryByClubId(clubApplyJoinModx.getClubId());
+        // 提交请求
+        clubApplyJoinService.submit(clubApplyJoinModx, userId);
+    }
 
+    @Override
+    @Transactional
+    public void agreeJoin(Long applyId, Long operatorId) {
+        ClubApplyJoin clubApply = clubApplyJoinService.queryByApplyId(applyId);
+        Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubApply.getClubId(), operatorId), "用户无权限同意/拒绝");
+        clubApplyJoinService.agree(clubApply);
+        // 添加成员
+        clubMemberService.addMember(clubApply.getClubId(), clubApply.getUserId());
+    }
+
+    @Override
+    public void refuseJoin(Long applyId, String reason, Long operatorId) {
+        ClubApplyJoin clubApply = clubApplyJoinService.queryByApplyId(applyId);
+        Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubApply.getClubId(), operatorId), "用户无权限同意/拒绝");
+        clubApply.setRefusalReason(reason);
+        clubApplyJoinService.refuse(clubApply);
     }
 
     @Override

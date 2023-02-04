@@ -55,6 +55,24 @@ public class Asserts {
             throw new NullPointerException(StringUtils.vfmt(message, args));
     }
 
+
+    /**
+     * 断言一个对象，如果对象是空则抛出异常
+     */
+    public static void throwIfNotNull(Object object) {
+        if (object == null)
+            throw new NullPointerException();
+    }
+
+
+    /**
+     * 断言一个对象，如果对象是空则抛出异常
+     */
+    public static void throwIfNotNull(Object object, String message, Object... args) {
+        if (object != null)
+            throw new NullPointerException(StringUtils.vfmt(message, args));
+    }
+
     /**
      * 断言一个条件，如果bool变量为true则抛出异常
      */

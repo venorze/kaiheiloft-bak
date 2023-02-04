@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.system;
+package com.hantiansoft.kaiheiloft.service;
 
 /* ************************************************************************
  *
@@ -18,52 +18,47 @@ package com.hantiansoft.kaiheiloft.system;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/16. */
+/* Creates on 2023/2/4. */
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
+import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
+
+import java.util.List;
 
 /**
- * 当前应用系统上下文
- *
  * @author Vincent Luo
  */
-public class KaiheiloftApplicationContext {
+public interface ClubApplyJoinService extends IService<ClubApplyJoin> {
 
     /**
-     * 头像附件保存根路径
+     * @return 根据ID查询申请对象
      */
-    public static final String ATTACHMENT_OF_AVATAR = "/v1";
-
-    /***
-     * web请求用户ID属性
-     */
-    public static final String WEB_REQUEST_ATTRIBUTE_USER_ID = "uid";
-
-    /***
-     * web请求用户名称属性
-     */
-    public static final String WEB_REQUEST_ATTRIBUTE_USERNAME = "uname";
+    ClubApplyJoin queryByApplyId(Long applyId);
 
     /**
-     * 数据库True表示
+     * 查询申请请求
      */
-    public static final String DB_BOOL_OF_TRUE = "Y";
+    ClubApplyJoin queryJoinRequest(Long clubId, Long userId);
 
     /**
-     * 数据库False表示
+     * 提交申请请求
      */
-    public static final String DB_BOOL_OF_FALSE = "N";
+    void submit(ClubApplyJoinModx clubApplyJoinModx, Long userId);
 
     /**
-     * 等待管理员通过
+     * @return 获取所有待处理申请请求
      */
-    public static final String CLUB_APPLY_JOIN_WAIT = "T";
+    List<ClubApplyJoin> pendingRequests(Long clubId);
 
     /**
-     * 申请通过
+     * 同意成员加入
      */
-    public static final String CLUB_APPLY_JOIN_YES = "Y";
+    void agree(ClubApplyJoin clubApplyJoin);
 
     /**
-     * 申请拒绝
+     * 拒绝成员加入
      */
-    public static final String CLUB_APPLY_JOIN_NO = "N";
+    void refuse(ClubApplyJoin clubApplyJoin);
+
 }

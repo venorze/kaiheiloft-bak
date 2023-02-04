@@ -120,3 +120,22 @@ CREATE TABLE `khl_club_admin`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
   COLLATE = utf8mb3_bin;
+
+-- ---------------------------------
+-- 俱乐部成员申请加入表
+-- ---------------------------------
+DROP TABLE IF EXISTS `khl_club_apply_join`;
+CREATE TABLE `khl_club_apply_join`
+(
+    `id`             varchar(32)  NOT NULL COMMENT '主键ID',
+    `create_time`    timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `club_id`        varchar(160) NOT NULL COMMENT '俱乐部ID',
+    `user_id`        varchar(562) COMMENT '用户ID',
+    `request_remark` varchar(50) COMMENT '申请备注',
+    `agree_status`   char(1)      NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
+    `refusal_reason` varchar(50) COMMENT '拒绝原因',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  COLLATE = utf8mb3_bin;
