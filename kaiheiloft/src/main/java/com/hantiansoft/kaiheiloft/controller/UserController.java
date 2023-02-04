@@ -52,27 +52,27 @@ public class UserController extends SuperController {
     /**
      * 修改用户个人信息
      */
-    @PostMapping("/edit/{userid}/profile")
-    public R<Void> editProfile(@PathVariable("userid") Long userid, @RequestBody @Valid UserProfileModx userProfileModx) {
-        userService.editProfile(userid, userProfileModx);
+    @PostMapping("/edit/profile")
+    public R<Void> editProfile(@RequestBody @Valid UserProfileModx userProfileModx) {
+        userService.editProfile(getUserId(), userProfileModx);
         return R.ok();
     }
 
     /**
      * 用户密码修改
      */
-    @PostMapping("/edit/{userid}/passwd")
-    public R<Void> editPassword(@PathVariable("userid") Long userid, @RequestBody @Valid EditPasswordModx editPasswordModx) {
-        userService.editPassword(userid, editPasswordModx);
+    @PostMapping("/edit/passwd")
+    public R<Void> editPassword(@RequestBody @Valid EditPasswordModx editPasswordModx) {
+        userService.editPassword(getUserId(), editPasswordModx);
         return R.ok();
     }
 
     /**
      * 用户邮箱修改
      */
-    @PostMapping("/edit/{userid}/mail")
-    public R<Void> editMail(@PathVariable("userid") Long userid, @RequestBody @Valid EditMailModx editMailModx) {
-        userService.editMail(userid, editMailModx);
+    @PostMapping("/edit/mail")
+    public R<Void> editMail(@RequestBody @Valid EditMailModx editMailModx) {
+        userService.editMail(getUserId(), editMailModx);
         return R.ok();
     }
 
