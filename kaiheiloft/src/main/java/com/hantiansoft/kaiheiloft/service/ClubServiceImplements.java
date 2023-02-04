@@ -22,6 +22,8 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.enties.ClubAdmin;
+import com.hantiansoft.kaiheiloft.mapper.ClubAdminMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
@@ -29,8 +31,10 @@ import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.StringUtils;
+import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Vincent Luo
@@ -44,18 +48,28 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Autowired
     private ClubMemberMapper clubMemberMapper;
 
+    @Autowired
+    private ClubAdminMapper clubAdminMapper;
+
     @Override
     public Club queryByClubId(Long clubId) {
         return null;
     }
 
     @Override
+    @Transactional
     public void create(CreateClubModx createClubModx, Long userid) {
         // 创建俱乐部对象
         var club = BeanUtils.copyProperties(createClubModx, Club.class);
-        // 添加俱乐部标签
-        club.setTags(StringUtils.listMerge(createClubModx.getTags(), " "));
+        club.setTags(StringUtils.listMerge(createClubModx.getTags(), " ")); // 添加俱乐部标签
         save(club);
+
+        // 添加管理员表
+        ClubAdmin clubAdmin = new ClubAdmin();
+        clubAdmin.setClubId(club.getId());
+        clubAdmin.setUserId(userid);
+        clubAdmin.setSuperadmin(KaiheiloftApplicationContext.DB_BOOL_OF_TRUE); // 创建人默认为超级管理员
+        clubAdminMapper.insert(clubAdmin);
     }
 
     @Override

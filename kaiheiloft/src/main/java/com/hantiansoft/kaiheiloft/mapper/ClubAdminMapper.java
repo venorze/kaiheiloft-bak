@@ -21,12 +21,12 @@ package com.hantiansoft.kaiheiloft.mapper;
 /* Creates on 2023/1/13. */
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hantiansoft.kaiheiloft.enties.ClubAdminn;
+import com.hantiansoft.kaiheiloft.enties.ClubAdmin;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Vincent Luo
  */
 @Mapper
-public interface ClubAdminMapper extends BaseMapper<ClubAdminn> {
+public interface ClubAdminMapper extends BaseMapper<ClubAdmin> {
 }

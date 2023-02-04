@@ -41,4 +41,14 @@ public class KaiheiloftApplicationContext {
      * web请求用户名称属性
      */
     public static final String WEB_REQUEST_ATTRIBUTE_USERNAME = "uname";
+
+    /**
+     * 数据库True表示
+     */
+    public static final String DB_BOOL_OF_TRUE = "Y";
+
+    /**
+     * 数据库False表示
+     */
+    public static final String DB_BOOL_OF_FALSE = "N";
 }

@@ -37,11 +37,11 @@ public class ClubMember extends SuperModel<ClubMember> {
     /**
      * 俱乐部ID
      */
-    private String clubId;
+    private Long clubId;
 
     /**
      * 用户ID
      */
-    private String userId;
+    private Long userId;
 
 }
