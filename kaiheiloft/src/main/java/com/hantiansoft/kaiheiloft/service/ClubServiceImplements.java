@@ -20,6 +20,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/1/13. */
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
@@ -31,6 +32,8 @@ import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Vincent Luo
@@ -49,41 +52,60 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Override
     public Club queryByClubId(Long clubId) {
-        return null;
+        Club club = getById(clubId);
+        Asserts.throwIfNull(club, "俱乐部不存在");
+        return club;
+    }
+
+    @Override
+    public List<Club> queryClubsByUserId(Long userId) {
+        return baseMapper.queryClubsByUserId(userId);
     }
 
     @Override
     @Transactional
-    public void create(CreateClubModx createClubModx, Long operatorId) {
+    public Long create(CreateClubModx createClubModx, Long operatorId) {
         // 创建俱乐部对象
         var club = BeanUtils.copyProperties(createClubModx, Club.class);
         save(club);
-
         // 添加成员表
         clubMemberService.addMember(club.getId(), operatorId);
-
         // 添加管理员表
         clubAdminService.addSuperAdmin(club.getId(), operatorId);
+
+        return club.getId();
     }
 
     @Override
     public void edit(EditClubModx editClubModx, Long operatorId) {
-        Club club = getById(editClubModx.getId());
-        Asserts.throwIfNull(club, "俱乐部不存在");
-
+        Club club = queryByClubId(editClubModx.getId());
         // 管理员有权限修改
-        Asserts.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), operatorId), "用户无权限");
+        Asserts.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), operatorId), "用户无权限修改");
         BeanUtils.copyProperties(editClubModx, club);
         updateById(club);
     }
 
     @Override
+    @Transactional
     public void disband(Long clubId, Long operatorId) {
+        // 判断俱乐部ID是否正确
+        queryByClubId(clubId);
+        Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubId, operatorId), "用户无权限解散");
+        // 删除所有成员
+        clubMemberService.removeAllMember(clubId);
+        // 删除所有管理员
+        clubAdminService.removeAllAdmin(clubId);
+        // 删除俱乐部
+        removeById(clubId);
+    }
+
+    @Override
+    public void invite(Long clubId, Long userId, Long inviterId) {
 
     }
 
     @Override
-    public void join(Long clubId, Long userId, Long inviteId) {
+    public void join(Long clubId, Long userId) {
 
     }
 

@@ -25,6 +25,8 @@ import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 
+import java.util.List;
+
 /**
  * @author Vincent Luo
  */
@@ -36,9 +38,14 @@ public interface ClubService extends IService<Club> {
     Club queryByClubId(Long clubId);
 
     /**
+     * 获取用户加入的俱乐部列表
+     */
+    List<Club> queryClubsByUserId(Long userId);
+
+    /**
      * 创建俱乐部
      */
-    void create(CreateClubModx createClubModx, Long operatorId);
+    Long create(CreateClubModx createClubModx, Long operatorId);
 
     /**
      * 编辑俱乐部信息
@@ -51,9 +58,14 @@ public interface ClubService extends IService<Club> {
     void disband(Long clubId, Long operatorId);
 
     /**
+     * 邀请加入俱乐部
+     */
+    void invite(Long clubId, Long userId, Long inviterId);
+
+    /**
      * 加入俱乐部
      */
-    void join(Long clubId, Long userId, Long inviteId);
+    void join(Long clubId, Long userId);
 
     /**
      * 踢出俱乐部

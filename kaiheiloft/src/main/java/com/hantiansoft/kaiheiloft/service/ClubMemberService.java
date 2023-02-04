@@ -35,4 +35,9 @@ public interface ClubMemberService extends IService<ClubMember> {
      */
     void addMember(Long clubId, Long userId);
 
+    /**
+     * 删除所有成员
+     */
+    void removeAllMember(Long clubId);
+
 }

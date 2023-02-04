@@ -63,7 +63,7 @@ CREATE TABLE `khl_club`
     `id`          varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `name`        varchar(8)   NOT NULL COMMENT '俱乐部名称',
+    `name`        varchar(20)   NOT NULL COMMENT '俱乐部名称',
     `avatar`      varchar(160) NOT NULL COMMENT '俱乐部头像',
     `introduce`   varchar(180) COMMENT '俱乐部介绍',
     `tags`        varchar(24) COMMENT '俱乐部标签，用空格分割，最多支持5个',

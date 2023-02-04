@@ -39,7 +39,7 @@ public class CreateClubModx {
      * 俱乐部名称
      */
     @NotBlank(message = "俱乐部名称是必填项")
-    @Length(min = 2, max = 8, message = "俱乐部名称范围 2 - 8 个字符")
+    @Length(min = 2, max = 20, message = "俱乐部名称范围 2 - 8 个字符")
     private String name;
 
     /**

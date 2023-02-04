@@ -50,4 +50,8 @@ public interface ClubAdminService extends IService<ClubAdmin> {
      */
     boolean isSuperAdmin(Long clubId, Long userId);
 
+    /**
+     * 移除所有管理员
+     */
+    void removeAllAdmin(Long clubId);
 }

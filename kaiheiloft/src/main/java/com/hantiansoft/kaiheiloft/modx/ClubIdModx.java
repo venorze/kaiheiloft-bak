@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.mapper;
+package com.hantiansoft.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -18,24 +18,21 @@ package com.hantiansoft.kaiheiloft.mapper;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/2/4. */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hantiansoft.kaiheiloft.enties.Club;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * @author Vincent Luo
  */
-@Mapper
-public interface ClubMapper extends BaseMapper<Club> {
+@Data
+public class ClubIdModx {
 
     /**
-     * 根据用户ID查询俱乐部列表
+     * 俱乐部ID
      */
-    List<Club> queryClubsByUserId(@Param("userId") Long userId);
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long id;
 
 }

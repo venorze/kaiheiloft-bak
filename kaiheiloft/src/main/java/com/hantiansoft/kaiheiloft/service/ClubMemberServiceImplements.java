@@ -20,6 +20,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
 import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
@@ -38,6 +39,13 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
         clubMember.setClubId(clubId);
         clubMember.setUserId(userId);
         save(clubMember);
+    }
+
+    @Override
+    public void removeAllMember(Long clubId) {
+        UpdateWrapper<ClubMember> wrapper = new UpdateWrapper<>();
+        wrapper.eq("club_id", clubId);
+        remove(wrapper);
     }
 
 }

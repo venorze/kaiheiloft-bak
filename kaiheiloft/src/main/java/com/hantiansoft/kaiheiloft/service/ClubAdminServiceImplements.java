@@ -21,6 +21,7 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/2/4. */
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Bits;
 import com.hantiansoft.kaiheiloft.enties.ClubAdmin;
@@ -107,6 +108,13 @@ public class ClubAdminServiceImplements extends ServiceImpl<ClubAdminMapper, Clu
             bit |= SUPER_ADMIN_FLAG_BIT;
 
         return bit;
+    }
+
+    @Override
+    public void removeAllAdmin(Long clubId) {
+        UpdateWrapper<ClubAdmin> wrapper = new UpdateWrapper<>();
+        wrapper.eq("club_id", clubId);
+        remove(wrapper);
     }
 
 }

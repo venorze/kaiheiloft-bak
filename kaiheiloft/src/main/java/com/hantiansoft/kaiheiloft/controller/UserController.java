@@ -20,14 +20,20 @@ package com.hantiansoft.kaiheiloft.controller;
 
 /* Creates on 2023/1/10. */
 
+import com.hantiansoft.framework.BeanUtils;
+import com.hantiansoft.framework.R;
+import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.modx.ClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditMailModx;
 import com.hantiansoft.kaiheiloft.modx.EditPasswordModx;
 import com.hantiansoft.kaiheiloft.modx.UserProfileModx;
+import com.hantiansoft.kaiheiloft.service.ClubService;
 import com.hantiansoft.kaiheiloft.service.UserService;
-import com.hantiansoft.framework.R;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * No Descript.
@@ -40,6 +46,9 @@ public class UserController extends SuperController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ClubService clubService;
 
     /**
      * 获取用户个人信息
@@ -74,6 +83,15 @@ public class UserController extends SuperController {
     public R<Void> editMail(@RequestBody @Valid EditMailModx editMailModx) {
         userService.editMail(getUserId(), editMailModx);
         return R.ok();
+    }
+
+    /**
+     * @return 查询用户加入的俱乐部列表
+     */
+    @GetMapping("/club/list")
+    public R<List<ClubModx>> clublist() {
+        List<Club> clubs = clubService.queryClubsByUserId(getUserId());
+        return R.ok(BeanUtils.copyProperties(clubs, ClubModx.class));
     }
 
 }
