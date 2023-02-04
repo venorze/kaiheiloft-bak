@@ -21,9 +21,11 @@ package com.hantiansoft.kaiheiloft.configuration;
 /* Creates on 2023/1/22. */
 
 import com.alibaba.fastjson.JSON;
+import com.hantiansoft.framework.StringUtils;
 import com.hantiansoft.kaiheiloft.KaiheiloftBootstrap;
 import com.hantiansoft.kaiheiloft.remotecall.OpenSSORemoteCall;
 import com.hantiansoft.framework.R;
+import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import com.hantiansoft.linkmod.opensso.TokenPayloadLinkmod;
 import com.hantiansoft.spring.framework.WebRequests;
 import com.hantiansoft.spring.framework.annotation.OpenAPI;
@@ -47,28 +49,45 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
     private OpenSSORemoteCall openSSORemoteCall;
 
     /**
-     * 验证token并设置当前请求Attribute
+     * 拦截器异常返回, 消息传入String类型
      */
-    @SuppressWarnings("unchecked")
-    private boolean verifierTokenAndSetAttributes(HttpServletResponse response) throws IOException {
-        R<TokenPayloadLinkmod> claimsRet = openSSORemoteCall.verifier(WebRequests.getAuthorization());
-        if (claimsRet.isSuccess()) {
-            var payload = (TokenPayloadLinkmod) claimsRet.to(TokenPayloadLinkmod.class);
-            WebRequests.setAttribute("uid", payload.getUserId());
-            WebRequests.setAttribute("uname", payload.getUsername());
-            return true;
-        }
-
+    private static boolean eprint(HttpServletResponse response, String message) throws IOException {
         // 解决中文乱码异常
         response.setHeader("content-type", "text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         // token校验失败返回异常信息
         var printWriter = response.getWriter();
-        printWriter.write(JSON.toJSONString(claimsRet));
+        printWriter.write(message);
         printWriter.flush();
 
         return false;
+    }
+
+    /**
+     * 拦截器异常返回, 消息传入#R类型
+     */
+    private static boolean eprint(HttpServletResponse response, R<?> result) throws IOException {
+        return eprint(response, JSON.toJSONString(result));
+    }
+
+    /**
+     * 验证token并设置当前请求Attribute
+     */
+    private boolean verifierTokenAndSetAttributes(HttpServletResponse response) throws IOException {
+        String authorization = WebRequests.getAuthorization();
+        if (StringUtils.isEmpty(authorization))
+            return eprint(response, R.fail(R.Status.S401, "用户未登录"));
+
+        R<TokenPayloadLinkmod> claimsRet = openSSORemoteCall.verifier(authorization);
+        if (claimsRet.isSuccess()) {
+            var payload = (TokenPayloadLinkmod) claimsRet.to(TokenPayloadLinkmod.class);
+            WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID, payload.getUserId());
+            WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME, payload.getUsername());
+            return true;
+        }
+
+        return eprint(response, claimsRet);
     }
 
     @Override

@@ -21,6 +21,7 @@ package com.hantiansoft.kaiheiloft.controller;
 /* Creates on 2023/1/13. */
 
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
+import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import com.hantiansoft.kaiheiloft.service.ClubService;
 import com.hantiansoft.framework.R;
 import jakarta.validation.Valid;
@@ -46,6 +47,15 @@ public class ClubController extends SuperController {
     @PostMapping("/create")
     public R<Void> create(@RequestBody @Valid CreateClubModx createClubModx) {
         clubService.create(createClubModx, getUserId());
+        return R.ok();
+    }
+
+    /**
+     * 编辑俱乐部基本信息
+     */
+    @PostMapping("/edit")
+    public R<Void> edit(@RequestBody @Valid EditClubModx editClubModx) {
+        clubService.edit(editClubModx, getUserId());
         return R.ok();
     }
 

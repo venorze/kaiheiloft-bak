@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.service;
 
 /* ************************************************************************
  *
@@ -20,23 +20,19 @@ package com.hantiansoft.kaiheiloft.modx;
 
 /* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.hantiansoft.kaiheiloft.enties.ClubMember;
+import org.springframework.stereotype.Service;
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class EditClubModx extends CreateClubModx {
+@Service
+public interface ClubMemberService extends IService<ClubMember> {
 
     /**
-     * 俱乐部ID
+     * 添加俱乐部成员
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long id;
+    void addMember(Long clubId, Long userid);
 
 }

@@ -43,7 +43,7 @@ public interface ClubService extends IService<Club> {
     /**
      * 编辑俱乐部信息
      */
-    void edit(EditClubModx editClubModx);
+    void edit(EditClubModx editClubModx, Long userid);
 
     /**
      * 解散俱乐部

@@ -47,10 +47,7 @@ public class CreateClubModx {
      */
     private String avatar;
 
-    /**
-     * 俱乐部标签
-     */
-    @Size(max = 5, message = "标签最多可选择5个")
-    private List<String> tags;
+    @Length(max = 180, message = "俱乐部介绍不能超过180个字符")
+    private String introduce;
 
 }

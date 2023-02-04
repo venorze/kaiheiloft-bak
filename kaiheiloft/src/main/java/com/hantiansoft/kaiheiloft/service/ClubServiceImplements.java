@@ -21,17 +21,13 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/1/13. */
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hantiansoft.framework.Asserts;
+import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.kaiheiloft.enties.Club;
-import com.hantiansoft.kaiheiloft.enties.ClubAdmin;
-import com.hantiansoft.kaiheiloft.mapper.ClubAdminMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
-import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
-import com.hantiansoft.framework.BeanUtils;
-import com.hantiansoft.framework.StringUtils;
-import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,10 +42,10 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     private ClubAnnouncementMapper clubAnnouncementMapper;
 
     @Autowired
-    private ClubMemberMapper clubMemberMapper;
+    private ClubMemberService clubMemberService;
 
     @Autowired
-    private ClubAdminMapper clubAdminMapper;
+    private ClubAdminService clubAdminService;
 
     @Override
     public Club queryByClubId(Long clubId) {
@@ -61,20 +57,24 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     public void create(CreateClubModx createClubModx, Long userid) {
         // 创建俱乐部对象
         var club = BeanUtils.copyProperties(createClubModx, Club.class);
-        club.setTags(StringUtils.listMerge(createClubModx.getTags(), " ")); // 添加俱乐部标签
         save(club);
 
+        // 添加成员表
+        clubMemberService.addMember(club.getId(), userid);
+
         // 添加管理员表
-        ClubAdmin clubAdmin = new ClubAdmin();
-        clubAdmin.setClubId(club.getId());
-        clubAdmin.setUserId(userid);
-        clubAdmin.setSuperadmin(KaiheiloftApplicationContext.DB_BOOL_OF_TRUE); // 创建人默认为超级管理员
-        clubAdminMapper.insert(clubAdmin);
+        clubAdminService.addSuperAdmin(club.getId(), userid);
     }
 
     @Override
-    public void edit(EditClubModx editClubModx) {
+    public void edit(EditClubModx editClubModx, Long userid) {
+        Club club = getById(editClubModx.getId());
+        Asserts.throwIfNull(club, "俱乐部不存在");
 
+        // 管理员有权限修改
+        Asserts.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), userid), "用户无权限");
+        BeanUtils.copyProperties(editClubModx, club);
+        updateById(club);
     }
 
     @Override

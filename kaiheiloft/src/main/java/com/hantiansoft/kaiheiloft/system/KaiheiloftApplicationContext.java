@@ -51,4 +51,5 @@ public class KaiheiloftApplicationContext {
      * 数据库False表示
      */
     public static final String DB_BOOL_OF_FALSE = "N";
+
 }

@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.framework;
 
 /* ************************************************************************
  *
@@ -20,23 +20,16 @@ package com.hantiansoft.kaiheiloft.modx;
 
 /* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class EditClubModx extends CreateClubModx {
+public class Bits {
 
     /**
-     * 俱乐部ID
+     * 按位与，结果判断
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long id;
+    public static boolean compare(int bit) {
+        return bit > 0;
+    }
 
 }

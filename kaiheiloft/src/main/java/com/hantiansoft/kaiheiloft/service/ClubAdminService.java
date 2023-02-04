@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.service;
 
 /* ************************************************************************
  *
@@ -20,23 +20,34 @@ package com.hantiansoft.kaiheiloft.modx;
 
 /* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.hantiansoft.kaiheiloft.enties.ClubAdmin;
 
 /**
  * No Descript.
  *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class EditClubModx extends CreateClubModx {
+public interface ClubAdminService extends IService<ClubAdmin> {
 
     /**
-     * 俱乐部ID
+     * 添加管理员
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long id;
+    void addAdmin(Long clubId, Long userid);
+
+    /**
+     * 添加超级管理员
+     */
+    void addSuperAdmin(Long clubId, Long userid);
+
+    /**
+     * 是否是管理员
+     */
+    boolean isAdmin(Long clubId, Long userid);
+
+    /**
+     * 是否是超级管理员
+     */
+    boolean isSuperAdmin(Long clubId, Long userid);
 
 }
