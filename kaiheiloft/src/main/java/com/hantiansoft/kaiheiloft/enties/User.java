@@ -81,9 +81,4 @@ public class User extends SuperModel<User> {
      */
     private String email;
 
-    /**
-     * 是否实名认证
-     */
-    private String realname;
-
 }

@@ -16,7 +16,6 @@ CREATE TABLE `khl_userinfo`
     `gender`       varchar(1)   NOT NULL COMMENT '性别, M 男，W 女',
     `phone_number` int                   DEFAULT NULL COMMENT '手机号',
     `email`        varchar(32)           DEFAULT NULL COMMENT '电子邮箱',
-    `realname`     char(1)      NOT NULL DEFAULT 'N' COMMENT '是否实名认证，N否 Y是，默认：N',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
