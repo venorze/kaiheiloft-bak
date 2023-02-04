@@ -36,7 +36,7 @@ public class SpringWebConfiguration extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         // 设置拦截器
-        registry.addInterceptor(new SpringInterceptorConfiguration());
+        registry.addInterceptor(new LoginInterceptorConfiguration());
     }
 
 }

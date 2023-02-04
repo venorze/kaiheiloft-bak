@@ -32,16 +32,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * @author Vincent Luo
  */
-public class SpringInterceptorConfiguration implements HandlerInterceptor {
+public class LoginInterceptorConfiguration implements HandlerInterceptor {
 
     /**
      * 远程调用认证服务
