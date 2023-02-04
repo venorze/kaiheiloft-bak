@@ -24,6 +24,7 @@ import com.hantiansoft.framework.R;
 import com.hantiansoft.framework.collections.Maps;
 import com.hantiansoft.linkmod.kaiheiloft.UserInfoLinkMod;
 import com.hantiansoft.linkmod.kaiheiloft.UserSignInLinkMod;
+import com.hantiansoft.linkmod.opensso.TokenPayloadLinkmod;
 import com.hantiansoft.opensso.remotecall.UserServiceRemoteCall;
 import com.hantiansoft.opensso.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -70,10 +71,22 @@ public class SignTokenController {
      * 验证token
      */
     @PostMapping("/nopen/verifier/private")
-    public R<Map<String, Object>> verifier(@RequestHeader("Authorization") String authorization) {
-        return authenticationService.verifier(authorization) ? R.ok(authenticationService.getClaims(authorization)) :
-                R.fail("token不正确或已过期");
+    public R<TokenPayloadLinkmod> verifier(@RequestHeader("Authorization") String authorization) {
+        if (authenticationService.verifier(authorization)) {
+            // 获取token信息
+            Map<String, Object> claims = authenticationService.getClaims(authorization);
+            String uid = String.valueOf(claims.get("uid"));
+            String uname = String.valueOf(claims.get("uname"));
 
+            // 构建返回对象
+            TokenPayloadLinkmod tokenPayloadLinkmod = new TokenPayloadLinkmod();
+            tokenPayloadLinkmod.setUserId(Long.valueOf(uid));
+            tokenPayloadLinkmod.setUsername(uname);
+
+            return R.ok(tokenPayloadLinkmod);
+        }
+
+        return R.fail("token不正确或已过期");
     }
 
 }

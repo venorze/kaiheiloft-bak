@@ -76,7 +76,9 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public UserProfileModx profile(String username) {
         // 根据ID查询用户信息
-        return BeanUtils.copyProperties(queryByUsername(username), UserProfileModx.class);
+        var user = queryByUsername(username);
+        Asserts.throwIfNull(user, "用户不存在");
+        return BeanUtils.copyProperties(user, UserProfileModx.class);
     }
 
     @Override

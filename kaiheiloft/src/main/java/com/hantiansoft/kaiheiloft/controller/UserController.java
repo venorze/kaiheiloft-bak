@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends SuperController {
 
     @Autowired
     private UserService userService;
@@ -44,9 +44,9 @@ public class UserController {
     /**
      * 获取用户个人信息
      */
-    @GetMapping("/profile/{username}")
-    public R<UserProfileModx> profile(@PathVariable("username") String username) {
-        return R.ok(userService.profile(username));
+    @GetMapping("/profile")
+    public R<UserProfileModx> profile() {
+        return R.ok(userService.profile(getUsername()));
     }
 
     /**

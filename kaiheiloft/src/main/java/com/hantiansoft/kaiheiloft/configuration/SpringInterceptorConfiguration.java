@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.hantiansoft.kaiheiloft.KaiheiloftBootstrap;
 import com.hantiansoft.kaiheiloft.remotecall.OpenSSORemoteCall;
 import com.hantiansoft.framework.R;
+import com.hantiansoft.linkmod.opensso.TokenPayloadLinkmod;
 import com.hantiansoft.spring.framework.WebRequests;
 import com.hantiansoft.spring.framework.annotation.OpenAPI;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,11 +53,11 @@ public class SpringInterceptorConfiguration implements HandlerInterceptor {
      */
     @SuppressWarnings("unchecked")
     private boolean verifierTokenAndSetAttributes(HttpServletResponse response) throws IOException {
-        R<Map<String, Object>> claimsRet = openSSORemoteCall.verifier(WebRequests.getAuthorization());
+        R<TokenPayloadLinkmod> claimsRet = openSSORemoteCall.verifier(WebRequests.getAuthorization());
         if (claimsRet.isSuccess()) {
-            var claims = (Map<String, Object>) claimsRet.getData();
-            WebRequests.setAttribute("uid", claims.get("uid"));
-            WebRequests.setAttribute("uname", claims.get("uname"));
+            var payload = (TokenPayloadLinkmod) claimsRet.to(TokenPayloadLinkmod.class);
+            WebRequests.setAttribute("uid", payload.getUserId());
+            WebRequests.setAttribute("uname", payload.getUsername());
             return true;
         }
 

@@ -11,8 +11,18 @@
 
     <artifactId>linkmod</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>open-linkmod-kaiheiloft</module>
+        <module>open-linkmod-opensso</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>spring-boot-starter-hibernate-validator</artifactId>
+            <version>v1.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

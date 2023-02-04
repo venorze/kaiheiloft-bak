@@ -51,6 +51,11 @@
             <artifactId>open-linkmod-kaiheiloft</artifactId>
             <version>v1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>open-linkmod-opensso</artifactId>
+            <version>v1.0</version>
+        </dependency>
     </dependencies>
 
 </project>
