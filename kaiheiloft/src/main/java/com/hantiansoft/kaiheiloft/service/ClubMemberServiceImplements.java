@@ -21,10 +21,9 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/2/4. */
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
 import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
 import org.springframework.stereotype.Service;
@@ -46,6 +45,7 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
 
     @Override
     public void addMember(Long clubId, Long userId) {
+        Asserts.throwIfBool(!hasMember(clubId, userId), "用户已经在俱乐部内了");
         var clubMember = new ClubMember();
         clubMember.setClubId(clubId);
         clubMember.setUserId(userId);
@@ -66,7 +66,8 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
     }
 
     @Override
-    public boolean isExist(Long clubId, Long userId) {
-        return queryMember(clubId, userId) == null;
+    public boolean hasMember(Long clubId, Long userId) {
+        return queryMember(clubId, userId) != null;
     }
+
 }

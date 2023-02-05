@@ -20,7 +20,6 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/1/13. */
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
@@ -75,6 +74,11 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
+    public boolean hasClub(Long clubId) {
+        return queryByClubId(clubId) != null;
+    }
+
+    @Override
     public List<Club> queryClubsByUserId(Long userId) {
         return baseMapper.queryClubsByUserId(userId);
     }
@@ -118,16 +122,17 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Override
     public void invite(Long clubId, Long userId, Long inviterId) {
-        // 判断俱乐部是否存在
-        queryByClubId(clubId);
+        // 判断用户是否已经在俱乐部
+        checkAlreadyExist(clubId, userId);
         // 邀请成员加入
         clubInviteService.invite(clubId, userId, inviterId);
     }
 
     @Override
     public void join(ClubApplyJoinModx clubApplyJoinModx, Long userId) {
-        // 判断俱乐部是否存在
-        queryByClubId(clubApplyJoinModx.getClubId());
+        Long clubId = clubApplyJoinModx.getClubId();
+        // 判断用户是否已经在俱乐部
+        checkAlreadyExist(clubId, userId);
         // 提交请求
         clubApplyJoinService.submit(clubApplyJoinModx, userId, null);
     }
@@ -154,7 +159,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Transactional
     public void kick(Long clubId, Long userId, Long operatorId) {
         // 判断成员是否在俱乐部
-        checkMember(clubId, userId);
+        checkMemberExist(clubId, userId);
 
         // 判断用户是否是管理员, 如果是管理员需要超级管理员踢出
         if (clubAdminService.isAdmin(clubId, userId)) {
@@ -168,7 +173,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Override
     public void quit(Long clubId, Long userId) {
         // 判断成员是否在俱乐部
-        checkMember(clubId, userId);
+        checkMemberExist(clubId, userId);
 
         // 判断用户是否是管理员, 如果是管理员需要移除管理员权限
         if (clubAdminService.isAdmin(clubId, userId))
@@ -228,8 +233,21 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
         clubInviteService.refuse(inviteId);
     }
 
-    void checkMember(Long clubId, Long userId) {
-        Asserts.throwIfBool(!clubMemberService.isExist(clubId, userId), "成员不在该俱乐部");
+    /**
+     * 检查用户是否在俱俱乐部
+     */
+    void checkMemberExist(Long clubId, Long userId) {
+        Asserts.throwIfBool(!clubMemberService.hasMember(clubId, userId), "成员不在该俱乐部");
+    }
+
+    /**
+     * 检查用户是否已经在俱乐部内了
+     */
+    void checkAlreadyExist(Long clubId, Long userId) {
+        // 检查俱乐部是否存在
+        Asserts.throwIfBool(hasClub(clubId), "俱乐部不存在");
+        // 检查成员是否已经在俱乐部内
+        Asserts.throwIfBool(clubMemberService.hasMember(clubId, userId), "成员已经在俱乐部内了");
     }
 
 }

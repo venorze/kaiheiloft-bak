@@ -20,9 +20,7 @@ package com.hantiansoft.kaiheiloft.controller;
 
 /* Creates on 2023/1/13. */
 
-import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyIdModx;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyRefuseModx;
 import com.hantiansoft.kaiheiloft.modx.*;

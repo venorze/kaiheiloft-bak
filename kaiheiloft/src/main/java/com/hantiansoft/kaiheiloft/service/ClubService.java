@@ -40,6 +40,11 @@ public interface ClubService extends IService<Club> {
     Club queryByClubId(Long clubId);
 
     /**
+     * 判断俱乐部是否存在
+     */
+    boolean hasClub(Long clubId);
+
+    /**
      * 获取用户加入的俱乐部列表
      */
     List<Club> queryClubsByUserId(Long userId);

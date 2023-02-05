@@ -53,5 +53,5 @@ public interface ClubMemberService extends IService<ClubMember> {
     /**
      * 判断成员是否在俱乐部
      */
-    boolean isExist(Long clubId, Long userId);
+    boolean hasMember(Long clubId, Long userId);
 }
