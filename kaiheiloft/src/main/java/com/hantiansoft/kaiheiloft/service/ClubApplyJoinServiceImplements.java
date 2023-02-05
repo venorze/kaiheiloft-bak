@@ -53,13 +53,20 @@ public class ClubApplyJoinServiceImplements extends ServiceImpl<ClubApplyJoinMap
     }
 
     @Override
-    public void submit(ClubApplyJoinModx clubApplyJoinModx, Long userId) {
+    public void submit(ClubApplyJoinModx clubApplyJoinModx, Long userId, Long inviterId) {
+        submit(clubApplyJoinModx.getClubId(), clubApplyJoinModx.getRequestRemark(), userId, inviterId);
+    }
+
+    @Override
+    public void submit(Long clubId, String requestRemark, Long userId, Long inviterId) {
         // 是否重复申请
-        Asserts.throwIfNotNull(queryJoinRequest(clubApplyJoinModx.getClubId(), userId), "您已申请过加入该俱乐部，请勿重复申请");
+        Asserts.throwIfNotNull(queryJoinRequest(clubId, userId), "您已申请过加入该俱乐部，请勿重复申请");
         // 构建申请加入对象
         ClubApplyJoin clubApplyJoin = new ClubApplyJoin();
+        clubApplyJoin.setClubId(clubId);
+        clubApplyJoin.setRequestRemark(requestRemark);
         clubApplyJoin.setUserId(userId);
-        BeanUtils.copyProperties(clubApplyJoinModx, clubApplyJoin);
+        clubApplyJoin.setInviterId(inviterId);
 
         save(clubApplyJoin);
     }

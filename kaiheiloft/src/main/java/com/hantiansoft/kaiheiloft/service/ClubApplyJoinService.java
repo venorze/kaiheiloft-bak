@@ -44,7 +44,17 @@ public interface ClubApplyJoinService extends IService<ClubApplyJoin> {
     /**
      * 提交申请请求
      */
-    void submit(ClubApplyJoinModx clubApplyJoinModx, Long userId);
+    void submit(ClubApplyJoinModx clubApplyJoinModx, Long userId, Long inviterId);
+
+    /**
+     * 提交申请请求
+     *
+     * @param clubId        俱乐部ID
+     * @param requestRemark 申请备注
+     * @param userId        用户ID
+     * @param inviterId     邀请人ID（如果没有可以为空）
+     */
+    void submit(Long clubId, String requestRemark, Long userId, Long inviterId);
 
     /**
      * @return 获取所有待处理申请请求

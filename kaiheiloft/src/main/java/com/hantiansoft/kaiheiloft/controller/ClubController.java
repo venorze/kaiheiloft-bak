@@ -23,10 +23,7 @@ package com.hantiansoft.kaiheiloft.controller;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyIdModx;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyRefuseModx;
-import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
-import com.hantiansoft.kaiheiloft.modx.ClubIdModx;
-import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
-import com.hantiansoft.kaiheiloft.modx.EditClubModx;
+import com.hantiansoft.kaiheiloft.modx.*;
 import com.hantiansoft.kaiheiloft.service.ClubService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +93,15 @@ public class ClubController extends SuperController {
     @PostMapping("/apply/refuse")
     public R<Void> applyRefuse(@RequestBody @Valid ClubApplyRefuseModx clubApplyRefuseModx) {
         clubService.refuseJoin(clubApplyRefuseModx.getId(), clubApplyRefuseModx.getReason(), getUserId());
+        return R.ok();
+    }
+
+    /**
+     * 邀请加入俱乐部
+     */
+    @PostMapping("/invite")
+    public R<Void> invite(@RequestBody @Valid InviteModx inviteModx) {
+        clubService.invite(inviteModx.getClubId(), inviteModx.getUserId(), getUserId());
         return R.ok();
     }
 

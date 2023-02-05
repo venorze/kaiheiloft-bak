@@ -54,6 +54,9 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Autowired
     private ClubApplyJoinService clubApplyJoinService;
 
+    @Autowired
+    private ClubInviteService clubInviteService;
+
     @Override
     public Club queryByClubId(Long clubId) {
         Club club = getById(clubId);
@@ -105,7 +108,10 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Override
     public void invite(Long clubId, Long userId, Long inviterId) {
-
+        // 判断俱乐部是否存在
+        queryByClubId(clubId);
+        // 邀请成员加入
+        clubInviteService.invite(clubId, userId, inviterId);
     }
 
     @Override
@@ -113,7 +119,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
         // 判断俱乐部是否存在
         queryByClubId(clubApplyJoinModx.getClubId());
         // 提交请求
-        clubApplyJoinService.submit(clubApplyJoinModx, userId);
+        clubApplyJoinService.submit(clubApplyJoinModx, userId, null);
     }
 
     @Override
