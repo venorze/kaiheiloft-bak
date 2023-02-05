@@ -23,7 +23,7 @@ package com.hantiansoft.kaiheiloft.controller;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.kaiheiloft.enties.Club;
-import com.hantiansoft.kaiheiloft.modx.ClubModx;
+import com.hantiansoft.kaiheiloft.modx.ClubModv;
 import com.hantiansoft.kaiheiloft.modx.EditMailModx;
 import com.hantiansoft.kaiheiloft.modx.EditPasswordModx;
 import com.hantiansoft.kaiheiloft.modx.UserProfileModx;
@@ -89,9 +89,9 @@ public class UserController extends SuperController {
      * @return 查询用户加入的俱乐部列表
      */
     @GetMapping("/clubs")
-    public R<List<ClubModx>> queryClubsByUserId() {
+    public R<List<ClubModv>> queryClubsByUserId() {
         List<Club> clubs = clubService.queryClubsByUserId(getCurrentUserId());
-        return R.ok(BeanUtils.copyProperties(clubs, ClubModx.class));
+        return R.ok(BeanUtils.copyProperties(clubs, ClubModv.class));
     }
 
 }

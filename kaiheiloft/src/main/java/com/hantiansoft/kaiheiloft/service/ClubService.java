@@ -132,6 +132,6 @@ public interface ClubService extends IService<Club> {
     /**
      * 创建俱乐部频道
      */
-    void createChannel(Long clubId, String channelName);
+    void createChannel(Long clubId, String channelName, Long operatorId);
 
 }

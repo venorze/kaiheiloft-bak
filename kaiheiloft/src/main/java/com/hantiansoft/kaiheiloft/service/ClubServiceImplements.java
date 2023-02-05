@@ -271,7 +271,9 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
-    public void createChannel(Long clubId, String channelName) {
+    public void createChannel(Long clubId, String channelName, Long operatorId) {
+        // 判断是不是管理员
+        Asserts.throwIfBool(clubAdminService.isAdmin(clubId, operatorId), "用户无权限创建频道");
         clubChannelService.create(clubId, channelName);
     }
 

@@ -40,6 +40,7 @@ public class ClubChannelServiceImplements extends ServiceImpl<ClubChannelMapper,
         var channel = new ClubChannel();
         channel.setName(channelName);
         channel.setClubId(clubId);
+        save(channel);
     }
 
     @Override

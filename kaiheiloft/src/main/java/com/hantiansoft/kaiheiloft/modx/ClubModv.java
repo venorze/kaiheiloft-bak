@@ -26,7 +26,7 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class ClubModx {
+public class ClubModv {
 
     /**
      * 俱乐部ID

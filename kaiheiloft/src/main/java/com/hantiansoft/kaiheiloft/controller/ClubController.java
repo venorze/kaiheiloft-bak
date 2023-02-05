@@ -50,6 +50,15 @@ public class ClubController extends SuperController {
     }
 
     /**
+     * 创建俱乐部频道
+     */
+    @PostMapping("/channel/create")
+    public R<Void> channelCreate(@RequestBody @Valid CreateClubChannelModx createClubChannelModx) {
+        clubService.createChannel(createClubChannelModx.getClubId(), createClubChannelModx.getName(), getCurrentUserId());
+        return R.ok();
+    }
+
+    /**
      * 获取俱乐部全量信息
      */
     @GetMapping("/aquery")
