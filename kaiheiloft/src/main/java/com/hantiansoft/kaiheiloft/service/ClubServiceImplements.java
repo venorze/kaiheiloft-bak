@@ -30,6 +30,7 @@ import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
+import com.hantiansoft.kaiheiloft.modx.InviteModv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -153,6 +154,11 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Override
     public void publishAnnouncement(Long clubId, String announcement, Long operatorId) {
 
+    }
+
+    @Override
+    public List<InviteModv> queryUserInvites(Long userId) {
+        return clubInviteService.queryInvitesByUserId(userId);
     }
 
 }

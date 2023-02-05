@@ -20,17 +20,18 @@ package com.hantiansoft.kaiheiloft.controller;
 
 /* Creates on 2023/1/13. */
 
+import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;
+import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyIdModx;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyRefuseModx;
 import com.hantiansoft.kaiheiloft.modx.*;
 import com.hantiansoft.kaiheiloft.service.ClubService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Vincent Luo
@@ -103,6 +104,23 @@ public class ClubController extends SuperController {
     public R<Void> invite(@RequestBody @Valid InviteModx inviteModx) {
         clubService.invite(inviteModx.getClubId(), inviteModx.getUserId(), getUserId());
         return R.ok();
+    }
+
+    /**
+     * 查询用户邀请列表
+     */
+    @GetMapping("/invite/list")
+    public R<List<InviteModv>> queryUserInvites() {
+        return R.ok(clubService.queryUserInvites(getUserId()));
+    }
+
+    /**
+     * @return 查询用户加入的俱乐部列表
+     */
+    @GetMapping("/list")
+    public R<List<ClubModx>> queryClubsByUserId() {
+        List<Club> clubs = clubService.queryClubsByUserId(getUserId());
+        return R.ok(BeanUtils.copyProperties(clubs, ClubModx.class));
     }
 
 }

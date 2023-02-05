@@ -66,7 +66,6 @@ public class ClubApplyJoinServiceImplements extends ServiceImpl<ClubApplyJoinMap
         clubApplyJoin.setClubId(clubId);
         clubApplyJoin.setRequestRemark(requestRemark);
         clubApplyJoin.setUserId(userId);
-        clubApplyJoin.setInviterId(inviterId);
 
         save(clubApplyJoin);
     }

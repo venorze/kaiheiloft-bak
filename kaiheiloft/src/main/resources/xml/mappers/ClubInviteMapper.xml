@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hantiansoft.kaiheiloft.mapper.ClubInviteMapper">
+
+    <select id="queryInvitesByUserId" resultType="com.hantiansoft.kaiheiloft.modx.InviteModv">
+        select
+            ku0.nickname as userNickname,
+            ku1.nickname as inviterNickname,
+            kc.name as clubNickname
+        from khl_club_invite kci
+            left join khl_userinfo ku0 on kci.user_id = ku0.id
+            left join khl_userinfo ku1 on kci.inviter_id = ku1.id
+            left join khl_club kc on kci.club_id = kc.id
+        where kci.user_id = #{userId};
+    </select>
+
+</mapper>

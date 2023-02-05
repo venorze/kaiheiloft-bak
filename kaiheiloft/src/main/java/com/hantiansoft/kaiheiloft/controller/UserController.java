@@ -47,9 +47,6 @@ public class UserController extends SuperController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ClubService clubService;
-
     /**
      * 获取用户个人信息
      */
@@ -83,15 +80,6 @@ public class UserController extends SuperController {
     public R<Void> editMail(@RequestBody @Valid EditMailModx editMailModx) {
         userService.editMail(getUserId(), editMailModx);
         return R.ok();
-    }
-
-    /**
-     * @return 查询用户加入的俱乐部列表
-     */
-    @GetMapping("/club/list")
-    public R<List<ClubModx>> clublist() {
-        List<Club> clubs = clubService.queryClubsByUserId(getUserId());
-        return R.ok(BeanUtils.copyProperties(clubs, ClubModx.class));
     }
 
 }

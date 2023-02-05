@@ -25,6 +25,7 @@ import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
+import com.hantiansoft.kaiheiloft.modx.InviteModv;
 
 import java.util.List;
 
@@ -97,4 +98,8 @@ public interface ClubService extends IService<Club> {
      */
     void publishAnnouncement(Long clubId, String announcement, Long operatorId);
 
+    /**
+     * 查询用户邀请列表
+     */
+    List<InviteModv> queryUserInvites(Long userId);
 }
