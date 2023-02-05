@@ -45,7 +45,7 @@ public class ClubMemberController {
     /**
      * 分页查询俱乐部成员列表
      */
-    @GetMapping("/page")
+    @GetMapping("/pquery")
     public R<IPage<AllClubMemberInformation>> page(@RequestBody @Valid ClubMemberPageModx pageModx) {
         return R.ok(clubMemberService.queryPageMember(pageModx.getClubId(), pageModx.getPageNo(), pageModx.getPageSize()));
     }
