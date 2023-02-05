@@ -179,6 +179,8 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Override
     public void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId) {
+        // 判断用户是否在俱乐部内
+        Asserts.throwIfNull(clubMemberService.queryMember(clubId, destSuperAdminId), "转让用户不在俱乐部内");
         clubAdminService.transfer(clubId, srcSuperAdminId, destSuperAdminId);
     }
 
