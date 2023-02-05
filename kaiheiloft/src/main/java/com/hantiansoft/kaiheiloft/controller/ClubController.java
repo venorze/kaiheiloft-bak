@@ -44,15 +44,6 @@ public class ClubController extends SuperController {
     private ClubService clubService;
 
     /**
-     * @return 查询用户加入的俱乐部列表
-     */
-    @GetMapping("/query")
-    public R<List<ClubModx>> queryClubsByUserId() {
-        List<Club> clubs = clubService.queryClubsByUserId(getCurrentUserId());
-        return R.ok(BeanUtils.copyProperties(clubs, ClubModx.class));
-    }
-
-    /**
      * 创建俱乐部
      */
     @PostMapping("/create")
