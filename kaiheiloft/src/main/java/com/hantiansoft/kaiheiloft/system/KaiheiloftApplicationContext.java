@@ -55,15 +55,15 @@ public class KaiheiloftApplicationContext {
     /**
      * 等待管理员通过
      */
-    public static final String CLUB_APPLY_JOIN_WAIT = "T";
+    public static final String CLUB_AGREE_STATUS_WAIT = "T";
 
     /**
      * 申请通过
      */
-    public static final String CLUB_APPLY_JOIN_YES = "Y";
+    public static final String CLUB_AGREE_STATUS_YES = "Y";
 
     /**
      * 申请拒绝
      */
-    public static final String CLUB_APPLY_JOIN_NO = "N";
+    public static final String CLUB_AGREE_STATUS_NO = "N";
 }

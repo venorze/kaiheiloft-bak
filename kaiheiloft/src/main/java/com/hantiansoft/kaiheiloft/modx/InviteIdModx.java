@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.service;
+package com.hantiansoft.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -20,39 +20,25 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/2/5. */
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.hantiansoft.kaiheiloft.enties.ClubInvite;
-import com.hantiansoft.kaiheiloft.modx.InviteModv;
-
-import java.util.List;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * @author Vincent Luo
  */
-public interface ClubInviteService extends IService<ClubInvite> {
+@Data
+public class InviteIdModx {
 
     /**
-     * 查询用户邀请列表
+     * 俱乐部ID
      */
-    ClubInvite queryUserInvite(Long inviteId, Long userId);
+    @NotNull(message = "邀请ID不能为空")
+    private Long inviteId;
 
     /**
-     * 邀请新成员加入
+     * 俱乐部ID
      */
-    void invite(Long clubId, Long userId, Long inviterId);
+    @NotNull(message = "用户ID不能为空")
+    private Long userId;
 
-    /**
-     * 查询用户邀请列表
-     */
-    List<InviteModv> queryInvitesByUserId(Long userId);
-
-    /**
-     * 同意邀请
-     */
-    void agree(Long inviteId);
-
-    /**
-     * 拒绝邀请
-     */
-    void refuse(Long inviteId);
 }

@@ -20,17 +20,23 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/1/13. */
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.BeanUtils;
+import com.hantiansoft.framework.StringUtils;
+import com.hantiansoft.framework.exception.BusinessException;
 import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
+import com.hantiansoft.kaiheiloft.enties.ClubInvite;
+import com.hantiansoft.kaiheiloft.enties.User;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
 import com.hantiansoft.kaiheiloft.modx.InviteModv;
+import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +63,9 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
     @Autowired
     private ClubInviteService clubInviteService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public Club queryByClubId(Long clubId) {
@@ -159,6 +168,40 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Override
     public List<InviteModv> queryUserInvites(Long userId) {
         return clubInviteService.queryInvitesByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public void agreeInvite(Long inviteId, Long userId, Long operatorId) {
+        // 查询邀请信息
+        ClubInvite clubInvite = clubInviteService.queryUserInvite(inviteId, userId);
+        Long clubId = clubInvite.getClubId();
+        Long inviterId = clubInvite.getInviterId();
+
+        // 判断用户是否有权限同意
+        Asserts.throwIfBool(clubAdminService.isAdmin(clubId, operatorId), "用户无权限同意/拒绝");
+        if (clubInvite.getAgreeStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES))
+            throw new BusinessException("已同意邀请请求，请勿重复点击");
+
+        // 同意邀请
+        clubInviteService.agree(inviteId);
+
+        // 加入申请列表
+        User inviter = userService.queryByUserId(inviterId);
+        clubApplyJoinService.submit(clubId,
+                StringUtils.vfmt("来自{}用户邀请", inviter.getNickname()), userId, inviterId);
+    }
+
+    @Override
+    public void refuseInvite(Long inviteId, Long userId, Long operatorId) {
+        ClubInvite clubInvite = clubInviteService.queryUserInvite(inviteId, userId);
+        // 判断用户是否有权限拒绝
+        Asserts.throwIfBool(clubAdminService.isAdmin(clubInvite.getClubId(), operatorId), "用户无权限同意/拒绝");
+        if (clubInvite.getAgreeStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO))
+            throw new BusinessException("已拒绝邀请请求，请勿重复点击");
+
+        // 拒绝邀请
+        clubInviteService.refuse(inviteId);
     }
 
 }

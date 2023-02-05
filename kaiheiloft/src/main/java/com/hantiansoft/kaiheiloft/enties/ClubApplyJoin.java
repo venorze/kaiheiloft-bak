@@ -31,7 +31,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("khl_club_apply_join")
+@TableName("khl_CLUB_AGREE_STATUS")
 public class ClubApplyJoin extends SuperModel<ClubApplyJoin> {
 
     /**

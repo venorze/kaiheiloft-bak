@@ -74,19 +74,19 @@ public class ClubApplyJoinServiceImplements extends ServiceImpl<ClubApplyJoinMap
     public List<ClubApplyJoin> pendingRequests(Long clubId) {
         QueryWrapper<ClubApplyJoin> wrapper = new QueryWrapper<>();
         wrapper.eq("club_id", clubId);
-        wrapper.eq("agree_status", KaiheiloftApplicationContext.CLUB_APPLY_JOIN_WAIT);
+        wrapper.eq("agree_status", KaiheiloftApplicationContext.CLUB_AGREE_STATUS_WAIT);
         return list(wrapper);
     }
 
     @Override
     public void agree(ClubApplyJoin clubApply) {
-        clubApply.setAgreeStatus(KaiheiloftApplicationContext.CLUB_APPLY_JOIN_YES);
+        clubApply.setAgreeStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES);
         updateById(clubApply);
     }
 
     @Override
     public void refuse(ClubApplyJoin clubApply) {
-        clubApply.setAgreeStatus(KaiheiloftApplicationContext.CLUB_APPLY_JOIN_NO);
+        clubApply.setAgreeStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO);
         updateById(clubApply);
     }
 

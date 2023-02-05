@@ -123,4 +123,22 @@ public class ClubController extends SuperController {
         return R.ok(clubService.queryUserInvites(getCurrentUserId()));
     }
 
+    /**
+     * 同意邀请加入俱乐部
+     */
+    @PostMapping("/invite/agree")
+    public R<Void> inviteAgree(@RequestBody @Valid InviteIdModx inviteIdModx) {
+        clubService.agreeInvite(inviteIdModx.getInviteId(), inviteIdModx.getUserId(), getCurrentUserId());
+        return R.ok();
+    }
+
+    /**
+     * 拒绝邀请加入俱乐部
+     */
+    @PostMapping("/invite/refuse")
+    public R<Void> inviteRefuse(@RequestBody @Valid InviteIdModx inviteIdModx) {
+        clubService.refuseInvite(inviteIdModx.getInviteId(), inviteIdModx.getUserId(), getCurrentUserId());
+        return R.ok();
+    }
+
 }

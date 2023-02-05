@@ -20,10 +20,14 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/2/5. */
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.kaiheiloft.enties.ClubInvite;
 import com.hantiansoft.kaiheiloft.mapper.ClubInviteMapper;
 import com.hantiansoft.kaiheiloft.modx.InviteModv;
+import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +38,19 @@ import java.util.List;
 @Service
 public class ClubInviteServiceImplements extends ServiceImpl<ClubInviteMapper, ClubInvite>
         implements ClubInviteService {
+
+    @Override
+    public ClubInvite queryUserInvite(Long inviteId, Long userId) {
+        // 查询邀请
+        var clubInvite = getOne(
+                new LambdaQueryWrapper<ClubInvite>()
+                        .eq(ClubInvite::getId, inviteId)
+                        .eq(ClubInvite::getUserId, userId)
+        );
+
+        Asserts.throwIfNull(clubInvite, "邀请不存在");
+        return clubInvite;
+    }
 
     @Override
     public void invite(Long clubId, Long userId, Long inviterId) {
@@ -49,4 +66,17 @@ public class ClubInviteServiceImplements extends ServiceImpl<ClubInviteMapper, C
         return baseMapper.queryInvitesByUserId(userId);
     }
 
+    @Override
+    public void agree(Long inviteId) {
+        var invite = getById(inviteId);
+        invite.setAgreeStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES);
+        updateById(invite);
+    }
+
+    @Override
+    public void refuse(Long inviteId) {
+        var invite = getById(inviteId);
+        invite.setAgreeStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO);
+        updateById(invite);
+    }
 }
