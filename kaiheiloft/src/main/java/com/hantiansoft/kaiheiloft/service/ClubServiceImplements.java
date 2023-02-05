@@ -29,7 +29,7 @@ import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
 import com.hantiansoft.kaiheiloft.enties.ClubInvite;
 import com.hantiansoft.kaiheiloft.enties.User;
-import com.hantiansoft.kaiheiloft.fullobj.ClubCompleteObject;
+import com.hantiansoft.kaiheiloft.allinf.AllClubInformation;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
@@ -78,13 +78,13 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
-    public ClubCompleteObject queryCompleteClub(Long clubId) {
-        var completeClub = new ClubCompleteObject();
+    public AllClubInformation queryAllClubInformation(Long clubId) {
+        var completeClub = new AllClubInformation();
         // 查询俱乐部基本信息
         BeanUtils.copyProperties(queryByClubId(clubId), completeClub);
 
         // 查询俱乐部频道
-        completeClub.setChannels(BeanUtils.copyProperties(clubChannelService.queryChannels(clubId), ClubCompleteObject.Channel.class));
+        completeClub.setChannels(BeanUtils.copyProperties(clubChannelService.queryChannels(clubId), AllClubInformation.Channel.class));
 
         // 查询俱乐部用户
         var memberPage = clubMemberService.queryPageMember(clubId, 1, 20);

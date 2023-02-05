@@ -22,7 +22,7 @@ package com.hantiansoft.kaiheiloft.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
+import com.hantiansoft.kaiheiloft.allinf.AllClubMemberInformation;
 import com.hantiansoft.kaiheiloft.modx.ClubMemberPageModx;
 import com.hantiansoft.kaiheiloft.service.ClubMemberService;
 import jakarta.validation.Valid;
@@ -46,7 +46,7 @@ public class ClubMemberController {
      * 分页查询俱乐部成员列表
      */
     @GetMapping("/page")
-    public R<IPage<MemberCompleteObject>> page(@RequestBody @Valid ClubMemberPageModx pageModx) {
+    public R<IPage<AllClubMemberInformation>> page(@RequestBody @Valid ClubMemberPageModx pageModx) {
         return R.ok(clubMemberService.queryPageMember(pageModx.getClubId(), pageModx.getPageNo(), pageModx.getPageSize()));
     }
 

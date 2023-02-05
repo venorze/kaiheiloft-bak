@@ -23,4 +23,4 @@
  *
  * @author Vincent Luo
  */
-package com.hantiansoft.kaiheiloft.fullobj;
+package com.hantiansoft.kaiheiloft.allinf;

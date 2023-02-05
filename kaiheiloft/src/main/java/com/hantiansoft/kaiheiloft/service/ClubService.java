@@ -22,7 +22,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.Club;
-import com.hantiansoft.kaiheiloft.fullobj.ClubCompleteObject;
+import com.hantiansoft.kaiheiloft.allinf.AllClubInformation;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
@@ -43,7 +43,7 @@ public interface ClubService extends IService<Club> {
     /**
      * 查询俱乐部全量信息
      */
-    ClubCompleteObject queryCompleteClub(Long clubId);
+    AllClubInformation queryAllClubInformation(Long clubId);
 
     /**
      * 判断俱乐部是否存在

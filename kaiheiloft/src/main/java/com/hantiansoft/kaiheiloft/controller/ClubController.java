@@ -52,9 +52,9 @@ public class ClubController extends SuperController {
     /**
      * 获取俱乐部全量信息
      */
-    @GetMapping("/fquery")
+    @GetMapping("/aquery")
     public R<Long> completeQuery(@RequestBody @Valid ClubIdModx clubIdModx) {
-        return R.ok(clubService.queryCompleteClub(clubIdModx.getClubId()));
+        return R.ok(clubService.queryAllClubInformation(clubIdModx.getClubId()));
     }
 
 

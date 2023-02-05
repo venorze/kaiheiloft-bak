@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.fullobj;
+package com.hantiansoft.kaiheiloft.allinf;
 
 /* ************************************************************************
  *
@@ -26,7 +26,7 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class MemberCompleteObject {
+public class AllClubMemberInformation {
 
     /**
      * 成员ID

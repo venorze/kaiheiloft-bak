@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.fullobj;
+package com.hantiansoft.kaiheiloft.allinf;
 
 /* ************************************************************************
  *
@@ -36,7 +36,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ClubCompleteObject extends Club {
+public class AllClubInformation extends Club {
 
     /**
      * 俱乐部频道
@@ -63,6 +63,6 @@ public class ClubCompleteObject extends Club {
     /**
      * 俱乐部成员列表（分页数据）
      */
-    private IPage<MemberCompleteObject> members;
+    private IPage<AllClubMemberInformation> members;
 
 }

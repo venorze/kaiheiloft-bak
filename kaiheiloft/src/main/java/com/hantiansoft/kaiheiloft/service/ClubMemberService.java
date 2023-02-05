@@ -23,10 +23,8 @@ package com.hantiansoft.kaiheiloft.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
+import com.hantiansoft.kaiheiloft.allinf.AllClubMemberInformation;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Vincent Luo
@@ -62,6 +60,6 @@ public interface ClubMemberService extends IService<ClubMember> {
     /**
      * 分页查询俱乐部成员
      */
-    IPage<MemberCompleteObject> queryPageMember(Long clubId, int pageNo, int pageSize);
+    IPage<AllClubMemberInformation> queryPageMember(Long clubId, int pageNo, int pageSize);
 
 }
