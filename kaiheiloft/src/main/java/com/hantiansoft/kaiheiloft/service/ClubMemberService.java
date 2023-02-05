@@ -31,6 +31,11 @@ import org.springframework.stereotype.Service;
 public interface ClubMemberService extends IService<ClubMember> {
 
     /**
+     * 精准查询俱乐部成员
+     */
+    ClubMember queryMember(Long clubId, Long userId);
+
+    /**
      * 添加俱乐部成员
      */
     void addMember(Long clubId, Long userId);
@@ -40,4 +45,13 @@ public interface ClubMemberService extends IService<ClubMember> {
      */
     void removeAllMember(Long clubId);
 
+    /**
+     * 移除用户
+     */
+    void removeMember(Long clubId, Long userId);
+
+    /**
+     * 判断成员是否在俱乐部
+     */
+    boolean isExist(Long clubId, Long userId);
 }

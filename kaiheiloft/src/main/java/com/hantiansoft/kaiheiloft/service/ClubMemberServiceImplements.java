@@ -20,6 +20,9 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
@@ -34,6 +37,14 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
         implements ClubMemberService {
 
     @Override
+    public ClubMember queryMember(Long clubId, Long userId) {
+        return getOne(new LambdaQueryWrapper<ClubMember>()
+                .eq(ClubMember::getClubId, clubId)
+                .eq(ClubMember::getUserId, userId)
+        );
+    }
+
+    @Override
     public void addMember(Long clubId, Long userId) {
         var clubMember = new ClubMember();
         clubMember.setClubId(clubId);
@@ -43,9 +54,19 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
 
     @Override
     public void removeAllMember(Long clubId) {
-        UpdateWrapper<ClubMember> wrapper = new UpdateWrapper<>();
-        wrapper.eq("club_id", clubId);
-        remove(wrapper);
+        remove(new LambdaUpdateWrapper<ClubMember>().eq(ClubMember::getClubId, clubId));
     }
 
+    @Override
+    public void removeMember(Long clubId, Long userId) {
+        remove(new LambdaUpdateWrapper<ClubMember>()
+                .eq(ClubMember::getClubId, clubId)
+                .eq(ClubMember::getUserId, userId)
+        );
+    }
+
+    @Override
+    public boolean isExist(Long clubId, Long userId) {
+        return queryMember(clubId, userId) == null;
+    }
 }

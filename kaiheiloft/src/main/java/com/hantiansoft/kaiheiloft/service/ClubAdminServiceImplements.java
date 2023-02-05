@@ -112,9 +112,16 @@ public class ClubAdminServiceImplements extends ServiceImpl<ClubAdminMapper, Clu
 
     @Override
     public void removeAllAdmin(Long clubId) {
-        UpdateWrapper<ClubAdmin> wrapper = new UpdateWrapper<>();
-        wrapper.eq("club_id", clubId);
-        remove(wrapper);
+        remove(new UpdateWrapper<ClubAdmin>().eq("club_id", clubId));
+    }
+
+    @Override
+    public void removeAdmin(Long clubId, Long userId) {
+        remove(new UpdateWrapper<ClubAdmin>()
+                .eq("club_id", clubId)
+                .eq("user_id", userId)
+        );
+
     }
 
 }

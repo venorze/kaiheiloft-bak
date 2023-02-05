@@ -151,13 +151,30 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
+    @Transactional
     public void kick(Long clubId, Long userId, Long operatorId) {
+        // 判断成员是否在俱乐部
+        checkMember(clubId, userId);
 
+        // 判断用户是否是管理员, 如果是管理员需要超级管理员踢出
+        if (clubAdminService.isAdmin(clubId, userId)) {
+            Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubId, operatorId), "用户无权踢出管理员");
+            clubAdminService.removeAdmin(clubId, userId);
+        }
+
+        clubMemberService.removeMember(clubId, userId); // 移除成员
     }
 
     @Override
     public void quit(Long clubId, Long userId) {
+        // 判断成员是否在俱乐部
+        checkMember(clubId, userId);
 
+        // 判断用户是否是管理员, 如果是管理员需要移除管理员权限
+        if (clubAdminService.isAdmin(clubId, userId))
+            clubAdminService.removeAdmin(clubId, userId);
+
+        clubMemberService.removeMember(clubId, userId); // 移除成员
     }
 
     @Override
@@ -202,6 +219,10 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
         // 拒绝邀请
         clubInviteService.refuse(inviteId);
+    }
+
+    void checkMember(Long clubId, Long userId) {
+        Asserts.throwIfBool(!clubMemberService.isExist(clubId, userId), "成员不在该俱乐部");
     }
 
 }

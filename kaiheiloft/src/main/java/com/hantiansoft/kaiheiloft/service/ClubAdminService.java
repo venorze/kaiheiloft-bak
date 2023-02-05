@@ -54,4 +54,9 @@ public interface ClubAdminService extends IService<ClubAdmin> {
      * 移除所有管理员
      */
     void removeAllAdmin(Long clubId);
+
+    /**
+     * 移除管理员
+     */
+    void removeAdmin(Long clubId, Long userId);
 }
