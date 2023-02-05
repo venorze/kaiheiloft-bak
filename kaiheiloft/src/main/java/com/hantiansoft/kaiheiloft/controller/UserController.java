@@ -52,7 +52,7 @@ public class UserController extends SuperController {
      */
     @GetMapping("/profile")
     public R<UserProfileModx> profile() {
-        return R.ok(userService.profile(getUsername()));
+        return R.ok(userService.profile(getCurrentUsername()));
     }
 
     /**
@@ -60,7 +60,7 @@ public class UserController extends SuperController {
      */
     @PostMapping("/edit/profile")
     public R<Void> editProfile(@RequestBody @Valid UserProfileModx userProfileModx) {
-        userService.editProfile(getUserId(), userProfileModx);
+        userService.editProfile(getCurrentUserId(), userProfileModx);
         return R.ok();
     }
 
@@ -69,7 +69,7 @@ public class UserController extends SuperController {
      */
     @PostMapping("/edit/passwd")
     public R<Void> editPassword(@RequestBody @Valid EditPasswordModx editPasswordModx) {
-        userService.editPassword(getUserId(), editPasswordModx);
+        userService.editPassword(getCurrentUserId(), editPasswordModx);
         return R.ok();
     }
 
@@ -78,7 +78,7 @@ public class UserController extends SuperController {
      */
     @PostMapping("/edit/mail")
     public R<Void> editMail(@RequestBody @Valid EditMailModx editMailModx) {
-        userService.editMail(getUserId(), editMailModx);
+        userService.editMail(getCurrentUserId(), editMailModx);
         return R.ok();
     }
 

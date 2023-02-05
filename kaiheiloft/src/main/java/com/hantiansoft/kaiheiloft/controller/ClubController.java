@@ -48,7 +48,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/create")
     public R<Long> create(@RequestBody @Valid CreateClubModx createClubModx) {
-        return R.ok(clubService.create(createClubModx, getUserId()));
+        return R.ok(clubService.create(createClubModx, getCurrentUserId()));
     }
 
     /**
@@ -56,7 +56,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/edit")
     public R<Void> edit(@RequestBody @Valid EditClubModx editClubModx) {
-        clubService.edit(editClubModx, getUserId());
+        clubService.edit(editClubModx, getCurrentUserId());
         return R.ok();
     }
 
@@ -65,7 +65,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/disband")
     public R<Void> disband(@RequestBody @Valid ClubIdModx clubIdModx) {
-        clubService.disband(clubIdModx.getId(), getUserId());
+        clubService.disband(clubIdModx.getId(), getCurrentUserId());
         return R.ok();
     }
 
@@ -74,7 +74,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/join")
     public R<Void> join(@RequestBody @Valid ClubApplyJoinModx clubApplyJoinModx) {
-        clubService.join(clubApplyJoinModx, getUserId());
+        clubService.join(clubApplyJoinModx, getCurrentUserId());
         return R.ok();
     }
 
@@ -83,7 +83,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/apply/agree")
     public R<Void> applyAgree(@RequestBody @Valid ClubApplyIdModx clubApplyIdModx) {
-        clubService.agreeJoin(clubApplyIdModx.getId(), getUserId());
+        clubService.agreeJoin(clubApplyIdModx.getId(), getCurrentUserId());
         return R.ok();
     }
 
@@ -93,7 +93,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/apply/refuse")
     public R<Void> applyRefuse(@RequestBody @Valid ClubApplyRefuseModx clubApplyRefuseModx) {
-        clubService.refuseJoin(clubApplyRefuseModx.getId(), clubApplyRefuseModx.getReason(), getUserId());
+        clubService.refuseJoin(clubApplyRefuseModx.getId(), clubApplyRefuseModx.getReason(), getCurrentUserId());
         return R.ok();
     }
 
@@ -102,7 +102,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/invite")
     public R<Void> invite(@RequestBody @Valid InviteModx inviteModx) {
-        clubService.invite(inviteModx.getClubId(), inviteModx.getUserId(), getUserId());
+        clubService.invite(inviteModx.getClubId(), inviteModx.getUserId(), getCurrentUserId());
         return R.ok();
     }
 
@@ -111,7 +111,7 @@ public class ClubController extends SuperController {
      */
     @GetMapping("/invite/list")
     public R<List<InviteModv>> queryUserInvites() {
-        return R.ok(clubService.queryUserInvites(getUserId()));
+        return R.ok(clubService.queryUserInvites(getCurrentUserId()));
     }
 
     /**
@@ -119,7 +119,7 @@ public class ClubController extends SuperController {
      */
     @GetMapping("/list")
     public R<List<ClubModx>> queryClubsByUserId() {
-        List<Club> clubs = clubService.queryClubsByUserId(getUserId());
+        List<Club> clubs = clubService.queryClubsByUserId(getCurrentUserId());
         return R.ok(BeanUtils.copyProperties(clubs, ClubModx.class));
     }
 

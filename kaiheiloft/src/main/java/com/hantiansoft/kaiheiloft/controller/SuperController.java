@@ -33,14 +33,14 @@ public class SuperController {
     /**
      * @return 获取当前请求用户ID
      */
-    protected Long getUserId() {
+    protected Long getCurrentUserId() {
         return Long.valueOf(WebRequests.getString(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID));
     }
 
     /**
      * @return 获取当前请求用户名称
      */
-    protected String getUsername() {
+    protected String getCurrentUsername() {
         return WebRequests.getString(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME);
     }
 
