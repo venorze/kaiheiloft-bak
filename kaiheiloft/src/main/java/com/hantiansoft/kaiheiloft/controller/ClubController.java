@@ -54,7 +54,7 @@ public class ClubController extends SuperController {
      */
     @GetMapping("/fquery")
     public R<Long> completeQuery(@RequestBody @Valid ClubIdModx clubIdModx) {
-        return R.ok(clubService.queryCompleteClub(clubIdModx.getId()));
+        return R.ok(clubService.queryCompleteClub(clubIdModx.getClubId()));
     }
 
 
@@ -72,7 +72,7 @@ public class ClubController extends SuperController {
      */
     @PostMapping("/disband")
     public R<Void> disband(@RequestBody @Valid ClubIdModx clubIdModx) {
-        clubService.disband(clubIdModx.getId(), getCurrentUserId());
+        clubService.disband(clubIdModx.getClubId(), getCurrentUserId());
         return R.ok();
     }
 

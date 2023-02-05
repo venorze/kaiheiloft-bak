@@ -33,6 +33,6 @@ public class ClubIdModx {
      * 俱乐部ID
      */
     @NotNull(message = "俱乐部ID不能为空")
-    private Long id;
+    private Long clubId;
 
 }
