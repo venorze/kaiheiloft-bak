@@ -18,23 +18,27 @@ package com.hantiansoft.mybatisplus.configuration;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/2/6. */
 
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * 使用Mybatis Plus自定义雪花ID生成器
+ * 配置分页插件.
  *
  * @author Vincent Luo
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Import({
-        MybatisPlusSnowflakeIdGenerator.class,
-})
-@Documented
-public @interface EnableMybatisPlusSnowflakeIdGenerator {
+@Configuration
+public class MybatisPlusPageInterceptorConfiguration {
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
+    }
+
 }

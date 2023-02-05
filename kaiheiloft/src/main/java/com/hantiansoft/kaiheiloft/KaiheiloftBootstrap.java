@@ -23,7 +23,7 @@ package com.hantiansoft.kaiheiloft;
 import com.hantiansoft.adapter.SourcePolicy;
 import com.hantiansoft.adapter.StoreAdapter;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
-import com.hantiansoft.mybatisplus.configuration.EnableMybatisPlusSnowflakeIdGenerator;
+import com.hantiansoft.mybatisplus.configuration.EnableMybatisPlusAuto;
 import com.hantiansoft.qiniu.QiniuSourcePolicy;
 import com.hantiansoft.spring.framework.annotation.EnableCommonsConfiguration;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +42,7 @@ import java.util.Properties;
 @EnableCommonsConfiguration
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableMybatisPlusSnowflakeIdGenerator
+@EnableMybatisPlusAuto
 @SpringBootApplication
 public class KaiheiloftBootstrap {
 
