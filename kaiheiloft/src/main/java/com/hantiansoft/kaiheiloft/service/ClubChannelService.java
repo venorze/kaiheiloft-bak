@@ -20,48 +20,23 @@ package com.hantiansoft.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
-import org.springframework.stereotype.Service;
+import com.hantiansoft.kaiheiloft.enties.ClubChannel;
 
 import java.util.List;
 
 /**
  * @author Vincent Luo
  */
-@Service
-public interface ClubMemberService extends IService<ClubMember> {
+public interface ClubChannelService extends IService<ClubChannel> {
 
     /**
-     * 精准查询俱乐部成员
+     * 创建频道
      */
-    ClubMember queryMember(Long clubId, Long userId);
+    void create(Long clubId, String channelName);
 
     /**
-     * 添加俱乐部成员
+     * 查询所有频道
      */
-    void addMember(Long clubId, Long userId);
-
-    /**
-     * 删除所有成员
-     */
-    void removeAllMember(Long clubId);
-
-    /**
-     * 移除用户
-     */
-    void removeMember(Long clubId, Long userId);
-
-    /**
-     * 判断成员是否在俱乐部
-     */
-    boolean hasMember(Long clubId, Long userId);
-
-    /**
-     * 分页查询俱乐部成员
-     */
-    IPage<MemberCompleteObject> queryPageMember(Long clubId, int pageNo, int pageSize);
-
+    List<ClubChannel> queryChannels(Long clubId);
 }

@@ -21,21 +21,12 @@ package com.hantiansoft.kaiheiloft.mapper;
 /* Creates on 2023/1/13. */
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
+import com.hantiansoft.kaiheiloft.enties.ClubChannel;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * @author Vincent Luo
  */
 @Mapper
-public interface ClubMemberMapper extends BaseMapper<ClubMember> {
-
-    /**
-     * 分页查询俱乐部成员
-     */
-    IPage<MemberCompleteObject> queryPageMember(@Param("page") IPage<?> page, @Param("clubId") Long clubId);
-
+public interface ClubChannelMapper extends BaseMapper<ClubChannel> {
 }

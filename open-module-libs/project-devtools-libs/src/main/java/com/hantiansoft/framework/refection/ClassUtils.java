@@ -63,13 +63,58 @@ public final class ClassUtils {
     }
 
     /**
-     * 获取成员对象但不抛出异常
+     * 获取成员（包括父类）对象但不抛出异常
      */
-    public static Field getDeclaredField(Class<?> sourceClass, String targetFieldName) {
+    public static Field getDeclaredFieldIncludeSuperclass(Class<?> sourceClass, String targetFieldName) {
         try {
             return sourceClass.getDeclaredField(targetFieldName);
-        } catch (NoSuchFieldException e) {
-            return null;
+        } catch (Exception ignore) {
+            return findFieldInSuperclass(sourceClass, targetFieldName);
         }
+    }
+
+    /**
+     * 递归查找
+     */
+    private static Field findFieldInSuperclass(Class<?> clazz, String targetFieldName) {
+        Field rfield;
+        var superclass = clazz.getSuperclass();
+
+        // 如果没有父类直接跳出该方法
+        if (superclass == null)
+            return null;
+
+        try {
+            rfield = superclass.getDeclaredField(targetFieldName);
+        } catch (Exception ignore){
+            rfield = null;
+        }
+
+        if (rfield == null)
+            rfield = findFieldInSuperclass(superclass, targetFieldName);
+
+        return rfield;
+    }
+
+    /**
+     * 获取所有成员（包括父类）对象但不抛出异常
+     */
+    public static List<Field> getDeclaredFieldsIncludeSuperclass(Class<?> sourceClass) {
+        return getDeclaredFieldsIncludeSuperclass(sourceClass, Lists.newArrayList());
+    }
+
+    /**
+     * 递归查找
+     */
+    private static List<Field> getDeclaredFieldsIncludeSuperclass(Class<?> sourceClass, List<Field> fields) {
+        // 获取所有成员
+        Field[] declaredFields = sourceClass.getDeclaredFields();
+        fields.addAll(Lists.ofList(declaredFields));
+
+        Class<?> superclass = sourceClass.getSuperclass();
+        if (superclass != Object.class)
+            getDeclaredFieldsIncludeSuperclass(superclass, fields);
+
+        return fields;
     }
 }

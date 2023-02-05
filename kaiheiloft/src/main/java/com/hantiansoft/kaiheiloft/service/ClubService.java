@@ -22,6 +22,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.Club;
+import com.hantiansoft.kaiheiloft.fullobj.ClubCompleteObject;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
 import com.hantiansoft.kaiheiloft.modx.EditClubModx;
@@ -38,6 +39,11 @@ public interface ClubService extends IService<Club> {
      * 通过ID查询俱乐部对象
      */
     Club queryByClubId(Long clubId);
+
+    /**
+     * 查询俱乐部全量信息
+     */
+    ClubCompleteObject queryCompleteClub(Long clubId);
 
     /**
      * 判断俱乐部是否存在
@@ -122,4 +128,10 @@ public interface ClubService extends IService<Club> {
      * 拒绝邀请
      */
     void refuseInvite(Long inviteId, Long userId, Long operatorId);
+
+    /**
+     * 创建俱乐部频道
+     */
+    void createChannel(Long clubId, String channelName);
+
 }

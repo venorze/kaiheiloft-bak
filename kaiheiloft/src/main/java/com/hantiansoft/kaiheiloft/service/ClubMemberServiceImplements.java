@@ -22,9 +22,12 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
+import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
 import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
 import org.springframework.stereotype.Service;
 
@@ -70,4 +73,8 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
         return queryMember(clubId, userId) != null;
     }
 
+    @Override
+    public IPage<MemberCompleteObject> queryPageMember(Long clubId, int pageNo, int pageSize) {
+        return baseMapper.queryPageMember(new Page<>(pageNo, pageSize), clubId);
+    }
 }

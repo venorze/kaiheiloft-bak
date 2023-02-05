@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.mapper;
+package com.hantiansoft.kaiheiloft.fullobj;
 
 /* ************************************************************************
  *
@@ -18,24 +18,39 @@ package com.hantiansoft.kaiheiloft.mapper;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/2/6. */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import lombok.Data;
 
 /**
  * @author Vincent Luo
  */
-@Mapper
-public interface ClubMemberMapper extends BaseMapper<ClubMember> {
+@Data
+public class MemberCompleteObject {
 
     /**
-     * 分页查询俱乐部成员
+     * 成员ID
      */
-    IPage<MemberCompleteObject> queryPageMember(@Param("page") IPage<?> page, @Param("clubId") Long clubId);
+    private Long id;
+
+    /**
+     * 成员用户名
+     */
+    private String username;
+
+    /**
+     * 成员昵称
+     */
+    private String nickname;
+
+    /**
+     * 成员头像
+     */
+    private String avatar;
+
+    /**
+     * 是否是管理员, Y超级管理员，N普通管理员，M普通成员
+     */
+    private String superadmin;
 
 }

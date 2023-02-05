@@ -29,6 +29,7 @@ import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
 import com.hantiansoft.kaiheiloft.enties.ClubInvite;
 import com.hantiansoft.kaiheiloft.enties.User;
+import com.hantiansoft.kaiheiloft.fullobj.ClubCompleteObject;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
 import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
@@ -66,11 +67,30 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ClubChannelService clubChannelService;
+
     @Override
     public Club queryByClubId(Long clubId) {
         Club club = getById(clubId);
         Asserts.throwIfNull(club, "俱乐部不存在");
         return club;
+    }
+
+    @Override
+    public ClubCompleteObject queryCompleteClub(Long clubId) {
+        var completeClub = new ClubCompleteObject();
+        // 查询俱乐部基本信息
+        BeanUtils.copyProperties(queryByClubId(clubId), completeClub);
+
+        // 查询俱乐部频道
+        completeClub.setChannels(BeanUtils.copyProperties(clubChannelService.queryChannels(clubId), ClubCompleteObject.Channel.class));
+
+        // 查询俱乐部用户
+        var memberPage = clubMemberService.queryPageMember(clubId, 1, 20);
+        completeClub.setMembers(memberPage);
+
+        return completeClub;
     }
 
     @Override
@@ -248,6 +268,11 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
         Asserts.throwIfBool(hasClub(clubId), "俱乐部不存在");
         // 检查成员是否已经在俱乐部内
         Asserts.throwIfBool(clubMemberService.hasMember(clubId, userId), "成员已经在俱乐部内了");
+    }
+
+    @Override
+    public void createChannel(Long clubId, String channelName) {
+        clubChannelService.create(clubId, channelName);
     }
 
 }

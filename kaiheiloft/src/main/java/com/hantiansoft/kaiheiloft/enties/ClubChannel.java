@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.mapper;
+package com.hantiansoft.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,24 +18,30 @@ package com.hantiansoft.kaiheiloft.mapper;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/2/6. */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.fullobj.MemberCompleteObject;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 俱乐部频道表
+ *
  * @author Vincent Luo
  */
-@Mapper
-public interface ClubMemberMapper extends BaseMapper<ClubMember> {
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("khl_club_channel")
+public class ClubChannel extends SuperModel<ClubChannel> {
 
     /**
-     * 分页查询俱乐部成员
+     * 频道名称
      */
-    IPage<MemberCompleteObject> queryPageMember(@Param("page") IPage<?> page, @Param("clubId") Long clubId);
+    private String name;
+
+    /**
+     * 俱乐部ID
+     */
+    private Long clubId;
 
 }

@@ -70,7 +70,6 @@ public class BeanUtils {
     /**
      * 拷贝属性列表到目标对象
      */
-     @SuppressWarnings("ConstantConditions")
     public static void copyProperties(Object source, Object target, String... ignoreProperties) {
         Asserts.throwIfNull(source, "源对象不能为空");
         Asserts.throwIfNull(source, "目标对象不能为空");
@@ -80,7 +79,7 @@ public class BeanUtils {
 
         /* source class */
         Class<?> targetClass = target.getClass();
-        Field[] targetDeclaredFields = targetClass.getDeclaredFields();
+        List<Field> targetDeclaredFields = ClassUtils.getDeclaredFieldsIncludeSuperclass(targetClass);
 
         /* 忽略成员 */
         List<String> ignorePropertiesName = Lists.newArrayList(ignoreProperties);
@@ -93,12 +92,7 @@ public class BeanUtils {
                 continue;
 
             try {
-                Field sourceDeclaredField = ClassUtils.getDeclaredField(sourceClass, targetFieldName);
-
-                // 如果当前类不存在目标成员，则从父类去寻找
-                if (sourceDeclaredField == null)
-                    sourceDeclaredField = findDeclaredFieldInSuperClass(sourceClass, targetFieldName);
-
+                Field sourceDeclaredField = ClassUtils.getDeclaredFieldIncludeSuperclass(sourceClass, targetFieldName);
                 // 设置成员内容
                 sourceDeclaredField.setAccessible(true);
                 targetDeclaredField.setAccessible(true);
@@ -107,24 +101,6 @@ public class BeanUtils {
                 // ignore
             }
         }
-    }
-
-    /**
-     * 查找父类是否有目标成员
-     */
-    private static Field findDeclaredFieldInSuperClass(Class<?> clazz, String targetFieldName) {
-        Field rfield;
-        var superclass = clazz.getSuperclass();
-
-        // 如果没有父类直接跳出该方法
-        if (superclass == null)
-            return null;
-
-        rfield = ClassUtils.getDeclaredField(superclass, targetFieldName);
-        if (rfield == null)
-            rfield = findDeclaredFieldInSuperClass(superclass, targetFieldName);
-
-        return rfield;
     }
 
 }
