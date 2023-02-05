@@ -16,41 +16,12 @@
 #
 # ************************************************************************
 
-# Creates on 2023/1/5.
-
-/* Creates on 2023/1/22. */
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
+# Creates on 2023/2/5.
+kaiheiloft 主要业务模块
+linkmod 模块之间交互中间模块
+msrv 消息服务器
+open-module-libs 工具集或依赖模块
+opensso 单点登录模块
+route 网关路由模块
+sdk 第三方sdk模块
+stream-mediasrv 流媒体服务器

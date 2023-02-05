@@ -19,6 +19,7 @@
         <module>linkmod</module>
         <module>route</module>
         <module>msrv</module>
+        <module>stream-mediasrv</module>
     </modules>
 
     <properties>
