@@ -23,6 +23,7 @@ package com.hantiansoft.kaiheiloft.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.framework.Bits;
 import com.hantiansoft.kaiheiloft.enties.ClubAdmin;
 import com.hantiansoft.kaiheiloft.mapper.ClubAdminMapper;
@@ -90,13 +91,16 @@ public class ClubAdminServiceImplements extends ServiceImpl<ClubAdminMapper, Clu
         return Bits.compare(adminFlag(clubId, userId) & SUPER_ADMIN_FLAG_BIT);
     }
 
+    private int adminFlag(Long clubId, Long userId) {
+        return adminFlag(queryClubAdmin(clubId, userId));
+    }
+
     /**
      * 使用标志位判断
      */
-    private int adminFlag(Long clubId, Long userId) {
+    private int adminFlag(ClubAdmin clubAdmin) {
         int bit = MEMBER_FLAG_BIT;
 
-        ClubAdmin clubAdmin = queryClubAdmin(clubId, userId);
         if (clubAdmin == null)
             return bit;
 
@@ -121,7 +125,13 @@ public class ClubAdminServiceImplements extends ServiceImpl<ClubAdminMapper, Clu
                 .eq("club_id", clubId)
                 .eq("user_id", userId)
         );
-
     }
 
+    @Override
+    public void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId) {
+        var clubAdmin = queryClubAdmin(clubId, srcSuperAdminId);
+        Asserts.throwIfBool(Bits.compare(adminFlag(clubAdmin) & SUPER_ADMIN_FLAG_BIT), "用户非超级管理员，无转让权限");
+        clubAdmin.setUserId(destSuperAdminId);
+        updateById(clubAdmin);
+    }
 }

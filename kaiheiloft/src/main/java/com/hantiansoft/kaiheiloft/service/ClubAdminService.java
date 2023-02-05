@@ -59,4 +59,9 @@ public interface ClubAdminService extends IService<ClubAdmin> {
      * 移除管理员
      */
     void removeAdmin(Long clubId, Long userId);
+
+    /**
+     * 转让超级管理员
+     */
+    void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId);
 }

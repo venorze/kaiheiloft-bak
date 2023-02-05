@@ -178,6 +178,11 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
+    public void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId) {
+        clubAdminService.transfer(clubId, srcSuperAdminId, destSuperAdminId);
+    }
+
+    @Override
     public void publishAnnouncement(Long clubId, String announcement, Long operatorId) {
 
     }

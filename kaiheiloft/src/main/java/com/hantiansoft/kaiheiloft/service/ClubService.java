@@ -94,6 +94,11 @@ public interface ClubService extends IService<Club> {
     void quit(Long clubId, Long userId);
 
     /**
+     * 转让俱乐部超级管理员
+     */
+    void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId);
+
+    /**
      * 发布俱乐部公告
      */
     void publishAnnouncement(Long clubId, String announcement, Long operatorId);
