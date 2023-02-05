@@ -73,6 +73,22 @@ CREATE TABLE `khl_club`
   COLLATE = utf8mb3_bin;
 
 -- ---------------------------------
+-- 俱乐部频道表
+-- ---------------------------------
+DROP TABLE IF EXISTS `khl_club_channel`;
+CREATE TABLE `khl_club_channel`
+(
+    `id`          varchar(32) NOT NULL COMMENT '主键ID',
+    `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `name`        varchar(20) NOT NULL COMMENT '俱乐部频道名称',
+    `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  COLLATE = utf8mb3_bin;
+
+-- ---------------------------------
 -- 俱乐部公告表
 -- ---------------------------------
 DROP TABLE IF EXISTS `khl_club_announcement`;
@@ -98,7 +114,7 @@ CREATE TABLE `khl_club_member`
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
-    `user_id`     varchar(32) not null COMMENT '用户ID',
+    `user_id`     varchar(32) NOT NULL COMMENT '用户ID',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
@@ -114,7 +130,7 @@ CREATE TABLE `khl_club_admin`
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
-    `user_id`     varchar(32) not null COMMENT '用户ID',
+    `user_id`     varchar(32) NOT NULL COMMENT '用户ID',
     `superadmin`  char(1)     NOT NULL DEFAULT 'N' COMMENT '是否超级管理员，N否 Y是，默认：N',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -131,7 +147,7 @@ CREATE TABLE `khl_CLUB_AGREE_STATUS`
     `create_time`    timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `club_id`        varchar(32) NOT NULL COMMENT '俱乐部ID',
-    `user_id`        varchar(32) not null COMMENT '用户ID',
+    `user_id`        varchar(32) NOT NULL COMMENT '用户ID',
     `request_remark` varchar(50) COMMENT '申请备注',
     `agree_status`   char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
     `refusal_reason` varchar(50) COMMENT '拒绝原因',
@@ -150,8 +166,8 @@ CREATE TABLE `khl_club_invite`
     `create_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `club_id`      varchar(32) NOT NULL COMMENT '俱乐部ID',
-    `user_id`      varchar(32) not null comment '用户ID',
-    `inviter_id`   varchar(32) not null comment '邀请人ID',
+    `user_id`      varchar(32) NOT NULL COMMENT '用户ID',
+    `inviter_id`   varchar(32) NOT NULL COMMENT '邀请人ID',
     `agree_status` char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
