@@ -166,7 +166,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
-    public List<InviteModv> queryUserInvites(Long userId) {
+    public List<InviteModv> queryInvites(Long userId) {
         return clubInviteService.queryInvitesByUserId(userId);
     }
 

@@ -119,8 +119,8 @@ public class ClubController extends SuperController {
      * 查询用户邀请列表
      */
     @GetMapping("/invite/query")
-    public R<List<InviteModv>> queryUserInvites() {
-        return R.ok(clubService.queryUserInvites(getCurrentUserId()));
+    public R<List<InviteModv>> queryInvites() {
+        return R.ok(clubService.queryInvites(getCurrentUserId()));
     }
 
     /**

@@ -101,7 +101,7 @@ public interface ClubService extends IService<Club> {
     /**
      * 查询用户邀请列表
      */
-    List<InviteModv> queryUserInvites(Long userId);
+    List<InviteModv> queryInvites(Long userId);
 
     /**
      * 同意邀请
