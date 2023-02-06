@@ -28,12 +28,13 @@ import urllib.request
 #
 # 用户目录
 #
-save_path = os.path.expanduser('~')
+GLOBAL_SAVE_PATH = os.path.expanduser('~')
 
 #
-# 当前下载文件名称
+# 当前下载文件名称和索引
 #
-curfile = 'Non'
+GLOBAL_CURRENT_IDX  = 0
+GLOBAL_CURRENT_FILE = 'Non'
 
 #
 # 显示文件下载进度回调函数
@@ -43,19 +44,22 @@ def urlretrieve_callback(blocknum, blocksize, totalsize):
     if percent > 100:
         percent = 100
 
-    print('\rDownload %s %.2f%%' % (curfile, percent), end='', flush=True)
+    print('\r#%d Download %s %.2f%%' % (GLOBAL_CURRENT_IDX, GLOBAL_CURRENT_FILE, percent), end='', flush=True)
 
 #
 # 文件下载函数
 #
 def urlretrieve(url, name):
-    global curfile
+    global GLOBAL_CURRENT_FILE, GLOBAL_CURRENT_IDX
     # 重置当前下载文件名
-    curfile = name
+    GLOBAL_CURRENT_FILE = name
     # 下载文件
-    urllib.request.urlretrieve(url, '%s/Downloads/%s' % (save_path, name), urlretrieve_callback)
-    # 取消命令行刷新
-    print()
+    storelocation = '%s/Downloads/%s' % (GLOBAL_SAVE_PATH, name)
+    if not os.path.exists(storelocation):
+        GLOBAL_CURRENT_IDX += 1
+        urllib.request.urlretrieve(url, storelocation, urlretrieve_callback)
+        # 取消命令行刷新
+        print()
 
 '''
 执行下载文件
@@ -64,7 +68,7 @@ def auto_download_files():
     # git
     urlretrieve('https://registry.npmmirror.com/-/binary/git-for-windows/v2.35.2.windows.1/Git-2.35.2-64-bit.exe', 'Git-2.35.2-64-bit.exe')
     # apache maven
-    urlretrieve('https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip', 'apache-maven-3.8.7-bin.zip')
+    # urlretrieve('https://dlcdn.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip', 'apache-maven-3.8.7-bin.zip')
     # latiao subscribe (error)
     # urlretrieve('https://lameizi.buzz/api/v1/client/subscribe?token=6c0bf778de611b09d35b923a80c0b4b4&flag=clash', 'subscribe')
     # clash
