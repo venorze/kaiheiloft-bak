@@ -64,7 +64,7 @@ def urlretrieve(url, name):
 '''
 执行下载文件
 '''
-def auto_download_files():
+def auto_download():
     # git
     urlretrieve('https://registry.npmmirror.com/-/binary/git-for-windows/v2.35.2.windows.1/Git-2.35.2-64-bit.exe', 'Git-2.35.2-64-bit.exe')
     # apache maven

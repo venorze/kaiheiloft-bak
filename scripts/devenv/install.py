@@ -19,22 +19,8 @@ Creates on 2023/2/6.
 :author Vincent Luo
 '''
 
-import sys
-import os
-
 '''
-将当前工作目录添加到环境变量
+安装已下载的应用
 '''
-sys.path.append(os.getcwd())
-
-'''
-执行脚本，开始配置开发环境
-'''
-from downfiles import auto_download
-from install import auto_install
-
-# step 1: 下载所需文件
-auto_download()
-
-# step 2: 安装对应文件
-auto_install()
+def auto_install():
+    pass
