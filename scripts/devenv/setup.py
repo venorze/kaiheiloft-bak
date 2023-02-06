@@ -21,6 +21,7 @@ Creates on 2023/2/6.
 
 import sys
 import os
+import shutil
 
 '''
 将当前工作目录添加到环境变量
@@ -42,6 +43,13 @@ urlmap = {
     'ideaIU-2022.3.2.exe': 'https://download.jetbrains.com/idea/ideaIU-2022.3.2.exe',
     'openjdk-19.0.2_windows-x64_bin.zip': 'https://d6.injdk.cn/openjdk/openjdk/19/openjdk-19.0.2_windows-x64_bin.zip'
 }
+
+#
+# 拷贝 apache maven 到 ~/Downloads/.khld
+#
+print(os.getcwd())
+mavenname = 'apache-maven-3.8.7-bin.zip'
+shutil.copyfile('../../lib/%s' % mavenname, '%s/%s' % (GLOBAL_SAVE_PATH, mavenname))
 
 #
 # step 1: 判断下载文件夹是否存在，如果不存在就创建
