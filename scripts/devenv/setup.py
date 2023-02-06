@@ -31,8 +31,8 @@ sys.path.append(os.getcwd())
 '''
 执行脚本，开始配置开发环境
 '''
-from downfiles import auto_download, GLOBAL_SAVE_PATH
-from install import auto_install
+from downfiles import xdownload, GLOBAL_SAVE_PATH
+from install import xinstall
 
 #
 # 所需下载的文件列表
@@ -47,7 +47,6 @@ urlmap = {
 #
 # 拷贝 apache maven 到 ~/Downloads/.khld
 #
-print(os.getcwd())
 mavenname = 'apache-maven-3.8.7-bin.zip'
 shutil.copyfile('../../lib/%s' % mavenname, '%s/%s' % (GLOBAL_SAVE_PATH, mavenname))
 
@@ -60,9 +59,9 @@ if not os.path.exists(GLOBAL_SAVE_PATH):
 #
 # step 2: 下载所需文件
 #
-# auto_download(urlmap)
+xdownload(urlmap)
 
 #
 # step 3: 安装对应文件。安装顺序如下：
 #
-auto_install(urlmap)
+xinstall(urlmap)

@@ -67,6 +67,6 @@ def urlretrieve(url, name):
 '''
 执行下载文件，根据传入的urlmap遍历下载文件
 '''
-def auto_download(urlmap):
+def xdownload(urlmap):
     for k in urlmap:
         urlretrieve(urlmap[k], k)

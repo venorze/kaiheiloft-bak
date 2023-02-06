@@ -28,7 +28,7 @@ from downfiles import GLOBAL_SAVE_PATH
 #
 # 遍历文件然后安装
 #
-def auto_install(urlmap):
+def xinstall(urlmap):
     for k in urlmap:
         path = '%s/%s' % (GLOBAL_SAVE_PATH, k)
         if os.path.exists(path):
