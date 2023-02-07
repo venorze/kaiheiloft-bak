@@ -25,23 +25,31 @@
 @REM start bat script.
 @REM
 
+@REM backup current work directory.
+set BACKUP_CWD=%~dp0
+
 @REM set template directory
 set TMP_DIR=%USERPROFILE%/.khld
 
-@REM 如果存在就删除，再创建
+@REM if the template directory exist that delete, and create.
 if exist "%TMP_DIR%" rd /Q /S "%TMP_DIR%"
 mkdir "%TMP_DIR%"
 
-@REM 解压python解释器，将python解释器解压到用户目录下
+@REM unzip python environment.
 set PYTHON_ENV_HOME=%TMP_DIR%/python
 mkdir "%PYTHON_ENV_HOME%"
 tar xf "./lib/python-3.11.1-embed-amd64.zip" -C "%PYTHON_ENV_HOME%"
 
-@REM 设置python执行文件
+@REM set python execute file.
 set PY_EXE=%PYTHON_ENV_HOME%/python.exe
-@REM 设置脚本目录
+
+@REM set script directory.
+@REM the %~dp0 is current execute work directory.
 set SCRIPT_DIRECTORY=%~dp0/scripts/devenv/
 
-@REM 执行脚本
+@REM execute script.
 cd %SCRIPT_DIRECTORY%
 call %PY_EXE% ./setup.py
+
+@REM return to execute work directory.
+cd %BACKUP_CWD%
