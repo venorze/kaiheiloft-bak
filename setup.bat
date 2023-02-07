@@ -18,15 +18,15 @@
 
 @REM Creates on 2023/2/6.
 
-@REM 关闭命令回显
+@REM close command print.
 @echo off
 
 @REM
-@REM 启动脚本
+@REM start bat script.
 @REM
 
-@REM 设置临时目录
-set TMP_DIR=%USERPROFILE%/.tmp
+@REM set template directory
+set TMP_DIR=%USERPROFILE%/.khld
 
 @REM 如果存在就删除，再创建
 if exist "%TMP_DIR%" rd /Q /S "%TMP_DIR%"
