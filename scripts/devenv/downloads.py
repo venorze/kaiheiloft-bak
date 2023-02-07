@@ -28,7 +28,12 @@ import urllib.request
 #
 # 用户目录
 #
-GLOBAL_SAVE_PATH = '%s/.khld' % os.path.expanduser('~')
+GLOBAL_USER_ROOT = os.path.expanduser('~')
+
+#
+# 文件保存目录
+#
+GLOBAL_SAVE_PATH = '%s/.khldenvs/downloads' % os.path.expanduser('~')
 
 #
 # 当前下载文件名称和索引

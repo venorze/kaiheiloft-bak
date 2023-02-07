@@ -29,16 +29,17 @@
 set BACKUP_CWD=%~dp0
 
 @REM set template directory
-set TMP_DIR=%USERPROFILE%/.khld
+set TMP_DIR=%USERPROFILE%/.khldenvs
 
-@REM if the template directory exist that delete, and create.
-if exist "%TMP_DIR%" rd /Q /S "%TMP_DIR%"
-mkdir "%TMP_DIR%"
+@REM if the template directory not exist that create.
+if not exist "%TMP_DIR%" mkdir "%TMP_DIR%"
 
 @REM unzip python environment.
 set PYTHON_ENV_HOME=%TMP_DIR%/python
-mkdir "%PYTHON_ENV_HOME%"
-tar xf "./lib/python-3.11.1-embed-amd64.zip" -C "%PYTHON_ENV_HOME%"
+if not exist "%PYTHON_ENV_HOME%" (
+    mkdir "%PYTHON_ENV_HOME%"
+    tar xf "./lib/python-3.11.1-embed-amd64.zip" -C "%PYTHON_ENV_HOME%"
+)
 
 @REM set python execute file.
 set PY_EXE=%PYTHON_ENV_HOME%/python.exe

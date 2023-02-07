@@ -31,17 +31,21 @@ sys.path.append(os.getcwd())
 '''
 执行脚本，开始配置开发环境
 '''
-from downfiles import xdownload, GLOBAL_SAVE_PATH
+from downloads import xdownload, GLOBAL_SAVE_PATH
 from install import xinstall
+from namedef import *
+from install import cnotexist
+
+cnotexist(GLOBAL_SAVE_PATH)
 
 #
 # 所需下载的文件列表
 #
 urlmap = {
-    'Git-2.35.2-64-bit.exe': 'https://registry.npmmirror.com/-/binary/git-for-windows/v2.35.2.windows.1/Git-2.35.2-64-bit.exe',
-    'Clash.for.Windows.Setup.0.19.5.exe': 'https://ghproxy.com/https://github.com/ender-zhao/Clash-for-Windows_Chinese/releases/download/CFW-V0.19.5_CN/Clash.for.Windows.Setup.0.19.5.exe',
-    'ideaIU-2022.3.2.exe': 'https://download.jetbrains.com/idea/ideaIU-2022.3.2.exe',
-    'openjdk-19.0.2_windows-x64_bin.zip': 'https://d6.injdk.cn/openjdk/openjdk/19/openjdk-19.0.2_windows-x64_bin.zip'
+    GIT: 'https://registry.npmmirror.com/-/binary/git-for-windows/v2.35.2.windows.1/Git-2.35.2-64-bit.exe',
+    CLASH: 'https://ghproxy.com/https://github.com/ender-zhao/Clash-for-Windows_Chinese/releases/download/CFW-V0.19.5_CN/Clash.for.Windows.Setup.0.19.5.exe',
+    IDEA: 'https://download.jetbrains.com/idea/ideaIU-2022.3.2.exe',
+    JDK19: 'https://d6.injdk.cn/openjdk/openjdk/19/openjdk-19.0.2_windows-x64_bin.zip'
 }
 
 #
@@ -64,4 +68,4 @@ xdownload(urlmap)
 #
 # step 3: 安装对应文件。安装顺序如下：
 #
-xinstall(urlmap)
+xinstall()
