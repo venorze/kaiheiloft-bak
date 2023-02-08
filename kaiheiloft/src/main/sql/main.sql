@@ -191,3 +191,19 @@ CREATE TABLE `khl_club_invite`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3
   COLLATE = utf8mb3_bin;
+
+-- ---------------------------------
+-- 表情贴纸表
+-- ---------------------------------
+DROP TABLE IF EXISTS `khl_emoji`;
+CREATE TABLE `khl_emoji`
+(
+    `id`           varchar(32) NOT NULL COMMENT '主键ID',
+    `create_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `name`         varchar(16) NOT NULL comment '表情名称',
+    `url`          varchar(32) NOT NULL comment '表情URL',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  COLLATE = utf8mb3_bin;
