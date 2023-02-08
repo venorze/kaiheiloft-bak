@@ -96,7 +96,7 @@ public class ClubController extends SuperController {
     }
 
     /**
-     * 申请加入俱乐部
+     * 同意加入俱乐部申请请求
      */
     @PostMapping("/apply/agree")
     public R<Void> applyAgree(@RequestBody @Valid ClubApplyIdModx clubApplyIdModx) {
@@ -106,7 +106,7 @@ public class ClubController extends SuperController {
 
 
     /**
-     * 申请加入俱乐部
+     * 拒绝加入俱乐部申请请求
      */
     @PostMapping("/apply/refuse")
     public R<Void> applyRefuse(@RequestBody @Valid ClubApplyRefuseModx clubApplyRefuseModx) {
