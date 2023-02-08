@@ -22,10 +22,10 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.User;
-import com.hantiansoft.kaiheiloft.modx.EditMailModx;
-import com.hantiansoft.kaiheiloft.modx.EditPasswordModx;
-import com.hantiansoft.kaiheiloft.modx.UserSignUpModx;
-import com.hantiansoft.kaiheiloft.modx.UserProfileModx;
+import com.hantiansoft.kaiheiloft.mods.modx.EditMailModx;
+import com.hantiansoft.kaiheiloft.mods.modx.EditPasswordModx;
+import com.hantiansoft.kaiheiloft.mods.modx.UserSignUpModx;
+import com.hantiansoft.kaiheiloft.mods.modx.UserProfileModx;
 
 /**
  * @author Vincent Luo

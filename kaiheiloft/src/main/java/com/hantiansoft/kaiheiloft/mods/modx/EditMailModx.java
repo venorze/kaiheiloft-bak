@@ -1,3 +1,5 @@
+package com.hantiansoft.kaiheiloft.mods.modx;
+
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
@@ -16,11 +18,26 @@
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/1/10. */
+
+import lombok.Data;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 /**
- * 全量信息对象包
+ * No Descript.
  *
  * @author Vincent Luo
  */
-package com.hantiansoft.kaiheiloft.allinf;
+@Data
+public class EditMailModx {
+
+    /**
+     * 用户密码
+     */
+    @NotBlank(message = "邮箱不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$", message = "邮箱格式不正确")
+    private String mail;
+
+}

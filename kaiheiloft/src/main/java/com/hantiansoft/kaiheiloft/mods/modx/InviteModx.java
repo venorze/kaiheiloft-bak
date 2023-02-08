@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,50 +18,27 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/10. */
+/* Creates on 2023/2/5. */
 
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import java.util.Date;
+import lombok.Data;
 
 /**
  * @author Vincent Luo
  */
 @Data
-public class UserProfileModx {
+public class InviteModx {
 
     /**
-     * 用户昵称
+     * 俱乐部ID
      */
-    @NotBlank(message = "用户昵称不能为空")
-    @Length(max = 16, message = "用户昵称超出规定长度")
-    private String nickname;
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long clubId;
 
     /**
-     * 用户头像
+     * 俱乐部名称
      */
-    @NotBlank(message = "用户头像不能为空")
-    private String avatar;
-
-    /**
-     * 用户生日
-     */
-    @NotNull(message = "用户生日不能为空")
-    private Date birthday;
-
-    /**
-     * 自我介绍
-     */
-    private String bio;
-
-    /**
-     * 用户性别, M 男， W 女
-     */
-    @Pattern(regexp = "^|M|W|$", message = "用户性别不正确")
-    private String gender;
+    @NotNull(message = "用户ID不能为空")
+    private Long userId;
 
 }

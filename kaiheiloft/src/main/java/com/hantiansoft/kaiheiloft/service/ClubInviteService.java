@@ -22,7 +22,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.ClubInvite;
-import com.hantiansoft.kaiheiloft.modx.InviteModv;
+import com.hantiansoft.kaiheiloft.mods.modv.InviteModv;
 
 import java.util.List;
 

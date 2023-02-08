@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hantiansoft.kaiheiloft.mapper.ClubInviteMapper">
 
-    <select id="queryInvitesByUserId" resultType="com.hantiansoft.kaiheiloft.modx.InviteModv">
+    <select id="queryInvitesByUserId" resultType="com.hantiansoft.kaiheiloft.mods.modv.InviteModv">
         select
             ku0.nickname as userNickname,
             ku1.nickname as inviterNickname,

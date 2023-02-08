@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modv;
 
 /* ************************************************************************
  *
@@ -18,26 +18,29 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/10. */
+/* Creates on 2023/2/5. */
 
 import lombok.Data;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
 @Data
-public class EditMailModx {
+public class InviteModv {
 
     /**
-     * 用户密码
+     * 俱乐部名称
      */
-    @NotBlank(message = "邮箱不能为空")
-    @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$", message = "邮箱格式不正确")
-    private String mail;
+    private String clubNickname;
+
+    /**
+     * 用户名称
+     */
+    private String userNickname;
+
+    /**
+     * 邀请人名称
+     */
+    private String inviterNickname;
 
 }

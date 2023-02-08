@@ -22,8 +22,8 @@ package com.hantiansoft.kaiheiloft.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.kaiheiloft.allinf.AllClubMemberInformation;
-import com.hantiansoft.kaiheiloft.modx.ClubMemberPageModx;
+import com.hantiansoft.kaiheiloft.mods.modv.ClubMemberInfoModv;
+import com.hantiansoft.kaiheiloft.mods.modx.ClubMemberPageModx;
 import com.hantiansoft.kaiheiloft.service.ClubMemberService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class ClubMemberController {
      * 分页查询俱乐部成员列表
      */
     @GetMapping("/pquery")
-    public R<IPage<AllClubMemberInformation>> page(@RequestBody @Valid ClubMemberPageModx pageModx) {
+    public R<IPage<ClubMemberInfoModv>> page(@RequestBody @Valid ClubMemberPageModx pageModx) {
         return R.ok(clubMemberService.queryPageMember(pageModx.getClubId(), pageModx.getPageNo(), pageModx.getPageSize()));
     }
 

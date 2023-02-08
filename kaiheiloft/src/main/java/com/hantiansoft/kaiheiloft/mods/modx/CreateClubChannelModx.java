@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -20,28 +20,23 @@ package com.hantiansoft.kaiheiloft.modx;
 
 /* Creates on 2023/2/6. */
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 /**
- * 分页查询
- *
  * @author Vincent Luo
  */
 @Data
-public class PageModx {
+@EqualsAndHashCode(callSuper = true)
+public class CreateClubChannelModx extends ClubIdModx {
 
     /**
-     * 索引
+     * 频道名称
      */
-    @Min(value = 1, message = "索引能小于1")
-    private Integer pageNo;
-
-    /**
-     * 条数
-     */
-    @Max(value = 100, message = "每页条数不能大于100")
-    private Integer pageSize;
+    @NotBlank(message = "频道名称不能为空")
+    @Length(min = 2, max = 20, message = "频道名称范围 2 - 8 个字符")
+    private String name;
 
 }

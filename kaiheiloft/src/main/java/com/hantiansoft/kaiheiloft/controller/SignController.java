@@ -20,7 +20,7 @@ package com.hantiansoft.kaiheiloft.controller;
 
 /* Creates on 2023/1/16. */
 
-import com.hantiansoft.kaiheiloft.modx.UserSignUpModx;
+import com.hantiansoft.kaiheiloft.mods.modx.UserSignUpModx;
 import com.hantiansoft.kaiheiloft.service.UserService;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;

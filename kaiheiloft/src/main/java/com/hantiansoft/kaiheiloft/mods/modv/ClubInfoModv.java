@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.service;
+package com.hantiansoft.kaiheiloft.mods.modv;
 
 /* ************************************************************************
  *
@@ -18,48 +18,51 @@ package com.hantiansoft.kaiheiloft.service;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/2/6. */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.mods.modv.ClubMemberInfoModv;
-import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hantiansoft.kaiheiloft.enties.Club;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Date;
+import java.util.List;
 
 /**
+ * 俱乐部全量信息对象
+ *
  * @author Vincent Luo
  */
-@Service
-public interface ClubMemberService extends IService<ClubMember> {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ClubInfoModv extends Club {
 
     /**
-     * 精准查询俱乐部成员
+     * 俱乐部频道
      */
-    ClubMember queryMember(Long clubId, Long userId);
+    @Data
+    public static class Channel {
+        // 频道ID
+        private Long id;
+        // 频道名称
+        private String name;
+    }
 
     /**
-     * 添加俱乐部成员
+     * 更新时间（这个字段不需要json序列化）
      */
-    void addMember(Long clubId, Long userId);
+    @JsonIgnore
+    private Date updateTime;
 
     /**
-     * 删除所有成员
+     * 俱乐部频道列表
      */
-    void removeAllMember(Long clubId);
+    private List<Channel> channels;
 
     /**
-     * 移除用户
+     * 俱乐部成员列表（分页数据）
      */
-    void removeMember(Long clubId, Long userId);
-
-    /**
-     * 判断成员是否在俱乐部
-     */
-    boolean hasMember(Long clubId, Long userId);
-
-    /**
-     * 分页查询俱乐部成员
-     */
-    IPage<ClubMemberInfoModv> queryPageMember(Long clubId, int pageNo, int pageSize);
+    private IPage<ClubMemberInfoModv> members;
 
 }

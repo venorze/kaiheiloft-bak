@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,7 +18,7 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/4. */
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -27,18 +27,12 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class InviteIdModx {
+public class ClubIdModx {
 
     /**
      * 俱乐部ID
      */
-    @NotNull(message = "邀请ID不能为空")
-    private Long inviteId;
-
-    /**
-     * 俱乐部ID
-     */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long clubId;
 
 }

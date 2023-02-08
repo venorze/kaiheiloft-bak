@@ -23,7 +23,7 @@ package com.hantiansoft.kaiheiloft.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.allinf.AllClubMemberInformation;
+import com.hantiansoft.kaiheiloft.mods.modv.ClubMemberInfoModv;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,6 +36,6 @@ public interface ClubMemberMapper extends BaseMapper<ClubMember> {
     /**
      * 分页查询俱乐部成员
      */
-    IPage<AllClubMemberInformation> queryPageMember(@Param("page") IPage<?> page, @Param("clubId") Long clubId);
+    IPage<ClubMemberInfoModv> queryPageMember(@Param("page") IPage<?> page, @Param("clubId") Long clubId);
 
 }

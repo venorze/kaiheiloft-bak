@@ -27,7 +27,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.kaiheiloft.enties.ClubMember;
-import com.hantiansoft.kaiheiloft.allinf.AllClubMemberInformation;
+import com.hantiansoft.kaiheiloft.mods.modv.ClubMemberInfoModv;
 import com.hantiansoft.kaiheiloft.mapper.ClubMemberMapper;
 import org.springframework.stereotype.Service;
 
@@ -74,7 +74,7 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
     }
 
     @Override
-    public IPage<AllClubMemberInformation> queryPageMember(Long clubId, int pageNo, int pageSize) {
+    public IPage<ClubMemberInfoModv> queryPageMember(Long clubId, int pageNo, int pageSize) {
         return baseMapper.queryPageMember(new Page<>(pageNo, pageSize), clubId);
     }
 }

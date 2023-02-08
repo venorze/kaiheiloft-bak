@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.allinf;
+package com.hantiansoft.kaiheiloft.mods.modv;
 
 /* ************************************************************************
  *
@@ -18,7 +18,7 @@ package com.hantiansoft.kaiheiloft.allinf;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/6. */
+/* Creates on 2023/2/4. */
 
 import lombok.Data;
 
@@ -26,31 +26,26 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class AllClubMemberInformation {
+public class ClubModv {
 
     /**
-     * 成员ID
+     * 俱乐部ID
      */
     private Long id;
 
     /**
-     * 成员用户名
+     * 俱乐部名称
      */
-    private String username;
+    private String name;
 
     /**
-     * 成员昵称
-     */
-    private String nickname;
-
-    /**
-     * 成员头像
+     * 俱乐部头像
      */
     private String avatar;
 
     /**
-     * 是否是管理员, Y超级管理员，N普通管理员，M普通成员
+     * 俱乐部介绍
      */
-    private String superadmin;
+    private String introduce;
 
 }

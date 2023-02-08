@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.allinf;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,51 +18,25 @@ package com.hantiansoft.kaiheiloft.allinf;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/6. */
+/* Creates on 2023/2/4. */
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hantiansoft.kaiheiloft.enties.Club;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-import java.util.List;
-
 /**
- * 俱乐部全量信息对象
+ * No Descript.
  *
  * @author Vincent Luo
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AllClubInformation extends Club {
+public class EditClubModx extends CreateClubModx {
 
     /**
-     * 俱乐部频道
+     * 俱乐部ID
      */
-    @Data
-    public static class Channel {
-        // 频道ID
-        private Long id;
-        // 频道名称
-        private String name;
-    }
-
-    /**
-     * 更新时间（这个字段不需要json序列化）
-     */
-    @JsonIgnore
-    private Date updateTime;
-
-    /**
-     * 俱乐部频道列表
-     */
-    private List<Channel> channels;
-
-    /**
-     * 俱乐部成员列表（分页数据）
-     */
-    private IPage<AllClubMemberInformation> members;
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long id;
 
 }

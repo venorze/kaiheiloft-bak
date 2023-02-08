@@ -23,10 +23,9 @@ package com.hantiansoft.kaiheiloft.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
-import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
 import com.hantiansoft.kaiheiloft.mapper.ClubApplyJoinMapper;
-import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
+import com.hantiansoft.kaiheiloft.mods.modx.ClubApplyJoinModx;
 import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.stereotype.Service;
 

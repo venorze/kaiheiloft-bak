@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,30 +18,30 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/6. */
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 /**
+ * 分页查询
+ *
  * @author Vincent Luo
  */
 @Data
-public class InviteModv {
+public class PageModx {
 
     /**
-     * 俱乐部名称
+     * 索引
      */
-    private String clubNickname;
+    @Min(value = 1, message = "索引能小于1")
+    private Integer pageNo;
 
     /**
-     * 用户名称
+     * 条数
      */
-    private String userNickname;
-
-    /**
-     * 邀请人名称
-     */
-    private String inviterNickname;
+    @Max(value = 100, message = "每页条数不能大于100")
+    private Integer pageSize;
 
 }

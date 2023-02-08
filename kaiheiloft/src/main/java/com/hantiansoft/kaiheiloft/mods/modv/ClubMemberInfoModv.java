@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modv;
 
 /* ************************************************************************
  *
@@ -18,25 +18,39 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/2/6. */
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class EditClubModx extends CreateClubModx {
+public class ClubMemberInfoModv {
 
     /**
-     * 俱乐部ID
+     * 成员ID
      */
-    @NotNull(message = "俱乐部ID不能为空")
     private Long id;
+
+    /**
+     * 成员用户名
+     */
+    private String username;
+
+    /**
+     * 成员昵称
+     */
+    private String nickname;
+
+    /**
+     * 成员头像
+     */
+    private String avatar;
+
+    /**
+     * 是否是管理员, Y超级管理员，N普通管理员，M普通成员
+     */
+    private String superadmin;
 
 }

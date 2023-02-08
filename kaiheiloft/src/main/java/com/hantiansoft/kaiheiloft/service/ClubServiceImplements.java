@@ -29,13 +29,13 @@ import com.hantiansoft.kaiheiloft.enties.Club;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
 import com.hantiansoft.kaiheiloft.enties.ClubInvite;
 import com.hantiansoft.kaiheiloft.enties.User;
-import com.hantiansoft.kaiheiloft.allinf.AllClubInformation;
+import com.hantiansoft.kaiheiloft.mods.modv.ClubInfoModv;
 import com.hantiansoft.kaiheiloft.mapper.ClubAnnouncementMapper;
 import com.hantiansoft.kaiheiloft.mapper.ClubMapper;
-import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
-import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
-import com.hantiansoft.kaiheiloft.modx.EditClubModx;
-import com.hantiansoft.kaiheiloft.modx.InviteModv;
+import com.hantiansoft.kaiheiloft.mods.modx.ClubApplyJoinModx;
+import com.hantiansoft.kaiheiloft.mods.modx.CreateClubModx;
+import com.hantiansoft.kaiheiloft.mods.modx.EditClubModx;
+import com.hantiansoft.kaiheiloft.mods.modv.InviteModv;
 import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,13 +78,13 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     }
 
     @Override
-    public AllClubInformation queryAllClubInformation(Long clubId) {
-        var completeClub = new AllClubInformation();
+    public ClubInfoModv queryAllClubInformation(Long clubId) {
+        var completeClub = new ClubInfoModv();
         // 查询俱乐部基本信息
         BeanUtils.copyProperties(queryByClubId(clubId), completeClub);
 
         // 查询俱乐部频道
-        completeClub.setChannels(BeanUtils.copyProperties(clubChannelService.queryChannels(clubId), AllClubInformation.Channel.class));
+        completeClub.setChannels(BeanUtils.copyProperties(clubChannelService.queryChannels(clubId), ClubInfoModv.Channel.class));
 
         // 查询俱乐部用户
         var memberPage = clubMemberService.queryPageMember(clubId, 1, 20);

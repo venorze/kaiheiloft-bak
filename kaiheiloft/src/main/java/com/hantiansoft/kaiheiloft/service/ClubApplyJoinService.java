@@ -22,7 +22,7 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.ClubApplyJoin;
-import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
+import com.hantiansoft.kaiheiloft.mods.modx.ClubApplyJoinModx;
 
 import java.util.List;
 

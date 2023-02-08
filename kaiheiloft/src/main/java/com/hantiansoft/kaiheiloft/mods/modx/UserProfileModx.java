@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,25 +18,50 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/6. */
+/* Creates on 2023/1/10. */
+
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.hibernate.validator.constraints.Length;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import java.util.Date;
 
 /**
  * @author Vincent Luo
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class CreateClubChannelModx extends ClubIdModx {
+public class UserProfileModx {
 
     /**
-     * 频道名称
+     * 用户昵称
      */
-    @NotBlank(message = "频道名称不能为空")
-    @Length(min = 2, max = 20, message = "频道名称范围 2 - 8 个字符")
-    private String name;
+    @NotBlank(message = "用户昵称不能为空")
+    @Length(max = 16, message = "用户昵称超出规定长度")
+    private String nickname;
+
+    /**
+     * 用户头像
+     */
+    @NotBlank(message = "用户头像不能为空")
+    private String avatar;
+
+    /**
+     * 用户生日
+     */
+    @NotNull(message = "用户生日不能为空")
+    private Date birthday;
+
+    /**
+     * 自我介绍
+     */
+    private String bio;
+
+    /**
+     * 用户性别, M 男， W 女
+     */
+    @Pattern(regexp = "^|M|W|$", message = "用户性别不正确")
+    private String gender;
 
 }

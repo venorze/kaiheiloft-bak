@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,28 +18,26 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/1/10. */
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.validation.constraints.NotBlank;
+
 /**
+ * No Descript.
+ *
  * @author Vincent Luo
  */
 @Data
-public class ClubApplyJoinModx {
+public class EditPasswordModx {
 
     /**
-     * 俱乐部ID
+     * 用户密码
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long clubId;
-
-    /**
-     * 申请备注
-     */
-    @Length(max = 50, message = "申请备注字符长度不能大于50个字符")
-    private String requestRemark;
+    @NotBlank(message = "用户密码不能为空")
+    @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
+    private String password;
 
 }

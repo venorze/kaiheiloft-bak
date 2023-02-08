@@ -22,11 +22,11 @@ package com.hantiansoft.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hantiansoft.kaiheiloft.enties.Club;
-import com.hantiansoft.kaiheiloft.allinf.AllClubInformation;
-import com.hantiansoft.kaiheiloft.modx.ClubApplyJoinModx;
-import com.hantiansoft.kaiheiloft.modx.CreateClubModx;
-import com.hantiansoft.kaiheiloft.modx.EditClubModx;
-import com.hantiansoft.kaiheiloft.modx.InviteModv;
+import com.hantiansoft.kaiheiloft.mods.modv.ClubInfoModv;
+import com.hantiansoft.kaiheiloft.mods.modx.ClubApplyJoinModx;
+import com.hantiansoft.kaiheiloft.mods.modx.CreateClubModx;
+import com.hantiansoft.kaiheiloft.mods.modx.EditClubModx;
+import com.hantiansoft.kaiheiloft.mods.modv.InviteModv;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public interface ClubService extends IService<Club> {
     /**
      * 查询俱乐部全量信息
      */
-    AllClubInformation queryAllClubInformation(Long clubId);
+    ClubInfoModv queryAllClubInformation(Long clubId);
 
     /**
      * 判断俱乐部是否存在

@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -18,36 +18,28 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/13. */
+/* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.List;
-
 /**
- * 创建俱乐部请求对象
- *
  * @author Vincent Luo
  */
 @Data
-public class CreateClubModx {
+public class ClubApplyJoinModx {
 
     /**
-     * 俱乐部名称
+     * 俱乐部ID
      */
-    @NotBlank(message = "俱乐部名称是必填项")
-    @Length(min = 2, max = 20, message = "俱乐部名称范围 2 - 8 个字符")
-    private String name;
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long clubId;
 
     /**
-     * 俱乐部头像
+     * 申请备注
      */
-    private String avatar;
-
-    @Length(max = 180, message = "俱乐部介绍不能超过180个字符")
-    private String introduce;
+    @Length(max = 50, message = "申请备注字符长度不能大于50个字符")
+    private String requestRemark;
 
 }

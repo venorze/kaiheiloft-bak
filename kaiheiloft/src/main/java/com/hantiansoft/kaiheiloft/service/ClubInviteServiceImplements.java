@@ -21,12 +21,11 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/2/5. */
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hantiansoft.framework.Asserts;
 import com.hantiansoft.kaiheiloft.enties.ClubInvite;
 import com.hantiansoft.kaiheiloft.mapper.ClubInviteMapper;
-import com.hantiansoft.kaiheiloft.modx.InviteModv;
+import com.hantiansoft.kaiheiloft.mods.modv.InviteModv;
 import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.stereotype.Service;
 

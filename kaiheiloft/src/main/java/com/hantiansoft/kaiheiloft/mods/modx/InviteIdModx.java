@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.modx;
+package com.hantiansoft.kaiheiloft.mods.modx;
 
 /* ************************************************************************
  *
@@ -27,16 +27,16 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class InviteModx {
+public class InviteIdModx {
 
     /**
      * 俱乐部ID
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long clubId;
+    @NotNull(message = "邀请ID不能为空")
+    private Long inviteId;
 
     /**
-     * 俱乐部名称
+     * 俱乐部ID
      */
     @NotNull(message = "用户ID不能为空")
     private Long userId;

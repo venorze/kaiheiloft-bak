@@ -1,5 +1,3 @@
-package com.hantiansoft.kaiheiloft.modx;
-
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
@@ -20,23 +18,15 @@ package com.hantiansoft.kaiheiloft.modx;
 
 /* Creates on 2023/2/6. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * No Descript.
+ * 与前后端交互模块，格式有：*Modx, *Modv
+ *
+ *   - *Modx
+ *     如果后缀为Modx，表示这个对象是前端提交给后端数据的对象
+ *
+ *  - *Modv
+ *    如果后缀是Modv，表示这个对象是后端返回给前端的对象
  *
  * @author Vincent Luo
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class ClubMemberPageModx extends PageModx {
-
-    /**
-     * 俱乐部Id
-     */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long clubId;
-
-}
+package com.hantiansoft.kaiheiloft.mods.modx;

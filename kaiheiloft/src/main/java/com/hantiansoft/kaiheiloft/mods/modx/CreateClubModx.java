@@ -1,3 +1,5 @@
+package com.hantiansoft.kaiheiloft.mods.modx;
+
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
@@ -16,17 +18,33 @@
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/6. */
+/* Creates on 2023/1/13. */
+
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
- * 与前后端交互模块，格式有：*Modx, *Modv
- *
- *   - *Modx
- *     如果后缀为Modx，表示这个对象是前端提交给后端数据的对象
- *
- *  - *Modv
- *    如果后缀是Modv，表示这个对象是后端返回给前端的对象
+ * 创建俱乐部请求对象
  *
  * @author Vincent Luo
  */
-package com.hantiansoft.kaiheiloft.modx;
+@Data
+public class CreateClubModx {
+
+    /**
+     * 俱乐部名称
+     */
+    @NotBlank(message = "俱乐部名称是必填项")
+    @Length(min = 2, max = 20, message = "俱乐部名称范围 2 - 8 个字符")
+    private String name;
+
+    /**
+     * 俱乐部头像
+     */
+    private String avatar;
+
+    @Length(max = 180, message = "俱乐部介绍不能超过180个字符")
+    private String introduce;
+
+}

@@ -1,5 +1,3 @@
-package com.hantiansoft.kaiheiloft.modx;
-
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
@@ -18,34 +16,11 @@ package com.hantiansoft.kaiheiloft.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
-
-import lombok.Data;
+/* Creates on 2023/1/13. */
 
 /**
+ * 视图展示数据对象
+ *
  * @author Vincent Luo
  */
-@Data
-public class ClubModv {
-
-    /**
-     * 俱乐部ID
-     */
-    private Long id;
-
-    /**
-     * 俱乐部名称
-     */
-    private String name;
-
-    /**
-     * 俱乐部头像
-     */
-    private String avatar;
-
-    /**
-     * 俱乐部介绍
-     */
-    private String introduce;
-
-}
+package com.hantiansoft.kaiheiloft.mods.modv;
