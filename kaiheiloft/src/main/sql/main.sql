@@ -83,6 +83,7 @@ CREATE TABLE `khl_club_channel`
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `name`        varchar(20) NOT NULL COMMENT '俱乐部频道名称',
     `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `type`        char(1) not null comment '频道类型，T文字频道，V语音频道',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3

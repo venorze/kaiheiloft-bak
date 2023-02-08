@@ -44,4 +44,9 @@ public class ClubChannel extends SuperModel<ClubChannel> {
      */
     private Long clubId;
 
+    /**
+     * 频道类型，V表示语音频道，T表示文字频道
+     */
+    private String type;
+
 }

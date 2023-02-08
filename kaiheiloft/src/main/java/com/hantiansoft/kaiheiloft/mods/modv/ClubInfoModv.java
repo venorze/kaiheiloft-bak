@@ -47,6 +47,8 @@ public class ClubInfoModv extends Club {
         private Long id;
         // 频道名称
         private String name;
+        // 频道类型
+        private String type;
     }
 
     /**
