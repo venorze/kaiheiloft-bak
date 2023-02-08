@@ -31,7 +31,7 @@ sys.path.append(os.getcwd())
 '''
 执行脚本，开始配置开发环境
 '''
-from downloads import xdownload, GLOBAL_SAVE_PATH
+from fdload import xdownload, GLOBAL_SAVE_PATH
 from install import xinstall
 from namedef import *
 from install import cnotexist

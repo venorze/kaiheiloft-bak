@@ -25,6 +25,12 @@ Creates on 2023/2/6.
 import os
 import urllib.request
 
+'''
+取消ssl验证
+'''
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
 #
 # 用户目录
 #

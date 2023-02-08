@@ -23,7 +23,7 @@ import os
 '''
 安装已下载的应用
 '''
-from downloads import GLOBAL_SAVE_PATH, GLOBAL_USER_ROOT
+from fdload import GLOBAL_SAVE_PATH, GLOBAL_USER_ROOT
 from namedef import *
 
 GLOBAL_INSTALL_PATH = "%s/.khldenvs" % GLOBAL_USER_ROOT
@@ -65,12 +65,6 @@ def xinstall():
                 ijdk()
             elif 'maven' in filename:
                 imaven()
-            elif 'Git' in filename:
-                igit(pathname)
-            elif 'idea' in filename:
-                iidea(pathname)
-            elif 'Clash' in filename:
-                iclash(pathname)
 
 '''
 jdk
@@ -92,23 +86,3 @@ def imaven():
     if ifnot_exist_unzip(savepath, MAVEN):
         print("install %s --- OK" % MAVEN)
 
-'''
-git
-'''
-def igit(pathname):
-    os.system("%s /S" % pathname)
-    print("install %s --- OK" % GIT)
-
-'''
-idea
-'''
-def iidea(pathname):
-    os.system("%s /S" % pathname)
-    print("install %s --- OK" % IDEA)
-
-'''
-clash
-'''
-def iclash(pathname):
-    os.system("%s /S" % pathname)
-    print("install %s --- OK" % CLASH)
