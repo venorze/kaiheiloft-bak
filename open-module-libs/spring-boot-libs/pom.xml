@@ -18,11 +18,13 @@
         <module>spring-boot-starter-redis</module>
         <module>spring-boot-starter-web</module>
         <module>spring-boot-starter-hibernate-validator</module>
+        <module>spring-boot-starter-rocketmq</module>
     </modules>
 
     <properties>
         <spring.boot.version>3.0.1</spring.boot.version>
         <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
+        <rocketmq.version>2.2.2</rocketmq.version>
     </properties>
 
     <dependencyManagement>
