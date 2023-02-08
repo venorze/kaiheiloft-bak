@@ -55,6 +55,23 @@ CREATE TABLE `khl_logon_logs`
   COLLATE = utf8mb3_bin;
 
 -- ---------------------------------
+-- 用户好友表
+-- ---------------------------------
+DROP TABLE IF EXISTS `khl_user_friend`;
+CREATE TABLE `khl_user_friend`
+(
+    `id`          varchar(32)  NOT NULL COMMENT '主键ID',
+    `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`     varchar(32) not null COMMENT '用户ID',
+    `friend_id`   varchar(32) not null COMMENT '好友ID',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  COLLATE = utf8mb3_bin;
+
+
+-- ---------------------------------
 -- 俱乐部表
 -- ---------------------------------
 DROP TABLE IF EXISTS `khl_club`;
