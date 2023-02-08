@@ -12,3 +12,6 @@ spring:
         username: nacos
         password: nacos
         namespace: dev
+
+rocketmq:
+  name-server: 123.60.211.203:9876
