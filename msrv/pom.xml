@@ -32,6 +32,16 @@
             <artifactId>spring-cloud-starter-feign</artifactId>
             <version>v1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>opensso-module-export</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

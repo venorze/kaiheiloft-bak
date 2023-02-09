@@ -36,6 +36,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class MsrvBootstrap {
 
     public static void main(String[] args) {
+        // 启动Spring服务
         SpringApplication.run(MsrvBootstrap.class, args);
     }
 
