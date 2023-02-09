@@ -31,7 +31,7 @@
         <module>kaiheiloft</module>
         <module>sdk</module>
         <module>opensso</module>
-        <module>linkmod</module>
+        <module>export</module>
         <module>route</module>
         <module>msrv</module>
         <module>stream-mediasrv</module>

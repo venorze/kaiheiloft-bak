@@ -1,4 +1,4 @@
-package com.hantiansoft.linkmod.opensso;
+package com.hantiansoft.export.opensso;
 
 /* ************************************************************************
  *
@@ -26,7 +26,7 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class TokenPayloadLinkmod {
+public class TokenPayloadExportMod {
 
     /**
      * 用户ID

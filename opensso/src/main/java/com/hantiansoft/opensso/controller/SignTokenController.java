@@ -22,9 +22,9 @@ package com.hantiansoft.opensso.controller;
 
 import com.hantiansoft.framework.R;
 import com.hantiansoft.framework.collections.Maps;
-import com.hantiansoft.linkmod.kaiheiloft.UserInfoLinkMod;
-import com.hantiansoft.linkmod.kaiheiloft.UserSignInLinkMod;
-import com.hantiansoft.linkmod.opensso.TokenPayloadLinkmod;
+import com.hantiansoft.export.kaiheiloft.UserInfoExportMod;
+import com.hantiansoft.export.kaiheiloft.UserSignExportMod;
+import com.hantiansoft.export.opensso.TokenPayloadExportMod;
 import com.hantiansoft.opensso.remotecall.UserServiceRemoteCall;
 import com.hantiansoft.opensso.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -50,14 +50,14 @@ public class SignTokenController {
      * 用户登录
      */
     @GetMapping("/sign_in")
-    public R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod) {
-        R<UserInfoLinkMod> ret = userServiceRemoteCall.sign_in(userSignInLinkMod);
+    public R<UserInfoExportMod> sign_in(@RequestBody @Valid UserSignExportMod userSignExportMod) {
+        R<UserInfoExportMod> ret = userServiceRemoteCall.sign_in(userSignExportMod);
         // 判断是否登录错误
         if (!ret.isSuccess())
             return ret;
 
         // 构建token荷载
-        var userinfo = ret.to(UserInfoLinkMod.class);
+        var userinfo = ret.to(UserInfoExportMod.class);
         Map<String, Object> payload = Maps.ofMap("uid", userinfo.getId(), "uname", userinfo.getUsername());
 
         // 登录成功
@@ -71,7 +71,7 @@ public class SignTokenController {
      * 验证token
      */
     @PostMapping("/nopen/verifier/private")
-    public R<TokenPayloadLinkmod> verifier(@RequestHeader("Authorization") String authorization) {
+    public R<TokenPayloadExportMod> verifier(@RequestHeader("Authorization") String authorization) {
         if (authenticationService.verifier(authorization)) {
             // 获取token信息
             Map<String, Object> claims = authenticationService.getClaims(authorization);
@@ -79,11 +79,11 @@ public class SignTokenController {
             String uname = String.valueOf(claims.get("uname"));
 
             // 构建返回对象
-            TokenPayloadLinkmod tokenPayloadLinkmod = new TokenPayloadLinkmod();
-            tokenPayloadLinkmod.setUserId(Long.valueOf(uid));
-            tokenPayloadLinkmod.setUsername(uname);
+            TokenPayloadExportMod tokenPayloadExportMod = new TokenPayloadExportMod();
+            tokenPayloadExportMod.setUserId(Long.valueOf(uid));
+            tokenPayloadExportMod.setUsername(uname);
 
-            return R.ok(tokenPayloadLinkmod);
+            return R.ok(tokenPayloadExportMod);
         }
 
         return R.fail("token不正确或已过期");

@@ -26,7 +26,7 @@ import com.hantiansoft.kaiheiloft.KaiheiloftBootstrap;
 import com.hantiansoft.kaiheiloft.remotecall.OpenSSORemoteCall;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
-import com.hantiansoft.linkmod.opensso.TokenPayloadLinkmod;
+import com.hantiansoft.export.opensso.TokenPayloadExportMod;
 import com.hantiansoft.spring.framework.WebRequests;
 import com.hantiansoft.spring.framework.annotation.OpenAPI;
 import jakarta.servlet.http.HttpServletRequest;
@@ -79,9 +79,9 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
         if (StringUtils.isEmpty(authorization))
             return eprint(response, R.fail(R.Status.S401, "用户未登录"));
 
-        R<TokenPayloadLinkmod> claimsRet = openSSORemoteCall.verifier(authorization);
+        R<TokenPayloadExportMod> claimsRet = openSSORemoteCall.verifier(authorization);
         if (claimsRet.isSuccess()) {
-            var payload = (TokenPayloadLinkmod) claimsRet.to(TokenPayloadLinkmod.class);
+            var payload = (TokenPayloadExportMod) claimsRet.to(TokenPayloadExportMod.class);
             WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID, payload.getUserId());
             WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME, payload.getUsername());
             return true;

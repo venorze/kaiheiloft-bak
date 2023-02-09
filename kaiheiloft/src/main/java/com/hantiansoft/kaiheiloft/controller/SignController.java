@@ -24,8 +24,8 @@ import com.hantiansoft.kaiheiloft.mods.modx.UserSignUpModx;
 import com.hantiansoft.kaiheiloft.service.UserService;
 import com.hantiansoft.framework.BeanUtils;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.kaiheiloft.UserInfoLinkMod;
-import com.hantiansoft.linkmod.kaiheiloft.UserSignInLinkMod;
+import com.hantiansoft.export.kaiheiloft.UserInfoExportMod;
+import com.hantiansoft.export.kaiheiloft.UserSignExportMod;
 import com.hantiansoft.spring.framework.annotation.OpenAPI;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,12 +58,12 @@ public class SignController {
      */
     @OpenAPI
     @PostMapping("/nopen/sign_in/private")
-    public R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod) {
-        var user = userService.login(userSignInLinkMod.getUsername(), userSignInLinkMod.getPassword());
+    public R<UserInfoExportMod> sign_in(@RequestBody @Valid UserSignExportMod userSignExportMod) {
+        var user = userService.login(userSignExportMod.getUsername(), userSignExportMod.getPassword());
         if (user == null)
             return R.fail("登陆失败，用户名或密码错误！");
 
-        return R.ok(BeanUtils.copyProperties(user, UserInfoLinkMod.class));
+        return R.ok(BeanUtils.copyProperties(user, UserInfoExportMod.class));
     }
 
 }

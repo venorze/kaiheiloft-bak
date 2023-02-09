@@ -18,7 +18,7 @@
 
 # Creates on 2023/2/5.
 kaiheiloft 主要业务模块
-linkmod 模块之间交互中间模块
+export 模块之间交互中间模块
 msrv 消息服务器
 open-module-libs 工具集或依赖模块
 opensso 单点登录模块

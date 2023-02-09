@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>linkmod</artifactId>
+    <artifactId>export</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>open-linkmod-kaiheiloft</module>
-        <module>open-linkmod-opensso</module>
+        <module>kaiheiloft-module-export</module>
+        <module>opensso-module-export</module>
     </modules>
 
     <dependencies>

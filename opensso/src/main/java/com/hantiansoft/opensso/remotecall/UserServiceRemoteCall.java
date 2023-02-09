@@ -21,8 +21,8 @@ package com.hantiansoft.opensso.remotecall;
 /* Creates on 2023/1/18. */
 
 import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.kaiheiloft.UserInfoLinkMod;
-import com.hantiansoft.linkmod.kaiheiloft.UserSignInLinkMod;
+import com.hantiansoft.export.kaiheiloft.UserInfoExportMod;
+import com.hantiansoft.export.kaiheiloft.UserSignExportMod;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +38,6 @@ public interface UserServiceRemoteCall {
      * 用户登录接口
      */
     @PostMapping("/nopen/sign_in/private")
-    R<UserInfoLinkMod> sign_in(@RequestBody @Valid UserSignInLinkMod userSignInLinkMod);
+    R<UserInfoExportMod> sign_in(@RequestBody @Valid UserSignExportMod userSignExportMod);
 
 }

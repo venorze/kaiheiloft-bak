@@ -1,4 +1,4 @@
-package com.hantiansoft.linkmod.kaiheiloft;
+package com.hantiansoft.export.kaiheiloft;
 
 /* ************************************************************************
  *
@@ -20,30 +20,51 @@ package com.hantiansoft.linkmod.kaiheiloft;
 
 /* Creates on 2023/1/18. */
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
- * 用户登录模块
+ * 用户信息
  *
  * @author Vincent Luo
  */
 @Data
-public class UserSignInLinkMod {
+public class UserInfoExportMod {
+
+    /**
+     * userId
+     */
+    private Long id;
 
     /**
      * 用户名
      */
-    @NotBlank(message = "用户名是必填项")
-    @Length(min = 6, max = 16, message = "用户长度需要 6 - 16 位字母或数字组成")
     private String username;
 
     /**
-     * 用户密码
+     * 用户昵称
      */
-    @NotBlank(message = "用户密码是必填项")
-    @Length(min = 8, max = 32, message = "用户密码长度为 8 - 16 位字母、数字、符号组成")
-    private String password;
+    private String nickname;
+
+    /**
+     * 用户头像
+     */
+    private String avatar;
+
+    /**
+     * 生日
+     */
+    private Date birthday;
+
+    /**
+     * 自我介绍
+     */
+    private String bio;
+
+    /**
+     * 性别
+     */
+    private String gender;
 
 }

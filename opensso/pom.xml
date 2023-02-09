@@ -27,15 +27,15 @@
             <artifactId>spring-cloud-starter-feign</artifactId>
             <version>v1.0</version>
         </dependency>
-        <!-- linkmod -->
+        <!-- export -->
         <dependency>
             <groupId>com.hantiansoft</groupId>
-            <artifactId>open-linkmod-kaiheiloft</artifactId>
+            <artifactId>kaiheiloft-module-export</artifactId>
             <version>v1.0</version>
         </dependency>
         <dependency>
             <groupId>com.hantiansoft</groupId>
-            <artifactId>open-linkmod-opensso</artifactId>
+            <artifactId>opensso-module-export</artifactId>
             <version>v1.0</version>
         </dependency>
     </dependencies>

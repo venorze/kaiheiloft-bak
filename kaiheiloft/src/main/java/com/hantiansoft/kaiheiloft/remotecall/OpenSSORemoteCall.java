@@ -21,12 +21,10 @@ package com.hantiansoft.kaiheiloft.remotecall;
 /* Creates on 2023/1/22. */
 
 import com.hantiansoft.framework.R;
-import com.hantiansoft.linkmod.opensso.TokenPayloadLinkmod;
+import com.hantiansoft.export.opensso.TokenPayloadExportMod;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-
-import java.util.Map;
 
 /**
  * 认证服务调用
@@ -40,6 +38,6 @@ public interface OpenSSORemoteCall {
      * 验证Token是否正确
      */
     @PostMapping("/nopen/verifier/private")
-    R<TokenPayloadLinkmod> verifier(@RequestHeader("Authorization") String authorization);
+    R<TokenPayloadExportMod> verifier(@RequestHeader("Authorization") String authorization);
 
 }
