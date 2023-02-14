@@ -53,9 +53,10 @@ public class ClubController extends SuperController {
     /**
      * 创建俱乐部频道
      */
-    @PostMapping("/create/channel")
+    @PostMapping("/new/channel")
     public R<Void> channelCreate(@RequestBody @Valid CreateClubChannelModx createClubChannelModx) {
-        clubService.createChannel(createClubChannelModx.getClubId(), createClubChannelModx.getName(), getCurrentUserId());
+        clubService.createChannel(createClubChannelModx.getClubId(), createClubChannelModx.getName(),
+                createClubChannelModx.getType(), getCurrentUserId());
         return R.ok();
     }
 

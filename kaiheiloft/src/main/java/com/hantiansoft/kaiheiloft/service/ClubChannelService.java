@@ -33,7 +33,7 @@ public interface ClubChannelService extends IService<ClubChannel> {
     /**
      * 创建频道
      */
-    void create(Long clubId, String channelName);
+    void create(Long clubId, String channelName, String channelType);
 
     /**
      * 查询所有频道

@@ -36,10 +36,11 @@ public class ClubChannelServiceImplements extends ServiceImpl<ClubChannelMapper,
         implements ClubChannelService {
 
     @Override
-    public void create(Long clubId, String channelName) {
+    public void create(Long clubId, String channelName, String channelType) {
         var channel = new ClubChannel();
         channel.setName(channelName);
         channel.setClubId(clubId);
+        channel.setType(channelType);
         save(channel);
     }
 

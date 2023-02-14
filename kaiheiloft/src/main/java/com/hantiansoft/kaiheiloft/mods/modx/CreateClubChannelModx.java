@@ -21,6 +21,7 @@ package com.hantiansoft.kaiheiloft.mods.modx;
 /* Creates on 2023/2/6. */
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -38,5 +39,9 @@ public class CreateClubChannelModx extends ClubIdModx {
     @NotBlank(message = "频道名称不能为空")
     @Length(min = 2, max = 20, message = "频道名称范围 2 - 8 个字符")
     private String name;
+
+    @NotBlank(message = "频道类型不能为空")
+    @Pattern(regexp = "^|T|V|$", message = "频道类型不合法")
+    private String type;
 
 }
