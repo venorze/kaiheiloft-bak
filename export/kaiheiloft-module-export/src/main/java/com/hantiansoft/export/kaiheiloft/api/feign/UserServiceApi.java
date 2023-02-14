@@ -1,4 +1,4 @@
-package com.hantiansoft.opensso.remotecall;
+package com.hantiansoft.export.kaiheiloft.api.feign;
 
 /* ************************************************************************
  *
@@ -20,9 +20,9 @@ package com.hantiansoft.opensso.remotecall;
 
 /* Creates on 2023/1/18. */
 
+import com.hantiansoft.export.kaiheiloft.modx.UserInfo;
+import com.hantiansoft.export.kaiheiloft.modx.UserSign;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.export.kaiheiloft.UserInfoExportMod;
-import com.hantiansoft.export.kaiheiloft.UserSignExportMod;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,13 +31,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * @author Vincent Luo
  */
-@FeignClient("KAIHEILOFT-SRV")
-public interface UserServiceRemoteCall {
+@FeignClient(value = "KAIHEILOFT-SRV", contextId = "userServiceAPI")
+public interface UserServiceApi {
 
     /**
      * 用户登录接口
      */
     @PostMapping("/nopen/sign_in/private")
-    R<UserInfoExportMod> sign_in(@RequestBody @Valid UserSignExportMod userSignExportMod);
+    R<UserInfo> sign_in(@RequestBody @Valid UserSign userSign);
 
 }

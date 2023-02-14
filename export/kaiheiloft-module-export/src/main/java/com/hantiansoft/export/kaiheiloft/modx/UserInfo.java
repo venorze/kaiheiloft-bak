@@ -1,4 +1,4 @@
-package com.hantiansoft.export.kaiheiloft;
+package com.hantiansoft.export.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -30,7 +30,7 @@ import java.util.Date;
  * @author Vincent Luo
  */
 @Data
-public class UserInfoExportMod {
+public class UserInfo {
 
     /**
      * userId

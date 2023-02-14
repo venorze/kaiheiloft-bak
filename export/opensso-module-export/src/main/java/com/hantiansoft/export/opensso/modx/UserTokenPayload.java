@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.remotecall;
+package com.hantiansoft.export.opensso.modx;
 
 /* ************************************************************************
  *
@@ -18,26 +18,24 @@ package com.hantiansoft.kaiheiloft.remotecall;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/22. */
+/* Creates on 2023/2/4. */
 
-import com.hantiansoft.framework.R;
-import com.hantiansoft.export.opensso.TokenPayloadExportMod;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import lombok.Data;
 
 /**
- * 认证服务调用
- *
  * @author Vincent Luo
  */
-@FeignClient(name = "OPENSSO-SRV")
-public interface OpenSSORemoteCall {
+@Data
+public class UserTokenPayload {
 
     /**
-     * 验证Token是否正确
+     * 用户ID
      */
-    @PostMapping("/nopen/verifier/private")
-    R<TokenPayloadExportMod> verifier(@RequestHeader("Authorization") String authorization);
+    private Long userId;
+
+    /**
+     * 用户名
+     */
+    private String username;
 
 }

@@ -1,4 +1,4 @@
-package com.hantiansoft.export.opensso;
+package com.hantiansoft.export.kaiheiloft;
 
 /* ************************************************************************
  *
@@ -18,24 +18,20 @@ package com.hantiansoft.export.opensso;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/1/18. */
 
-import lombok.Data;
+import org.springframework.context.annotation.ComponentScan;
+
+import java.lang.annotation.*;
 
 /**
+ * 导入kaiheiloft模块
  * @author Vincent Luo
  */
-@Data
-public class TokenPayloadExportMod {
-
-    /**
-     * 用户ID
-     */
-    private Long userId;
-
-    /**
-     * 用户名
-     */
-    private String username;
-
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@ComponentScan(basePackages = "com.hantiansoft.export.kaiheiloft")
+public @interface ImportKaiheiloft {
 }

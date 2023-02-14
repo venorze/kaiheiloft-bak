@@ -11,4 +11,17 @@
 
     <artifactId>opensso-module-export</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>project-devtools-libs</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hantiansoft</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>v1.0</version>
+        </dependency>
+    </dependencies>
+
 </project>

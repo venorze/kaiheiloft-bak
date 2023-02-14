@@ -21,12 +21,12 @@ package com.hantiansoft.kaiheiloft.configuration;
 /* Creates on 2023/1/22. */
 
 import com.alibaba.fastjson.JSON;
+import com.hantiansoft.export.opensso.api.feign.UnifiedUserAuthenticationServiceApi;
 import com.hantiansoft.framework.StringUtils;
 import com.hantiansoft.kaiheiloft.KaiheiloftBootstrap;
-import com.hantiansoft.kaiheiloft.remotecall.OpenSSORemoteCall;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.kaiheiloft.system.KaiheiloftApplicationContext;
-import com.hantiansoft.export.opensso.TokenPayloadExportMod;
+import com.hantiansoft.export.opensso.modx.UserTokenPayload;
 import com.hantiansoft.spring.framework.WebRequests;
 import com.hantiansoft.spring.framework.annotation.OpenAPI;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
     /**
      * 远程调用认证服务
      */
-    private OpenSSORemoteCall openSSORemoteCall;
+    private UnifiedUserAuthenticationServiceApi unifiedUserAuthenticationServiceApi;
 
     /**
      * 拦截器异常返回, 消息传入String类型
@@ -79,9 +79,9 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
         if (StringUtils.isEmpty(authorization))
             return eprint(response, R.fail(R.Status.S401, "用户未登录"));
 
-        R<TokenPayloadExportMod> claimsRet = openSSORemoteCall.verifier(authorization);
+        R<UserTokenPayload> claimsRet = unifiedUserAuthenticationServiceApi.verifier(authorization);
         if (claimsRet.isSuccess()) {
-            var payload = (TokenPayloadExportMod) claimsRet.to(TokenPayloadExportMod.class);
+            var payload = (UserTokenPayload) claimsRet.to(UserTokenPayload.class);
             WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID, payload.getUserId());
             WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME, payload.getUsername());
             return true;
@@ -92,8 +92,8 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
-        if (openSSORemoteCall == null)
-            openSSORemoteCall = KaiheiloftBootstrap.ApplicationContext.getBean(OpenSSORemoteCall.class);
+        if (unifiedUserAuthenticationServiceApi == null)
+            unifiedUserAuthenticationServiceApi = KaiheiloftBootstrap.ApplicationContext.getBean(UnifiedUserAuthenticationServiceApi.class);
 
         if (handler instanceof HandlerMethod handlerMethod) {
             Method method = handlerMethod.getMethod();

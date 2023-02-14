@@ -1,4 +1,4 @@
-package com.hantiansoft.export.kaiheiloft;
+package com.hantiansoft.export.kaiheiloft.modx;
 
 /* ************************************************************************
  *
@@ -30,7 +30,7 @@ import org.hibernate.validator.constraints.Length;
  * @author Vincent Luo
  */
 @Data
-public class UserSignExportMod {
+public class UserSign {
 
     /**
      * 用户名

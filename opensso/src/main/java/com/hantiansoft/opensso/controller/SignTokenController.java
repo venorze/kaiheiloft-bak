@@ -20,12 +20,12 @@ package com.hantiansoft.opensso.controller;
 
 /* Creates on 2023/1/20. */
 
+import com.hantiansoft.export.kaiheiloft.api.feign.UserServiceApi;
+import com.hantiansoft.export.kaiheiloft.modx.UserInfo;
+import com.hantiansoft.export.kaiheiloft.modx.UserSign;
+import com.hantiansoft.export.opensso.modx.UserTokenPayload;
 import com.hantiansoft.framework.R;
 import com.hantiansoft.framework.collections.Maps;
-import com.hantiansoft.export.kaiheiloft.UserInfoExportMod;
-import com.hantiansoft.export.kaiheiloft.UserSignExportMod;
-import com.hantiansoft.export.opensso.TokenPayloadExportMod;
-import com.hantiansoft.opensso.remotecall.UserServiceRemoteCall;
 import com.hantiansoft.opensso.service.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ import java.util.Map;
 public class SignTokenController {
 
     @Autowired
-    private UserServiceRemoteCall userServiceRemoteCall;
+    private UserServiceApi userServiceApi;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -50,14 +50,14 @@ public class SignTokenController {
      * 用户登录
      */
     @GetMapping("/sign_in")
-    public R<UserInfoExportMod> sign_in(@RequestBody @Valid UserSignExportMod userSignExportMod) {
-        R<UserInfoExportMod> ret = userServiceRemoteCall.sign_in(userSignExportMod);
+    public R<UserInfo> sign_in(@RequestBody @Valid UserSign userSign) {
+        R<UserInfo> ret = userServiceApi.sign_in(userSign);
         // 判断是否登录错误
         if (!ret.isSuccess())
             return ret;
 
         // 构建token荷载
-        var userinfo = ret.to(UserInfoExportMod.class);
+        var userinfo = ret.to(UserInfo.class);
         Map<String, Object> payload = Maps.ofMap("uid", userinfo.getId(), "uname", userinfo.getUsername());
 
         // 登录成功
@@ -71,7 +71,7 @@ public class SignTokenController {
      * 验证token
      */
     @PostMapping("/nopen/verifier/private")
-    public R<TokenPayloadExportMod> verifier(@RequestHeader("Authorization") String authorization) {
+    public R<UserTokenPayload> verifier(@RequestHeader("Authorization") String authorization) {
         if (authenticationService.verifier(authorization)) {
             // 获取token信息
             Map<String, Object> claims = authenticationService.getClaims(authorization);
@@ -79,11 +79,11 @@ public class SignTokenController {
             String uname = String.valueOf(claims.get("uname"));
 
             // 构建返回对象
-            TokenPayloadExportMod tokenPayloadExportMod = new TokenPayloadExportMod();
-            tokenPayloadExportMod.setUserId(Long.valueOf(uid));
-            tokenPayloadExportMod.setUsername(uname);
+            UserTokenPayload userTokenPayload = new UserTokenPayload();
+            userTokenPayload.setUserId(Long.valueOf(uid));
+            userTokenPayload.setUsername(uname);
 
-            return R.ok(tokenPayloadExportMod);
+            return R.ok(userTokenPayload);
         }
 
         return R.fail("token不正确或已过期");
