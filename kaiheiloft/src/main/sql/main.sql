@@ -1,8 +1,8 @@
 -- ---------------------------------
 -- 用户信息表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_userinfo`;
-CREATE TABLE `khl_userinfo`
+DROP TABLE IF EXISTS `khl_user_info`;
+CREATE TABLE `khl_user_info`
 (
     `id`           varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -158,8 +158,8 @@ CREATE TABLE `khl_club_admin`
 -- ---------------------------------
 -- 俱乐部成员申请加入表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_CLUB_AGREE_STATUS`;
-CREATE TABLE `khl_CLUB_AGREE_STATUS`
+DROP TABLE IF EXISTS `khl_club_agree_status`;
+CREATE TABLE `khl_club_agree_status`
 (
     `id`             varchar(32) NOT NULL COMMENT '主键ID',
     `create_time`    timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
