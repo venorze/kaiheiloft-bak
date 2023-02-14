@@ -22,7 +22,7 @@ package com.hantiansoft.kaiheiloft;
 
 import com.hantiansoft.adapter.SourcePolicy;
 import com.hantiansoft.adapter.StoreAdapter;
-import com.hantiansoft.export.opensso.ImportOpenSSO;
+import com.hantiansoft.export.opensso.ImportOpenSSOExportModule;
 import com.hantiansoft.framework.generators.SnowflakeGenerator;
 import com.hantiansoft.mybatisplus.configuration.EnableMybatisPlusAuto;
 import com.hantiansoft.qiniu.QiniuSourcePolicy;
@@ -44,7 +44,7 @@ import java.util.Properties;
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableMybatisPlusAuto
-@ImportOpenSSO
+@ImportOpenSSOExportModule
 @SpringBootApplication
 public class KaiheiloftBootstrap {
 

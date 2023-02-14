@@ -20,7 +20,7 @@ package com.hantiansoft.opensso;
 
 /* Creates on 2023/1/17. */
 
-import com.hantiansoft.export.kaiheiloft.ImportKaiheiloft;
+import com.hantiansoft.export.kaiheiloft.ImportKaiheiloftExportModule;
 import com.hantiansoft.framework.security.AuthenticationTokenGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableFeignClients
 @EnableDiscoveryClient
-@ImportKaiheiloft
+@ImportKaiheiloftExportModule
 @SpringBootApplication
 public class OpenSSOBootstrap {
 

@@ -1,4 +1,4 @@
-package com.hantiansoft.export.kaiheiloft;
+package com.hantiansoft.export.opensso;
 
 /* ************************************************************************
  *
@@ -25,13 +25,14 @@ import org.springframework.context.annotation.ComponentScan;
 import java.lang.annotation.*;
 
 /**
- * 导入kaiheiloft模块
+ * 导入opensso模块
+ *
  * @author Vincent Luo
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@ComponentScan(basePackages = "com.hantiansoft.export.kaiheiloft")
-public @interface ImportKaiheiloft {
+@ComponentScan(basePackages = "com.hantiansoft.export.opensso")
+public @interface ImportOpenSSOExportModule {
 }

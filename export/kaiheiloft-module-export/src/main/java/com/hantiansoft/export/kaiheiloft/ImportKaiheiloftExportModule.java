@@ -1,4 +1,4 @@
-package com.hantiansoft.export.opensso;
+package com.hantiansoft.export.kaiheiloft;
 
 /* ************************************************************************
  *
@@ -32,6 +32,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@ComponentScan(basePackages = "com.hantiansoft.export.opensso")
-public @interface ImportOpenSSO {
+@ComponentScan(basePackages = "com.hantiansoft.export.kaiheiloft")
+public @interface ImportKaiheiloftExportModule {
 }
