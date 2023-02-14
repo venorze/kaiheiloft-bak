@@ -61,6 +61,71 @@
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- third party -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <!-- project-devtools-libs -->
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>project-devtools-libs</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <!-- spring-boot-libs -->
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-boot-starter-hibernate-validator</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-boot-starter-mysql</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-boot-starter-redis</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-boot-starter-rocketmq</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <!-- spring-cloud-alibaba-libs -->
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-cloud-starter-feign</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>spring-cloud-starter-nacos</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <!-- export -->
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>export-module-kaiheiloft</artifactId>
+                <version>v1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hantiansoft</groupId>
+                <artifactId>export-module-opensso</artifactId>
+                <version>v1.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>

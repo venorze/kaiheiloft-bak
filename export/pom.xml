@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>spring-boot-starter-hibernate-validator</artifactId>
-            <version>v1.0</version>
         </dependency>
     </dependencies>
 

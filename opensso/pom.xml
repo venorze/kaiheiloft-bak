@@ -15,28 +15,23 @@
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>v1.0</version>
         </dependency>
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>spring-cloud-starter-nacos</artifactId>
-            <version>v1.0</version>
         </dependency>
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
-            <version>v1.0</version>
         </dependency>
         <!-- export -->
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>export-module-kaiheiloft</artifactId>
-            <version>v1.0</version>
         </dependency>
         <dependency>
             <groupId>com.hantiansoft</groupId>
             <artifactId>export-module-opensso</artifactId>
-            <version>v1.0</version>
         </dependency>
     </dependencies>
 
