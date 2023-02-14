@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.hantiansoft</groupId>
-            <artifactId>opensso-module-export</artifactId>
+            <artifactId>export-module-opensso</artifactId>
             <version>v1.0</version>
         </dependency>
         <dependency>

@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>kaiheiloft-module-export</module>
-        <module>opensso-module-export</module>
+        <module>export-module-kaiheiloft</module>
+        <module>export-module-opensso</module>
     </modules>
 
     <dependencies>
