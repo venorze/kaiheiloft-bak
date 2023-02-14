@@ -1,4 +1,4 @@
-package com.hantiansoft.export.opensso.api.feign;
+package com.hantiansoft.export.kaiheiloft.api.feign;
 
 /* ************************************************************************
  *
@@ -18,26 +18,26 @@ package com.hantiansoft.export.opensso.api.feign;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/22. */
+/* Creates on 2023/1/18. */
 
+import com.hantiansoft.export.kaiheiloft.modx.UserInfo;
+import com.hantiansoft.export.kaiheiloft.modx.UserSign;
 import com.hantiansoft.framework.R;
-import com.hantiansoft.export.opensso.modx.UserTokenPayload;
+import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * 统一用户认证服务调用
- *
  * @author Vincent Luo
  */
-@FeignClient(name = "OPENSSO-SRV")
-public interface UnifiedUserAuthenticationServiceApi {
+@FeignClient(name = "KAIHEILOFT-SRV")
+public interface UserSignServiceAPI {
 
     /**
-     * 验证Token是否正确
+     * 用户登录接口
      */
-    @PostMapping("/nopen/verifier/private")
-    R<UserTokenPayload> verifier(@RequestHeader("Authorization") String authorization);
+    @PostMapping("/nopen/sign_in/private")
+    R<UserInfo> sign_in(@RequestBody @Valid UserSign userSign);
 
 }

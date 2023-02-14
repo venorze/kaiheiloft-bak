@@ -20,7 +20,7 @@ package com.hantiansoft.opensso.controller;
 
 /* Creates on 2023/1/20. */
 
-import com.hantiansoft.export.kaiheiloft.api.feign.UserServiceApi;
+import com.hantiansoft.export.kaiheiloft.api.feign.UserSignServiceAPI;
 import com.hantiansoft.export.kaiheiloft.modx.UserInfo;
 import com.hantiansoft.export.kaiheiloft.modx.UserSign;
 import com.hantiansoft.export.opensso.modx.UserTokenPayload;
@@ -41,7 +41,7 @@ import java.util.Map;
 public class SignTokenController {
 
     @Autowired
-    private UserServiceApi userServiceApi;
+    private UserSignServiceAPI userSignServiceAPI;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -51,7 +51,7 @@ public class SignTokenController {
      */
     @GetMapping("/sign_in")
     public R<UserInfo> sign_in(@RequestBody @Valid UserSign userSign) {
-        R<UserInfo> ret = userServiceApi.sign_in(userSign);
+        R<UserInfo> ret = userSignServiceAPI.sign_in(userSign);
         // 判断是否登录错误
         if (!ret.isSuccess())
             return ret;

@@ -21,7 +21,7 @@ package com.hantiansoft.kaiheiloft.configuration;
 /* Creates on 2023/1/22. */
 
 import com.alibaba.fastjson.JSON;
-import com.hantiansoft.export.opensso.api.feign.UnifiedUserAuthenticationServiceApi;
+import com.hantiansoft.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
 import com.hantiansoft.framework.StringUtils;
 import com.hantiansoft.kaiheiloft.KaiheiloftBootstrap;
 import com.hantiansoft.framework.R;
@@ -46,7 +46,7 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
     /**
      * 远程调用认证服务
      */
-    private UnifiedUserAuthenticationServiceApi unifiedUserAuthenticationServiceApi;
+    private UnifiedUserAuthenticationServiceAPI unifiedUserAuthenticationServiceAPI;
 
     /**
      * 拦截器异常返回, 消息传入String类型
@@ -79,7 +79,7 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
         if (StringUtils.isEmpty(authorization))
             return eprint(response, R.fail(R.Status.S401, "用户未登录"));
 
-        R<UserTokenPayload> claimsRet = unifiedUserAuthenticationServiceApi.verifier(authorization);
+        R<UserTokenPayload> claimsRet = unifiedUserAuthenticationServiceAPI.verifier(authorization);
         if (claimsRet.isSuccess()) {
             var payload = (UserTokenPayload) claimsRet.to(UserTokenPayload.class);
             WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID, payload.getUserId());
@@ -92,8 +92,8 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
-        if (unifiedUserAuthenticationServiceApi == null)
-            unifiedUserAuthenticationServiceApi = KaiheiloftBootstrap.ApplicationContext.getBean(UnifiedUserAuthenticationServiceApi.class);
+        if (unifiedUserAuthenticationServiceAPI == null)
+            unifiedUserAuthenticationServiceAPI = KaiheiloftBootstrap.ApplicationContext.getBean(UnifiedUserAuthenticationServiceAPI.class);
 
         if (handler instanceof HandlerMethod handlerMethod) {
             Method method = handlerMethod.getMethod();
