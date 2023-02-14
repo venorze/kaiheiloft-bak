@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Vincent Luo
  */
 @RestController
-@RequestMapping("/club/member")
+@RequestMapping("/club-member")
 public class ClubMemberController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class ClubMemberController {
     /**
      * 分页查询俱乐部成员列表
      */
-    @GetMapping("/pquery")
+    @GetMapping("/page/query")
     public R<IPage<ClubMemberInfoModv>> page(@RequestBody @Valid ClubMemberPageModx pageModx) {
         return R.ok(clubMemberService.queryPageMember(pageModx.getClubId(), pageModx.getPageNo(), pageModx.getPageSize()));
     }
