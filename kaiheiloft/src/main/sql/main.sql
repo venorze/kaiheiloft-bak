@@ -195,8 +195,8 @@ CREATE TABLE `khl_club_invite`
 -- ---------------------------------
 -- 表情贴纸表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_emoji`;
-CREATE TABLE `khl_emoji`
+DROP TABLE IF EXISTS `khl_emoji_map`;
+CREATE TABLE `khl_emoji_map`
 (
     `id`           varchar(32) NOT NULL COMMENT '主键ID',
     `create_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

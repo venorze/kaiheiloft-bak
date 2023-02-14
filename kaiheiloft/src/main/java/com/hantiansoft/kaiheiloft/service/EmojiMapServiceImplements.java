@@ -21,16 +21,16 @@ package com.hantiansoft.kaiheiloft.service;
 /* Creates on 2023/2/8. */
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hantiansoft.kaiheiloft.enties.Emoji;
-import com.hantiansoft.kaiheiloft.mapper.EmojiMapper;
+import com.hantiansoft.kaiheiloft.enties.EmojiMap;
+import com.hantiansoft.kaiheiloft.mapper.EmojiMapMapper;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Vincent Luo
  */
 @Service
-public class EmojiServiceImplements extends ServiceImpl<EmojiMapper, Emoji>
-        implements EmojiService {
+public class EmojiMapServiceImplements extends ServiceImpl<EmojiMapMapper, EmojiMap>
+        implements EmojiMapService {
 
 
 }

@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.mapper;
+package com.hantiansoft.kaiheiloft.service;
 
 /* ************************************************************************
  *
@@ -20,13 +20,12 @@ package com.hantiansoft.kaiheiloft.mapper;
 
 /* Creates on 2023/2/8. */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hantiansoft.kaiheiloft.enties.Emoji;
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.hantiansoft.kaiheiloft.enties.EmojiMap;
 
 /**
  * @author Vincent Luo
  */
-@Mapper
-public interface EmojiMapper extends BaseMapper<Emoji> {
+public interface EmojiMapService extends IService<EmojiMap> {
+
 }

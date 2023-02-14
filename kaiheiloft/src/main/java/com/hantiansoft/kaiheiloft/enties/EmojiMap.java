@@ -1,4 +1,4 @@
-package com.hantiansoft.kaiheiloft.service;
+package com.hantiansoft.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,14 +18,30 @@ package com.hantiansoft.kaiheiloft.service;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/8. */
+/* Creates on 2022/2/8. */
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.hantiansoft.kaiheiloft.enties.Emoji;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 表情符号表
+ *
  * @author Vincent Luo
  */
-public interface EmojiService extends IService<Emoji> {
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("khl_emoji_map")
+public class EmojiMap extends SuperModel<EmojiMap> {
+
+    /**
+     * 表情名称
+     */
+    private String name;
+
+    /**
+     * 表情URL
+     */
+    private String url;
 
 }
