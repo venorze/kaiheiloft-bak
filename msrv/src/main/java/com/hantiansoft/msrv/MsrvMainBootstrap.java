@@ -21,7 +21,7 @@ package com.hantiansoft.msrv;
 /* Creates on 2023/2/8. */
 
 import com.hantiansoft.export.opensso.ImportOpenSSOExportModule;
-import com.hantiansoft.msrv.socket.SocketServerApplication;
+import com.hantiansoft.msrv.socket.ServerSocketApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -39,10 +39,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class MsrvMainBootstrap {
 
     public static void main(String[] args) {
-        // 启动Socket服务
-        SocketServerApplication.run(args);
         // 启动Spring服务
-        SpringApplication.run(MsrvMainBootstrap.class, args);
+        var configurableApplicationContext = SpringApplication.run(MsrvMainBootstrap.class, args);
+        // 启动Socket服务
+        ServerSocketApplication.run(configurableApplicationContext, args);
     }
 
 }
