@@ -38,19 +38,18 @@ import java.net.InetSocketAddress
  */
 class MsrvServerSocket(val springBeanFactory: ConfigurableListableBeanFactory, val args: Array[String]) {
 
-  private val eventLoopGroup: EventLoopGroup = new EpollEventLoopGroup()
+    private val eventLoopGroup: EventLoopGroup = new EpollEventLoopGroup()
 
-  try {
-    val serverBootstrap = new ServerBootstrap()
-      .group(eventLoopGroup)
-      .channel(classOf[EpollServerSocketChannel])
-      .localAddress(new InetSocketAddress(69852))
-      .handler(new ChannelInitializer[SocketChannel] {
-        override def initChannel(socketChannel: SocketChannel): Unit = {
-        }
-      })
-
-  }
+    try {
+        val serverBootstrap = new ServerBootstrap()
+            .group(eventLoopGroup)
+            .channel(classOf[EpollServerSocketChannel])
+            .localAddress(new InetSocketAddress(69852))
+            .handler(new ChannelInitializer[SocketChannel] {
+                override def initChannel(socketChannel: SocketChannel): Unit = {
+                }
+            })
+    }
 
 }
 
@@ -59,13 +58,13 @@ class MsrvServerSocket(val springBeanFactory: ConfigurableListableBeanFactory, v
  */
 object ServerSocketApplication {
 
-  /**
-   * 启动ServerSocket服务器
-   *
-   * @param args 启动参数（保留参数）
-   */
-  def run(configurableApplicationContext: ConfigurableApplicationContext, args: Array[String]): Unit = {
-    new MsrvServerSocket(configurableApplicationContext.getBeanFactory, args)
-  }
+    /**
+     * 启动ServerSocket服务器
+     *
+     * @param args 启动参数（保留参数）
+     */
+    def run(configurableApplicationContext: ConfigurableApplicationContext, args: Array[String]): Unit = {
+        new MsrvServerSocket(configurableApplicationContext.getBeanFactory, args)
+    }
 
 }
