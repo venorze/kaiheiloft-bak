@@ -1,9 +1,12 @@
 package com.hantiansoft.msrv.socket
 
 import io.netty.bootstrap.ServerBootstrap
-import io.netty.channel.{ChannelInitializer, EventLoopGroup}
+import io.netty.channel.{ChannelHandlerContext, ChannelInboundHandlerAdapter, ChannelInitializer, EventLoopGroup}
 import io.netty.channel.epoll.{EpollEventLoopGroup, EpollServerSocketChannel}
+import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
+import io.netty.channel.socket.nio.{NioServerSocketChannel, NioSocketChannel}
+import io.netty.handler.codec.string.StringDecoder
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
 import org.springframework.context.ConfigurableApplicationContext
 
@@ -38,18 +41,23 @@ import java.net.InetSocketAddress
  */
 class MsrvServerSocket(val springBeanFactory: ConfigurableListableBeanFactory, val args: Array[String]) {
 
-    private val eventLoopGroup: EventLoopGroup = new EpollEventLoopGroup()
-
-    try {
-        val serverBootstrap = new ServerBootstrap()
-            .group(eventLoopGroup)
-            .channel(classOf[EpollServerSocketChannel])
-            .localAddress(new InetSocketAddress(69852))
-            .handler(new ChannelInitializer[SocketChannel] {
-                override def initChannel(socketChannel: SocketChannel): Unit = {
-                }
-            })
-    }
+  /**
+   * 启动长连接服务器
+   */
+  def start(): Unit = {
+    val serverBootstrap: ServerBootstrap = new ServerBootstrap()
+    // 配置ServerBootstrap
+    serverBootstrap.group(new NioEventLoopGroup())
+    serverBootstrap.channel(classOf[NioServerSocketChannel])
+    serverBootstrap.childHandler(new ChannelInitializer[NioSocketChannel] {
+      override def initChannel(nch: NioSocketChannel): Unit = {
+        val pipeline = nch.pipeline()
+        pipeline.addLast(new StringDecoder())
+        pipeline.addLast(new MsrvNioSocketChannel())
+      }
+    })
+    serverBootstrap.bind(88)
+  }
 
 }
 
@@ -58,13 +66,15 @@ class MsrvServerSocket(val springBeanFactory: ConfigurableListableBeanFactory, v
  */
 object ServerSocketApplication {
 
-    /**
-     * 启动ServerSocket服务器
-     *
-     * @param args 启动参数（保留参数）
-     */
-    def run(configurableApplicationContext: ConfigurableApplicationContext, args: Array[String]): Unit = {
-        new MsrvServerSocket(configurableApplicationContext.getBeanFactory, args)
-    }
+  /**
+   * 启动ServerSocket服务器
+   *
+   * @param args 启动参数（保留参数）
+   */
+  def run(configurableApplicationContext: ConfigurableApplicationContext, args: Array[String]): Unit = {
+    val serverSocket = new MsrvServerSocket(configurableApplicationContext.getBeanFactory, args)
+    // 启动服务器
+    serverSocket.start()
+  }
 
 }
