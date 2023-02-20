@@ -37,5 +37,5 @@ import java.lang.annotation.*;
         MybatisPlusPageInterceptorConfiguration.class
 })
 @Documented
-public @interface EnableMybatisPlusAuto {
+public @interface EnableMybatisKit {
 }

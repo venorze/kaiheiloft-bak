@@ -24,7 +24,7 @@ import com.amaoai.adapter.SourcePolicy;
 import com.amaoai.adapter.StoreAdapter;
 import com.amaoai.export.opensso.ImportOpenSSOExportModule;
 import com.amaoai.framework.generators.SnowflakeGenerator;
-import com.amaoai.mybatisplus.configuration.EnableMybatisPlusAuto;
+import com.amaoai.mybatisplus.configuration.EnableMybatisKit;
 import com.amaoai.qiniu.QiniuSourcePolicy;
 import com.amaoai.spring.framework.annotation.EnableGlobalProcess;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +43,7 @@ import java.util.Properties;
 @EnableGlobalProcess
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableMybatisPlusAuto
+@EnableMybatisKit
 @ImportOpenSSOExportModule
 @SpringBootApplication
 public class KaiheiloftBootstrap {
