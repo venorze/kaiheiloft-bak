@@ -1,10 +1,8 @@
 package com.hantiansoft.msrv.socket
 
 import io.netty.bootstrap.ServerBootstrap
-import io.netty.channel.{ChannelHandlerContext, ChannelInboundHandlerAdapter, ChannelInitializer, EventLoopGroup}
-import io.netty.channel.epoll.{EpollEventLoopGroup, EpollServerSocketChannel}
+import io.netty.channel.ChannelInitializer
 import io.netty.channel.nio.NioEventLoopGroup
-import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.{NioServerSocketChannel, NioSocketChannel}
 import io.netty.handler.codec.string.StringDecoder
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
@@ -33,6 +31,19 @@ import java.net.InetSocketAddress
 /* Creates on 2023/2/16. */
 
 /**
+ * 初始化NioSocektChannel
+ */
+class NioServerSocketChannelInitializer extends ChannelInitializer[NioSocketChannel] {
+
+    override def initChannel(nch: NioSocketChannel): Unit = {
+        nch.pipeline()
+          .addLast(new StringDecoder)
+          .addLast(new MsrvNioSocketChannel)
+    }
+
+}
+
+/**
  * 长连接服务器
  *
  * @author Vincent Luo
@@ -41,23 +52,23 @@ import java.net.InetSocketAddress
  */
 class MsrvServerSocket(val springBeanFactory: ConfigurableListableBeanFactory, val args: Array[String]) {
 
-  /**
-   * 启动长连接服务器
-   */
-  def start(): Unit = {
-    val serverBootstrap: ServerBootstrap = new ServerBootstrap()
-    // 配置ServerBootstrap
-    serverBootstrap.group(new NioEventLoopGroup())
-    serverBootstrap.channel(classOf[NioServerSocketChannel])
-    serverBootstrap.childHandler(new ChannelInitializer[NioSocketChannel] {
-      override def initChannel(nch: NioSocketChannel): Unit = {
-        val pipeline = nch.pipeline()
-        pipeline.addLast(new StringDecoder())
-        pipeline.addLast(new MsrvNioSocketChannel())
-      }
-    })
-    serverBootstrap.bind(88)
-  }
+    val bossGroup = new NioEventLoopGroup()
+
+    /**
+     * 启动长连接服务器
+     */
+    def start(): Unit = {
+        try {
+            val serverBootstrap = new ServerBootstrap()
+              .group(bossGroup)
+              .channel(classOf[NioServerSocketChannel])
+              .handler(new NioServerSocketChannelInitializer)
+              .localAddress(new InetSocketAddress(11451))
+            val future = serverBootstrap.bind().sync()
+        } finally {
+            bossGroup.shutdownGracefully().sync()
+        }
+    }
 
 }
 
@@ -66,15 +77,13 @@ class MsrvServerSocket(val springBeanFactory: ConfigurableListableBeanFactory, v
  */
 object ServerSocketApplication {
 
-  /**
-   * 启动ServerSocket服务器
-   *
-   * @param args 启动参数（保留参数）
-   */
-  def run(configurableApplicationContext: ConfigurableApplicationContext, args: Array[String]): Unit = {
-    val serverSocket = new MsrvServerSocket(configurableApplicationContext.getBeanFactory, args)
-    // 启动服务器
-    serverSocket.start()
-  }
+    /**
+     * 启动ServerSocket服务器
+     *
+     * @param args 启动参数（保留参数）
+     */
+    def run(configurableApplicationContext: ConfigurableApplicationContext, args: Array[String]): Unit = {
+        new MsrvServerSocket(configurableApplicationContext.getBeanFactory, args).start()
+    }
 
 }
