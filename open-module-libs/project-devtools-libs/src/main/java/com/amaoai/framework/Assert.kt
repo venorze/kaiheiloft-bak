@@ -104,8 +104,8 @@ object Assert {
      */
     @JvmStatic
     fun <R> throwIfError(call: CallbackFunctionHasReturnValue<R>, fmt: String?, vararg args: Any): R {
-        try {
-            return call.apply()
+        return try {
+            call.apply()
         } catch (e: Throwable) {
             throw hasFmt(e, fmt, *args)
         }
