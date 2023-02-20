@@ -20,7 +20,7 @@ package com.amaoai.framework.io;
 
 /* Creates on 2022/8/9. */
 
-import com.amaoai.framework.Asserts;
+import com.amaoai.framework.Assert;
 import com.amaoai.framework.StringUtils;
 
 import java.io.*;
@@ -306,8 +306,8 @@ public final class IOUtils {
      * 替换为输入流中的数据。
      */
     public static int copy(final InputStream input, final OutputStream output) {
-        Asserts.throwIfNull(input, "InputStream");
-        Asserts.throwIfNull(output, "OutputStream");
+        Assert.throwIfNull(input, "InputStream");
+        Assert.throwIfNull(output, "OutputStream");
         byte[] b = read(input);
         write(b, output);
         return b.length;
@@ -403,7 +403,7 @@ public final class IOUtils {
      */
     public static void flushQuietly(Flushable flushable) {
         if (flushable != null)
-            Asserts.throwIfError(flushable::flush);
+            Assert.throwIfError(flushable::flush);
     }
 
     /**
@@ -411,7 +411,7 @@ public final class IOUtils {
      */
     public static void closeQuietly(AutoCloseable closeable) {
         if (closeable != null)
-            Asserts.throwIfError(closeable::close);
+            Assert.throwIfError(closeable::close);
     }
 
 }

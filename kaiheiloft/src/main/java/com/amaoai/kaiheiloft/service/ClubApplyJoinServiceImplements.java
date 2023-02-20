@@ -20,9 +20,9 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.amaoai.framework.Asserts;
 import com.amaoai.kaiheiloft.enties.ClubApplyJoin;
 import com.amaoai.kaiheiloft.mapper.ClubApplyJoinMapper;
 import com.amaoai.kaiheiloft.mods.modx.ClubApplyJoinModx;
@@ -59,7 +59,7 @@ public class ClubApplyJoinServiceImplements extends ServiceImpl<ClubApplyJoinMap
     @Override
     public void submit(Long clubId, String requestRemark, Long userId, Long inviterId) {
         // 是否重复申请
-        Asserts.throwIfNotNull(queryJoinRequest(clubId, userId), "您已申请过加入该俱乐部，请勿重复申请");
+        Assert.throwIfNotNull(queryJoinRequest(clubId, userId), "您已申请过加入该俱乐部，请勿重复申请");
         // 构建申请加入对象
         ClubApplyJoin clubApplyJoin = new ClubApplyJoin();
         clubApplyJoin.setClubId(clubId);

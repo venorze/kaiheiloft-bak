@@ -20,7 +20,7 @@ package com.amaoai.framework.io;
 
 /* Creates on 2022/8/12. */
 
-import com.amaoai.framework.Asserts;
+import com.amaoai.framework.Assert;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -53,7 +53,7 @@ class HeapByteBuf extends ByteBuf implements Serializable {
      * @see #duplicate()
      */
     public HeapByteBuf(byte[] a, int off, int len) {
-        Asserts.throwIfNull(a);
+        Assert.throwIfNull(a);
 
         if (off == 0 && len == a.length) {
             this.buf = a;
@@ -71,7 +71,7 @@ class HeapByteBuf extends ByteBuf implements Serializable {
 
     @Override
     public void read(byte[] a, int off, int len) {
-        Asserts.throwIfBool(!(len > buf.length), "读取的数据超出缓冲区大小，读取大小：{}, 数组大小：{}",
+        Assert.throwIfBool(!(len > buf.length), "读取的数据超出缓冲区大小，读取大小：{}, 数组大小：{}",
                 len, a.length);
 
         System.arraycopy(this.buf, this.position, a, off, len);

@@ -20,12 +20,12 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.amaoai.framework.Asserts;
 import com.amaoai.kaiheiloft.enties.ClubMember;
 import com.amaoai.kaiheiloft.mods.modv.ClubMemberInfoModv;
 import com.amaoai.kaiheiloft.mapper.ClubMemberMapper;
@@ -48,7 +48,7 @@ public class ClubMemberServiceImplements extends ServiceImpl<ClubMemberMapper, C
 
     @Override
     public void addMember(Long clubId, Long userId) {
-        Asserts.throwIfBool(!hasMember(clubId, userId), "用户已经在俱乐部内了");
+        Assert.throwIfBool(!hasMember(clubId, userId), "用户已经在俱乐部内了");
         var clubMember = new ClubMember();
         clubMember.setClubId(clubId);
         clubMember.setUserId(userId);

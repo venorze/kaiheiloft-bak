@@ -1,4 +1,4 @@
-package com.amaoai.framework
+package com.amaoai.framework.test;
 
 /* ************************************************************************
  *
@@ -20,21 +20,22 @@ package com.amaoai.framework
 
 /* Creates on 2023/2/20. */
 
-import StringUtils.vfmt
+import com.amaoai.framework.Assert;
+import org.junit.Test;
+
+import java.util.List;
 
 /**
- * 断言工具类
+ * 断言测试工具类
  *
  * @author Vincent Luo
  */
-object Assert {
+public class AssertKotlinVersionTest {
 
-    /**
-     * 传入一个对象，如果为空则抛出空指针异常
-     */
-    def throwIfNull(obj: Any, fmt: String, args: Any*): Unit = {
-        if(obj == null)
-            throw new NullPointerException(vfmt(fmt, args))
+    @Test
+    public void throwIfError() {
+        List<Object> map = null;
+        Assert.throwIfEmpty(map);
     }
 
 }

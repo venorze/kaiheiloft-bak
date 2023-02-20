@@ -20,7 +20,7 @@ package com.amaoai.framework.io;
 
 /* Creates on 2022/8/9. */
 
-import com.amaoai.framework.Asserts;
+import com.amaoai.framework.Assert;
 import com.amaoai.framework.generators.VGenerator;
 
 import java.io.*;
@@ -196,7 +196,7 @@ public final class FileUtils {
      * 获取文件输出流，通过 append 参数决定写入模式是覆盖还是追加
      */
     public static OutputStream openFileOutputStreamQuietly(String path, boolean append) {
-        return Asserts.throwIfError(() -> new FileOutputStream(path, append));
+        return Assert.throwIfError(() -> new FileOutputStream(path, append));
     }
 
     /**

@@ -20,10 +20,10 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.amaoai.framework.Asserts;
 import com.amaoai.framework.Bits;
 import com.amaoai.kaiheiloft.enties.ClubAdmin;
 import com.amaoai.kaiheiloft.mapper.ClubAdminMapper;
@@ -130,7 +130,7 @@ public class ClubAdminServiceImplements extends ServiceImpl<ClubAdminMapper, Clu
     @Override
     public void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId) {
         var clubAdmin = queryClubAdmin(clubId, srcSuperAdminId);
-        Asserts.throwIfBool(Bits.compare(adminFlag(clubAdmin) & SUPER_ADMIN_FLAG_BIT), "用户非超级管理员，无转让权限");
+        Assert.throwIfBool(Bits.compare(adminFlag(clubAdmin) & SUPER_ADMIN_FLAG_BIT), "用户非超级管理员，无转让权限");
         clubAdmin.setUserId(destSuperAdminId);
         updateById(clubAdmin);
     }

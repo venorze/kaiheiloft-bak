@@ -79,29 +79,6 @@
             <artifactId>javax.mail</artifactId>
             <version>${javax.mail.version}</version>
         </dependency>
-        <!-- scala -->
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>${scala-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>testCompile</goal>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

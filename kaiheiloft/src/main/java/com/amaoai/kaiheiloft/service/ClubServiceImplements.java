@@ -20,8 +20,8 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/1/13. */
 
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.amaoai.framework.Asserts;
 import com.amaoai.framework.BeanUtils;
 import com.amaoai.framework.StringUtils;
 import com.amaoai.framework.exception.BusinessException;
@@ -73,7 +73,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Override
     public Club queryByClubId(Long clubId) {
         Club club = getById(clubId);
-        Asserts.throwIfNull(club, "俱乐部不存在");
+        Assert.throwIfNull(club, "俱乐部不存在");
         return club;
     }
 
@@ -121,7 +121,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     public void edit(EditClubModx editClubModx, Long operatorId) {
         Club club = queryByClubId(editClubModx.getId());
         // 管理员有权限修改
-        Asserts.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), operatorId), "用户无权限修改");
+        Assert.throwIfBool(clubAdminService.isAdmin(editClubModx.getId(), operatorId), "用户无权限修改");
         BeanUtils.copyProperties(editClubModx, club);
         updateById(club);
     }
@@ -131,7 +131,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     public void disband(Long clubId, Long operatorId) {
         // 判断俱乐部ID是否正确
         queryByClubId(clubId);
-        Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubId, operatorId), "用户无权限解散");
+        Assert.throwIfBool(clubAdminService.isSuperAdmin(clubId, operatorId), "用户无权限解散");
         // 删除所有成员
         clubMemberService.removeAllMember(clubId);
         // 删除所有管理员
@@ -161,7 +161,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Transactional
     public void agreeJoin(Long applyId, Long operatorId) {
         ClubApplyJoin clubApply = clubApplyJoinService.queryByApplyId(applyId);
-        Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubApply.getClubId(), operatorId), "用户无权限同意/拒绝");
+        Assert.throwIfBool(clubAdminService.isSuperAdmin(clubApply.getClubId(), operatorId), "用户无权限同意/拒绝");
         clubApplyJoinService.agree(clubApply);
         // 添加成员
         clubMemberService.addMember(clubApply.getClubId(), clubApply.getUserId());
@@ -170,7 +170,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Override
     public void refuseJoin(Long applyId, String reason, Long operatorId) {
         ClubApplyJoin clubApply = clubApplyJoinService.queryByApplyId(applyId);
-        Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubApply.getClubId(), operatorId), "用户无权限同意/拒绝");
+        Assert.throwIfBool(clubAdminService.isSuperAdmin(clubApply.getClubId(), operatorId), "用户无权限同意/拒绝");
         clubApply.setRefusalReason(reason);
         clubApplyJoinService.refuse(clubApply);
     }
@@ -183,7 +183,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
 
         // 判断用户是否是管理员, 如果是管理员需要超级管理员踢出
         if (clubAdminService.isAdmin(clubId, userId)) {
-            Asserts.throwIfBool(clubAdminService.isSuperAdmin(clubId, operatorId), "用户无权踢出管理员");
+            Assert.throwIfBool(clubAdminService.isSuperAdmin(clubId, operatorId), "用户无权踢出管理员");
             clubAdminService.removeAdmin(clubId, userId);
         }
 
@@ -205,7 +205,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     @Override
     public void transfer(Long clubId, Long srcSuperAdminId, Long destSuperAdminId) {
         // 判断用户是否在俱乐部内
-        Asserts.throwIfNull(clubMemberService.queryMember(clubId, destSuperAdminId), "转让用户不在俱乐部内");
+        Assert.throwIfNull(clubMemberService.queryMember(clubId, destSuperAdminId), "转让用户不在俱乐部内");
         clubAdminService.transfer(clubId, srcSuperAdminId, destSuperAdminId);
     }
 
@@ -228,7 +228,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
         Long inviterId = clubInvite.getInviterId();
 
         // 判断用户是否有权限同意
-        Asserts.throwIfBool(clubAdminService.isAdmin(clubId, operatorId), "用户无权限同意/拒绝");
+        Assert.throwIfBool(clubAdminService.isAdmin(clubId, operatorId), "用户无权限同意/拒绝");
         if (clubInvite.getAgreeStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES))
             throw new BusinessException("已同意邀请请求，请勿重复点击");
 
@@ -245,7 +245,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
     public void refuseInvite(Long inviteId, Long userId, Long operatorId) {
         ClubInvite clubInvite = clubInviteService.queryUserInvite(inviteId, userId);
         // 判断用户是否有权限拒绝
-        Asserts.throwIfBool(clubAdminService.isAdmin(clubInvite.getClubId(), operatorId), "用户无权限同意/拒绝");
+        Assert.throwIfBool(clubAdminService.isAdmin(clubInvite.getClubId(), operatorId), "用户无权限同意/拒绝");
         if (clubInvite.getAgreeStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO))
             throw new BusinessException("已拒绝邀请请求，请勿重复点击");
 
@@ -257,7 +257,7 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
      * 检查用户是否在俱俱乐部
      */
     void checkMemberExist(Long clubId, Long userId) {
-        Asserts.throwIfBool(!clubMemberService.hasMember(clubId, userId), "成员不在该俱乐部");
+        Assert.throwIfBool(!clubMemberService.hasMember(clubId, userId), "成员不在该俱乐部");
     }
 
     /**
@@ -265,15 +265,15 @@ public class ClubServiceImplements extends ServiceImpl<ClubMapper, Club> impleme
      */
     void checkAlreadyExist(Long clubId, Long userId) {
         // 检查俱乐部是否存在
-        Asserts.throwIfBool(hasClub(clubId), "俱乐部不存在");
+        Assert.throwIfBool(hasClub(clubId), "俱乐部不存在");
         // 检查成员是否已经在俱乐部内
-        Asserts.throwIfBool(clubMemberService.hasMember(clubId, userId), "成员已经在俱乐部内了");
+        Assert.throwIfBool(clubMemberService.hasMember(clubId, userId), "成员已经在俱乐部内了");
     }
 
     @Override
     public void createChannel(Long clubId, String channelName, String channelType, Long operatorId) {
         // 判断是不是管理员
-        Asserts.throwIfBool(clubAdminService.isAdmin(clubId, operatorId), "用户无权限创建频道");
+        Assert.throwIfBool(clubAdminService.isAdmin(clubId, operatorId), "用户无权限创建频道");
         clubChannelService.create(clubId, channelName, channelType);
     }
 

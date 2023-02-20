@@ -21,7 +21,7 @@ package com.amaoai.framework.http;
 /* Creates on 2022/8/8. */
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSON;
-import com.amaoai.framework.Asserts;
+import com.amaoai.framework.Assert;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -121,7 +121,7 @@ public class HttpClients {
             /* 根据枚举类型获取响应数据 */
             retval = getResponseObject(response, responseBodyType);
             /* 断言请求是否成功 */
-            Asserts.throwIfBool(response.isSuccessful(), "HTTP请求出错, CODE: {}, URL: {}, MESSAGE: {}",
+            Assert.throwIfBool(response.isSuccessful(), "HTTP请求出错, CODE: {}, URL: {}, MESSAGE: {}",
                     response.code(), url, retval);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -236,7 +236,7 @@ public class HttpClients {
             /* 根据枚举类型获取响应数据 */
             retval = getResponseObject(response, responseBodyType);
             /* 断言请求是否成功 */
-            Asserts.throwIfBool(response.isSuccessful(), "HTTP请求出错, CODE: {}, URL: {}, REQUEST BODY: {}, MESSAGE: {}",
+            Assert.throwIfBool(response.isSuccessful(), "HTTP请求出错, CODE: {}, URL: {}, REQUEST BODY: {}, MESSAGE: {}",
                     response.code(), url, JSON.toJSONString(requestBodyParam), retval);
         } catch (IOException e) {
             throw new RuntimeException(e);

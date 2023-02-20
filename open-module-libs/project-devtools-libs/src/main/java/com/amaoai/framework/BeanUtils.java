@@ -69,8 +69,8 @@ public class BeanUtils {
      * 拷贝属性列表到目标对象
      */
     public static void copyProperties(Object source, Object target, String... ignoreProperties) {
-        Asserts.throwIfNull(source, "源对象不能为空");
-        Asserts.throwIfNull(source, "目标对象不能为空");
+        Assert.throwIfNull(source, "源对象不能为空");
+        Assert.throwIfNull(source, "目标对象不能为空");
 
         /* source class */
         Class<?> sourceClass = source.getClass();

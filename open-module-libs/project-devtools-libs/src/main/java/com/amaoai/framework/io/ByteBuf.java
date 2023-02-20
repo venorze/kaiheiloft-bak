@@ -20,7 +20,7 @@ package com.amaoai.framework.io;
 
 /* Creates on 2022/8/13. */
 
-import com.amaoai.framework.Asserts;
+import com.amaoai.framework.Assert;
 
 /**
  * 支持随机访问的ByteBuf抽象类
@@ -140,7 +140,7 @@ public abstract class ByteBuf {
                 break;
         }
 
-        Asserts.throwIfBool(!(this.position < 0 || this.position > capacity),
+        Assert.throwIfBool(!(this.position < 0 || this.position > capacity),
                 "偏移量超出范围：{}， 数组大小：{}", this.position, capacity);
     }
 
@@ -216,7 +216,7 @@ public abstract class ByteBuf {
      * 根据参数长度写入字节数据到缓冲区
      */
     public void write(byte[] a, int off, int len) {
-        Asserts.throwIfNull(a);
+        Assert.throwIfNull(a);
 
         if (off < 0 || len < 0 || off + len > a.length)
             throw new IndexOutOfBoundsException();

@@ -20,6 +20,7 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2022/12/22. */
 
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.User;
@@ -28,7 +29,6 @@ import com.amaoai.kaiheiloft.mods.modx.EditMailModx;
 import com.amaoai.kaiheiloft.mods.modx.EditPasswordModx;
 import com.amaoai.kaiheiloft.mods.modx.UserProfileModx;
 import com.amaoai.kaiheiloft.mods.modx.UserSignUpModx;
-import com.amaoai.framework.Asserts;
 import com.amaoai.framework.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +68,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public void sign_up(UserSignUpModx userSignUpModx) {
         // 判断用户名是否已被注册
-        Asserts.throwIfBool(queryByUsername(userSignUpModx.getUsername()) == null, "当前用户名已被注册");
+        Assert.throwIfBool(queryByUsername(userSignUpModx.getUsername()) == null, "当前用户名已被注册");
         // 注册成功
         save(BeanUtils.copyProperties(userSignUpModx, User.class));
     }
@@ -77,7 +77,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     public UserProfileModx profile(String username) {
         // 根据ID查询用户信息
         var user = queryByUsername(username);
-        Asserts.throwIfNull(user, "用户不存在");
+        Assert.throwIfNull(user, "用户不存在");
         return BeanUtils.copyProperties(user, UserProfileModx.class);
     }
 

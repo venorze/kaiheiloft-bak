@@ -21,7 +21,6 @@ package com.amaoai.msrv;
 /* Creates on 2023/2/8. */
 
 import com.amaoai.export.opensso.ImportOpenSSOExportModule;
-import com.amaoai.msrv.socket.ServerSocketApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -41,8 +40,6 @@ public class MsrvMainBootstrap {
     public static void main(String[] args) {
         // 启动Spring服务
         var configurableApplicationContext = SpringApplication.run(MsrvMainBootstrap.class, args);
-        // 启动Socket服务
-        ServerSocketApplication.run(configurableApplicationContext, args);
     }
 
 }

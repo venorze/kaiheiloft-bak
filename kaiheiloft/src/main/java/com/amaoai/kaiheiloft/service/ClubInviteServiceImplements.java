@@ -20,9 +20,9 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/2/5. */
 
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.amaoai.framework.Asserts;
 import com.amaoai.kaiheiloft.enties.ClubInvite;
 import com.amaoai.kaiheiloft.mapper.ClubInviteMapper;
 import com.amaoai.kaiheiloft.mods.modv.InviteModv;
@@ -47,7 +47,7 @@ public class ClubInviteServiceImplements extends ServiceImpl<ClubInviteMapper, C
                         .eq(ClubInvite::getUserId, userId)
         );
 
-        Asserts.throwIfNull(clubInvite, "邀请不存在");
+        Assert.throwIfNull(clubInvite, "邀请不存在");
         return clubInvite;
     }
 
