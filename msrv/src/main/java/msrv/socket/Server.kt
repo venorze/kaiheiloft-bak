@@ -1,4 +1,6 @@
-package com.amaoai.msrv;
+package msrv.socket
+
+import io.netty.channel.nio.NioEventLoopGroup
 
 /* ************************************************************************
  *
@@ -18,28 +20,23 @@ package com.amaoai.msrv;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/8. */
-
-import com.amaoai.export.opensso.ImportOpenSSOExportModule;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+/* Creates on 2023/2/20. */
 
 /**
- * 消息服务器
- *
- * @author Vincent Luo
+ * 长连接服务器
  */
-@EnableFeignClients
-@EnableDiscoveryClient
-@ImportOpenSSOExportModule
-@SpringBootApplication
-public class MsrvMainBootstrap {
+class MsrvServerSocket {
 
-    public static void main(String[] args) {
-        // 启动Spring服务
-        var configurableApplicationContext = SpringApplication.run(MsrvMainBootstrap.class, args);
+    /**
+     * 事件线程组
+     */
+    private val eventLoopGroup = NioEventLoopGroup()
+
+    /**
+     * 启动长连接服务
+     */
+    fun start(aclass: Class<*>, args: Array<String>) {
+
     }
 
 }

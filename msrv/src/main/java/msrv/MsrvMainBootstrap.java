@@ -1,4 +1,4 @@
-package com.amaoai.spring.framework.annotation;
+package msrv;
 
 /* ************************************************************************
  *
@@ -18,29 +18,28 @@ package com.amaoai.spring.framework.annotation;
  *
  * ************************************************************************/
 
-/* Creates on 2022/12/23. */
+/* Creates on 2023/2/8. */
 
-import com.amaoai.spring.framework.configuration.GlobalExceptionHandler;
-import com.amaoai.spring.framework.configuration.ValidationConfiguration;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import com.amaoai.export.opensso.ImportOpenSSOExportModule;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 整合通用配置的启动注解，包含以下配置：
- *
- *      1. 全局异常处理配置
- *      2. 请求参数校验配置
+ * 消息服务器
  *
  * @author Vincent Luo
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Import({
-        GlobalExceptionHandler.class,
-        ValidationConfiguration.class
-})
-@Documented
-public @interface EnableCommonsConfiguration {
+@EnableFeignClients
+@EnableDiscoveryClient
+@ImportOpenSSOExportModule
+@SpringBootApplication
+public class MsrvMainBootstrap {
+
+    public static void main(String[] args) {
+        // 启动Spring服务
+        var configurableApplicationContext = SpringApplication.run(MsrvMainBootstrap.class, args);
+    }
+
 }

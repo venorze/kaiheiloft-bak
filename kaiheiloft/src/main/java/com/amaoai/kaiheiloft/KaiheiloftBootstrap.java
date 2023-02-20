@@ -26,7 +26,7 @@ import com.amaoai.export.opensso.ImportOpenSSOExportModule;
 import com.amaoai.framework.generators.SnowflakeGenerator;
 import com.amaoai.mybatisplus.configuration.EnableMybatisPlusAuto;
 import com.amaoai.qiniu.QiniuSourcePolicy;
-import com.amaoai.spring.framework.annotation.EnableCommonsConfiguration;
+import com.amaoai.spring.framework.annotation.EnableGlobalProcess;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,7 +40,7 @@ import java.util.Properties;
 /**
  * @author Vincent Luo
  */
-@EnableCommonsConfiguration
+@EnableGlobalProcess
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableMybatisPlusAuto
