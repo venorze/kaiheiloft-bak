@@ -14,15 +14,15 @@
     <dependencies>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>spring-cloud-starter-nacos</artifactId>
+            <artifactId>cloud-starter-nacos</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>spring-cloud-starter-feign</artifactId>
+            <artifactId>cloud-starter-feign</artifactId>
         </dependency>
         <!-- export -->
         <dependency>

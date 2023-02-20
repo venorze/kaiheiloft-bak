@@ -3,29 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-cloud-alibaba-libs</artifactId>
+        <artifactId>spring-boot-libs</artifactId>
         <groupId>com.amaoai</groupId>
         <version>v1.0.0.KAYLE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-cloud-starter-nacos</artifactId>
-
-    <properties>
-    </properties>
+    <artifactId>boot-starter-redis</artifactId>
 
     <dependencies>
-        <!-- 服务发现 -->
+        <!-- Redis -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <!-- 配置中心 -->
-<!--        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>-->
     </dependencies>
 
 </project>

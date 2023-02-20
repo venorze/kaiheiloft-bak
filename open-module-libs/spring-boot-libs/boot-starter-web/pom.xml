@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-boot-starter-web</artifactId>
+    <artifactId>boot-starter-web</artifactId>
 
     <dependencies>
         <dependency>
@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>spring-boot-starter-hibernate-validator</artifactId>
+            <artifactId>boot-starter-hibernate-validator</artifactId>
             <version>v1.0.0.KAYLE</version>
         </dependency>
     </dependencies>

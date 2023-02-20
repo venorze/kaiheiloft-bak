@@ -14,11 +14,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-starter-mysql</module>
-        <module>spring-boot-starter-redis</module>
-        <module>spring-boot-starter-web</module>
-        <module>spring-boot-starter-hibernate-validator</module>
-        <module>spring-boot-starter-rocketmq</module>
+        <module>boot-starter-mysql</module>
+        <module>boot-starter-redis</module>
+        <module>boot-starter-web</module>
+        <module>boot-starter-hibernate-validator</module>
+        <module>boot-starter-rocketmq</module>
     </modules>
 
     <properties>

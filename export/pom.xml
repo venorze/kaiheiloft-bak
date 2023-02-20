@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>spring-boot-starter-hibernate-validator</artifactId>
+            <artifactId>boot-starter-hibernate-validator</artifactId>
         </dependency>
     </dependencies>
 

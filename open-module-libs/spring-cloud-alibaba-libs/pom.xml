@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-cloud-starter-feign</module>
-        <module>spring-cloud-starter-nacos</module>
+        <module>cloud-starter-feign</module>
+        <module>cloud-starter-nacos</module>
     </modules>
 
     <properties>

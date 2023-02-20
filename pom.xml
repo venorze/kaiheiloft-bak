@@ -86,38 +86,38 @@
             <!-- spring-boot-libs -->
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-boot-starter-hibernate-validator</artifactId>
+                <artifactId>boot-starter-hibernate-validator</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-boot-starter-mysql</artifactId>
+                <artifactId>boot-starter-mysql</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-boot-starter-redis</artifactId>
+                <artifactId>boot-starter-redis</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-boot-starter-rocketmq</artifactId>
+                <artifactId>boot-starter-rocketmq</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
+                <artifactId>boot-starter-web</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- spring-cloud-alibaba-libs -->
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-cloud-starter-feign</artifactId>
+                <artifactId>cloud-starter-feign</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>spring-cloud-starter-nacos</artifactId>
+                <artifactId>cloud-starter-nacos</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- export -->
