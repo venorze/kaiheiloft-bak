@@ -2,13 +2,13 @@
   {
     "name": "mybatis-plus.enable-snowflake-assign.dataCenterId",
     "type": "java.lang.Integer",
-    "sourceType": "com.hantiansoft.mybatisplus.configuration.MybatisPlusSnowflakeIdGenerator",
+    "sourceType": "com.amaoai.mybatisplus.configuration.MybatisPlusSnowflakeIdGenerator",
     "description": "数据中心ID"
   },
   {
     "name": "mybatis-plus.enable-snowflake-assign.machineId",
     "type": "java.lang.Integer",
-    "sourceType": "com.hantiansoft.mybatisplus.configuration.MybatisPlusSnowflakeIdGenerator",
+    "sourceType": "com.amaoai.mybatisplus.configuration.MybatisPlusSnowflakeIdGenerator",
     "description": "机器ID"
   }
 ]}

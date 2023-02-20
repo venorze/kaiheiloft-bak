@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>export</artifactId>
-        <groupId>com.hantiansoft</groupId>
-        <version>v1.0</version>
+        <groupId>com.amaoai</groupId>
+        <version>v1.0.0.KAYLE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,11 +13,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>project-devtools-libs</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
     </dependencies>

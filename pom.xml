@@ -19,9 +19,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hantiansoft</groupId>
-    <artifactId>kaiheiloft-project</artifactId>
-    <version>v1.0</version>
+    <groupId>com.amaoai</groupId>
+    <artifactId>root-module</artifactId>
+    <version>v1.0.0.KAYLE</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -79,57 +79,57 @@
             </dependency>
             <!-- project-devtools-libs -->
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>project-devtools-libs</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- spring-boot-libs -->
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-boot-starter-hibernate-validator</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-boot-starter-mysql</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-boot-starter-redis</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-boot-starter-rocketmq</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- spring-cloud-alibaba-libs -->
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-cloud-starter-feign</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>spring-cloud-starter-nacos</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- export -->
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>export-module-kaiheiloft</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
             <dependency>
-                <groupId>com.hantiansoft</groupId>
+                <groupId>com.amaoai</groupId>
                 <artifactId>export-module-opensso</artifactId>
-                <version>v1.0</version>
+                <version>v1.0.0.KAYLE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

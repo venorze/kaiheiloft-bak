@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-boot-libs</artifactId>
-        <groupId>com.hantiansoft</groupId>
-        <version>v1.0</version>
+        <groupId>com.amaoai</groupId>
+        <version>v1.0.0.KAYLE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,9 +14,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>project-devtools-libs</artifactId>
-            <version>v1.0</version>
+            <version>v1.0.0.KAYLE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,9 +41,9 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-boot-starter-hibernate-validator</artifactId>
-            <version>v1.0</version>
+            <version>v1.0.0.KAYLE</version>
         </dependency>
     </dependencies>
 

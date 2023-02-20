@@ -4,36 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.hantiansoft</groupId>
-        <artifactId>kaiheiloft-project</artifactId>
-        <version>v1.0</version>
+        <groupId>com.amaoai</groupId>
+        <artifactId>root-module</artifactId>
+        <version>v1.0.0.KAYLE</version>
     </parent>
 
     <artifactId>msrv</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-cloud-starter-nacos</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-boot-starter-rocketmq</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.hantiansoft</groupId>
+            <groupId>com.amaoai</groupId>
             <artifactId>export-module-opensso</artifactId>
         </dependency>
         <dependency>
