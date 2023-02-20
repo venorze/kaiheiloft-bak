@@ -35,7 +35,7 @@ public class AssertKotlinVersionTest {
     @Test
     public void throwIfError() {
         List<Object> map = null;
-        Assert.throwIfEmpty(map);
+        System.out.println(Assert.throwIfError(() -> 10 * 20));;
     }
 
 }

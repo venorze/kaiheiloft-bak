@@ -1,4 +1,4 @@
-package com.amaoai.framework;
+package com.amaoai.framework
 
 /* ************************************************************************
  *
@@ -18,18 +18,16 @@ package com.amaoai.framework;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/2/20. */
 
 /**
- * @author Vincent Luo
+ * @author Amaoai
  */
-public class Bits {
+object Bits {
 
     /**
      * 按位与，结果判断
      */
-    public static boolean compare(int bit) {
-        return bit > 0;
-    }
+    @JvmStatic fun compare(bit: Int): Boolean = bit > 0
 
 }

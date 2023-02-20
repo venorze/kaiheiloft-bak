@@ -39,6 +39,15 @@ object Assert {
         fun apply()
     }
 
+    // 如果没有自定义异常信息，那么就打印原本的异常信息
+    private fun hasFmt(e: Throwable, fmt: String?, vararg args: Any): Throwable {
+        return if (StringUtils.isNotEmpty(fmt)) {
+            IllegalArgumentException(vfmt(fmt, *args), e)
+        } else {
+            IllegalArgumentException(e)
+        }
+    }
+
     /**
      * 断言一个对象，如果对象是空则抛出异常（默认异常信息）
      */
@@ -98,11 +107,7 @@ object Assert {
         try {
             return call.apply()
         } catch (e: Throwable) {
-            // 如果没有自定义异常信息，那么就打印原本的异常信息
-            if (StringUtils.isNotEmpty(fmt))
-                throw IllegalArgumentException(vfmt(fmt, *args), e)
-            else
-                throw IllegalArgumentException(e)
+            throw hasFmt(e, fmt, *args)
         }
     }
 
@@ -120,11 +125,7 @@ object Assert {
         try {
             call.apply()
         } catch (e: Throwable) {
-            // 如果没有自定义异常信息，那么就打印原本的异常信息
-            if (StringUtils.isNotEmpty(fmt))
-                throw IllegalArgumentException(vfmt(fmt, *args), e)
-            else
-                throw IllegalArgumentException(e)
+            throw hasFmt(e, fmt, *args)
         }
     }
 
