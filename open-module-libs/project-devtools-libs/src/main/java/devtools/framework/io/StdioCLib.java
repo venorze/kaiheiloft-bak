@@ -1,4 +1,4 @@
-package devtools.jna;
+package devtools.framework.io;
 
 /* ************************************************************************
  *
@@ -21,7 +21,6 @@ package devtools.jna;
 /* Creates on 2023/2/22. */
 
 import com.sun.jna.*;
-import devtools.framework.io.IOUtils;
 
 /**
  * c语言stdio标准库
@@ -29,7 +28,7 @@ import devtools.framework.io.IOUtils;
  * @author Amaoai
  */
 @SuppressWarnings("UnusedReturnValue")
-public interface StdioCLib extends Library {
+interface StdioCLib extends Library {
 
     /**
      * JNA实例对象
@@ -52,6 +51,16 @@ public interface StdioCLib extends Library {
      * 文件的开头
      */
     int SEEK_SET = 0;
+
+    /**
+     * 表示已经读取到文件末尾
+     */
+    int EOF = -1;
+
+    /**
+     * 空指针
+     */
+    int NULL = 0;
 
     /**
      * C 库函数 FILE *fopen(const char *filename, const char *mode)
@@ -113,6 +122,55 @@ public interface StdioCLib extends Library {
     int fputs(String str, long fd);
 
     /**
+     * C 库函数 char *fgets(char *str, int n, FILE *stream) 从指定的流 stream 读取一行，
+     * 并把它存储在 str 所指向的字符串内。
+     *
+     * 当读取 (n-1) 个字符时，或者读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。
+     *
+     * @param a 这是指向一个字符数组的指针，该数组存储了要读取的字符串。
+     * @param n 这是要读取的最大字符数（包括最后的空字符）。通常是使用以 str 传递的数组长度。
+     * @param fd 这是指向 FILE 对象的指针，该 FILE 对象标识了要从中读取字符的流。
+     *
+     * @return 如果成功，该函数返回相同的 str 参数。如果到达文件末尾或者没有读取到任何字符，str 的内容保持不变，
+     *         并返回一个空指针。如果发生错误，返回一个空指针。
+     */
+    String fgets(char[] a, int n, long fd);
+
+    /**
+     * C 库函数 int fputc(int char, FILE *stream) 把参数 char 指定的字符（一个无符号字符）写入到指定的流 stream 中，
+     * 并把位置标识符往前移动。
+     *
+     * @param fd 这是指向 FILE 对象的指针，该 FILE 对象标识了要被写入字符的流。
+     * @return 如果没有发生错误，则返回被写入的字符。如果发生错误，则返回 EOF，并设置错误标识符。
+     */
+    int fputc(int chr, long fd);
+
+    /**
+     * C 库函数 int fgetc(FILE *stream) 从指定的流 stream 获取下一个字符（一个无符号字符），
+     * 并把位置标识符往前移动。
+     *
+     * @param fd 这是指向 FILE 对象的指针，该 FILE 对象标识了要在上面执行操作的流。
+     * @return 该函数以无符号 char 强制转换为 int 的形式返回读取的字符，如果到达文件末尾或发生读错误，则返回 EOF。
+     */
+    char fgetc(long fd);
+
+    /**
+     * C 库函数 int ferror(FILE *stream) 测试给定流 stream 的错误标识符。
+     *
+     * @param fd 这是指向 FILE 对象的指针，该 FILE 对象标识了流。
+     * @return 如果设置了与流关联的错误标识符，该函数返回一个非零值，否则返回一个零值。
+     */
+    boolean ferror(long fd);
+
+    /**
+     * C 库函数 int feof(FILE *stream) 测试给定流 stream 的文件结束标识符。
+     *
+     * @param fd 这是指向 FILE 对象的指针，该 FILE 对象标识了要在上面执行操作的流。
+     * @return 当设置了与流关联的文件结束标识符时，该函数返回一个非零值，否则返回零。
+     */
+    boolean feof(long fd);
+
+    /**
      * C 库函数 int fflush(FILE *fd) 刷新流 fd 的输出缓冲区。
      *
      * @param fd 这是指向 FILE 对象的指针，该 FILE 对象指定了一个缓冲流。
@@ -143,25 +201,6 @@ public interface StdioCLib extends Library {
      * @return 如果流成功关闭，则该方法返回零。如果失败，则返回 EOF。
      */
     int fclose(long fd);
-
-    static void main(String[] args) {
-        // 打开
-        long fd = CLibInstance.fopen("D:\\Temp\\value.txt", "r+");
-        // 写入
-        byte[] writeBytes = "Hello Fucker!!!\n".getBytes();
-        CLibInstance.fwrite(writeBytes, writeBytes.length, 1, fd);
-        // 写入字符流
-        CLibInstance.fputs("size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)", fd);
-        CLibInstance.fputs("int fclose(FILE *fd)", fd);
-        // 设置指针位置
-        CLibInstance.fseek(fd, 0, SEEK_SET);
-        // 读取
-        byte[] a = new byte[50];
-        CLibInstance.fread(a, a.length, 1, fd);
-        System.out.println(IOUtils.toCharArray(a));
-        // 关闭
-        CLibInstance.fclose(fd);
-    }
 
 }
 

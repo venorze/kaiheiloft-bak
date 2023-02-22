@@ -21,8 +21,16 @@ package devtools.framework.io;
 /* Creates on 2023/2/22. */
 
 /**
+ * 文件描述符
+ *
  * @author Amaoai
  */
 public class FileDescriptor {
+
+    final long fptr;
+
+    public FileDescriptor(long fd) {
+        this.fptr = fd;
+    }
 
 }
