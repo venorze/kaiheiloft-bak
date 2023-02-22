@@ -1,7 +1,7 @@
 /* SuppressWarnings */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package kotlin
+package stdlibkt
 
 /* ************************************************************************
  *

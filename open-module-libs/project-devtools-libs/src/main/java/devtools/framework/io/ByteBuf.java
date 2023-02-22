@@ -106,7 +106,7 @@ public abstract class ByteBuf {
     /**
      * @return 返回缓冲区真实大小
      */
-    public int size() {
+    public int length() {
         return capacity;
     }
 
@@ -129,15 +129,9 @@ public abstract class ByteBuf {
      */
     public void seek(int position, int mode) {
         switch (mode) {
-            case SEEK_SET:
-                this.position = position;
-                break;
-            case SEEK_CUR:
-                this.position += position;
-                break;
-            case SEEK_END:
-                this.position = capacity - position;
-                break;
+            case SEEK_SET -> this.position = position;
+            case SEEK_CUR -> this.position += position;
+            case SEEK_END -> this.position = capacity - position;
         }
 
         Assert.throwIfBool(!(this.position < 0 || this.position > capacity),

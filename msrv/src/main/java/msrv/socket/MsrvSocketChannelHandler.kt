@@ -2,6 +2,7 @@ package msrv.socket
 
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandler
+import stdlibkt.toLong
 
 /* ************************************************************************
  *
@@ -44,7 +45,7 @@ class MsrvSocketChannelHandler : ChannelInboundHandler {
     }
 
     override fun channelUnregistered(ctx: ChannelHandlerContext) {
-        toLong("123L")
+        toLong(111)
     }
 
     override fun channelActive(ctx: ChannelHandlerContext) {

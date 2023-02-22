@@ -37,6 +37,7 @@
         <module>stream-mediasrv</module>
         <!-- test -->
         <module>test/msrv-client-test</module>
+        <module>test/kotlin-project-test</module>
     </modules>
 
     <properties>
@@ -45,6 +46,7 @@
         <lombok.version>1.18.24</lombok.version>
         <netty.version>4.1.87.Final</netty.version>
         <kotlin.version>1.8.20-Beta</kotlin.version>
+        <jna.version>3.0.9</jna.version>
     </properties>
 
     <dependencies>
@@ -78,6 +80,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- jna -->
+            <dependency>
+                <groupId>com.sun.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${jna.version}</version>
+            </dependency>
             <!-- third party -->
             <dependency>
                 <groupId>io.netty</groupId>

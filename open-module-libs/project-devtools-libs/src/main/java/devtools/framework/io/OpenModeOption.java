@@ -1,7 +1,4 @@
-/* SuppressWarnings */
-@file:Suppress("NOTHING_TO_INLINE")
-
-package kotlin
+package devtools.framework.io;
 
 /* ************************************************************************
  *
@@ -23,36 +20,25 @@ package kotlin
 
 /* Creates on 2023/2/22. */
 
+import lombok.Getter;
+
 /**
  * @author Amaoai
  */
+public enum OpenModeOption {
 
-/**
- * 将 [String] 解析为 [Int] 数字并返回结果。
- */
-inline fun toInt(str: String): Int = str.toInt()
+    OPEN_ONLY_READ("r"),
 
-/**
- * 将 [ [Byte] ] 类型转换为 [ [Int] ] 类型
- */
-inline fun toInt(bit: Byte): Int = bit.toInt()
+    OPEN_ONLY_WRITE("w"),
 
-/**
- * 将 [ [Short] ] 类型转换为 [ [Int] ] 类型
- */
-inline fun toInt(short: Short): Int = short.toInt()
+    OPEN_READ_AND_WRITE("rws"),
+    ;
 
-/**
- * 将 [Long] 类型转换为 [ [Int] ] 类型型
- */
-inline fun toInt(l: Long): Int = l.toInt()
+    @Getter
+    private final String value;
 
-/**
- * 将 [Float] 类型转换为 [ [Int] ] 类型型
- */
-inline fun toInt(f: Float): Int = f.toInt()
+    OpenModeOption(String value) {
+        this.value = value;
+    }
 
-/**
- * 将 [Double] 类型转换为 [ [Int] ] 类型型
- */
-inline fun toInt(double: Double): Int = double.toInt()
+}

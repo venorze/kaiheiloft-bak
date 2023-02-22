@@ -45,6 +45,11 @@ public final class IOUtils {
     public static final int DEFAULT_BUFFER_SIZE = (1024 * 4);
 
     /**
+     * 标准输入流
+     */
+    public static InputStream stdin = System.in;
+
+    /**
      * 标准输出流
      */
     public static OutputStream stdout = System.out;

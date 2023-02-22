@@ -41,17 +41,22 @@ public final class FileUtils {
     /**
      * 4mb = 4000000 bytes
      */
-    public static final long SIZE_OF_MB_4 = 4000000;
+    public static final long SIZE_OF_MB_4 = SIZE_OF_MB_2 * 2;
 
     /**
      * 8mb = 8000000 bytes
      */
-    public static final long SIZE_OF_MB_8 = 8000000;
+    public static final long SIZE_OF_MB_8 = SIZE_OF_MB_4 * 2;
 
     /**
      * 16mb = 16000000 bytes
      */
-    public static final long SIZE_OF_MB_16 = 16000000;
+    public static final long SIZE_OF_MB_16 = SIZE_OF_MB_8 * 2;
+
+    /**
+     * 32mb = 32000000 bytes
+     */
+    public static final long SIZE_OF_MB_32 = SIZE_OF_MB_16 * 2;
 
     /**
      * 从Resources目录读取文件

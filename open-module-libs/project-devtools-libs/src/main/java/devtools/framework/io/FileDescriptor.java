@@ -1,7 +1,4 @@
-/* SuppressWarnings */
-@file:Suppress("NOTHING_TO_INLINE")
-
-package kotlin
+package devtools.framework.io;
 
 /* ************************************************************************
  *
@@ -26,33 +23,6 @@ package kotlin
 /**
  * @author Amaoai
  */
+public class FileDescriptor {
 
-/**
- * 将 [String] 类型转换为 [Long] 类型
- */
-inline fun toLong(str: String): Long = str.toLong()
-
-/**
- * 将 [Byte] 类型转换为 [Long] 类型
- */
-inline fun toLong(bit: Byte): Long = bit.toLong()
-
-/**
- * 将 [Short] 类型转换为 [Long] 类型
- */
-inline fun toLong(short: Short): Long = short.toLong()
-
-/**
- * 将 [Int] 类型转换为 [Long] 类型
- */
-inline fun toLong(i: Int): Long = i.toLong()
-
-/**
- * 将 [Float] 类型转换为 [Long] 类型
- */
-inline fun toLong(f: Float): Long = f.toLong()
-
-/**
- * 将 [Double] 类型转换为 [Long] 类型
- */
-inline fun toLong(double: Double): Long = double.toLong()
+}

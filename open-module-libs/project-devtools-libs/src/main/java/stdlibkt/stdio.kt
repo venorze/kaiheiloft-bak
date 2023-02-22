@@ -1,10 +1,9 @@
 /* SuppressWarnings */
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("HasPlatformType", "NOTHING_TO_INLINE")
 
-package kotlin
+package stdlibkt
 
-import devtools.framework.logging.Logger
-import devtools.framework.logging.LoggerFactory
+import devtools.framework.io.IOUtils
 
 /* ************************************************************************
  *
@@ -26,6 +25,11 @@ import devtools.framework.logging.LoggerFactory
 
 /* Creates on 2023/2/22. */
 
-/**
- * @author Amaoai
- */
+/** @author Amaoai */
+
+/** 标准输入流 */
+val stdin = IOUtils.stdin
+/** 标准输出流 */
+val stdout = IOUtils.stdout
+/** 标准错误流 */
+val stderr = IOUtils.stderr
