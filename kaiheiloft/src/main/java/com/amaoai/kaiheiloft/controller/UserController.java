@@ -20,8 +20,8 @@ package com.amaoai.kaiheiloft.controller;
 
 /* Creates on 2023/1/10. */
 
-import com.amaoai.framework.BeanUtils;
-import com.amaoai.framework.R;
+import devtools.framework.BeanUtils;
+import devtools.framework.R;
 import com.amaoai.kaiheiloft.enties.Club;
 import com.amaoai.kaiheiloft.mods.modv.ClubModv;
 import com.amaoai.kaiheiloft.mods.modx.EditMailModx;

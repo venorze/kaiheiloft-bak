@@ -22,7 +22,7 @@ package com.amaoai.export.kaiheiloft.api.feign;
 
 import com.amaoai.export.kaiheiloft.modx.UserInfo;
 import com.amaoai.export.kaiheiloft.modx.UserSign;
-import com.amaoai.framework.R;
+import devtools.framework.R;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

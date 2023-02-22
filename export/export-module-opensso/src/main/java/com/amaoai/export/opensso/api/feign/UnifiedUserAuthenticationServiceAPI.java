@@ -20,7 +20,7 @@ package com.amaoai.export.opensso.api.feign;
 
 /* Creates on 2023/1/22. */
 
-import com.amaoai.framework.R;
+import devtools.framework.R;
 import com.amaoai.export.opensso.modx.UserTokenPayload;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

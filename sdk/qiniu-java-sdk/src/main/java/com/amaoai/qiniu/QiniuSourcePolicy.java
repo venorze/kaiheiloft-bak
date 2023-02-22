@@ -23,7 +23,7 @@ package com.amaoai.qiniu;
 import com.alibaba.fastjson.JSON;
 import com.amaoai.adapter.FILE;
 import com.amaoai.adapter.SourcePolicy;
-import com.amaoai.framework.StringUtils;
+import devtools.framework.StringUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;

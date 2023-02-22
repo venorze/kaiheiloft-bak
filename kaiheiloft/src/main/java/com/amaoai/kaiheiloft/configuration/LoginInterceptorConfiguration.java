@@ -22,9 +22,9 @@ package com.amaoai.kaiheiloft.configuration;
 
 import com.alibaba.fastjson.JSON;
 import com.amaoai.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
-import com.amaoai.framework.StringUtils;
+import devtools.framework.StringUtils;
 import com.amaoai.kaiheiloft.KaiheiloftBootstrap;
-import com.amaoai.framework.R;
+import devtools.framework.R;
 import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
 import com.amaoai.export.opensso.modx.UserTokenPayload;
 import com.amaoai.spring.framework.WebRequests;

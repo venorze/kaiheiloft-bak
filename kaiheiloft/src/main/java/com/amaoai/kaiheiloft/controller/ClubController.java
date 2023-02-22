@@ -20,7 +20,7 @@ package com.amaoai.kaiheiloft.controller;
 
 /* Creates on 2023/1/13. */
 
-import com.amaoai.framework.R;
+import devtools.framework.R;
 import com.amaoai.kaiheiloft.enties.ClubApplyIdModx;
 import com.amaoai.kaiheiloft.enties.ClubApplyRefuseModx;
 import com.amaoai.kaiheiloft.mods.modx.*;

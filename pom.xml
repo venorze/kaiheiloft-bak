@@ -35,6 +35,8 @@
         <module>route</module>
         <module>msrv</module>
         <module>stream-mediasrv</module>
+        <!-- test -->
+        <module>test/msrv-client-test</module>
     </modules>
 
     <properties>

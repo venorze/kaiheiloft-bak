@@ -20,7 +20,7 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2022/12/22. */
 
-import com.amaoai.framework.Assert;
+import devtools.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.User;
@@ -29,7 +29,7 @@ import com.amaoai.kaiheiloft.mods.modx.EditMailModx;
 import com.amaoai.kaiheiloft.mods.modx.EditPasswordModx;
 import com.amaoai.kaiheiloft.mods.modx.UserProfileModx;
 import com.amaoai.kaiheiloft.mods.modx.UserSignUpModx;
-import com.amaoai.framework.BeanUtils;
+import devtools.framework.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**

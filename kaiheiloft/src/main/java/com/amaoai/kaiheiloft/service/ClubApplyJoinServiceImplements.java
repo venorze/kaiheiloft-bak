@@ -20,7 +20,7 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
-import com.amaoai.framework.Assert;
+import devtools.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.ClubApplyJoin;

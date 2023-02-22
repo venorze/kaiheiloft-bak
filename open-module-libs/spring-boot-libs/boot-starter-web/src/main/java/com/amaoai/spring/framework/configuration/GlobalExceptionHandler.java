@@ -20,7 +20,7 @@ package com.amaoai.spring.framework.configuration;
 
 /* Creates on 2022/12/23. */
 
-import com.amaoai.framework.R;
+import devtools.framework.R;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

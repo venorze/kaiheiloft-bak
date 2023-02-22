@@ -21,7 +21,7 @@ package com.amaoai.qiniu;
 /* Creates on 2023/1/9. */
 
 import com.amaoai.adapter.FILE;
-import com.amaoai.framework.time.DateUtils;
+import devtools.framework.time.DateUtils;
 import com.qiniu.storage.model.FileInfo;
 
 import java.util.Date;

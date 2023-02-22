@@ -23,7 +23,7 @@ package com.amaoai.kaiheiloft;
 import com.amaoai.adapter.SourcePolicy;
 import com.amaoai.adapter.StoreAdapter;
 import com.amaoai.export.opensso.ImportOpenSSOExportModule;
-import com.amaoai.framework.generators.SnowflakeGenerator;
+import devtools.framework.generators.SnowflakeGenerator;
 import com.amaoai.mybatisplus.configuration.EnableMybatisKit;
 import com.amaoai.qiniu.QiniuSourcePolicy;
 import com.amaoai.spring.framework.annotation.EnableGlobalProcess;

@@ -21,7 +21,7 @@ package com.amaoai.opensso;
 /* Creates on 2023/1/17. */
 
 import com.amaoai.export.kaiheiloft.ImportKaiheiloftExportModule;
-import com.amaoai.framework.security.AuthenticationTokenGenerator;
+import devtools.framework.security.AuthenticationTokenGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

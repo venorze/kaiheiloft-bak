@@ -22,8 +22,8 @@ package com.amaoai.kaiheiloft.controller;
 
 import com.amaoai.kaiheiloft.mods.modx.UserSignUpModx;
 import com.amaoai.kaiheiloft.service.UserService;
-import com.amaoai.framework.BeanUtils;
-import com.amaoai.framework.R;
+import devtools.framework.BeanUtils;
+import devtools.framework.R;
 import com.amaoai.export.kaiheiloft.modx.UserInfo;
 import com.amaoai.export.kaiheiloft.modx.UserSign;
 import com.amaoai.spring.framework.annotation.OpenAPI;
