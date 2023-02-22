@@ -326,22 +326,12 @@ public final class IOUtils {
     }
 
     /**
-     * C 库函数 FILE *fopen(const char *filename, const char *mode)
-     * 使用给定的模式 mode 打开 filename 所指向的文件。
+     * 打开一个文件对象并指定打开模式，返回文件描述符对象。
      *
-     * 文件打开模式有以下模式：
+     * @param filename 文件名或路径
+     * @param mode 文件模式
      *
-     *      - "r"    打开一个用于读取的文件。该文件必须存在。
-     *      - "w"    创建一个用于写入的空文件。如果文件名称与已存在的文件相同，则会删除已有文件的内容，文件被视为一个新的空文件。
-     *      - "a"    追加到一个文件。写操作向文件末尾追加数据。如果文件不存在，则创建文件。
-     *      - "r+"   打开一个用于更新的文件，可读取也可写入。该文件必须存在。
-     *      - "w+"   创建一个用于读写的空文件。
-     *      - "a+"   打开一个用于读取和追加的文件。
-     *
-     * @param filename 字符串，表示要打开的文件名称。
-     * @param mode     字符串，表示文件的访问模式，可以是以下表格中的值：
-     *
-     * @return 该函数返回一个 FILE 指针。否则返回 NULL，且设置全局变量 errno 来标识错误。
+     * @return 文件描述符
      */
     public static FileDescriptor fopen(String filename, String mode) {
         long fd = StdioCLib.CLibInstance.fopen(filename, mode);
@@ -352,31 +342,35 @@ public final class IOUtils {
     }
 
     /**
-     * C 库函数 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *fd)
-     * 从给定流 fd 读取数据到 ptr 所指向的数组中。
+     * 读取文件内容到指定 buf 中，size 参数表示要读取的字节数。nmemb 表示要读取几个内容。
+     * 比如当 size=10 的时候，nmemb = 2，那么就表示一共要读取 size * nmemb 字节到缓冲区。
      *
-     * @param ptr   这是指向带有最小尺寸 size*nmemb 字节的内存块的指针。
-     * @param size  这是要读取的每个元素的大小，以字节为单位。
-     * @param nmemb 这是元素的个数，每个元素的大小为 size 字节。
-     * @param fd    这是指向 FILE 对象的指针，该 FILE 对象指定了一个输入流。
+     * 缓冲区大小不能小于读取字节数的总大小。
      *
-     * @return 成功读取的元素总数会以 size_t 对象返回，size_t 对象是一个整型数据类型。
-     *         如果总数与 nmemb 参数不同，则可能发生了一个错误或者到达了文件末尾。
+     * @param buf   缓冲区
+     * @param size  读取数据大小
+     * @param nmemb 读取个数
+     * @param fd    文件描述符
+     *
+     * @return 返回值是一个 int 类型的总数，正常返回值应该为 nmemb 的大小。如果返回值与 nmemb 不同，
+     *         则表示读取可能出现了错误或读到了文件末尾。
      */
-    public static int fread(byte[] ptr, int size, int nmemb, FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fread(ptr, size, nmemb, fd.fptr);
+    public static int fread(byte[] buf, int size, int nmemb, FileDescriptor fd) {
+        return StdioCLib.CLibInstance.fread(buf, size, nmemb, fd.fptr);
     }
 
     /**
-     * C 库函数 size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *fd)
-     * 把 ptr 所指向的数组中的数据写入到给定流 fd 中。
+     * 写入文件内容到指定 buf 中，size 参数表示要写入的字节数。nmemb 表示要写入几个内容。
+     * 比如当 size=10 的时候，nmemb = 2，那么就表示一共要写入 size * nmemb 字节到缓冲区。
      *
-     * @param buf    这是指向要被写入的元素数组的指针。
-     * @param size   这是要被写入的每个元素的大小，以字节为单位。
-     * @param nmemb  这是元素的个数，每个元素的大小为 size 字节。
-     * @param fd     这是指向 FILE 对象的指针，该 FILE 对象指定了一个输出流。
+     * 缓冲区大小不能小于写入字节数的总大小。
      *
-     * @return 如果成功，该函数返回一个 size_t 对象，表示元素的总数，该对象是一个整型数据类型。
+     * @param buf   缓冲区
+     * @param size  写入数据大小
+     * @param nmemb 写入个数
+     * @param fd    文件描述符
+     *
+     * @return 如果成功，该函数返回一个 int 对象，表示元素的总数，该对象是一个整型数据类型。
      *         如果该数字与 nmemb 参数不同，则会显示一个错误。
      */
     public static int fwrite(byte[] buf, int size, int nmemb, FileDescriptor fd) {
@@ -384,8 +378,7 @@ public final class IOUtils {
     }
 
     /**
-     * C 库函数 int fputs(const char *str, FILE *fd) 把字符串写入到指定的流 fd 中，
-     * 但不包括空字符。
+     * 写入字符流到指定描述符中，但不包括空字符
      *
      * @param str 这是一个字符串对象，包含了要写入的以空字符终止的字符序列。
      * @param fd  这是指向 FILE 对象的指针，该 FILE 对象标识了要被写入字符串的流。
