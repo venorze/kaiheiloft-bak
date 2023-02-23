@@ -9,7 +9,7 @@
         <version>v1.0.0.KAYLE</version>
     </parent>
 
-    <artifactId>msrv</artifactId>
+    <artifactId>msocksrv</artifactId>
 
     <dependencies>
         <dependency>
@@ -39,6 +39,11 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+        </dependency>
+        <!-- protocol -->
+        <dependency>
+            <groupId>com.amaoai</groupId>
+            <artifactId>mcmun</artifactId>
         </dependency>
     </dependencies>
 

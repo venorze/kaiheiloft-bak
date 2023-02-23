@@ -33,8 +33,11 @@
         <module>opensso</module>
         <module>export</module>
         <module>route</module>
-        <module>msrv</module>
         <module>stream-mediasrv</module>
+        <!-- socket server -->
+        <module>socksrv/msocksrv</module>
+            <!-- 通信协议 -->
+            <module>socksrv/protocol/mcmun</module>
         <!-- test -->
         <module>test/msrv-client-test</module>
         <module>test/kotlin-project-test</module>
@@ -144,6 +147,12 @@
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>export-module-opensso</artifactId>
+                <version>v1.0.0.KAYLE</version>
+            </dependency>
+            <!-- protocol -->
+            <dependency>
+                <groupId>com.amaoai</groupId>
+                <artifactId>mcmun</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
         </dependencies>

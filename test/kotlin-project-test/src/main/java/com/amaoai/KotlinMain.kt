@@ -27,41 +27,8 @@ import stdlibkt.*
  * @author Amaoai
  */
 object KotlinMain {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            // 打开
-            val fd = fopen("D:\\Temp\\value.txt", "w+")
-            // 写入
-            val writeBytes = "Hello Fucker!!!\n".toByteArray()
-            fwrite(writeBytes, writeBytes.size, 1, fd)
-            // 写入字符流
-            fputs("size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)", fd)
-            fputs("int fclose(FILE *fd)\n", fd)
-            // putc
-            fputc('M'.code, fd)
-            fputc('Y'.code, fd)
-            fputc('\n'.code, fd)
-            // 读取
-            fseek(fd, 0, SEEK_SET)
-            val a = ByteArray(50)
-            fread(a, a.size, 1, fd)
-            println(IOUtils.toCharArray(a))
-            // fgets
-            fseek(fd, 0, SEEK_SET)
-            val getBytes = CharArray(10)
-            println(fgets(getBytes, getBytes.size, fd))
-
-            // 设置指针位置
-            fseek(fd, 0, SEEK_SET)
-            println("================================================")
-            var c: Char
-            while (true) {
-                c = fgetc(fd)
-                if (feof(fd)) break
-                print(c)
-            }
-            // 关闭
-            fclose(fd)
-        }
-
+    @JvmStatic
+    fun main(args: Array<String>) {
+        println(toString(65612L))
+    }
 }

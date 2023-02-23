@@ -1,4 +1,4 @@
-package msrv;
+package com.amaoai.msocksrv;
 
 /* ************************************************************************
  *
@@ -21,7 +21,6 @@ package msrv;
 /* Creates on 2023/2/8. */
 
 import com.amaoai.export.opensso.ImportOpenSSOExportModule;
-import msrv.socket.MsrvServerSocketApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

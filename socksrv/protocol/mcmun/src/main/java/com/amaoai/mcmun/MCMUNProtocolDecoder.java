@@ -1,7 +1,4 @@
-/* SuppressWarnings */
-@file:Suppress("NOTHING_TO_INLINE")
-
-package stdlibkt
+package com.amaoai.mcmun;
 
 /* ************************************************************************
  *
@@ -21,23 +18,25 @@ package stdlibkt
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/22. */
+/* Creates on 2023/2/23. */
+
+import devtools.framework.io.ObjectSerializationUtils;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
+
+import java.util.List;
 
 /**
+ * 协议解码器
+ *
  * @author Amaoai
  */
+public class MCMUNProtocolDecoder extends ByteToMessageDecoder {
 
-/**
- * 将 [String] 类型转换为 [Byte] 类型
- */
-inline fun toByte(str: String): Byte = str.toByte()
-
-/**
- * 将 [Short] 类型转换为 [Byte] 类型
- */
-inline fun toByte(s: Short): Byte = s.toByte()
-
-/**
- * 将 [Int] 类型转换为 [Byte] 类型
- */
-inline fun toByte(i: Int): Byte = i.toByte()
+    @Override
+    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list)
+            throws Exception {
+        list.add(ObjectSerializationUtils.unserializationQuietly(byteBuf.array()));
+    }
+}

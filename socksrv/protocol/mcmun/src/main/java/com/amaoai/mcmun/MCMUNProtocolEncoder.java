@@ -1,7 +1,4 @@
-/* SuppressWarnings */
-@file:Suppress("NOTHING_TO_INLINE")
-
-package stdlibkt
+package com.amaoai.mcmun;
 
 /* ************************************************************************
  *
@@ -21,38 +18,24 @@ package stdlibkt
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/22. */
+/* Creates on 2023/2/23. */
+
+import devtools.framework.io.ObjectSerializationUtils;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToByteEncoder;
 
 /**
+ * 协议编码器
+ *
  * @author Amaoai
  */
+public class MCMUNProtocolEncoder extends MessageToByteEncoder<MCMUNProtocol> {
 
-/**
- * 将 [String] 解析为 [Int] 数字并返回结果。
- */
-inline fun toInt(str: String): Int = str.toInt()
+    @Override
+    protected void encode(ChannelHandlerContext channelHandlerContext, MCMUNProtocol protocol, ByteBuf byteBuf)
+            throws Exception {
+        byteBuf.writeBytes(ObjectSerializationUtils.serializationQuietly(protocol));
+    }
 
-/**
- * 将 [ [Byte] ] 类型转换为 [ [Int] ] 类型
- */
-inline fun toInt(bit: Byte): Int = bit.toInt()
-
-/**
- * 将 [ [Short] ] 类型转换为 [ [Int] ] 类型
- */
-inline fun toInt(short: Short): Int = short.toInt()
-
-/**
- * 将 [Long] 类型转换为 [ [Int] ] 类型型
- */
-inline fun toInt(l: Long): Int = l.toInt()
-
-/**
- * 将 [Float] 类型转换为 [ [Int] ] 类型型
- */
-inline fun toInt(f: Float): Int = f.toInt()
-
-/**
- * 将 [Double] 类型转换为 [ [Int] ] 类型型
- */
-inline fun toInt(double: Double): Int = double.toInt()
+}

@@ -1,7 +1,9 @@
-/* SuppressWarnings */
-@file:Suppress("NOTHING_TO_INLINE")
+package com.amaoai.msocksrv
 
-package stdlibkt
+import com.alibaba.fastjson.JSON
+import io.netty.channel.Channel
+import io.netty.channel.ChannelHandlerContext
+import java.net.SocketAddress
 
 /* ************************************************************************
  *
@@ -26,33 +28,17 @@ package stdlibkt
 /**
  * @author Amaoai
  */
+class MsrvSocketChannelHandler : AbstractChannelInboundHandler() {
 
-/**
- * 将 [String] 类型转换为 [Long] 类型
- */
-inline fun toLong(str: String): Long = str.toLong()
+    companion object {
+        val confirmConnectedClients = HashMap<SocketAddress, Channel>(64)
+    }
 
-/**
- * 将 [Byte] 类型转换为 [Long] 类型
- */
-inline fun toLong(bit: Byte): Long = bit.toLong()
+    /**
+     * 读取客户端发送消息
+     */
+    override fun channelRead(channelHandlerContext: ChannelHandlerContext, message: Any) {
+        println(JSON.toJSONString(message))
+    }
 
-/**
- * 将 [Short] 类型转换为 [Long] 类型
- */
-inline fun toLong(short: Short): Long = short.toLong()
-
-/**
- * 将 [Int] 类型转换为 [Long] 类型
- */
-inline fun toLong(i: Int): Long = i.toLong()
-
-/**
- * 将 [Float] 类型转换为 [Long] 类型
- */
-inline fun toLong(f: Float): Long = f.toLong()
-
-/**
- * 将 [Double] 类型转换为 [Long] 类型
- */
-inline fun toLong(double: Double): Long = double.toLong()
+}
