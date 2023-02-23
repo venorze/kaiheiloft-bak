@@ -257,8 +257,8 @@ public final class FileUtils {
     /**
      * 将缓冲区内容写入到文件，
      */
-    public static void write(String path, ByteBuf buf) {
-        byte[] bytebuf = buf.getBufferArray();
+    public static void write(String path, ByteBuffer buf) {
+        byte[] bytebuf = buf.getBytes();
         write(path, bytebuf, 0, bytebuf.length);
     }
 

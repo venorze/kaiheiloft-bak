@@ -1,8 +1,8 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.amaoai.msocksrv
 
-import com.alibaba.fastjson.JSON
 import io.netty.channel.Channel
-import io.netty.channel.ChannelHandlerContext
 import java.net.SocketAddress
 
 /* ************************************************************************
@@ -23,22 +23,42 @@ import java.net.SocketAddress
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/22. */
+/* Creates on 2023/2/23. */
 
 /**
+ * 长连接服务器全局上下文，管理客户端
+ *
  * @author Amaoai
  */
-class MsrvSocketChannelHandler : AbstractChannelInboundHandler() {
+object SocksrvApplicationContext {
 
-    companion object {
-        val confirmConnectedClients = HashMap<SocketAddress, Channel>(64)
+    /**
+     * 管理连接建立成功的客户端
+     */
+    private val clientChannels =
+        HashMap<SocketAddress, Channel>(64);
+
+    /**
+     * 添加连接建立成功的客户端
+     */
+    @JvmStatic
+    fun addClientChannel(addr: SocketAddress, ch: Channel) {
+        Thread {
+            synchronized(clientChannels) {
+                clientChannels[addr] = ch
+            }
+        }
     }
 
     /**
-     * 读取客户端发送消息
+     * 获取连接建立成功的客户端
      */
-    override fun channelRead(channelHandlerContext: ChannelHandlerContext, message: Any) {
-        println(JSON.toJSONString(message))
-    }
+    @JvmStatic
+    fun getClientChannel(addr: SocketAddress) = clientChannels[addr]
+
+    /**
+     * 获取当前有多少个客户端连接
+     */
+    fun clientCount() = clientChannels.size
 
 }

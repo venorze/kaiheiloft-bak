@@ -20,6 +20,7 @@ package com.amaoai.mcmun;
 
 /* Creates on 2023/2/23. */
 
+import devtools.framework.io.ByteBuffer;
 import devtools.framework.io.ObjectSerializationUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -30,12 +31,16 @@ import io.netty.handler.codec.MessageToByteEncoder;
  *
  * @author Amaoai
  */
-public class MCMUNProtocolEncoder extends MessageToByteEncoder<MCMUNProtocol> {
+public class MCMUNEncoder extends MessageToByteEncoder<MCMUNProtocol> {
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, MCMUNProtocol protocol, ByteBuf byteBuf)
             throws Exception {
-        byteBuf.writeBytes(ObjectSerializationUtils.serializationQuietly(protocol));
+        var devByteBuf = ByteBuffer.alloc();
+        devByteBuf.write(MCMUNProtocol.FUCK_MAGIC_NUM);
+        devByteBuf.write(ObjectSerializationUtils.serializationQuietly(protocol));
+        // 写入到Netty数据
+        byteBuf.writeBytes(devByteBuf.getBytes());
     }
 
 }

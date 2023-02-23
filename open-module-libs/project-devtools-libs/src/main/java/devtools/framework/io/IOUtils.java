@@ -24,7 +24,6 @@ import devtools.framework.Assert;
 import devtools.framework.StringUtils;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -282,7 +281,7 @@ public final class IOUtils {
      * 字节数组转char数组，传入编码对象
      */
     public static char[] toCharArray(byte[] a, Charset encoding) {
-        ByteBuffer buf = ByteBuffer.allocate(a.length);
+        java.nio.ByteBuffer buf = java.nio.ByteBuffer.allocate(a.length);
         buf.put(a);
         buf.flip();
         return encoding.decode(buf).array();
@@ -512,7 +511,7 @@ public final class IOUtils {
      * 读取字节数据, 数据读取完后会关闭流。
      */
     public static byte[] read(InputStream stream) {
-        ByteBuf buf = ByteBuf.alloc();
+        ByteBuffer buf = ByteBuffer.alloc();
 
         try {
             int len = 0;
@@ -528,7 +527,7 @@ public final class IOUtils {
             closeQuietly(stream);
         }
 
-        return buf.getBufferArray();
+        return buf.getBytes();
     }
 
     /**

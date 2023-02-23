@@ -32,11 +32,13 @@ import java.util.List;
  *
  * @author Amaoai
  */
-public class MCMUNProtocolDecoder extends ByteToMessageDecoder {
+public class MCMUNDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list)
             throws Exception {
-        list.add(ObjectSerializationUtils.unserializationQuietly(byteBuf.array()));
+        var buf = new byte[byteBuf.readableBytes()];
+        byteBuf.readBytes(buf);
+        list.add(ObjectSerializationUtils.unserializationQuietly(buf));
     }
 }

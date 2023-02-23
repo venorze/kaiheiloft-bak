@@ -9,7 +9,7 @@
         <version>v1.0.0.KAYLE</version>
     </parent>
 
-    <artifactId>mcmun</artifactId>
+    <artifactId>protocol-mcmun</artifactId>
 
     <dependencies>
         <dependency>

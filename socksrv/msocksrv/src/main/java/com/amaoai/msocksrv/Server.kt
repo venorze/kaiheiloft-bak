@@ -1,5 +1,7 @@
 package com.amaoai.msocksrv
 
+import com.amaoai.mcmun.MCMUNDecoder
+import com.amaoai.mcmun.MCMUNEncoder
 import devtools.framework.PropertiesSourceLoaders
 import devtools.framework.logging.LoggerFactory
 import io.netty.bootstrap.ServerBootstrap
@@ -8,7 +10,7 @@ import io.netty.channel.ChannelOption
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
-import io.netty.handler.codec.string.StringDecoder
+import io.netty.handler.codec.bytes.ByteArrayDecoder
 import org.springframework.context.ConfigurableApplicationContext
 import java.util.Properties
 
@@ -40,13 +42,13 @@ typealias SpringApplicationContext = ConfigurableApplicationContext
  *
  * @author Amaoai
  */
-private class MsrvChannelInitializer : ChannelInitializer<SocketChannel>() {
+private class SocksrvChannelInitializer : ChannelInitializer<SocketChannel>() {
 
     override fun initChannel(p0: SocketChannel) {
         // 设置管线阶段处理器
         p0.pipeline()
-            .addLast(StringDecoder())
-            .addLast(MsrvSocketChannelHandler())
+            .addLast(ByteArrayDecoder())
+            .addLast(SocksrvSocketChannelHandler())
     }
 
 }
@@ -58,7 +60,7 @@ private class MsrvChannelInitializer : ChannelInitializer<SocketChannel>() {
  * @param args 保留参数
  * @author Amaoai
  */
-private class MsrvServerSocket(val springApplicationContext: SpringApplicationContext, val args: Array<String>) {
+private class SocksrvServerSocket(val springApplicationContext: SpringApplicationContext, val args: Array<String>) {
 
     /**
      * 事件线程组
@@ -73,7 +75,7 @@ private class MsrvServerSocket(val springApplicationContext: SpringApplicationCo
     /**
      * 日志组件
      */
-    private val LOG = LoggerFactory.getLogger(MsrvServerSocket::class.java)
+    private val LOG = LoggerFactory.getLogger(SocksrvServerSocket::class.java)
 
     /**
      * 初始化ServerBootstrap
@@ -90,10 +92,10 @@ private class MsrvServerSocket(val springApplicationContext: SpringApplicationCo
                 // 设置保持活动连接状态
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 // 初始化通道对象
-                .childHandler(MsrvChannelInitializer())
+                .childHandler(SocksrvChannelInitializer())
             // 绑定端口号，启动服务端
             val port = properties.getProperty("port").toInt()
-            LOG.info("Msrv socket server runs on port $port...")
+            LOG.info("Msocksrv socket server runs on port $port...")
             val channelFuture = serverBootstrap.bind(port).sync()
             // 对关闭通道进行监听
             channelFuture.channel().closeFuture().sync()
@@ -108,7 +110,7 @@ private class MsrvServerSocket(val springApplicationContext: SpringApplicationCo
     /**
      * 启动长连接服务
      */
-    fun start(propname: String = "msrv.socket") {
+    fun start(propname: String = "msocksrv.properties") {
         val prop = PropertiesSourceLoaders.loadProperties(propname) ?: throw Error("$propname not found.")
         initializeServerBootstrap(prop)
     }
@@ -118,11 +120,11 @@ private class MsrvServerSocket(val springApplicationContext: SpringApplicationCo
 /**
  * 长连接服务启动器
  */
-object MsrvServerSocketApplication {
+object SocksrvServerSocketApplication {
 
     @JvmStatic
     fun run(configurableApplicationContext: SpringApplicationContext, args: Array<String>): Unit {
-        MsrvServerSocket(configurableApplicationContext, args).start()
+        SocksrvServerSocket(configurableApplicationContext, args).start()
     }
 
 }

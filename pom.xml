@@ -36,10 +36,10 @@
         <module>stream-mediasrv</module>
         <!-- socket server -->
         <module>socksrv/msocksrv</module>
-            <!-- 通信协议 -->
-            <module>socksrv/protocol/mcmun</module>
+        <!-- protocols -->
+        <module>socksrv/protocol/mcmun</module>
         <!-- test -->
-        <module>test/msrv-client-test</module>
+        <module>test/msocksrv-client-test</module>
         <module>test/kotlin-project-test</module>
     </modules>
 
@@ -152,7 +152,7 @@
             <!-- protocol -->
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>mcmun</artifactId>
+                <artifactId>protocol-mcmun</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
         </dependencies>

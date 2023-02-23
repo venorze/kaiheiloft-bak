@@ -9,12 +9,16 @@
         <version>v1.0.0.KAYLE</version>
     </parent>
 
-    <artifactId>msrv-client-test</artifactId>
+    <artifactId>msocksrv-client-test</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amaoai</groupId>
+            <artifactId>protocol-mcmun</artifactId>
         </dependency>
     </dependencies>
 

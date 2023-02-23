@@ -20,6 +20,7 @@ package com.amaoai.msocksrv;
 
 /* Creates on 2023/2/23. */
 
+import devtools.framework.Assert;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandler;
 
@@ -30,57 +31,57 @@ public class AbstractChannelInboundHandler implements ChannelInboundHandler {
 
     @Override
     public void channelRegistered(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void channelUnregistered(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void channelActive(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object message) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext channelHandlerContext, Object message) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void channelWritabilityChanged(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable throwable) throws Exception {
-
+        throwable.printStackTrace();
     }
 
     @Override
     public void handlerAdded(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext channelHandlerContext) throws Exception {
-
+        Assert.doNothing();
     }
 
 }

@@ -80,7 +80,7 @@
 //    }
 //
 //    @Override
-//    public byte[] getBufferArray() {
+//    public byte[] getBytes() {
 //        byte[] a = IOUtils.getByteArray(capacity);
 //        int pos = position;
 //

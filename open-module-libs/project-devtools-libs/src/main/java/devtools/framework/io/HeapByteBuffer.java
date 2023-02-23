@@ -35,14 +35,14 @@ import java.util.Arrays;
  *
  * @author Vincent Luo
  */
-class HeapByteBuf extends ByteBuf implements Serializable {
+class HeapByteBuffer extends ByteBuffer implements Serializable {
     // 缓冲区
     private byte[] buf;
 
     /**
      * 默认构造函数，初始化缓冲区大小
      */
-    public HeapByteBuf(int size) {
+    public HeapByteBuffer(int size) {
         this.buf = IOUtils.getByteArray(size);
     }
 
@@ -52,7 +52,7 @@ class HeapByteBuf extends ByteBuf implements Serializable {
      *
      * @see #duplicate()
      */
-    public HeapByteBuf(byte[] a, int off, int len) {
+    public HeapByteBuffer(byte[] a, int off, int len) {
         Assert.throwIfNull(a);
 
         if (off == 0 && len == a.length) {
@@ -65,8 +65,8 @@ class HeapByteBuf extends ByteBuf implements Serializable {
     }
 
     @Override
-    public ByteBuf duplicate() {
-        return new HeapByteBuf(getBufferArray(), 0, capacity);
+    public ByteBuffer duplicate() {
+        return new HeapByteBuffer(getBytes(), 0, capacity);
     }
 
     @Override
@@ -86,7 +86,7 @@ class HeapByteBuf extends ByteBuf implements Serializable {
     }
 
     @Override
-    public byte[] getBufferArray() {
+    public byte[] getBytes() {
         byte[] retval = new byte[capacity];
         int pos = this.position;
         seek(0);

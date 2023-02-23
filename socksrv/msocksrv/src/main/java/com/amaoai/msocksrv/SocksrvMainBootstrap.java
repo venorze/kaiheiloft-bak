@@ -35,13 +35,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @ImportOpenSSOExportModule
 @SpringBootApplication
-public class MsrvMainBootstrap {
+public class SocksrvMainBootstrap {
 
     public static void main(String[] args) {
         // 启动Spring服务
-        var configurableApplicationContext = SpringApplication.run(MsrvMainBootstrap.class, args);
+        var configurableApplicationContext = SpringApplication.run(SocksrvMainBootstrap.class, args);
         // 启动长连接服务
-        MsrvServerSocketApplication.run(configurableApplicationContext, args);
+        SocksrvServerSocketApplication.run(configurableApplicationContext, args);
     }
 
 }

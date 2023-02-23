@@ -27,36 +27,39 @@ import devtools.framework.Assert;
  *
  * @author Vincent Luo
  */
-public abstract class ByteBuf {
+public abstract class ByteBuffer {
     /* int类型占用字节大小 */
-    public static final long SIZE_OF_INT = 4L;
+    public static final int SIZE_OF_INT = 4;
 
     /* short类型占用字节大小 */
-    public static final long SIZE_OF_SHORT = 2L;
+    public static final int SIZE_OF_SHORT = 2;
 
     /* long类型占用字节大小 */
-    public static final long SIZE_OF_LONG = 8L;
+    public static final int SIZE_OF_LONG = 8;
 
     /* double类型占用字节大小 */
-    public static final long SIZE_OF_DOUBLE = 8L;
+    public static final int SIZE_OF_DOUBLE = 8;
 
     /* float类型占用字节大小 */
-    public static final long SIZE_OF_FLOAT = 4L;
+    public static final int SIZE_OF_FLOAT = 4;
 
     /* char类型占用字节大小, 编码使用 UTF-8 所以char类型占用2个字节 */
-    public static final long SIZE_OF_CHAR = 2L;
+    public static final int SIZE_OF_CHAR = 2;
 
     /* boolean类型占用字节大小 */
-    public static final long SIZE_OF_BOOLEAN = 1L;
+    public static final int SIZE_OF_BOOLEAN = 1;
 
     /* 设置偏移位置 */
-    public static final int SEEK_SET = 0x1000;
+    public static final int SEEK_SET =
+            IOUtils.SEEK_SET;
 
     /* 从当前位置往后偏移 */
-    public static final int SEEK_CUR = 0x1001;
+    public static final int SEEK_CUR =
+            IOUtils.SEEK_CUR;
 
     /* 从最后位置往前偏移 */
-    public static final int SEEK_END = 0x1010;
+    public static final int SEEK_END =
+            IOUtils.SEEK_END;
 
     /* 指针当前偏移量 */
     protected int position;
@@ -68,23 +71,30 @@ public abstract class ByteBuf {
      * @return 创建缓冲区，分配在JVM内存中。初始大小默认4kb。缓冲区最大值取决于
      *         JVM的堆大小。
      */
-    public static ByteBuf alloc() {
+    public static ByteBuffer alloc() {
         return alloc(IOUtils.DEFAULT_BUFFER_SIZE);
     }
 
     /**
      * @return 创建缓冲区，分配在JVM内存中。根据参数分配缓冲区初始大小。
      */
-    public static ByteBuf alloc(int size) {
-        return new HeapByteBuf(size);
+    public static ByteBuffer alloc(int size) {
+        return new HeapByteBuffer(size);
     }
 
     /**
      * @return 使用对象包装后的ByteBuf
      */
-    public static ByteBuf wrap(Object object) {
+    public static ByteBuffer wrap(Object object) {
         byte[] bytes = ObjectSerializationUtils.serializationQuietly(object);
         return wrap(bytes, 0, bytes.length);
+    }
+
+    /**
+     * 使用ByteBuf包装字节数组
+     */
+    public static ByteBuffer wrap(byte[] a) {
+        return wrap(a, 0, a.length);
     }
 
     /**
@@ -94,19 +104,19 @@ public abstract class ByteBuf {
      * @param off 开始位置
      * @param len 拷贝大小
      */
-    public static ByteBuf wrap(byte[] a, int off, int len) {
-        return new HeapByteBuf(a, off, len);
+    public static ByteBuffer wrap(byte[] a, int off, int len) {
+        return new HeapByteBuffer(a, off, len);
     }
 
     /**
      * @return 复制当前缓冲区
      */
-    public abstract ByteBuf duplicate();
+    public abstract ByteBuffer duplicate();
 
     /**
      * @return 返回缓冲区真实大小
      */
-    public int length() {
+    public int size() {
         return capacity;
     }
 
@@ -151,6 +161,26 @@ public abstract class ByteBuf {
     public abstract void read(byte[] a, int off, int len);
 
     /**
+     * @return 当前函数返回一个 int 类型。从当前读写指针位置，往后读 4 个字节。
+     *         转换为 int 类型数字返回出去。读写指针向后移动 4 位。
+     */
+    public int readInt() {
+        var arr = IOUtils.getByteArray(SIZE_OF_INT);
+        read(arr, 0, arr.length);
+        return IOUtils.toInt(arr);
+    }
+
+    /**
+     * @return 当前函数返回一个 long 类型.从当前读写指针位置，往后读 8 个字节。
+     *         转换为 long 类型数字返回出去。读写指针向后移动 8 位。
+     */
+    public long readLong() {
+        var arr = IOUtils.getByteArray(SIZE_OF_LONG);
+        read(arr, 0, arr.length);
+        return IOUtils.toLong(arr);
+    }
+
+    /**
      * @return 根据当前读写指针位置读取一个字节
      */
     public abstract byte getByte();
@@ -158,7 +188,16 @@ public abstract class ByteBuf {
     /**
      * @return 获取缓冲区字节
      */
-    public abstract byte[] getBufferArray();
+    public abstract byte[] getBytes();
+
+    /**
+     * @return 获取缓冲区剩余为读写的字节
+     */
+    public byte[] getRemainBytes() {
+        var arr = IOUtils.getByteArray(capacity - position);
+        read(arr, 0, arr.length);
+        return arr;
+    }
 
     /**
      * 写入int类型数据到缓冲区

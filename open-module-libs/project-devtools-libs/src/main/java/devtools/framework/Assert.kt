@@ -175,4 +175,11 @@ object Assert {
             throw IllegalArgumentException(vfmt(fmt, *args))
     }
 
+    /**
+     * 什么事情都不做
+     */
+    @JvmStatic
+    @Suppress("NOTHING_TO_INLINE")
+    inline fun doNothing(vararg va: Any?): Any? = null
+
 }

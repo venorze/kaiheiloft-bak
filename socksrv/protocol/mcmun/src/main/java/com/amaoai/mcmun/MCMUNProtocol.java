@@ -20,10 +20,13 @@ package com.amaoai.mcmun;
 
 /* Creates on 2023/2/23. */
 
+import devtools.framework.io.IOUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.mail.Message;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,9 +38,47 @@ import java.util.Map;
  * @author Amaoai
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class MCMUNProtocol implements Serializable {
+
+    /**
+     * 协议魔数整数
+     */
+    public static int FUCK_MAGIC_NUM = 0xC114514D;
+
+    /**
+     * 消息类型
+     */
+    public interface MessageType {
+        /**
+         * 纯文本消息，不包含任何附件。消息前缀
+         */
+        byte TEXT = 'T';
+
+        /**
+         * 包含附件的文本消息
+         */
+        byte ATTACHMENT_TEXT = 'A';
+
+        /**
+         * 图片消息
+         */
+        byte IMAGE = 'I';
+
+        /**
+         * 语音消息
+         */
+        byte VOICE = 'V';
+
+        /**
+         * 视频消息
+         */
+        byte VIDEO = 'D';
+
+        /**
+         * http链接或分享消息
+         */
+        byte SHARED = 'L';
+    }
 
     /**
      * 消息ID
@@ -55,17 +96,10 @@ public class MCMUNProtocol implements Serializable {
     private String receiver;
 
     /**
-     * 消息类型：
-     *
-     *  -（T）纯文本消息，不包含任何附件。消息前缀
-     *  -（A）包含附件的文本消息
-     *  -（I）图片消息
-     *  -（V）语音消息
-     *  -（D）视频消息
-     *  -（L）http链接或分享消息
-     *
+     * 消息类型
+     * @see MessageType
      */
-    private Character type;
+    private Byte type;
 
     /**
      * 消息主体，存放主要的消息信息。
@@ -77,12 +111,12 @@ public class MCMUNProtocol implements Serializable {
     /**
      * 消息附件
      */
-    private List<String> attch;
+    private List<String> attach;
 
     /**
-     * 消息状态（是否发送成功）
+     * 消息状态（是否发送成功，以 Y/N 表示）
      */
-    private Character success;
+    private Byte success = 'N';
 
     /**
      * 已读成员
