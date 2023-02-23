@@ -33,13 +33,35 @@ import io.netty.handler.codec.MessageToByteEncoder;
  */
 public class MCMUNEncoder extends MessageToByteEncoder<MCMUNProtocol> {
 
+    /**
+     * 标记字段的总长度
+     */
+    public static int MARK_FIELD_SIZE_COUNT =  ByteBuffer.SIZE_OF_INT * 3;
+
+    /**
+     * 编码器会将协议对象转换成字节流。内存布局下图：
+     *
+     * 0 - 4：魔数，用于识别协议是否是 MCMUN 协议
+     * 4 - 8：版本号，MajorVersion
+     * 8 - 12：数据包总长度
+     * 其他：数据包内容
+     * 结尾倒数
+     */
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, MCMUNProtocol protocol, ByteBuf byteBuf)
             throws Exception {
         var devByteBuf = ByteBuffer.alloc();
-        devByteBuf.write(MCMUNProtocol.FUCK_MAGIC_NUM);
-        devByteBuf.write(ObjectSerializationUtils.serializationQuietly(protocol));
-        // 写入到Netty数据
+        // 解析数据包
+        byte[] mcmunBytes = ObjectSerializationUtils.serializationQuietly(protocol);
+        // 魔数
+        devByteBuf.write(MCMUNProtocol.MAGIC_NUMBER);
+        // 协议版本号
+        devByteBuf.write(MCMUNProtocol.VERSION);
+        // 数据包大小
+        devByteBuf.write(mcmunBytes.length);
+        // 数据包内容
+        devByteBuf.write(mcmunBytes);
+        // 写入到SocketChannel
         byteBuf.writeBytes(devByteBuf.getBytes());
     }
 

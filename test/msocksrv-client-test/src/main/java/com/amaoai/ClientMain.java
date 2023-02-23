@@ -36,8 +36,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.resolver.dns.DefaultDnsCnameCache;
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * @author Amaoai
@@ -46,6 +48,7 @@ public class ClientMain {
 
     public static void main(String[] args) throws InterruptedException {
 
+        Scanner scanner = new Scanner(System.in);
         NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup();
 
         try {
@@ -62,15 +65,15 @@ public class ClientMain {
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) throws Exception {
                                             do {
-                                                System.out.print("按下任意键发送100万条消息....");
-                                                System.in.read();
+                                                System.out.print("输入发送消息的条数: ");
+                                                int loopCount = scanner.nextInt();
                                                 System.out.print("\n");
                                                 MCMUNProtocol mcmunDataPack = new MCMUNProtocol();
                                                 mcmunDataPack.setType(MCMUNProtocol.MessageType.TEXT);
                                                 mcmunDataPack.setAttach(Lists.ofList("attch0", "attch1", "attch2"));
                                                 mcmunDataPack.setTime(new Date());
                                                 JUnits.performance(() -> {
-                                                    for (int i = 0; i < 1000000; i++) {
+                                                    for (int i = 0; i < loopCount; i++) {
                                                         mcmunDataPack.setMid("A10001" + i);
                                                         mcmunDataPack.setSender("S10000" + i);
                                                         mcmunDataPack.setReceiver("R10000" + i);
@@ -79,9 +82,7 @@ public class ClientMain {
                                                         ctx.writeAndFlush(mcmunDataPack);
                                                         // System.out.println("发送数据：" + mcmunDataPack);
                                                     }
-                                                }, "发送一百万条消息");
-                                                mcmunDataPack.setType(MCMUNProtocol.MessageType.IMAGE);
-                                                ctx.writeAndFlush(mcmunDataPack);
+                                                }, StringUtils.vfmt("发送{}条消息", loopCount));
                                             } while (true);
                                         }
 

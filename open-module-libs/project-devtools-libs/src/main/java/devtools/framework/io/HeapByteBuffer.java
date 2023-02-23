@@ -70,8 +70,33 @@ class HeapByteBuffer extends ByteBuffer implements Serializable {
     }
 
     @Override
+    public byte[] clear() {
+        var ret = new byte[capacity];
+        System.arraycopy(buf, 0, ret, 0, capacity);
+        buf = new byte[IOUtils.DEFAULT_BUFFER_SIZE];
+        capacity = 0;
+        position = 0;
+        return ret;
+    }
+
+    @Override
+    public void clear(int off, int len) {
+        int clearsize = off + len;
+        Assert.throwIfBool(!(clearsize > buf.length), "清空缓冲区长度超出缓冲区大小，清空大小：{}、缓冲区大小：{}",
+                len, capacity);
+
+        // 拷贝数组
+        var tmp = new byte[capacity - clearsize];
+        System.arraycopy(buf, clearsize, tmp, 0, tmp.length);
+        buf = tmp;
+
+        capacity = tmp.length;
+        flip();
+    }
+
+    @Override
     public void read(byte[] a, int off, int len) {
-        Assert.throwIfBool(!(len > buf.length), "读取的数据超出缓冲区大小，读取大小：{}, 数组大小：{}",
+        Assert.throwIfBool(!((off + len) > buf.length), "读取的数据超出缓冲区大小，读取大小：{}、数组大小：{}",
                 len, a.length);
 
         System.arraycopy(this.buf, this.position, a, off, len);

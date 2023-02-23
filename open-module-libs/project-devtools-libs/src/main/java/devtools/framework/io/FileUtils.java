@@ -21,7 +21,7 @@ package devtools.framework.io;
 /* Creates on 2022/8/9. */
 
 import devtools.framework.Assert;
-import devtools.framework.generators.VGenerator;
+import devtools.framework.generators.VersatileGenerator;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -291,7 +291,7 @@ public final class FileUtils {
      * @return sha256
      */
     public static String vsha256(String path) {
-        return VGenerator.vsha256(read(path));
+        return VersatileGenerator.vsha256(read(path));
     }
 
 }

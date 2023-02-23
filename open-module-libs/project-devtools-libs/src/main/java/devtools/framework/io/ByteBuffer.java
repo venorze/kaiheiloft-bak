@@ -128,6 +128,13 @@ public abstract class ByteBuffer {
     }
 
     /**
+     * @return 判断是不是读取到缓冲区末尾了
+     */
+    public boolean eof() {
+        return position == capacity;
+    }
+
+    /**
      * 设置当权缓冲区偏移量，默认模式为SEEK_SET
      */
     public void seek(int position) {
@@ -147,6 +154,17 @@ public abstract class ByteBuffer {
         Assert.throwIfBool(!(this.position < 0 || this.position > capacity),
                 "偏移量超出范围：{}， 数组大小：{}", this.position, capacity);
     }
+
+    /**
+     * 清空缓冲区
+     */
+    public abstract byte[] clear();
+
+    /**
+     * 指定偏移量和长度清空缓冲区，调用 clear 后会重置
+     * 读写指针。
+     */
+    public abstract void clear(int off, int len);
 
     /**
      * 从缓冲区读取字节数组，读取数据大小为数组大小。
@@ -178,6 +196,13 @@ public abstract class ByteBuffer {
         var arr = IOUtils.getByteArray(SIZE_OF_LONG);
         read(arr, 0, arr.length);
         return IOUtils.toLong(arr);
+    }
+
+    /**
+     * @return 返回可读字节数
+     */
+    public int readable() {
+        return capacity - position;
     }
 
     /**

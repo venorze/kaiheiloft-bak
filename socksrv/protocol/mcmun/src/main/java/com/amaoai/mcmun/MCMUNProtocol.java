@@ -20,13 +20,9 @@ package com.amaoai.mcmun;
 
 /* Creates on 2023/2/23. */
 
-import devtools.framework.io.IOUtils;
-import lombok.AllArgsConstructor;
+import devtools.framework.generators.VersatileGenerator;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import javax.mail.Message;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +39,13 @@ public class MCMUNProtocol implements Serializable {
     /**
      * 协议魔数整数
      */
-    public static int FUCK_MAGIC_NUM = 0xC114514D;
+    public static int MAGIC_NUMBER = 0xFFD488;
+
+    /**
+     * 协议版本号
+     */
+    public static int VERSION =
+            VersatileGenerator.makeVersion(1, 6, 0);
 
     /**
      * 消息类型

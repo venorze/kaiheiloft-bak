@@ -88,7 +88,7 @@ private class SocksrvServerSocket(val springApplicationContext: SpringApplicatio
                 // 设置通道实现类型
                 .channel(NioServerSocketChannel::class.java)
                 // 设置线程队列得到的连接个数
-                .option(ChannelOption.SO_BACKLOG, 1024)
+                .option(ChannelOption.SO_BACKLOG, 1024 * 8)
                 // 设置保持活动连接状态
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 // 初始化通道对象

@@ -34,7 +34,18 @@ import java.util.Random;
  *
  * @author Vincent Luo
  */
-public class VGenerator {
+public class VersatileGenerator {
+
+    /**
+     * 生成版本号
+     *
+     * @param major 主版本号（major * 40）
+     * @param minor 副版本号（minor * 10）
+     * @param patch 补丁版本 （minor * 1）
+     */
+    public static int makeVersion(int major, int minor, int patch) {
+        return major << 22 | minor << 12 | patch;
+    }
 
     ////////////////////////////////////////////////////////////
     /// SHA256生成
@@ -161,7 +172,7 @@ public class VGenerator {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++)
             sb.append(STATIC_NUMBERS_AND_LETTERS_CHAR_ARRAY[
-                    VGenerator.random_of_number(STATIC_NUMBERS_AND_LETTERS_CHAR_ARRAY.length)]);
+                    VersatileGenerator.random_of_number(STATIC_NUMBERS_AND_LETTERS_CHAR_ARRAY.length)]);
         return sb.toString();
     }
 
@@ -180,7 +191,7 @@ public class VGenerator {
     public static String random_simple_captcha(int length) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++)
-            sb.append(VGenerator.random_of_number(10));
+            sb.append(VersatileGenerator.random_of_number(10));
         return sb.toString();
     }
 

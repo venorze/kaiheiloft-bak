@@ -24,7 +24,7 @@ import com.amaoai.adapter.SourcePolicy;
 import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
 import devtools.framework.R;
 import devtools.framework.exception.BusinessException;
-import devtools.framework.generators.VGenerator;
+import devtools.framework.generators.VersatileGenerator;
 import devtools.framework.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,11 +52,11 @@ public class AttachmentController {
 
         try {
             byte[] byteBuf = avatarFile.getBytes();
-            String fileSha256 = VGenerator.vsha256(byteBuf);
+            String fileSha256 = VersatileGenerator.vsha256(byteBuf);
 
             // 计算文件存放在哪个位置，随机取SHA256中的两个字符作为保存区域
             int len = fileSha256.length();
-            int i = VGenerator.random_of_number(len - 2); // len - 2 避免随机到名称末尾
+            int i = VersatileGenerator.random_of_number(len - 2); // len - 2 避免随机到名称末尾
 
             // 上传文件
             String region = fileSha256.substring(i, i + 2);
