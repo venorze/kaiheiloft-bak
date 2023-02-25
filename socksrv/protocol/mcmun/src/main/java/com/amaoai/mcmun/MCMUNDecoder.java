@@ -20,6 +20,9 @@ package com.amaoai.mcmun;
 
 /* Creates on 2023/2/23. */
 
+import devtools.framework.io.ByteBuffer;
+import devtools.framework.io.IOUtils;
+import devtools.framework.io.ObjectSerializationUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -33,11 +36,53 @@ import java.util.List;
  */
 public class MCMUNDecoder extends ByteToMessageDecoder {
 
+    private final ByteBuffer remByteBuffer = ByteBuffer.alloc();
+
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list)
             throws Exception {
-        var buf = new byte[byteBuf.readableBytes()];
-        byteBuf.readBytes(buf);
-        System.out.println("解码器读取到的内容长度：" + byteBuf.capacity());
+        // 将数据写入到字节缓冲区中
+        ByteBuffer readbuf = ByteBuffer.wrap(remByteBuffer.clear());
+        int bufSize = byteBuf.readableBytes();
+        byte[] tmpBuf = IOUtils.getByteArray(bufSize);
+        byteBuf.readBytes(tmpBuf);
+        readbuf.write(tmpBuf);
+        readbuf.flip();
+        readpack(readbuf, list);
     }
+
+    /**
+     * 解析数据包
+     */
+    public void readpack(ByteBuffer readbuf, List<Object> list) {
+        // 解析数据包
+        int magicNumber = readbuf.readInt();
+        int protocolVersion = readbuf.readInt();
+
+        // 如果魔数和版本都相同那么代表这是一个正确的数据包起始
+        if (magicNumber == MCMUNProtocol.MAGIC_NUMBER &&
+                protocolVersion == MCMUNProtocol.VERSION) {
+            // 获取数据包长度
+            int len = readbuf.readInt();
+
+            // 如果长度小于未读大小那么表示这是一个半包数据
+            if (readbuf.remsize() < len) {
+                // 因为前面调用了三次readInt，跳过了12个字节，所以需要读写指针往后移动八位
+                readbuf.seek(-(IOUtils.SIZE_OF_INT * 3), IOUtils.SEEK_CUR);
+                remByteBuffer.write(readbuf.getRemBytes());
+                return;
+            }
+
+            // 读取到一个完整的数据包
+            byte[] bytebuf = IOUtils.getByteArray(len);
+            readbuf.read(bytebuf);
+            MCMUNProtocol mcmunProtocol =
+                    ObjectSerializationUtils.unserializationQuietly(bytebuf);
+            list.add(mcmunProtocol);
+
+            if (!readbuf.eof())
+                readpack(readbuf, list);
+        }
+    }
+
 }

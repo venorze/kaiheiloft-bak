@@ -49,7 +49,8 @@ private class SocksrvChannelInitializer : ChannelInitializer<SocketChannel>() {
     override fun initChannel(p0: SocketChannel) {
         // 设置管线阶段处理器
         p0.pipeline()
-            .addLast(ByteArrayDecoder())
+            .addLast(MCMUNEncoder())
+            .addLast(MCMUNDecoder())
             .addLast(SocksrvSocketChannelHandler())
     }
 

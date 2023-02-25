@@ -45,47 +45,8 @@ class SocksrvSocketChannelHandler : AbstractChannelInboundHandler() {
     /**
      * 读取客户端发送消息
      */
-    override fun channelRead(channelHandlerContext: ChannelHandlerContext, buffer: Any) {
-        // 将数据写入到字节缓冲区中
-        val readbuf = ByteBuffer.wrap(remByteBuffer.clear())
-        readbuf.write(buffer as ByteArray)
-        readbuf.flip()
-        readpack(readbuf)
-    }
-
-    /**
-     * 解析数据包
-     */
-    fun readpack(readbuf: ByteBuffer) {
-        // 解析数据包
-        val magicNumber = readbuf.readInt()
-        val protocolVersion = readbuf.readInt()
-
-        // 如果魔数和版本都相同那么代表这是一个正确的数据包起始
-        if (magicNumber == MCMUNProtocol.MAGIC_NUMBER &&
-            protocolVersion == MCMUNProtocol.VERSION) {
-            // 获取数据包长度
-            val len = readbuf.readInt()
-
-            // 如果长度小于未读大小那么表示这是一个半包数据
-            if (readbuf.remsize() < len) {
-                // 因为前面调用了三次readInt，跳过了12个字节，所以需要读写指针往后移动八位
-                readbuf.seek(-(IOUtils.SIZE_OF_INT * 3), SEEK_CUR)
-                remByteBuffer.write(readbuf.remBytes)
-                return
-            }
-
-            // 读取到一个完整的数据包
-            val bytebuf = IOUtils.getByteArray(len)
-            readbuf.read(bytebuf)
-            val mcmunProtocol =
-                ObjectSerializationUtils.unserializationQuietly<MCMUNProtocol>(bytebuf)
-
-            println("（${(readCompleteCount++)}）读取到数据包：${mcmunProtocol}，剩余字节：${readbuf.remsize()}")
-
-            if (!readbuf.eof())
-                readpack(readbuf)
-        }
+    override fun channelRead(channelHandlerContext: ChannelHandlerContext, obj: Any) {
+        println("（${(readCompleteCount++)}）读取到数据包：$obj")
     }
 
 }
