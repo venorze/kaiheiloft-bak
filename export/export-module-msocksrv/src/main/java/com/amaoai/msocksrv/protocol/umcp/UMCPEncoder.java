@@ -1,4 +1,4 @@
-package com.amaoai.msocksrv.protocol;
+package com.amaoai.msocksrv.protocol.umcp;
 
 /* ************************************************************************
  *
@@ -31,7 +31,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
  *
  * @author Amaoai
  */
-public class MCMUNEncoder extends MessageToByteEncoder<MCMUNProtocol> {
+public class UMCPEncoder extends MessageToByteEncoder<UMCP> {
 
     /**
      * 编码器会将协议对象转换成字节流。内存布局下图：
@@ -43,19 +43,19 @@ public class MCMUNEncoder extends MessageToByteEncoder<MCMUNProtocol> {
      * 结尾倒数
      */
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, MCMUNProtocol protocol, ByteBuf byteBuf)
+    protected void encode(ChannelHandlerContext channelHandlerContext, UMCP umcp, ByteBuf byteBuf)
             throws Exception {
         var devByteBuf = ByteBuffer.alloc();
         // 解析数据包
-        byte[] mcmunBytes = ObjectSerializationUtils.serializationQuietly(protocol);
+        byte[] attchBytes = ObjectSerializationUtils.serializationQuietly(umcp);
         // 魔数
-        devByteBuf.write(MCMUNProtocol.MAGIC_NUMBER);
+        devByteBuf.write(UMCPVersion.MAGIC_NUMBER);
         // 协议版本号
-        devByteBuf.write(MCMUNProtocol.VERSION);
+        devByteBuf.write(UMCPVersion.VERSION);
         // 数据包大小
-        devByteBuf.write(mcmunBytes.length);
+        devByteBuf.write(attchBytes.length);
         // 数据包内容
-        devByteBuf.write(mcmunBytes);
+        devByteBuf.write(attchBytes);
         // 写入到SocketChannel
         byteBuf.writeBytes(devByteBuf.getBytes());
     }

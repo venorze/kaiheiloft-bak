@@ -1,13 +1,10 @@
 package com.amaoai.msocksrv
 
 import com.amaoai.msocksrv.iface.AbstractChannelInboundHandler
-import com.amaoai.msocksrv.protocol.MCMUNDecoder
-import com.amaoai.msocksrv.protocol.MCMUNProtocol
-import devtools.framework.io.ByteBuffer
+import com.amaoai.msocksrv.protocol.umcp.UMCP
+import com.amaoai.msocksrv.protocol.umcp.UMCPCommand
+import devtools.framework.Assert
 import io.netty.channel.ChannelHandlerContext
-import stdlibkt.fflush
-import stdlibkt.fopen
-import stdlibkt.fputs
 
 /* ************************************************************************
  *
@@ -35,8 +32,7 @@ import stdlibkt.fputs
 class ServerSocketHandler : AbstractChannelInboundHandler() {
 
     companion object {
-        var readCompleteCount = 0
-        val remByteBuffer: ByteBuffer = ByteBuffer.alloc()
+        var readCompleteCount = 1
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
@@ -47,16 +43,36 @@ class ServerSocketHandler : AbstractChannelInboundHandler() {
     /**
      * 读取客户端发送消息
      */
-    override fun channelRead(channelHandlerContext: ChannelHandlerContext, obj: Any) {
+    @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+    override fun channelRead(channelHandlerContext: ChannelHandlerContext, any: Any) {
         // 记录所有发送的的消息
-        println("（${(readCompleteCount++)}）读取到数据包：$obj")
-        // 通知客户端服务器已收到消息
-        notifyClient(channelHandlerContext, obj as MCMUNProtocol)
+        if (any is UMCP) {
+            when (any.command) {
+                //
+                // 收到来自客户端的消息
+                //
+                UMCPCommand.SEND -> {
+                    // 接收到来自客户端的消息
+                    println("(${(readCompleteCount++)}) 接收到来自客户端的消息：${any}")
+                    // 通知客户端服务器已收到消息
+                    notifyClient(channelHandlerContext, any)
+                }
+
+                //
+                // 只有回复客户端的时候客户端比较这个Command
+                //
+                UMCPCommand.ACK -> Assert.doNothing()
+            }
+        }
     }
 
-    private fun notifyClient(channelHandlerContext: ChannelHandlerContext, obj: MCMUNProtocol) {
-        obj.success = MCMUNProtocol.MESSAGE_STATUS_SUCCESS
-        channelHandlerContext.channel().writeAndFlush(obj)
+    /**
+     * 通知客户端服务器已收到消息
+     */
+    private fun notifyClient(channelHandlerContext: ChannelHandlerContext, umcp: UMCP) {
+        umcp.command = UMCPCommand.ACK
+        umcp.attach = null
+        channelHandlerContext.channel().writeAndFlush(umcp)
     }
 
 }

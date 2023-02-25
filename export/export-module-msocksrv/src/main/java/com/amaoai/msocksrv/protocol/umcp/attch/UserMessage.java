@@ -1,4 +1,4 @@
-package com.amaoai.msocksrv.protocol;
+package com.amaoai.msocksrv.protocol.umcp.attch;
 
 /* ************************************************************************
  *
@@ -18,84 +18,29 @@ package com.amaoai.msocksrv.protocol;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/23. */
+/* Creates on 2023/2/25. */
 
 import devtools.framework.generators.VersatileGenerator;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 消息服务器通信协议，命名为（MCMUN协议）
+ * 用户消息
  *
- * @author Amaoai
+ * @author Vincent Luo
  */
 @Data
-public class MCMUNProtocol implements Serializable {
-
-    /**
-     * 协议魔数整数
-     */
-    public static int MAGIC_NUMBER = 0xFFD488;
-
-    /**
-     * 协议版本号
-     */
-    public static int VERSION =
-            VersatileGenerator.makeVersion(1, 6, 0);
-
-    /**
-     * 消息发送状态成功
-     */
-    public static byte MESSAGE_STATUS_SUCCESS = 'Y';
-
-    /**
-     * 消息发送状态失败
-     */
-    public static byte MESSAGE_STATUS_FAILED = 'N';
-
-    /**
-     * 消息类型
-     */
-    public interface MessageType {
-        /**
-         * 纯文本消息，不包含任何附件。消息前缀
-         */
-        byte TEXT = 'T';
-
-        /**
-         * 包含附件的文本消息
-         */
-        byte ATTACHMENT_TEXT = 'A';
-
-        /**
-         * 图片消息
-         */
-        byte IMAGE = 'I';
-
-        /**
-         * 语音消息
-         */
-        byte VOICE = 'V';
-
-        /**
-         * 视频消息
-         */
-        byte VIDEO = 'D';
-
-        /**
-         * http链接或分享消息
-         */
-        byte SHARED = 'L';
-    }
+public class UserMessage
+        implements Serializable {
 
     /**
      * 消息ID
      */
-    private String mid;
+    private final String mid =
+            VersatileGenerator.uuid();
 
     /**
      * 发送者
@@ -109,7 +54,7 @@ public class MCMUNProtocol implements Serializable {
 
     /**
      * 消息类型
-     * @see MessageType
+     * @see UserMessageType
      */
     private Byte type;
 
@@ -126,11 +71,6 @@ public class MCMUNProtocol implements Serializable {
     private List<String> attach;
 
     /**
-     * 消息状态（是否发送成功，以 Y/N 表示）
-     */
-    private Byte success = MESSAGE_STATUS_FAILED;
-
-    /**
      * 已读成员
      */
     private List<String> readmemb;
@@ -139,10 +79,5 @@ public class MCMUNProtocol implements Serializable {
      * 消息贴纸
      */
     private Map<String, Integer> stickers;
-
-    /**
-     * 发送时间
-     */
-    private Date time;
 
 }

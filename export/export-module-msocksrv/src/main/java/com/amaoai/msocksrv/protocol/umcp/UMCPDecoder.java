@@ -1,4 +1,4 @@
-package com.amaoai.msocksrv.protocol;
+package com.amaoai.msocksrv.protocol.umcp;
 
 /* ************************************************************************
  *
@@ -34,7 +34,7 @@ import java.util.List;
  *
  * @author Amaoai
  */
-public class MCMUNDecoder extends ByteToMessageDecoder {
+public class UMCPDecoder extends ByteToMessageDecoder {
 
     private final ByteBuffer remByteBuffer = ByteBuffer.alloc();
 
@@ -43,11 +43,13 @@ public class MCMUNDecoder extends ByteToMessageDecoder {
             throws Exception {
         // 将数据写入到字节缓冲区中
         ByteBuffer readbuf = ByteBuffer.wrap(remByteBuffer.clear());
+        // 将粘包半包的字节和当前接收到的字节组合在一起解析
         int bufSize = byteBuf.readableBytes();
         byte[] tmpBuf = IOUtils.getByteArray(bufSize);
         byteBuf.readBytes(tmpBuf);
         readbuf.write(tmpBuf);
         readbuf.flip();
+        // 解析数据包
         readpack(readbuf, list);
     }
 
@@ -60,8 +62,8 @@ public class MCMUNDecoder extends ByteToMessageDecoder {
         int protocolVersion = readbuf.readInt();
 
         // 如果魔数和版本都相同那么代表这是一个正确的数据包起始
-        if (magicNumber == MCMUNProtocol.MAGIC_NUMBER &&
-                protocolVersion == MCMUNProtocol.VERSION) {
+        if (magicNumber == UMCPVersion.MAGIC_NUMBER &&
+                protocolVersion == UMCPVersion.VERSION) {
             // 获取数据包长度
             int len = readbuf.readInt();
 
@@ -76,9 +78,9 @@ public class MCMUNDecoder extends ByteToMessageDecoder {
             // 读取到一个完整的数据包
             byte[] bytebuf = IOUtils.getByteArray(len);
             readbuf.read(bytebuf);
-            MCMUNProtocol mcmunProtocol =
+            Object umcpAttach =
                     ObjectSerializationUtils.unserializationQuietly(bytebuf);
-            list.add(mcmunProtocol);
+            list.add(umcpAttach);
 
             if (!readbuf.eof())
                 readpack(readbuf, list);

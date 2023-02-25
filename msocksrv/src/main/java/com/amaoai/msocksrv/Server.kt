@@ -1,14 +1,12 @@
 package com.amaoai.msocksrv
 
-import com.amaoai.msocksrv.protocol.MCMUNDecoder
-import com.amaoai.msocksrv.protocol.MCMUNEncoder
+import com.amaoai.msocksrv.protocol.umcp.UMCPDecoder
+import com.amaoai.msocksrv.protocol.umcp.UMCPEncoder
 import devtools.framework.PropertiesSourceLoaders
-import devtools.framework.io.IOUtils
 import devtools.framework.logging.LoggerFactory
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.ChannelOption
-import io.netty.channel.WriteBufferWaterMark
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
@@ -49,8 +47,8 @@ private class SocksrvChannelInitializer : ChannelInitializer<SocketChannel>() {
     override fun initChannel(p0: SocketChannel) {
         // 设置管线阶段处理器
         p0.pipeline()
-            .addLast(MCMUNEncoder())
-            .addLast(MCMUNDecoder())
+            .addLast(UMCPEncoder())
+            .addLast(UMCPDecoder())
             .addLast(ServerSocketHandler())
     }
 
