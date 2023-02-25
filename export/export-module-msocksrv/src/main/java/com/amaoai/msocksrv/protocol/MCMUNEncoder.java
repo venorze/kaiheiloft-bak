@@ -1,4 +1,4 @@
-package com.amaoai.mcmun;
+package com.amaoai.msocksrv.protocol;
 
 /* ************************************************************************
  *

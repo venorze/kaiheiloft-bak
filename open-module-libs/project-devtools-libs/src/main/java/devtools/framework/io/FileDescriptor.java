@@ -27,6 +27,9 @@ package devtools.framework.io;
  */
 public class FileDescriptor {
 
+    /**
+     * 描述符指针
+     */
     final long fptr;
 
     public FileDescriptor(long fd) {

@@ -34,10 +34,7 @@
         <module>export</module>
         <module>route</module>
         <module>stream-mediasrv</module>
-        <!-- socket server -->
-        <module>socksrv/msocksrv</module>
-        <!-- protocols -->
-        <module>socksrv/protocol/mcmun</module>
+        <module>msocksrv</module>
         <!-- test -->
         <module>test/msocksrv-client-test</module>
         <module>test/kotlin-project-test</module>
@@ -149,6 +146,11 @@
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>export-module-opensso</artifactId>
+                <version>v1.0.0.KAYLE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amaoai</groupId>
+                <artifactId>export-module-msocksrv</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- protocol -->

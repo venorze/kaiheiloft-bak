@@ -1,11 +1,13 @@
 package com.amaoai.msocksrv
 
-import com.amaoai.mcmun.MCMUNProtocol
+import com.amaoai.msocksrv.iface.AbstractChannelInboundHandler
+import com.amaoai.msocksrv.protocol.MCMUNDecoder
+import com.amaoai.msocksrv.protocol.MCMUNProtocol
 import devtools.framework.io.ByteBuffer
-import devtools.framework.io.IOUtils
-import devtools.framework.io.ObjectSerializationUtils
 import io.netty.channel.ChannelHandlerContext
-import stdlibkt.SEEK_CUR
+import stdlibkt.fflush
+import stdlibkt.fopen
+import stdlibkt.fputs
 
 /* ************************************************************************
  *
@@ -30,7 +32,7 @@ import stdlibkt.SEEK_CUR
 /**
  * @author Amaoai
  */
-class SocksrvSocketChannelHandler : AbstractChannelInboundHandler() {
+class ServerSocketHandler : AbstractChannelInboundHandler() {
 
     companion object {
         var readCompleteCount = 0
@@ -46,7 +48,15 @@ class SocksrvSocketChannelHandler : AbstractChannelInboundHandler() {
      * 读取客户端发送消息
      */
     override fun channelRead(channelHandlerContext: ChannelHandlerContext, obj: Any) {
+        // 记录所有发送的的消息
         println("（${(readCompleteCount++)}）读取到数据包：$obj")
+        // 通知客户端服务器已收到消息
+        notifyClient(channelHandlerContext, obj as MCMUNProtocol)
+    }
+
+    private fun notifyClient(channelHandlerContext: ChannelHandlerContext, obj: MCMUNProtocol) {
+        obj.success = MCMUNProtocol.MESSAGE_STATUS_SUCCESS
+        channelHandlerContext.channel().writeAndFlush(obj)
     }
 
 }

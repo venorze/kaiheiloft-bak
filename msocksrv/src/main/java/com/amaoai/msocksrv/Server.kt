@@ -1,17 +1,17 @@
 package com.amaoai.msocksrv
 
-import com.amaoai.mcmun.MCMUNDecoder
-import com.amaoai.mcmun.MCMUNEncoder
+import com.amaoai.msocksrv.protocol.MCMUNDecoder
+import com.amaoai.msocksrv.protocol.MCMUNEncoder
 import devtools.framework.PropertiesSourceLoaders
 import devtools.framework.io.IOUtils
 import devtools.framework.logging.LoggerFactory
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.ChannelOption
+import io.netty.channel.WriteBufferWaterMark
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
-import io.netty.handler.codec.bytes.ByteArrayDecoder
 import org.springframework.context.ConfigurableApplicationContext
 import stdlibkt.toInt
 import java.util.Properties
@@ -51,7 +51,7 @@ private class SocksrvChannelInitializer : ChannelInitializer<SocketChannel>() {
         p0.pipeline()
             .addLast(MCMUNEncoder())
             .addLast(MCMUNDecoder())
-            .addLast(SocksrvSocketChannelHandler())
+            .addLast(ServerSocketHandler())
     }
 
 }

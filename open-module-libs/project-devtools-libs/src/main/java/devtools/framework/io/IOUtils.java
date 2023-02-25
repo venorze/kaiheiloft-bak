@@ -36,6 +36,7 @@ import java.nio.charset.StandardCharsets;
  * @author Vincent Luo
  */
 public final class IOUtils {
+
     /**
      * int类型占用字节大小
      */
@@ -74,31 +75,46 @@ public final class IOUtils {
     /**
      * 文件缓冲区大小, 默认4k缓冲区大小
      */
-    public static final int DEFAULT_BYTE_BUFFER_SIZE = sizeOfKB(4);
+    public static final int DEFAULT_BYTE_BUFFER_SIZE = (1024 * 4);
+
+    /**
+     * 不安全的库，不提供给外部直接使用（这玩意比 Java 自带的 Unsafe 更来力~~）
+     * 引入了 c 语言中 stdio.h 中的大部分 fxxx() 函数。
+     *
+     * 所以如果不懂 c，不懂指针请不要瞎鸡巴使用这个库。这个库为了高性能的文件写入
+     * 读取所准备的。
+     *
+     * 后续 UnsafeLibraryc 会为了 socket 服务。打造一个高性能的网路数据处理
+     * 框架。
+     *
+     * @see FileDescriptor 针对 fopen 设计的文件描述符对象
+     */
+    private static final UnsafeLibraryc __UNSAFELIBC = UnsafeLibraryc.UNSAFE_OF_STDLIBC;
 
     /**
      * 文件指针的当前位置
      */
-    public static final int SEEK_CUR =
-            StdioCLib.SEEK_CUR;
+    public static final int SEEK_CUR = 1;
 
     /**
      * 文件的末尾
      */
-    public static final int SEEK_END =
-            StdioCLib.SEEK_END;
+    public static final int SEEK_END = 2;
 
     /**
      * 文件的开头
      */
-    public static final int SEEK_SET =
-            StdioCLib.SEEK_SET;
+    public static final int SEEK_SET = 0;
 
     /**
      * 表示已经读取到文件末尾
      */
-    public static final int EOF =
-            StdioCLib.EOF;
+    public static final int EOF = -1;
+
+    /**
+     * 空指针
+     */
+    public static final int NULL = 0;
 
     /**
      * 标准输入流
@@ -130,39 +146,15 @@ public final class IOUtils {
      * c语言stdio标准库
      */
     @SuppressWarnings("UnusedReturnValue")
-    private interface StdioCLib extends Library {
+    interface UnsafeLibraryc extends Library {
 
         /**
          * JNA实例对象
          */
-        StdioCLib CLibInstance = (StdioCLib)
+        UnsafeLibraryc UNSAFE_OF_STDLIBC = (UnsafeLibraryc)
                 Native.loadLibrary((Platform.isWindows() ? "msvcrt" : "c"),
-                        StdioCLib.class);
+                        UnsafeLibraryc.class);
 
-        /**
-         * 文件指针的当前位置
-         */
-        int SEEK_CUR = 1;
-
-        /**
-         * 文件的末尾
-         */
-        int SEEK_END = 2;
-
-        /**
-         * 文件的开头
-         */
-        int SEEK_SET = 0;
-
-        /**
-         * 表示已经读取到文件末尾
-         */
-        int EOF = -1;
-
-        /**
-         * 空指针
-         */
-        int NULL = 0;
 
         /**
          * C 库函数 FILE *fopen(const char *filename, const char *mode)
@@ -303,13 +295,6 @@ public final class IOUtils {
          * @return 如果流成功关闭，则该方法返回零。如果失败，则返回 EOF。
          */
         int fclose(long fd);
-    }
-
-    /**
-     * 输入一个数，转换成对应的KB大小
-     */
-    public static int sizeOfKB(int n) {
-        return n * 1024;
     }
 
     /**
@@ -552,13 +537,13 @@ public final class IOUtils {
      * 打开一个文件对象并指定打开模式，返回文件描述符对象。
      *
      * @param filename 文件名或路径
-     * @param mode 文件模式 {@link StdioCLib#fopen}
+     * @param mode 文件模式 {@link UnsafeLibraryc#fopen}
      *
      * @return 文件描述符
      */
     public static FileDescriptor fopen(String filename, String mode) {
-        long fd = StdioCLib.CLibInstance.fopen(filename, mode);
-        if (fd == StdioCLib.NULL)
+        long fd = __UNSAFELIBC.fopen(filename, mode);
+        if (fd == NULL)
             throw new RuntimeException(filename);
 
         return new FileDescriptor(fd);
@@ -579,7 +564,7 @@ public final class IOUtils {
      *         则表示读取可能出现了错误或读到了文件末尾。
      */
     public static int fread(byte[] buf, int size, int nmemb, FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fread(buf, size, nmemb, fd.fptr);
+        return __UNSAFELIBC.fread(buf, size, nmemb, fd.fptr);
     }
 
     /**
@@ -597,7 +582,7 @@ public final class IOUtils {
      *         如果该数字与 nmemb 参数不同，则会显示一个错误。
      */
     public static int fwrite(byte[] buf, int size, int nmemb, FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fwrite(buf, size, nmemb, fd.fptr);
+        return __UNSAFELIBC.fwrite(buf, size, nmemb, fd.fptr);
     }
 
     /**
@@ -609,7 +594,7 @@ public final class IOUtils {
      * @return 该函数返回一个非负值，如果发生错误则返回 EOF。
      */
     public static int fputs(String str, FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fputs(str, fd.fptr);
+        return __UNSAFELIBC.fputs(str, fd.fptr);
     }
 
     /**
@@ -626,7 +611,7 @@ public final class IOUtils {
      *         并返回一个空指针。如果发生错误，返回一个空指针。
      */
     public static String fgets(char[] a, int n, FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fgets(a, n, fd.fptr);
+        return __UNSAFELIBC.fgets(a, n, fd.fptr);
     }
 
     /**
@@ -637,7 +622,7 @@ public final class IOUtils {
      * @return 如果没有发生错误，则返回被写入的字符。如果发生错误，则返回 EOF，并设置错误标识符。
      */
     public static int fputc(int chr, FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fputc(chr, fd.fptr);
+        return __UNSAFELIBC.fputc(chr, fd.fptr);
     }
 
     /**
@@ -648,7 +633,7 @@ public final class IOUtils {
      * @return 该函数以无符号 char 强制转换为 int 的形式返回读取的字符，如果到达文件末尾或发生读错误，则返回 EOF。
      */
     public static char fgetc(FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fgetc(fd.fptr);
+        return __UNSAFELIBC.fgetc(fd.fptr);
     }
 
     /**
@@ -658,7 +643,7 @@ public final class IOUtils {
      * @return 如果设置了与流关联的错误标识符，该函数返回一个非零值，否则返回一个零值。
      */
     public static boolean ferror(FileDescriptor fd) {
-        return StdioCLib.CLibInstance.ferror(fd.fptr);
+        return __UNSAFELIBC.ferror(fd.fptr);
     }
 
     /**
@@ -668,7 +653,7 @@ public final class IOUtils {
      * @return 当设置了与流关联的文件结束标识符时，该函数返回一个非零值，否则返回零。
      */
     public static boolean feof(FileDescriptor fd) {
-        return StdioCLib.CLibInstance.feof(fd.fptr);
+        return __UNSAFELIBC.feof(fd.fptr);
     }
 
     /**
@@ -678,7 +663,7 @@ public final class IOUtils {
      * @return 如果成功，该函数返回零值。如果发生错误，则返回 EOF，且设置错误标识符（即 feof）。
      */
     public static int fflush(FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fflush(fd.fptr);
+        return __UNSAFELIBC.fflush(fd.fptr);
     }
 
     /**
@@ -696,7 +681,7 @@ public final class IOUtils {
      * @return 如果成功，则该函数返回零，否则返回非零值。
      */
     public static int fseek(FileDescriptor fd, long offset, int origin) {
-        return StdioCLib.CLibInstance.fseek(fd.fptr, offset, origin);
+        return __UNSAFELIBC.fseek(fd.fptr, offset, origin);
     }
 
     /**
@@ -706,7 +691,7 @@ public final class IOUtils {
      * @return 如果流成功关闭，则该方法返回零。如果失败，则返回 EOF。
      */
     public static int fclose(FileDescriptor fd) {
-        return StdioCLib.CLibInstance.fclose(fd.fptr);
+        return __UNSAFELIBC.fclose(fd.fptr);
     }
 
     /**

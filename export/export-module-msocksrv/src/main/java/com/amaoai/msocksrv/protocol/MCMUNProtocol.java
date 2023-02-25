@@ -1,4 +1,4 @@
-package com.amaoai.mcmun;
+package com.amaoai.msocksrv.protocol;
 
 /* ************************************************************************
  *
@@ -46,6 +46,16 @@ public class MCMUNProtocol implements Serializable {
      */
     public static int VERSION =
             VersatileGenerator.makeVersion(1, 6, 0);
+
+    /**
+     * 消息发送状态成功
+     */
+    public static byte MESSAGE_STATUS_SUCCESS = 'Y';
+
+    /**
+     * 消息发送状态失败
+     */
+    public static byte MESSAGE_STATUS_FAILED = 'N';
 
     /**
      * 消息类型
@@ -118,7 +128,7 @@ public class MCMUNProtocol implements Serializable {
     /**
      * 消息状态（是否发送成功，以 Y/N 表示）
      */
-    private Byte success = 'N';
+    private Byte success = MESSAGE_STATUS_FAILED;
 
     /**
      * 已读成员

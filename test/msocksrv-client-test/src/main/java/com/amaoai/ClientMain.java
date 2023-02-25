@@ -21,10 +21,9 @@ package com.amaoai;
 /* Creates on 2023/2/22. */
 
 import com.alibaba.fastjson.JSON;
-import com.amaoai.mcmun.MCMUNDecoder;
-import com.amaoai.mcmun.MCMUNEncoder;
-import com.amaoai.mcmun.MCMUNProtocol;
-import devtools.framework.Assert;
+import com.amaoai.msocksrv.protocol.MCMUNDecoder;
+import com.amaoai.msocksrv.protocol.MCMUNEncoder;
+import com.amaoai.msocksrv.protocol.MCMUNProtocol;
 import devtools.framework.JUnits;
 import devtools.framework.StringUtils;
 import devtools.framework.collections.Lists;
@@ -36,11 +35,13 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.Scanner;
 
 import static devtools.framework.StringUtils.vfmt;
+
 
 /**
  * @author Amaoai
@@ -49,10 +50,27 @@ public class ClientMain {
 
     static int count = 0;
 
+    @Data
+    static class MThread {
+        private Thread thread = null;
+
+        private boolean start = false;
+
+        public void start(Runnable runnable) {
+            if (!start) {
+                thread = new Thread(runnable);
+                thread.start();
+                start = true;
+            }
+        }
+    }
+
     public static void main(String[] args) throws InterruptedException {
 
         Scanner scanner = new Scanner(System.in);
         NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup();
+
+        MThread mThread = new MThread();
 
         try {
             Bootstrap bootstrap = new Bootstrap()
@@ -67,37 +85,42 @@ public class ClientMain {
                                     .addLast(new ChannelInboundHandlerAdapter() {
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                            do {
-                                                System.out.print("输入发送消息条数：");
-                                                int loopCount = scanner.nextInt();
-                                                System.out.print("\n");
-                                                MCMUNProtocol mcmunDataPack = new MCMUNProtocol();
-                                                mcmunDataPack.setType(MCMUNProtocol.MessageType.TEXT);
-                                                mcmunDataPack.setAttach(Lists.ofList("attch0", "attch1", "attch2"));
-                                                mcmunDataPack.setTime(new Date());
-                                                JUnits.performance(() -> {
-                                                    for (int i = 0; i < loopCount; i++) {
-                                                        mcmunDataPack.setMid("A10001" + i);
-                                                        mcmunDataPack.setSender("S10000" + i);
-                                                        mcmunDataPack.setReceiver("R10000" + i);
-                                                        mcmunDataPack.setMessage(StringUtils.vfmt("Hello World({})", i));
-                                                        // 发送数据
-                                                        ChannelFuture channelFuture = ctx.writeAndFlush(mcmunDataPack);
-                                                        System.out.println(vfmt("（{}）SUCCESS（{}）", (count++), channelFuture));
-                                                    }
-                                                }, StringUtils.vfmt("发送{}条消息", loopCount));
-                                            } while (true);
+                                            mThread.start(() -> {
+                                                do {
+                                                    System.out.print("输入发送消息条数：");
+                                                    int loopCount = scanner.nextInt();
+                                                    System.out.print("\n");
+                                                    MCMUNProtocol mcmunDataPack = new MCMUNProtocol();
+                                                    mcmunDataPack.setType(MCMUNProtocol.MessageType.TEXT);
+                                                    mcmunDataPack.setAttach(Lists.ofList("attch0", "attch1", "attch2"));
+                                                    mcmunDataPack.setTime(new Date());
+                                                    JUnits.performance(() -> {
+                                                        for (int i = 0; i < loopCount; i++) {
+                                                            mcmunDataPack.setMid("A10001" + i);
+                                                            mcmunDataPack.setSender("S10000" + i);
+                                                            mcmunDataPack.setReceiver("R10000" + i);
+                                                            mcmunDataPack.setMessage(vfmt("Hello World({})", i));
+                                                            // 发送数据
+                                                            ChannelFuture channelFuture = ctx.writeAndFlush(mcmunDataPack);
+                                                            System.out.println(vfmt("（{}）SUCCESS（{}）", (count++), channelFuture));
+                                                        }
+                                                    }, vfmt("发送{}条消息", loopCount));
+                                                    ctx.channel().flush();
+                                                } while (true);
+                                            });
                                         }
 
                                         @Override
                                         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                            System.out.println("收到来自服务器的消息：\n" + JSON.toJSONString(msg));
+                                            System.out.println("收到来自服务器的消息：" + msg);
                                         }
 
                                         @Override
                                         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
                                             cause.printStackTrace();
                                         }
+
+
                                     });
                         }
                     });

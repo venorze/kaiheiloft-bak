@@ -1,4 +1,4 @@
-package com.amaoai.msocksrv;
+package com.amaoai.msocksrv.iface;
 
 /* ************************************************************************
  *
