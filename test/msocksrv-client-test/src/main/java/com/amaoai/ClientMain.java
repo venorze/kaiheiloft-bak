@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.amaoai.mcmun.MCMUNDecoder;
 import com.amaoai.mcmun.MCMUNEncoder;
 import com.amaoai.mcmun.MCMUNProtocol;
+import devtools.framework.Assert;
 import devtools.framework.JUnits;
 import devtools.framework.StringUtils;
 import devtools.framework.collections.Lists;
@@ -35,16 +36,18 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringEncoder;
-import io.netty.resolver.dns.DefaultDnsCnameCache;
 
 import java.util.Date;
 import java.util.Scanner;
+
+import static devtools.framework.StringUtils.vfmt;
 
 /**
  * @author Amaoai
  */
 public class ClientMain {
+
+    static int count = 0;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -65,7 +68,7 @@ public class ClientMain {
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) throws Exception {
                                             do {
-                                                System.out.print("输入发送消息的条数: ");
+                                                System.out.print("输入发送消息条数：");
                                                 int loopCount = scanner.nextInt();
                                                 System.out.print("\n");
                                                 MCMUNProtocol mcmunDataPack = new MCMUNProtocol();
@@ -79,8 +82,8 @@ public class ClientMain {
                                                         mcmunDataPack.setReceiver("R10000" + i);
                                                         mcmunDataPack.setMessage(StringUtils.vfmt("Hello World({})", i));
                                                         // 发送数据
-                                                        ctx.writeAndFlush(mcmunDataPack);
-                                                        // System.out.println("发送数据：" + mcmunDataPack);
+                                                        ChannelFuture channelFuture = ctx.writeAndFlush(mcmunDataPack);
+                                                        System.out.println(vfmt("（{}）SUCCESS（{}）", (count++), channelFuture));
                                                     }
                                                 }, StringUtils.vfmt("发送{}条消息", loopCount));
                                             } while (true);
@@ -89,6 +92,11 @@ public class ClientMain {
                                         @Override
                                         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                                             System.out.println("收到来自服务器的消息：\n" + JSON.toJSONString(msg));
+                                        }
+
+                                        @Override
+                                        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+                                            cause.printStackTrace();
                                         }
                                     });
                         }

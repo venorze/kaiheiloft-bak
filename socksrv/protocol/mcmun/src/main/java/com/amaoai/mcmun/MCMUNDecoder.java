@@ -20,7 +20,6 @@ package com.amaoai.mcmun;
 
 /* Creates on 2023/2/23. */
 
-import devtools.framework.io.ObjectSerializationUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -39,6 +38,6 @@ public class MCMUNDecoder extends ByteToMessageDecoder {
             throws Exception {
         var buf = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(buf);
-        list.add(ObjectSerializationUtils.unserializationQuietly(buf));
+        System.out.println("解码器读取到的内容长度：" + byteBuf.capacity());
     }
 }

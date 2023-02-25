@@ -62,6 +62,7 @@ class HeapByteBuffer extends ByteBuffer implements Serializable {
         }
 
         this.capacity = this.buf.length;
+        this.position = len - off;
     }
 
     @Override
@@ -73,7 +74,7 @@ class HeapByteBuffer extends ByteBuffer implements Serializable {
     public byte[] clear() {
         var ret = new byte[capacity];
         System.arraycopy(buf, 0, ret, 0, capacity);
-        buf = new byte[IOUtils.DEFAULT_BUFFER_SIZE];
+        buf = new byte[IOUtils.DEFAULT_BYTE_BUFFER_SIZE];
         capacity = 0;
         position = 0;
         return ret;

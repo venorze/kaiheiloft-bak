@@ -29,6 +29,10 @@ import stdlibkt.*
 object KotlinMain {
     @JvmStatic
     fun main(args: Array<String>) {
-        println(toString(65612L))
+        val fd = fopen("D:\\VFS\\a.txt", "r+")
+        val buf = toByteArray("卧槽，无情")
+        fwrite(buf, buf.size, 1, fd);
+        fflush(fd)
+        fclose(fd)
     }
 }

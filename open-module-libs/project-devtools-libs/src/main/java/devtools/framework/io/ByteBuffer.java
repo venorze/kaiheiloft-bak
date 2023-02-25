@@ -28,26 +28,6 @@ import devtools.framework.Assert;
  * @author Vincent Luo
  */
 public abstract class ByteBuffer {
-    /* int类型占用字节大小 */
-    public static final int SIZE_OF_INT = 4;
-
-    /* short类型占用字节大小 */
-    public static final int SIZE_OF_SHORT = 2;
-
-    /* long类型占用字节大小 */
-    public static final int SIZE_OF_LONG = 8;
-
-    /* double类型占用字节大小 */
-    public static final int SIZE_OF_DOUBLE = 8;
-
-    /* float类型占用字节大小 */
-    public static final int SIZE_OF_FLOAT = 4;
-
-    /* char类型占用字节大小, 编码使用 UTF-8 所以char类型占用2个字节 */
-    public static final int SIZE_OF_CHAR = 2;
-
-    /* boolean类型占用字节大小 */
-    public static final int SIZE_OF_BOOLEAN = 1;
 
     /* 设置偏移位置 */
     public static final int SEEK_SET =
@@ -72,7 +52,7 @@ public abstract class ByteBuffer {
      *         JVM的堆大小。
      */
     public static ByteBuffer alloc() {
-        return alloc(IOUtils.DEFAULT_BUFFER_SIZE);
+        return alloc(IOUtils.DEFAULT_BYTE_BUFFER_SIZE);
     }
 
     /**
@@ -118,6 +98,13 @@ public abstract class ByteBuffer {
      */
     public int size() {
         return capacity;
+    }
+
+    /**
+     * @return 返回缓冲区未读大小
+     */
+    public int remsize() {
+        return capacity - position;
     }
 
     /**
@@ -183,7 +170,7 @@ public abstract class ByteBuffer {
      *         转换为 int 类型数字返回出去。读写指针向后移动 4 位。
      */
     public int readInt() {
-        var arr = IOUtils.getByteArray(SIZE_OF_INT);
+        var arr = IOUtils.getByteArray(IOUtils.SIZE_OF_INT);
         read(arr, 0, arr.length);
         return IOUtils.toInt(arr);
     }
@@ -193,7 +180,7 @@ public abstract class ByteBuffer {
      *         转换为 long 类型数字返回出去。读写指针向后移动 8 位。
      */
     public long readLong() {
-        var arr = IOUtils.getByteArray(SIZE_OF_LONG);
+        var arr = IOUtils.getByteArray(IOUtils.SIZE_OF_LONG);
         read(arr, 0, arr.length);
         return IOUtils.toLong(arr);
     }
@@ -218,8 +205,8 @@ public abstract class ByteBuffer {
     /**
      * @return 获取缓冲区剩余为读写的字节
      */
-    public byte[] getRemainBytes() {
-        var arr = IOUtils.getByteArray(capacity - position);
+    public byte[] getRemBytes() {
+        var arr = IOUtils.getByteArray(remsize());
         read(arr, 0, arr.length);
         return arr;
     }

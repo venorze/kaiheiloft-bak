@@ -48,8 +48,10 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <lombok.version>1.18.24</lombok.version>
         <netty.version>4.1.87.Final</netty.version>
-        <kotlin.version>1.8.20-Beta</kotlin.version>
+        <kotlin.version>1.8.10</kotlin.version>
         <jna.version>3.0.9</jna.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>

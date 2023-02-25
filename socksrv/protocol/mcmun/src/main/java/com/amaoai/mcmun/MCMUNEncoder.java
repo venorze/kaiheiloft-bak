@@ -34,11 +34,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
 public class MCMUNEncoder extends MessageToByteEncoder<MCMUNProtocol> {
 
     /**
-     * 标记字段的总长度
-     */
-    public static int MARK_FIELD_SIZE_COUNT =  ByteBuffer.SIZE_OF_INT * 3;
-
-    /**
      * 编码器会将协议对象转换成字节流。内存布局下图：
      *
      * 0 - 4：魔数，用于识别协议是否是 MCMUN 协议

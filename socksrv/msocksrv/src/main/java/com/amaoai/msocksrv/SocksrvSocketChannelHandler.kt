@@ -1,13 +1,11 @@
 package com.amaoai.msocksrv
 
-import com.amaoai.mcmun.MCMUNEncoder
 import com.amaoai.mcmun.MCMUNProtocol
 import devtools.framework.io.ByteBuffer
 import devtools.framework.io.IOUtils
 import devtools.framework.io.ObjectSerializationUtils
-import devtools.framework.time.DateUtils
 import io.netty.channel.ChannelHandlerContext
-import stdlibkt.SEEK_END
+import stdlibkt.SEEK_CUR
 
 /* ************************************************************************
  *
@@ -35,9 +33,8 @@ import stdlibkt.SEEK_END
 class SocksrvSocketChannelHandler : AbstractChannelInboundHandler() {
 
     companion object {
-        var readCompleteDataCount = 0L
-        val remainByteBuffer: ByteBuffer = ByteBuffer.alloc()
-        var startTime = 0L
+        var readCompleteCount = 0
+        val remByteBuffer: ByteBuffer = ByteBuffer.alloc()
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
@@ -49,51 +46,45 @@ class SocksrvSocketChannelHandler : AbstractChannelInboundHandler() {
      * 读取客户端发送消息
      */
     override fun channelRead(channelHandlerContext: ChannelHandlerContext, buffer: Any) {
-        if (startTime == 0L) {
-            startTime = System.currentTimeMillis()
-            println("当前时间：${DateUtils.vfmt(startTime)}")
-        }
-
         // 将数据写入到字节缓冲区中
-        val readbuf = ByteBuffer.wrap(remainByteBuffer.clear())
+        val readbuf = ByteBuffer.wrap(remByteBuffer.clear())
         readbuf.write(buffer as ByteArray)
         readbuf.flip()
-        procpack(readbuf)
+        readpack(readbuf)
     }
 
     /**
-     * 数据包解析函数
+     * 解析数据包
      */
-    private fun procpack(buf: ByteBuffer) {
-        // 魔数和版本匹配表示是一个合法的数据包
-        if (buf.readInt() == MCMUNProtocol.MAGIC_NUMBER &&
-            buf.readInt() == MCMUNProtocol.VERSION) {
-            // 获取数据包长度
-            val len = buf.readInt()
+    fun readpack(readbuf: ByteBuffer) {
+        // 解析数据包
+        val magicNumber = readbuf.readInt()
+        val protocolVersion = readbuf.readInt()
 
-            // 如果数据包长度大于可读字节数，那么就表示这是一个半包数据
-            if (len > buf.readable()) {
-                remainByteBuffer.write(buf.bytes)
+        // 如果魔数和版本都相同那么代表这是一个正确的数据包起始
+        if (magicNumber == MCMUNProtocol.MAGIC_NUMBER &&
+            protocolVersion == MCMUNProtocol.VERSION) {
+            // 获取数据包长度
+            val len = readbuf.readInt()
+
+            // 如果长度小于未读大小那么表示这是一个半包数据
+            if (readbuf.remsize() < len) {
+                // 因为前面调用了三次readInt，跳过了12个字节，所以需要读写指针往后移动八位
+                readbuf.seek(-(IOUtils.SIZE_OF_INT * 3), SEEK_CUR)
+                remByteBuffer.write(readbuf.remBytes)
                 return
             }
 
-            //
-            // 解析完整的数据包
-            //
-            buf.flip()
-            buf.seek(MCMUNEncoder.MARK_FIELD_SIZE_COUNT)
-            val objarr = IOUtils.getByteArray(len)
-            buf.read(objarr)
-            val protocol =
-                ObjectSerializationUtils.unserializationQuietly<MCMUNProtocol>(objarr)
-            readCompleteDataCount++
-            println("解析的第${readCompleteDataCount}个数据包，内容：$protocol。bytebuf剩余字节：${buf.size()}")
+            // 读取到一个完整的数据包
+            val bytebuf = IOUtils.getByteArray(len)
+            readbuf.read(bytebuf)
+            val mcmunProtocol =
+                ObjectSerializationUtils.unserializationQuietly<MCMUNProtocol>(bytebuf)
 
-            //
-            // 判断buf中还有没有剩余的字节，如果有那就表示还有数据未读完。
-            //
-            if (!buf.eof())
-                procpack(ByteBuffer.wrap(buf.remainBytes))
+            println("（${(readCompleteCount++)}）读取到数据包：${mcmunProtocol}，剩余字节：${readbuf.remsize()}")
+
+            if (!readbuf.eof())
+                readpack(readbuf)
         }
     }
 

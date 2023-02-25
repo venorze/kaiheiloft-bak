@@ -3,6 +3,7 @@ package com.amaoai.msocksrv
 import com.amaoai.mcmun.MCMUNDecoder
 import com.amaoai.mcmun.MCMUNEncoder
 import devtools.framework.PropertiesSourceLoaders
+import devtools.framework.io.IOUtils
 import devtools.framework.logging.LoggerFactory
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.ChannelInitializer
@@ -12,6 +13,7 @@ import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.codec.bytes.ByteArrayDecoder
 import org.springframework.context.ConfigurableApplicationContext
+import stdlibkt.toInt
 import java.util.Properties
 
 /* ************************************************************************
@@ -85,16 +87,16 @@ private class SocksrvServerSocket(val springApplicationContext: SpringApplicatio
             val serverBootstrap = ServerBootstrap()
                 // 添加两个线程组
                 .group(bossGroup, workerGroup)
+                // 设置线程队列得到的连接个数
+                .option(ChannelOption.SO_BACKLOG, 1024)
                 // 设置通道实现类型
                 .channel(NioServerSocketChannel::class.java)
-                // 设置线程队列得到的连接个数
-                .option(ChannelOption.SO_BACKLOG, 1024 * 8)
                 // 设置保持活动连接状态
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 // 初始化通道对象
                 .childHandler(SocksrvChannelInitializer())
             // 绑定端口号，启动服务端
-            val port = properties.getProperty("port").toInt()
+            val port = toInt(properties.getProperty("port"))
             LOG.info("Msocksrv socket server runs on port $port...")
             val channelFuture = serverBootstrap.bind(port).sync()
             // 对关闭通道进行监听

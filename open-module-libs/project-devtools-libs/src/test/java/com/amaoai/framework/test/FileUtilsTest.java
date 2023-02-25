@@ -20,8 +20,6 @@ package com.amaoai.framework.test;
 
 /* Creates on 2023/2/22. */
 
-import devtools.framework.io.FileUtils.*;
-
 import java.io.FileNotFoundException;
 
 /**
@@ -30,7 +28,6 @@ import java.io.FileNotFoundException;
 public class FileUtilsTest {
 
     public static void main(String[] args) throws FileNotFoundException {
-        var fd = new FileDescriptor("D:\\Temp\\value.txt", OpenModeOption.OPEN_READ_AND_WRITE);
     }
 
 }
