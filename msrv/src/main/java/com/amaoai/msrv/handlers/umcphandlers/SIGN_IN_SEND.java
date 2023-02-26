@@ -20,23 +20,36 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 /* Creates on 2023/2/27. */
 
+import com.amaoai.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
 import com.amaoai.msrv.handlers.contxt.SocketHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerSelect;
 import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerAdapter;
+import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerSelect;
 import com.amaoai.msrv.protocol.umcp.UMCPCommand;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+import com.amaoai.msrv.protocol.umcp.attch.UserToken;
 
 /**
- * 消息接收处理器
+ * 用户登录处理器
  *
  * @author Vincent Luo
  */
-@UMCPCommandHandlerSelect(command = UMCPCommand.SEND)
-public class SendUMCPCommandHandlerAdapter extends UMCPCommandHandlerAdapter {
+@UMCPCommandHandlerSelect(command = UMCPCommand.SIGN_IN_SEND)
+public class SIGN_IN_SEND extends UMCPCommandHandlerAdapter {
+
+    /**
+     * 统一认证服务接口
+     */
+    private UnifiedUserAuthenticationServiceAPI unifiedUserAuthenticationServiceAPI;
+
+    @Override
+    public void active(SocketHandlerContext socketHandlerContext) {
+        unifiedUserAuthenticationServiceAPI =
+                socketHandlerContext.springBeanFactory().getBean(UnifiedUserAuthenticationServiceAPI.class);
+    }
 
     @Override
     public void handler(UMCProtocol umcp, SocketHandlerContext socketHandlerContext) {
-
+        UserToken userToken = umcp.attach();
     }
 
 }
