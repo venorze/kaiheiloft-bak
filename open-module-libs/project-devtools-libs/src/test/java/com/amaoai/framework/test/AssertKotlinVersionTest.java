@@ -20,7 +20,7 @@ package com.amaoai.framework.test;
 
 /* Creates on 2023/2/20. */
 
-import devtools.framework.Assert;
+import com.amaoai.framework.Assert;
 import org.junit.Test;
 
 import java.util.List;

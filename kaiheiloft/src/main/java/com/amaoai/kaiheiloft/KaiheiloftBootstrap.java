@@ -22,12 +22,13 @@ package com.amaoai.kaiheiloft;
 
 import com.amaoai.adapter.SourcePolicy;
 import com.amaoai.adapter.StoreAdapter;
-import com.amaoai.export.opensso.ImportOpenSSOExportModule;
-import devtools.framework.generators.SnowflakeGenerator;
+import com.amaoai.export.opensso.OpenSSOFeignPackage;
+import com.amaoai.framework.generators.SnowflakeGenerator;
 import com.amaoai.mybatisplus.configuration.EnableMybatisKit;
 import com.amaoai.qiniu.QiniuSourcePolicy;
 import com.amaoai.spring.framework.annotation.EnableGlobalProcess;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -42,9 +43,10 @@ import java.util.Properties;
  */
 @EnableGlobalProcess
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {
+        OpenSSOFeignPackage.PACKAGE
+})
 @EnableMybatisKit
-@ImportOpenSSOExportModule
 @SpringBootApplication
 public class KaiheiloftBootstrap {
 
@@ -67,6 +69,7 @@ public class KaiheiloftBootstrap {
      */
     public static void main(String[] args) {
         ApplicationContext = SpringApplication.run(KaiheiloftBootstrap.class, args);
+        ConfigurableListableBeanFactory beanFactory = ApplicationContext.getBeanFactory();
     }
 
     /**
@@ -80,7 +83,6 @@ public class KaiheiloftBootstrap {
         props.put("bucket", qiniuBucket);
         return StoreAdapter.createSourcePolicy(QiniuSourcePolicy.class, props);
     }
-
 
     /**
      * 创建雪花算法ID生成器

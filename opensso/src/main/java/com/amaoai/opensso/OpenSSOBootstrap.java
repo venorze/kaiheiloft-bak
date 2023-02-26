@@ -20,8 +20,8 @@ package com.amaoai.opensso;
 
 /* Creates on 2023/1/17. */
 
-import com.amaoai.export.kaiheiloft.ImportKaiheiloftExportModule;
-import devtools.framework.security.AuthenticationTokenGenerator;
+import com.amaoai.export.kaiheiloft.KaiheiloftFeignPackage;
+import com.amaoai.framework.security.AuthenticationTokenGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,9 +32,10 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author Vincent Luo
  */
-@EnableFeignClients
+@EnableFeignClients(basePackages = {
+        KaiheiloftFeignPackage.PACKAGE
+})
 @EnableDiscoveryClient
-@ImportKaiheiloftExportModule
 @SpringBootApplication
 public class OpenSSOBootstrap {
 

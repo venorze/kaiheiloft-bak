@@ -20,7 +20,7 @@ package com.amaoai.opensso.service;
 
 /* Creates on 2023/1/20. */
 
-import devtools.framework.security.AuthenticationTokenGenerator;
+import com.amaoai.framework.security.AuthenticationTokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

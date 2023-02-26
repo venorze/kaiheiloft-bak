@@ -21,7 +21,7 @@ package com.amaoai.kaiheiloft.controller;
 /* Creates on 2023/2/6. */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import devtools.framework.R;
+import com.amaoai.framework.R;
 import com.amaoai.kaiheiloft.mods.modv.ClubMemberInfoModv;
 import com.amaoai.kaiheiloft.mods.modx.ClubMemberPageModx;
 import com.amaoai.kaiheiloft.service.ClubMemberService;

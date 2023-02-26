@@ -34,9 +34,9 @@
         <module>export</module>
         <module>route</module>
         <module>stream-mediasrv</module>
-        <module>msocksrv</module>
+        <module>msrv</module>
         <!-- test -->
-        <module>test/msocksrv-client-test</module>
+        <module>test/msrv-client-test</module>
         <module>test/kotlin-project-test</module>
     </modules>
 
@@ -150,7 +150,7 @@
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>export-module-msocksrv</artifactId>
+                <artifactId>export-module-msrv</artifactId>
                 <version>v1.0.0.KAYLE</version>
             </dependency>
             <!-- protocol -->

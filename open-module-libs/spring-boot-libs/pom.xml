@@ -22,7 +22,7 @@
     </modules>
 
     <properties>
-        <spring.boot.version>3.0.1</spring.boot.version>
+        <spring.boot.version>3.0.3</spring.boot.version>
         <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
         <rocketmq.version>2.2.2</rocketmq.version>
     </properties>

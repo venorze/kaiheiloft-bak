@@ -20,7 +20,7 @@ package com.amaoai.adapter;
 
 /* Creates on 2023/1/9. */
 
-import devtools.framework.refection.ClassUtils;
+import com.amaoai.framework.refection.ClassUtils;
 
 import java.util.Properties;
 

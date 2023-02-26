@@ -3,7 +3,7 @@
 
 package stdlibkt
 
-import devtools.framework.io.IOUtils
+import com.amaoai.framework.io.IOUtils
 import java.nio.charset.Charset
 
 /* ************************************************************************

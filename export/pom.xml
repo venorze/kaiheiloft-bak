@@ -15,7 +15,7 @@
     <modules>
         <module>export-module-kaiheiloft</module>
         <module>export-module-opensso</module>
-        <module>export-module-msocksrv</module>
+        <module>export-module-msrv</module>
     </modules>
 
     <dependencies>

@@ -20,7 +20,7 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/2/4. */
 
-import devtools.framework.Assert;
+import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

@@ -3,7 +3,7 @@
 
 package stdlibkt
 
-import devtools.framework.io.IOUtils
+import com.amaoai.framework.io.IOUtils
 
 /* ************************************************************************
  *
@@ -30,7 +30,7 @@ import devtools.framework.io.IOUtils
  *
  * 文件描述符
  */
-typealias FileDescriptor = devtools.framework.io.FileDescriptor
+typealias FileDescriptor = com.amaoai.framework.io.FileDescriptor
 
 /**
  * @see [IOUtils.SEEK_CUR]
