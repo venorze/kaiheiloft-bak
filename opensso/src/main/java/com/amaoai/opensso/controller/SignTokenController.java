@@ -58,7 +58,7 @@ public class SignTokenController {
 
         // 构建token荷载
         var userinfo = ret.to(UserInfo.class);
-        Map<String, Object> payload = Maps.ofMap("uid", userinfo.getId(), "uname", userinfo.getUsername());
+        Map<String, Object> payload = Maps.of("uid", userinfo.getId(), "uname", userinfo.getUsername());
 
         // 登录成功
         return R.ok(

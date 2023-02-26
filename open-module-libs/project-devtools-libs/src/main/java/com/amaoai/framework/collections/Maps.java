@@ -77,20 +77,20 @@ public final class Maps {
         return new HashMap<>(map);
     }
 
-    public static <K, V> HashMap<K, V> ofMap(K k, V v) {
+    public static <K, V> HashMap<K, V> of(K k, V v) {
         HashMap<K, V> map = new HashMap<>();
         map.put(k, v);
         return map;
     }
 
-    public static <K, V> HashMap<K, V> ofMap(K k1, V v1, K k2, V v2) {
+    public static <K, V> HashMap<K, V> of(K k1, V v1, K k2, V v2) {
         HashMap<K, V> map = new HashMap<>();
         map.put(k1, v1);
         map.put(k2, v2);
         return map;
     }
 
-    public static <K, V> HashMap<K, V> ofMap(K k1, V v1, K k2, V v2, K k3, V v3) {
+    public static <K, V> HashMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
         HashMap<K, V> map = new HashMap<>();
         map.put(k1, v1);
         map.put(k2, v2);
@@ -98,7 +98,7 @@ public final class Maps {
         return map;
     }
 
-    public static <K, V> HashMap<K, V> ofMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+    public static <K, V> HashMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         HashMap<K, V> map = new HashMap<>();
         map.put(k1, v1);
         map.put(k2, v2);
@@ -107,7 +107,7 @@ public final class Maps {
         return map;
     }
 
-    public static <K, V> HashMap<K, V> ofMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    public static <K, V> HashMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         HashMap<K, V> map = new HashMap<>();
         map.put(k1, v1);
         map.put(k2, v2);
@@ -117,7 +117,7 @@ public final class Maps {
         return map;
     }
 
-    public static <K, V> HashMap<K, V> ofMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
+    public static <K, V> HashMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
         HashMap<K, V> map = new HashMap<>();
         map.put(k1, v1);
         map.put(k2, v2);

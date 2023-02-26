@@ -82,15 +82,15 @@ public class AuthenticationTokenGenerator {
     }
 
     public String createToken(String k0, Object v0) {
-        return createToken(Maps.ofMap(k0, v0));
+        return createToken(Maps.of(k0, v0));
     }
 
     public String createToken(String k0, Object v0, String k1, Object v1) {
-        return createToken(Maps.ofMap(k0, v0, k1, v1));
+        return createToken(Maps.of(k0, v0, k1, v1));
     }
 
     public String createToken(String k0, Object v0, String k1, Object v1, String k2, Object v2) {
-        return createToken(Maps.ofMap(k0, v0, k1, v1, k2, v2));
+        return createToken(Maps.of(k0, v0, k1, v1, k2, v2));
     }
 
     /**

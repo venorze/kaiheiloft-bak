@@ -109,7 +109,7 @@ public final class ClassUtils {
     private static List<Field> getDeclaredFieldsIncludeSuperclass(Class<?> sourceClass, List<Field> fields) {
         // 获取所有成员
         Field[] declaredFields = sourceClass.getDeclaredFields();
-        fields.addAll(Lists.ofList(declaredFields));
+        fields.addAll(Lists.of(declaredFields));
 
         Class<?> superclass = sourceClass.getSuperclass();
         if (superclass != Object.class)

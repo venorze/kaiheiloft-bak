@@ -80,7 +80,7 @@ public final class Lists {
      * @return 新的List且带有传入List数据的实例
      */
     public static <E> ArrayList<E> newArrayList(E[] es) {
-        return new ArrayList<>(ofList(es));
+        return new ArrayList<>(of(es));
     }
 
     /**
@@ -109,7 +109,7 @@ public final class Lists {
      * @return 新的{@code List}且带有传入数组的数据的实例
      */
     public static <E> LinkedList<E> newLinkedList(E[] es) {
-        return new LinkedList<>(ofList(es));
+        return new LinkedList<>(of(es));
     }
 
     /**
@@ -147,7 +147,7 @@ public final class Lists {
      * @return 新的{@code Vector}且带有传入的数组数据的实例
      */
     public static <E> Vector<E> newVector(E[] es) {
-        return new Vector<>(ofList(es));
+        return new Vector<>(of(es));
     }
 
     /**
@@ -203,7 +203,7 @@ public final class Lists {
      * @return List集合对象
      */
     @SafeVarargs
-    public static <E> List<E> ofList(E... a) {
+    public static <E> List<E> of(E... a) {
         return new CopyArrayList<E>(a);
     }
 

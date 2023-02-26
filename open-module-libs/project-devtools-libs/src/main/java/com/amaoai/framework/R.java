@@ -59,27 +59,27 @@ public class R<T> {
      * 自定义填充数据填充
      */
     public static <T> R<T> ok(String k1, Object v1) {
-        return ok(Maps.ofMap(k1, v1));
+        return ok(Maps.of(k1, v1));
     }
 
     public static <T> R<T> ok(String k1, Object v1, String k2, Object v2) {
-        return ok(Maps.ofMap(k1, v1, k2, v2));
+        return ok(Maps.of(k1, v1, k2, v2));
     }
 
     public static <T> R<T> ok(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
-        return ok(Maps.ofMap(k1, v1, k2, v2, k3, v3));
+        return ok(Maps.of(k1, v1, k2, v2, k3, v3));
     }
 
     public static <T> R<T> ok(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
-        return ok(Maps.ofMap(k1, v1, k2, v2, k3, v3, k4, v4));
+        return ok(Maps.of(k1, v1, k2, v2, k3, v3, k4, v4));
     }
 
     public static <T> R<T> ok(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4, String k5, Object v5) {
-        return ok(Maps.ofMap(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
+        return ok(Maps.of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
     }
 
     public static <T> R<T> ok(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4, String k5, Object v5, String k6, Object v6) {
-        return ok(Maps.ofMap(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5, k6, v6));
+        return ok(Maps.of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5, k6, v6));
     }
 
     public static <T> R<T> fail(String code, String message) {
