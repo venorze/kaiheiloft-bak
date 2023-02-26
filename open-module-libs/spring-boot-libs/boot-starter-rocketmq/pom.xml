@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.amaoai</groupId>
         <artifactId>spring-boot-libs</artifactId>
-        <version>DANMEI</version>
+        <version>LuckyDrawCall</version>
     </parent>
 
     <artifactId>boot-starter-rocketmq</artifactId>

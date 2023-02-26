@@ -21,7 +21,7 @@
 
     <groupId>com.amaoai</groupId>
     <artifactId>kaiheiloft-main</artifactId>
-    <version>DANMEI</version>
+    <version>LuckyDrawCall</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -76,7 +76,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
+            <artifactId>kotlin-test-junit</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
@@ -100,66 +100,60 @@
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>project-devtools-libs</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <!-- spring-boot-libs -->
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-hibernate-validator</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-mysql</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-redis</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-rocketmq</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-web</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <!-- spring-cloud-alibaba-libs -->
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>cloud-starter-feign</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>cloud-starter-nacos</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <!-- export -->
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>export-kaiheiloft</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>export-opensso</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>protocol</artifactId>
-                <version>DANMEI</version>
-            </dependency>
-            <!-- protocol -->
-            <dependency>
-                <groupId>com.amaoai</groupId>
-                <artifactId>protocol-mcmun</artifactId>
-                <version>DANMEI</version>
+                <version>LuckyDrawCall</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>kaiheiloft-main</artifactId>
         <groupId>com.amaoai</groupId>
-        <version>DANMEI</version>
+        <version>LuckyDrawCall</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.amaoai</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
-            <version>DANMEI</version>
+            <version>LuckyDrawCall</version>
         </dependency>
         <!-- export -->
         <dependency>

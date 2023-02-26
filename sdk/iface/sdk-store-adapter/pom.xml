@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sdk</artifactId>
         <groupId>com.amaoai</groupId>
-        <version>DANMEI</version>
+        <version>LuckyDrawCall</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.amaoai</groupId>
             <artifactId>project-devtools-libs</artifactId>
-            <version>DANMEI</version>
+            <version>LuckyDrawCall</version>
         </dependency>
     </dependencies>
 
