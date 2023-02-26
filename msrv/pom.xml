@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.amaoai</groupId>
-        <artifactId>root-module</artifactId>
-        <version>v1.0.0.KAYLE</version>
+        <artifactId>kaiheiloft-main</artifactId>
+        <version>DANMEI</version>
     </parent>
 
     <artifactId>msrv</artifactId>
@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>export-module-opensso</artifactId>
+            <artifactId>export-opensso</artifactId>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
@@ -43,11 +43,11 @@
         <!-- export -->
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>export-module-msrv</artifactId>
+            <artifactId>protocol</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>export-module-opensso</artifactId>
+            <artifactId>export-opensso</artifactId>
         </dependency>
     </dependencies>
 

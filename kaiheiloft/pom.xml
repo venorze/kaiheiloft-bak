@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>root-module</artifactId>
+        <artifactId>kaiheiloft-main</artifactId>
         <groupId>com.amaoai</groupId>
-        <version>v1.0.0.KAYLE</version>
+        <version>DANMEI</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -38,16 +38,16 @@
         <dependency>
             <groupId>com.amaoai</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
-            <version>v1.0.0.KAYLE</version>
+            <version>DANMEI</version>
         </dependency>
         <!-- export -->
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>export-module-kaiheiloft</artifactId>
+            <artifactId>export-kaiheiloft</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>export-module-opensso</artifactId>
+            <artifactId>export-opensso</artifactId>
         </dependency>
     </dependencies>
 

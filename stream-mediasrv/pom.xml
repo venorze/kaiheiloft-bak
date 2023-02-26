@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.amaoai</groupId>
-        <artifactId>root-module</artifactId>
-        <version>v1.0.0.KAYLE</version>
+        <artifactId>kaiheiloft-main</artifactId>
+        <version>DANMEI</version>
     </parent>
 
     <artifactId>stream-mediasrv</artifactId>

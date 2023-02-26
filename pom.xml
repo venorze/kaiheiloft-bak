@@ -20,8 +20,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.amaoai</groupId>
-    <artifactId>root-module</artifactId>
-    <version>v1.0.0.KAYLE</version>
+    <artifactId>kaiheiloft-main</artifactId>
+    <version>DANMEI</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -35,6 +35,7 @@
         <module>route</module>
         <module>stream-mediasrv</module>
         <module>msrv</module>
+        <module>msrv/protocol</module>
         <!-- test -->
         <module>test/msrv-client-test</module>
         <module>test/kotlin-project-test</module>
@@ -47,6 +48,7 @@
         <netty.version>4.1.87.Final</netty.version>
         <kotlin.version>1.8.10</kotlin.version>
         <jna.version>3.0.9</jna.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -98,66 +100,66 @@
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>project-devtools-libs</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <!-- spring-boot-libs -->
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-hibernate-validator</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-mysql</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-redis</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-rocketmq</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>boot-starter-web</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <!-- spring-cloud-alibaba-libs -->
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>cloud-starter-feign</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>cloud-starter-nacos</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
             <!-- export -->
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>export-module-kaiheiloft</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <artifactId>export-kaiheiloft</artifactId>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>export-module-opensso</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <artifactId>export-opensso</artifactId>
+                <version>DANMEI</version>
             </dependency>
             <dependency>
                 <groupId>com.amaoai</groupId>
-                <artifactId>export-module-msrv</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <artifactId>protocol</artifactId>
+                <version>DANMEI</version>
             </dependency>
             <!-- protocol -->
             <dependency>
                 <groupId>com.amaoai</groupId>
                 <artifactId>protocol-mcmun</artifactId>
-                <version>v1.0.0.KAYLE</version>
+                <version>DANMEI</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -169,8 +171,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -195,7 +197,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>17</jvmTarget>
+                    <jvmTarget>${java.version}</jvmTarget>
                 </configuration>
             </plugin>
         </plugins>

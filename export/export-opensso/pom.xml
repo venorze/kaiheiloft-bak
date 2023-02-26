@@ -3,23 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>root-module</artifactId>
+        <artifactId>export</artifactId>
         <groupId>com.amaoai</groupId>
-        <version>v1.0.0.KAYLE</version>
-        <relativePath>../../pom.xml</relativePath>
+        <version>DANMEI</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>export-module-msrv</artifactId>
+    <artifactId>export-opensso</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <groupId>com.amaoai</groupId>
+            <artifactId>project-devtools-libs</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amaoai</groupId>
-            <artifactId>project-devtools-libs</artifactId>
+            <artifactId>cloud-starter-feign</artifactId>
         </dependency>
     </dependencies>
 

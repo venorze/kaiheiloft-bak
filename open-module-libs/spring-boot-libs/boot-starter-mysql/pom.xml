@@ -5,7 +5,7 @@
     <parent>
         <artifactId>spring-boot-libs</artifactId>
         <groupId>com.amaoai</groupId>
-        <version>v1.0.0.KAYLE</version>
+        <version>DANMEI</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>

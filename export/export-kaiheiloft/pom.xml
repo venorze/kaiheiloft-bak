@@ -5,11 +5,11 @@
     <parent>
         <artifactId>export</artifactId>
         <groupId>com.amaoai</groupId>
-        <version>v1.0.0.KAYLE</version>
+        <version>DANMEI</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>export-module-kaiheiloft</artifactId>
+    <artifactId>export-kaiheiloft</artifactId>
 
     <dependencies>
         <dependency>
