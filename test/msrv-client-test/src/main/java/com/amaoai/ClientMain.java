@@ -20,10 +20,13 @@ package com.amaoai;
 
 /* Creates on 2023/2/22. */
 
+import com.amaoai.framework.StringUtils;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
+import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -57,16 +60,20 @@ public class ClientMain {
         public void channelActive(ChannelHandlerContext ctx) {
             new Thread(() -> {
                 while (ctx.channel().isOpen()) {
-                    String nextread = stdin.nextLine();
-                    String cmd = nextread.substring(0, nextread.indexOf(" "));
-                    String attach = nextread.substring(nextread.indexOf(" ") + 1);
-                    switch (cmd) {
-                        // 登录请求
-                        case "/login" -> CMDHandler.login(ctx, attach);
-                        // 发送消息
-                        case "/send" -> CMDHandler.send(ctx, attach);
-                        // 未知命令
-                        default -> System.out.println("/unknown");
+                    try {
+                        String nextread = stdin.nextLine();
+                        String cmd = nextread.substring(0, nextread.indexOf(" "));
+                        String attach = nextread.substring(nextread.indexOf(" ") + 1);
+                        switch (cmd) {
+                            // 登录请求
+                            case "/login" -> CMDHandler.login(ctx, attach);
+                            // 发送消息
+                            case "/send" -> CMDHandler.send(ctx, attach);
+                            // 未知命令
+                            default -> System.out.println("/unknown");
+                        }
+                    } catch (Throwable e) {
+                        e.printStackTrace();
                     }
                 }
             }).start();
@@ -74,7 +81,12 @@ public class ClientMain {
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
-            System.out.println("接收到服务端发来的消息：" + msg);
+            if (msg instanceof UMCProtocol umcp) {
+                if (umcp.cmd() == UMCPCMD.SEND && umcp.attach() instanceof UserMessage message)
+                    StringUtils.vfprintln("{}: {}", message.getSender(), message.getMessage());
+                if (umcp.cmd() == UMCPCMD.SIGN_IN_ACK)
+                    StringUtils.vfprintln("{}", (String) umcp.attach());
+            }
         }
 
         @Override

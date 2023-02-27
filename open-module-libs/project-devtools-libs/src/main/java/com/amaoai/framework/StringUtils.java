@@ -21,10 +21,12 @@ package com.amaoai.framework;
 /* Creates on 2020/3/11. */
 
 import com.amaoai.framework.collections.Lists;
+import com.amaoai.framework.io.IOUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
@@ -272,6 +274,17 @@ final class StringUtils {
             builder.append(str).append(separator);
 
         return removeOfEnd(builder.toString(), separator);
+    }
+
+    /**
+     * 格式化打印
+     */
+    public static void vfprintln(String fmt, Object... args) {
+        IOUtils.write((vfmt(fmt, args) + "\n").getBytes(StandardCharsets.UTF_8), IOUtils.stdout);
+    }
+
+    public static void main(String[] args) {
+        vfprintln("{}: {}", "KI", "Hello World");
     }
 
 }

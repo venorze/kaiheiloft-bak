@@ -65,8 +65,9 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
         // 注册有效通道标识
         UserTokenPayload userTokenPayload = payload.to(UserTokenPayload.class);
-        ClientChannelHandlerContext.markValidClientChannelHandlerContext(userTokenPayload.getUsername(), cchx);
-        cchx.notifyClientMarkedValidStatus("认证成功");
+        String username = userTokenPayload.getUsername();
+        ClientChannelHandlerContext.markValidClientChannelHandlerContext(username, cchx);
+        cchx.notifyClientMarkedValidStatus("认证成功，欢迎登录[{}]", username);
     }
 
 }

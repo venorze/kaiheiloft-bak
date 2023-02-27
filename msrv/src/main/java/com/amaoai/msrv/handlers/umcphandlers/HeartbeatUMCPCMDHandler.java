@@ -36,7 +36,7 @@ public class HeartbeatUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
     @Override
     public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
-        System.out.println("接收到客户端心跳包：" + umcp);
+
     }
 
 }

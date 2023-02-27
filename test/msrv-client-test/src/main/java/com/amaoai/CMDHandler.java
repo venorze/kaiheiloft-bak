@@ -26,6 +26,7 @@ import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessageType;
 import io.netty.channel.ChannelHandlerContext;
+import lombok.SneakyThrows;
 
 /**
  * No Descript.
@@ -39,10 +40,12 @@ public class CMDHandler {
     }
 
     public static void send(ChannelHandlerContext ctx, String attach) {
+        String rec = attach.substring(0, attach.indexOf(" "));
+        String msg = attach.substring(attach.indexOf(" ") + 1);
         UserMessage userMessage = new UserMessage();
-        userMessage.setReceiver("R00001");
+        userMessage.setReceiver(rec);
         userMessage.setType(UserMessageType.TEXT);
-        userMessage.setMessage(attach);
+        userMessage.setMessage(msg);
         ctx.writeAndFlush(new UMCProtocol(userMessage, UMCPCMD.SEND));
     }
 

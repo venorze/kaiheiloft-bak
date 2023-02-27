@@ -25,6 +25,10 @@ import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import lombok.SneakyThrows;
 
 /**
  * 消息接收处理器
@@ -35,8 +39,17 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 public class SendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
     @Override
+    @SneakyThrows
     public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
-        System.out.println("UMCPCMD(SEND): " + umcp.attach());
+        // 拿到聊天消息
+        UserMessage message = umcp.attach();
+        message.setSender(cchx.user());
+        // 获取在线的客户端
+        var onlinecchx = ClientChannelHandlerContext.online(message.getReceiver());
+        if (onlinecchx != null) {
+            onlinecchx.writeAndFlush(umcp).sync();
+        }
+        // 回复客户端服务器已收到消息
         autoack(umcp, UMCPCMD.ACK, cchx);
     }
 

@@ -20,44 +20,44 @@ package com.amaoai.msrv.handlers.contxt;
 
 /* Creates on 2023/2/27. */
 
+import com.amaoai.framework.StringUtils;
 import com.amaoai.msrv.handlers.umcphandlers.SignInSendUMCPCMDHandler;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.Data;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.io.Closeable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Vincent Luo
  */
-@Data
-public class ClientChannelHandlerContext implements Closeable {
+public class ClientChannelHandlerContext {
 
     /**
      * channel处理器上下文
      */
-    private ChannelHandlerContext channelHandlerContext;
+    private final ChannelHandlerContext channelHandlerContext;
 
     /**
      * springboot上下文
      */
-    private ConfigurableApplicationContext configurableApplicationContext;
+    private final ConfigurableApplicationContext configurableApplicationContext;
 
     /**
      * 用户名
      */
-    private String username;
+    private String user;
 
     /**
      * 已经通过登录认证注册好的用户Channel
      */
-    private static final Map<ChannelHandlerContext, ClientChannelHandlerContext>
+    private static final Map<String, ClientChannelHandlerContext>
             markedValidClientChannelHandlerContext = new ConcurrentHashMap<>(1024);
 
     public ClientChannelHandlerContext(ChannelHandlerContext ctx,
@@ -89,18 +89,29 @@ public class ClientChannelHandlerContext implements Closeable {
     }
 
     /**
+     * @return 所属用户
+     */
+    public String user() {
+        return user;
+    }
+
+    public Channel channel() {
+        return channelHandlerContext.channel();
+    }
+
+    /**
      * @return 用户是否通过了登录认证
      */
     public boolean isValid() {
-        return markedValidClientChannelHandlerContext.containsKey(channelHandlerContext);
+        return user != null && markedValidClientChannelHandlerContext.containsKey(user);
     }
 
     /**
      * 通知客户端用户认证状态
      */
-    public void notifyClientMarkedValidStatus(String attach) {
-        writeAndFlush(new UMCProtocol(username != null ? UMCPCMD.CMDFLAG_SIGN_IN_SUCCESS : UMCPCMD.CMDFLAG_SIGN_IN_FAILED,
-                ("SIGN IN ACK - " + attach), UMCPCMD.SIGN_IN_ACK));
+    public void notifyClientMarkedValidStatus(String fmt, Object... args) {
+        writeAndFlush(new UMCProtocol(user != null ? UMCPCMD.CMDFLAG_SIGN_IN_SUCCESS : UMCPCMD.CMDFLAG_SIGN_IN_FAILED,
+                ("SIGN IN ACK - " + StringUtils.vfmt(fmt, args)), UMCPCMD.SIGN_IN_ACK));
     }
 
     /**
@@ -108,11 +119,11 @@ public class ClientChannelHandlerContext implements Closeable {
      *
      * @see SignInSendUMCPCMDHandler#handler
      */
-    public static void markValidClientChannelHandlerContext(String username, ClientChannelHandlerContext cchx) {
+    public static void markValidClientChannelHandlerContext(String user, ClientChannelHandlerContext cchx) {
         synchronized (markedValidClientChannelHandlerContext) {
-            markedValidClientChannelHandlerContext.put(cchx.channelHandlerContext, cchx);
+            markedValidClientChannelHandlerContext.put(user, cchx);
             // 设置当前客户端通道的所属用户
-            cchx.username = username;
+            cchx.user = user;
         }
     }
 
@@ -123,16 +134,23 @@ public class ClientChannelHandlerContext implements Closeable {
      */
     public static void markUnValidClientChannelHandlerContext(ClientChannelHandlerContext cchx) {
         synchronized (markedValidClientChannelHandlerContext) {
-            try (cchx) {
-                markedValidClientChannelHandlerContext.remove(cchx.channelHandlerContext);
-            }
+            cchx.close();
+            if (cchx.user != null)
+                markedValidClientChannelHandlerContext.remove(cchx.user);
         }
     }
 
     /**
+     * 获取在线的客户端
+     */
+    public static ClientChannelHandlerContext online(String user) {
+        return markedValidClientChannelHandlerContext.get(user);
+    }
+
+
+    /**
      * 强制关闭连接
      */
-    @Override
     public void close() {
         channelHandlerContext.channel().close();
     }

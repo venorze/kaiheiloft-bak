@@ -133,12 +133,12 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
 
             // 检查用户是否已经登录
             if (umcp.cmd() != UMCPCMD.SIGN_IN_SEND &&
-                    !cchx.isValid()) {
+                  !cchx.isValid()) {
                 // 通知客户端
                 cchx.notifyClientMarkedValidStatus("用户未认证！");
                 // 断开连接
                 selectUMCPCMDHandler(UMCProtocol.DISCONNECT)
-                        .handler(UMCProtocol.DISCONNECT, cchx);
+                      .handler(UMCProtocol.DISCONNECT, cchx);
                 return;
             }
 
