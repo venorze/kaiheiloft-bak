@@ -70,14 +70,7 @@ public class ClientChannelHandlerContext {
      */
     @SuppressWarnings("UnusedReturnValue")
     public ChannelFuture writeAndFlush(Object msg) {
-        return ctx().channel().writeAndFlush(msg);
-    }
-
-    /**
-     * @return 提供当前客户端的ChannelHandlerContext函数
-     */
-    public ChannelHandlerContext ctx() {
-        return this.channelHandlerContext;
+        return channelHandlerContext.channel().writeAndFlush(msg);
     }
 
     /**
@@ -98,7 +91,7 @@ public class ClientChannelHandlerContext {
      * @return 用户是否通过了登录认证
      */
     public boolean isValid() {
-        return markedValidClientChannelHandlerContext.containsKey(ctx());
+        return markedValidClientChannelHandlerContext.containsKey(channelHandlerContext);
     }
 
     /**
@@ -116,10 +109,16 @@ public class ClientChannelHandlerContext {
      */
     public static void markValidClientChannelHandlerContext(String username, ClientChannelHandlerContext cchx) {
         synchronized (markedValidClientChannelHandlerContext) {
-            markedValidClientChannelHandlerContext.put(cchx.ctx(), cchx);
+            markedValidClientChannelHandlerContext.put(cchx.channelHandlerContext, cchx);
             // 设置当前客户端通道的所属用户
             cchx.username = username;
         }
     }
 
+    /**
+     * 强制关闭连接
+     */
+    public void forceClose() {
+        channelHandlerContext.channel().close();
+    }
 }

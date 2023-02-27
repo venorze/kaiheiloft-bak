@@ -59,6 +59,7 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
         // 判断用户是否登录成功
         if (!payload.isSuccess()) {
             cchx.notifyClientMarkedValidStatus("认证失败");
+            cchx.forceClose();
             return;
         }
 
