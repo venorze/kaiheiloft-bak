@@ -31,11 +31,11 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
  *
  * @author Vincent Luo
  */
-@UMCPCommandHandlerSelect(command = UMCPCommand.DISCONNECT)
-public class DISCONNECT extends UMCPCommandHandlerAdapter {
+@UMCPCommandHandlerSelect(command = UMCPCommand.HEARTBEAT)
+public class HeartbeatUMCPCommandHandler extends UMCPCommandHandlerAdapter {
 
     @Override
-    public void handler(UMCProtocol umcp, SocketHandlerContext socketHandlerContext) {
+    public void handler(UMCProtocol umcp, SocketHandlerContext ctx) {
 
     }
 

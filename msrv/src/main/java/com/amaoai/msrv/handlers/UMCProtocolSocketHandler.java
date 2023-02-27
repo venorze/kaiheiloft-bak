@@ -60,13 +60,14 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
 
 
     static {
-        loadUMCPCommandHandlers();
+        // 加载 UMCP 命令处理器
+        autoloadUMCPCommandHandlers();
     }
 
     /**
      * 加载UMCP命令处理器
      */
-    private static void loadUMCPCommandHandlers() {
+    private static void autoloadUMCPCommandHandlers() {
         List<Class<?>> handlerClasses =
                 ClassLoaders.scanPackages("com.amaoai.msrv.handlers.umcphandlers");
         // 遍历处理器类
@@ -80,10 +81,6 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
                         (UMCPCommandHandlerAdapter) ClassUtils.newInstance(handlerClass));
             }
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println();
     }
 
     public UMCProtocolSocketHandler(ConfigurableApplicationContext configurableApplicationContext) {

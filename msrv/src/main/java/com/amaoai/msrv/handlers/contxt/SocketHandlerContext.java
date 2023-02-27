@@ -31,13 +31,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Data
 public class SocketHandlerContext {
 
-    private ChannelHandlerContext ctx;
+    private ChannelHandlerContext channelHandlerContext;
 
     private ConfigurableApplicationContext configurableApplicationContext;
 
     public SocketHandlerContext(ChannelHandlerContext ctx,
                                 ConfigurableApplicationContext configurableApplicationContext) {
-        this.ctx = ctx;
+        this.channelHandlerContext = ctx;
         this.configurableApplicationContext = configurableApplicationContext;
     }
 
@@ -45,7 +45,7 @@ public class SocketHandlerContext {
      * @return 提供当前客户端的ChannelHandlerContext函数
      */
     public ChannelHandlerContext ctx() {
-        return this.ctx;
+        return this.channelHandlerContext;
     }
 
     /**

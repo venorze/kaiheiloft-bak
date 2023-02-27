@@ -38,7 +38,7 @@ public abstract class UMCPCommandHandlerAdapter {
     /**
      * 当第一次进入处理器时
      */
-    public void active(SocketHandlerContext socketHandlerContext) {
+    public void active(SocketHandlerContext ctx) {
         // do nothing...
     }
 
@@ -59,6 +59,6 @@ public abstract class UMCPCommandHandlerAdapter {
     /**
      * 子类实现处理函数
      */
-    public abstract void handler(UMCProtocol umcp, SocketHandlerContext socketHandlerContext);
+    public abstract void handler(UMCProtocol umcp, SocketHandlerContext ctx);
 
 }
