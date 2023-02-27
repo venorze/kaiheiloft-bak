@@ -28,6 +28,8 @@ import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
@@ -97,6 +99,16 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
         selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, cchx);
     }
 
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+        // 处理用户写空闲事件
+        if (evt instanceof IdleStateEvent event &&
+            event.state() == IdleState.READER_IDLE) {
+            // 如果写空闲事件被触发表示用户可能连接已经断开
+            selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, cchx);
+        }
+    }
+
     /**
      * 读取到客户端发来的数据
      */
@@ -113,6 +125,12 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
         // 查找命令对应的处理器
         UMCPCMDHandlerAdapter UMCPCMDHandlerAdapter = selectUMCPCMDHandler(umcp);
         if (UMCPCMDHandlerAdapter != null) {
+            // 处理心跳包
+            if (umcp.cmd() == UMCPCMD.HEARTBEAT) {
+                selectAndRunUMCPCMDHandler(umcp, cchx);
+                return;
+            }
+
             // 检查用户是否已经登录
             if (umcp.cmd() != UMCPCMD.SIGN_IN_SEND &&
                     !cchx.isValid()) {

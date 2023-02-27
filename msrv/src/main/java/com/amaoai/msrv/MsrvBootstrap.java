@@ -42,7 +42,7 @@ public class MsrvBootstrap {
         // 启动Spring服务
         var configurableApplicationContext = SpringApplication.run(MsrvBootstrap.class, args);
         // 启动长连接服务
-        SocketBootstrap.run(configurableApplicationContext, args);
+        NettyBootstrap.run(configurableApplicationContext, args);
     }
 
 }

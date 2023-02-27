@@ -20,13 +20,10 @@ package com.amaoai;
 
 /* Creates on 2023/2/22. */
 
-import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
-import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
-import com.amaoai.msrv.protocol.umcp.attch.UserMessageType;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -35,6 +32,9 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.Scanner;
 
@@ -54,7 +54,7 @@ public class ClientMain {
      */
     static ChannelInboundHandlerAdapter channelHandler = new ChannelInboundHandlerAdapter() {
         @Override
-        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        public void channelActive(ChannelHandlerContext ctx) {
             new Thread(() -> {
                 while (ctx.channel().isOpen()) {
                     String nextread = stdin.nextLine();
@@ -73,13 +73,22 @@ public class ClientMain {
         }
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        public void channelRead(ChannelHandlerContext ctx, Object msg) {
             System.out.println("接收到服务端发来的消息：" + msg);
         }
 
         @Override
-        public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        public void channelInactive(ChannelHandlerContext ctx) {
+            System.err.println("客户端系统退出（1）");
             System.exit(1);
+        }
+
+        @Override
+        public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+            if (evt instanceof IdleStateEvent event &&
+                event.state() == IdleState.WRITER_IDLE) {
+                ctx.channel().writeAndFlush(UMCProtocol.HEARTBEAT);
+            }
         }
     };
 
@@ -94,9 +103,10 @@ public class ClientMain {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new UMCPEncoder())
-                                    .addLast(new UMCPDecoder())
-                                    .addLast(channelHandler);
+                                .addLast(new IdleStateHandler(0, 60, 0))
+                                .addLast(new UMCPEncoder())
+                                .addLast(new UMCPDecoder())
+                                .addLast(channelHandler);
                         }
                     });
             ChannelFuture future = bootstrap.connect("127.0.0.1", 11451).sync();

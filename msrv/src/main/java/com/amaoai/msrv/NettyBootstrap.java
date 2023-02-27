@@ -24,10 +24,14 @@ import com.amaoai.msrv.handlers.UMCProtocolSocketHandler;
 import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.MultithreadEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.SneakyThrows;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -36,7 +40,7 @@ import java.net.InetSocketAddress;
 /**
  * @author Vincent Luo
  */
-public class SocketBootstrap {
+public class NettyBootstrap {
 
     /**
      * 处理Channel的线程组
@@ -52,7 +56,7 @@ public class SocketBootstrap {
      */
     public static void run(ConfigurableApplicationContext configurableApplicationContext,
                            String[] args) {
-        new SocketBootstrap().run0(args, configurableApplicationContext);
+        new NettyBootstrap().run0(args, configurableApplicationContext);
     }
 
     /**
@@ -70,10 +74,12 @@ public class SocketBootstrap {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new UMCPEncoder());
-                            pipeline.addLast(new UMCPDecoder());
-                            pipeline.addLast(new UMCProtocolSocketHandler(configurableApplicationContext));
+                            // 添加处理器
+                            ch.pipeline()
+                                .addLast(new IdleStateHandler(120, 0, 0))
+                                .addLast(new UMCPEncoder())
+                                .addLast(new UMCPDecoder())
+                                .addLast(new UMCProtocolSocketHandler(configurableApplicationContext));
                         }
                     });
             ChannelFuture channelFuture = bootstrap.bind(new InetSocketAddress(11451)).sync();
