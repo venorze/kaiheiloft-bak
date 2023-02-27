@@ -1,4 +1,4 @@
-package com.amaoai.msrv.handlers.iface;
+package com.amaoai.msrv.handlers;
 
 /* ************************************************************************
  *
@@ -21,6 +21,7 @@ package com.amaoai.msrv.handlers.iface;
 /* Creates on 2023/2/27. */
 
 import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 
 /**
@@ -45,15 +46,22 @@ public abstract class UMCPCMDHandlerAdapter {
     /**
      * 判断是不是第一次调用active()
      */
-    public boolean isActived() {
+    boolean isActived() {
         return actived;
     }
 
     /**
      * 状态变换为true
      */
-    public void actived() {
+    void actived() {
         actived = true;
+    }
+
+    /**
+     * 自动回复
+     */
+    public static void autoack(UMCProtocol umcp, UMCPCMD ackcmd, ClientChannelHandlerContext cchx) {
+        cchx.writeAndFlush(umcp.ack(ackcmd));
     }
 
     /**

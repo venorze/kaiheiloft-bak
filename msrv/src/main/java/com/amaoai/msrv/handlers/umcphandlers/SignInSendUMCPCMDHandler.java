@@ -24,8 +24,8 @@ import com.amaoai.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
 import com.amaoai.export.opensso.modx.UserTokenPayload;
 import com.amaoai.framework.R;
 import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerAdapter;
-import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerMark;
+import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
+import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
@@ -59,7 +59,7 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
         // 判断用户是否登录成功
         if (!payload.isSuccess()) {
             cchx.notifyClientMarkedValidStatus("认证失败");
-            cchx.forceClose();
+            cchx.close();
             return;
         }
 

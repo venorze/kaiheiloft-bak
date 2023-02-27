@@ -105,14 +105,18 @@ public class UMCProtocol implements Serializable {
         this.cmd = cmd;
     }
 
+    public UMCProtocol ack() {
+        return ack(UMCPCMD.ACK);
+    }
+
     /**
      * @return 将当前数据包设置成回复数据包
      */
-    public UMCProtocol ack() {
+    public UMCProtocol ack(UMCPCMD cmd) {
         // 清空不必要的数据，减少带宽的占用
-        timestamp = null;
-        attach = null;
-        cmd = UMCPCMD.ACK;
+        this.timestamp = null;
+        this.attach = null;
+        this.cmd = cmd;
         // 返回当前对象
         return this;
     }

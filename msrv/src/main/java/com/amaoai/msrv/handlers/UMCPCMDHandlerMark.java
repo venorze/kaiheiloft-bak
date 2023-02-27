@@ -1,4 +1,4 @@
-package com.amaoai.msrv.protocol.umcp;
+package com.amaoai.msrv.handlers;
 
 /* ************************************************************************
  *
@@ -18,59 +18,33 @@ package com.amaoai.msrv.protocol.umcp;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/25. */
+/* Creates on 2023/2/27. */
 
-import java.io.Serializable;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
+
+import java.lang.annotation.*;
 
 /**
+ * 被注解的类表示是 UMCP 协议命令的处理器，当前注解只针对 com.amaoai.msrv.handlers.umcphandlers 包
+ * 下的类生效。并且类必须实现 UMCPCMDHandlerAdapter 接口。
+ *
  * @author Vincent Luo
+ * @see UMCProtocolSocketHandler#loadUMCPCommandHandlers
+ * @see UMCPCMDHandlerAdapter
  */
-public enum UMCPCMD implements Serializable {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface UMCPCMDHandlerMark {
 
     /**
-     * 用户登录，校验
+     * 指定处理器处理哪条指令
      */
-    SIGN_IN_SEND,
+    UMCPCMD cmd();
 
     /**
-     * 收到消息后回复客户端
+     * 自动回复收到数据包命令
      */
-    SIGN_IN_ACK,
-
-    /**
-     * 发送消息
-     */
-    SEND,
-
-    /**
-     * 收到消息后回复客户端
-     */
-    ACK,
-
-    /**
-     * 心跳包
-     */
-    HEARTBEAT,
-
-    /**
-     * 客户端申请断开连接
-     */
-    DISCONNECT,
-
-    /**
-     * 不回复
-     */
-    NO_ACK_REQUIRED,
-    ;
-
-    /**
-     * 用户认证成功
-     */
-    public static final int CMDFLAG_SIGN_IN_SUCCESS = 1;
-
-    /**
-     * 用户认证失败
-     */
-    public static final int CMDFLAG_SIGN_IN_FAILED = 0;
+    UMCPCMD rep() default UMCPCMD.NO_ACK_REQUIRED;
 
 }

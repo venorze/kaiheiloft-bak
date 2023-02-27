@@ -1,4 +1,4 @@
-package com.amaoai.msrv.handlers.iface;
+package com.amaoai;
 
 /* ************************************************************************
  *
@@ -20,24 +20,30 @@ package com.amaoai.msrv.handlers.iface;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.UMCProtocolSocketHandler;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
-
-import java.lang.annotation.*;
+import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
+import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
+import com.amaoai.msrv.protocol.umcp.attch.UserMessageType;
+import io.netty.channel.ChannelHandlerContext;
 
 /**
- * 被注解的类表示是 UMCP 协议命令的处理器，当前注解只针对 com.amaoai.msrv.handlers.umcphandlers 包
- * 下的类生效。并且类必须实现 UMCPCMDHandlerAdapter 接口。
+ * No Descript.
  *
  * @author Vincent Luo
- * @see UMCProtocolSocketHandler#loadUMCPCommandHandlers
- * @see UMCPCMDHandlerAdapter
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface UMCPCMDHandlerMark {
+public class CMDHandler {
 
-    UMCPCMD cmd();
+    public static void login(ChannelHandlerContext ctx, String attach) {
+        ctx.writeAndFlush(new UMCProtocol(new UserAuthorization(attach), UMCPCMD.SIGN_IN_SEND));
+    }
+
+    public static void send(ChannelHandlerContext ctx, String attach) {
+        UserMessage userMessage = new UserMessage();
+        userMessage.setReceiver("R00001");
+        userMessage.setType(UserMessageType.TEXT);
+        userMessage.setMessage(attach);
+        ctx.writeAndFlush(new UMCProtocol(userMessage, UMCPCMD.SEND));
+    }
 
 }

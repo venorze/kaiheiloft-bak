@@ -29,6 +29,7 @@ import lombok.Data;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.io.Closeable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Vincent Luo
  */
 @Data
-public class ClientChannelHandlerContext {
+public class ClientChannelHandlerContext implements Closeable {
 
     /**
      * channel处理器上下文
@@ -116,9 +117,24 @@ public class ClientChannelHandlerContext {
     }
 
     /**
+     * 标记无效的客户端
+     *
+     * @see SignInSendUMCPCMDHandler#handler
+     */
+    public static void markUnValidClientChannelHandlerContext(ClientChannelHandlerContext cchx) {
+        synchronized (markedValidClientChannelHandlerContext) {
+            try (cchx) {
+                markedValidClientChannelHandlerContext.remove(cchx.channelHandlerContext);
+            }
+        }
+    }
+
+    /**
      * 强制关闭连接
      */
-    public void forceClose() {
+    @Override
+    public void close() {
         channelHandlerContext.channel().close();
     }
+
 }

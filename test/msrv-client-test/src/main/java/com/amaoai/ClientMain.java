@@ -25,6 +25,8 @@ import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
+import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
+import com.amaoai.msrv.protocol.umcp.attch.UserMessageType;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -33,7 +35,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import lombok.Data;
 
 import java.util.Scanner;
 
@@ -43,31 +44,47 @@ import java.util.Scanner;
  */
 public class ClientMain {
 
-    static int count = 1;
+    static UserAuthorization userAuthorization = new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzUwNzY0Mn0.5acDaEd8pdvG2ILHY_nbcS2bcgx5lr7fw9wWSrFDl7M");
 
-    @Data
-    static class MThread {
-        private Thread thread = null;
+    static Scanner stdin = new Scanner(System.in);
 
-        private boolean start = false;
 
-        public void start(Runnable runnable) {
-            if (!start) {
-                thread = new Thread(runnable);
-                thread.start();
-                start = true;
-            }
+    /**
+     * channel处理器
+     */
+    static ChannelInboundHandlerAdapter channelHandler = new ChannelInboundHandlerAdapter() {
+        @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            new Thread(() -> {
+                while (ctx.channel().isOpen()) {
+                    String nextread = stdin.nextLine();
+                    String cmd = nextread.substring(0, nextread.indexOf(" "));
+                    String attach = nextread.substring(nextread.indexOf(" ") + 1);
+                    switch (cmd) {
+                        // 登录请求
+                        case "/login" -> CMDHandler.login(ctx, attach);
+                        // 发送消息
+                        case "/send" -> CMDHandler.send(ctx, attach);
+                        // 未知命令
+                        default -> System.out.println("/unknown");
+                    }
+                }
+            }).start();
         }
-    }
 
-    static UserAuthorization userAuthorization = new UserAuthorization("1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzUwNzY0Mn0.5acDaEd8pdvG2ILHY_nbcS2bcgx5lr7fw9wWSrFDl7M");
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+            System.out.println("接收到服务端发来的消息：" + msg);
+        }
+
+        @Override
+        public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+            System.exit(1);
+        }
+    };
 
     public static void main(String[] args) throws InterruptedException {
-
-        Scanner scanner = new Scanner(System.in);
         NioEventLoopGroup nioEventLoopGroup = new NioEventLoopGroup();
-
-        MThread mThread = new MThread();
 
         try {
             Bootstrap bootstrap = new Bootstrap()
@@ -79,18 +96,7 @@ public class ClientMain {
                             ch.pipeline()
                                     .addLast(new UMCPEncoder())
                                     .addLast(new UMCPDecoder())
-                                    .addLast(new ChannelInboundHandlerAdapter() {
-                                        @Override
-                                        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                            UMCProtocol umcp = new UMCProtocol(userAuthorization, UMCPCMD.SIGN_IN_SEND);
-                                            ctx.writeAndFlush(umcp);
-                                        }
-
-                                        @Override
-                                        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                            System.out.println("用户登录请求，接收到客户端回复：" + msg);
-                                        }
-                                    });
+                                    .addLast(channelHandler);
                         }
                     });
             ChannelFuture future = bootstrap.connect("127.0.0.1", 11451).sync();

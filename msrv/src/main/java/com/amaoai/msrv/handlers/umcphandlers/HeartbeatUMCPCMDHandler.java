@@ -21,8 +21,8 @@ package com.amaoai.msrv.handlers.umcphandlers;
 /* Creates on 2023/2/27. */
 
 import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerAdapter;
-import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerMark;
+import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
+import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 

@@ -24,8 +24,6 @@ import com.amaoai.framework.collections.Maps;
 import com.amaoai.framework.refection.ClassLoaders;
 import com.amaoai.framework.refection.ClassUtils;
 import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerAdapter;
-import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerMark;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import io.netty.channel.ChannelHandlerContext;
@@ -94,6 +92,11 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
         cchx = new ClientChannelHandlerContext(ctx, configurableApplicationContext);
     }
 
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, cchx);
+    }
+
     /**
      * 读取到客户端发来的数据
      */
@@ -108,18 +111,22 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     private void selectUMCPCommandHandler(UMCProtocol umcp) {
         // 查找命令对应的处理器
-        UMCPCMDHandlerAdapter UMCPCMDHandlerAdapter = commandHandlers.get(umcp.cmd());
+        UMCPCMDHandlerAdapter UMCPCMDHandlerAdapter = selectUMCPCMDHandler(umcp);
         if (UMCPCMDHandlerAdapter != null) {
             // 检查用户是否已经登录
             if (umcp.cmd() != UMCPCMD.SIGN_IN_SEND &&
-                    !checkClientChannelHandlerContextValid(cchx)) {
-                cchx.notifyClientMarkedValidStatus("用户未认证");
+                    !cchx.isValid()) {
+                // 通知客户端
+                cchx.notifyClientMarkedValidStatus("用户未认证！");
+                // 断开连接
+                selectUMCPCMDHandler(UMCProtocol.DISCONNECT)
+                        .handler(UMCProtocol.DISCONNECT, cchx);
                 return;
             }
 
             // 判断用户是否重复登录
             if (umcp.cmd() == UMCPCMD.SIGN_IN_SEND && cchx.isValid()) {
-                cchx.notifyClientMarkedValidStatus("请不要他妈的重复认证！");
+                cchx.notifyClientMarkedValidStatus("请勿重复认证！");
                 return;
             }
 
@@ -135,15 +142,17 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * 检查用户是否通过身份认证
+     * 选择 UMCP CMD 处理器
      */
-    private static boolean checkClientChannelHandlerContextValid(ClientChannelHandlerContext cchx) {
-        boolean retbool;
-        // 用户是否通过登录认证，如果未认证则强制断开连接
-        if (!(retbool = cchx.isValid()))
-            commandHandlers.get(UMCPCMD.DISCONNECT)
-                    .handler(UMCProtocol.DISCONNECT, cchx);
-        return retbool;
+    public static UMCPCMDHandlerAdapter selectUMCPCMDHandler(UMCProtocol umcp) {
+        return commandHandlers.get(umcp.cmd());
+    }
+
+    /**
+     * 选择并运行 UMCP CMD 处理器
+     */
+    public static void selectAndRunUMCPCMDHandler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
+        selectUMCPCMDHandler(umcp).handler(umcp, cchx);
     }
 
 }

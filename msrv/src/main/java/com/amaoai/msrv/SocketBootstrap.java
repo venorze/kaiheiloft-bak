@@ -39,26 +39,10 @@ import java.net.InetSocketAddress;
 public class SocketBootstrap {
 
     /**
-     * Nio Channel处理器
-     */
-    private final ChannelHandler[] channelHandlers;
-
-    /**
      * 处理Channel的线程组
      */
     private final NioEventLoopGroup BOSS_EVENT_LOOP_GROUP = new NioEventLoopGroup();
     private final NioEventLoopGroup WORKER_EVENT_LOOP_GROUP = new NioEventLoopGroup();
-
-    /**
-     * @param configurableApplicationContext springboot应用程序上下文
-     */
-    private SocketBootstrap(ConfigurableApplicationContext configurableApplicationContext) {
-        this.channelHandlers = new ChannelHandler[]{
-                new UMCPEncoder(),
-                new UMCPDecoder(),
-                new UMCProtocolSocketHandler(configurableApplicationContext)
-        };
-    }
 
     /**
      * 启动Netty服务
@@ -68,7 +52,7 @@ public class SocketBootstrap {
      */
     public static void run(ConfigurableApplicationContext configurableApplicationContext,
                            String[] args) {
-        new SocketBootstrap(configurableApplicationContext).run0(args);
+        new SocketBootstrap().run0(args, configurableApplicationContext);
     }
 
     /**
@@ -76,7 +60,7 @@ public class SocketBootstrap {
      *
      * @param args 保留参数
      */
-    private void run0(String[] args) {
+    private void run0(String[] args, ConfigurableApplicationContext configurableApplicationContext) {
         try {
             ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(BOSS_EVENT_LOOP_GROUP, WORKER_EVENT_LOOP_GROUP)
@@ -87,8 +71,9 @@ public class SocketBootstrap {
                         @Override
                         protected void initChannel(SocketChannel ch) {
                             ChannelPipeline pipeline = ch.pipeline();
-                            for (ChannelHandler channelHandler : channelHandlers)
-                                pipeline.addLast(channelHandler);
+                            pipeline.addLast(new UMCPEncoder());
+                            pipeline.addLast(new UMCPDecoder());
+                            pipeline.addLast(new UMCProtocolSocketHandler(configurableApplicationContext));
                         }
                     });
             ChannelFuture channelFuture = bootstrap.bind(new InetSocketAddress(11451)).sync();
