@@ -1,4 +1,4 @@
-package com.amaoai.msrv.handlers.iface;
+package com.amaoai.msrv.protocol.umcp.attch;
 
 /* ************************************************************************
  *
@@ -18,26 +18,22 @@ package com.amaoai.msrv.handlers.iface;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/27. */
+/* Creates on 2023/2/25. */
 
-import com.amaoai.msrv.handlers.UMCProtocolSocketHandler;
-import com.amaoai.msrv.protocol.umcp.UMCPCommand;
+import lombok.Data;
 
-import java.lang.annotation.*;
+import java.io.Serializable;
 
 /**
- * 被注解的类表示是 UMCP 协议命令的处理器，当前注解只针对 com.amaoai.msrv.handlers.umcphandlers 包
- * 下的类生效。并且类必须实现 UMCPCommandHandlerAdapter 接口。
- *
  * @author Vincent Luo
- * @see UMCProtocolSocketHandler#loadUMCPCommandHandlers
- * @see UMCPCommandHandlerAdapter
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface UMCPCommandHandlerSelect {
+@Data
+public class UserAuthorization implements Serializable {
 
-    UMCPCommand command();
+    private String authorization;
+
+    public UserAuthorization(String authorization) {
+        this.authorization = authorization;
+    }
 
 }

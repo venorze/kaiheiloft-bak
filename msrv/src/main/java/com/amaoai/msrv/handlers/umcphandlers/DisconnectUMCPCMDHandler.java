@@ -1,4 +1,4 @@
-package com.amaoai.msrv.protocol.umcp;
+package com.amaoai.msrv.handlers.umcphandlers;
 
 /* ************************************************************************
  *
@@ -18,43 +18,25 @@ package com.amaoai.msrv.protocol.umcp;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/25. */
+/* Creates on 2023/2/27. */
 
-import java.io.Serializable;
+import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerAdapter;
+import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerMark;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
+import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 
 /**
+ * 消息接收处理器
+ *
  * @author Vincent Luo
  */
-public enum UMCPCommand implements Serializable {
+@UMCPCMDHandlerMark(cmd = UMCPCMD.DISCONNECT)
+public class DisconnectUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
-    /**
-     * 用户登录，校验
-     */
-    SIGN_IN_SEND,
+    @Override
+    public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
 
-    /**
-     * 收到消息后回复客户端
-     */
-    SIGN_IN_ACK,
-
-    /**
-     * 发送消息
-     */
-    SEND,
-
-    /**
-     * 收到消息后回复客户端
-     */
-    ACK,
-
-    /**
-     * 心跳包
-     */
-    HEARTBEAT,
-
-    /**
-     * 客户端申请断开连接
-     */
-    DISCONNECT,
+    }
 
 }

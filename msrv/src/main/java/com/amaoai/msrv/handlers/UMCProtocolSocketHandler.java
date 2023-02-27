@@ -23,11 +23,11 @@ package com.amaoai.msrv.handlers;
 import com.amaoai.framework.collections.Maps;
 import com.amaoai.framework.refection.ClassLoaders;
 import com.amaoai.framework.refection.ClassUtils;
-import com.amaoai.msrv.handlers.contxt.SocketHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerAdapter;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerSelect;
+import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerAdapter;
+import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerMark;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
-import com.amaoai.msrv.protocol.umcp.UMCPCommand;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -50,14 +50,13 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
     /**
      * 每个处理器的上下文对象
      */
-    private SocketHandlerContext socketHandlerContext;
+    private ClientChannelHandlerContext cchx;
 
     /**
      * 协议命令处理器集合
      */
-    private final static Map<UMCPCommand, UMCPCommandHandlerAdapter> commandHandlers =
+    private final static Map<UMCPCMD, UMCPCMDHandlerAdapter> commandHandlers =
             Maps.newHashMap();
-
 
     static {
         // 加载 UMCP 命令处理器
@@ -72,13 +71,13 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
                 ClassLoaders.scanPackages("com.amaoai.msrv.handlers.umcphandlers");
         // 遍历处理器类
         for (Class<?> handlerClass : handlerClasses) {
-            if (handlerClass.isAnnotationPresent(UMCPCommandHandlerSelect.class)) {
+            if (handlerClass.isAnnotationPresent(UMCPCMDHandlerMark.class)) {
                 // 获取注解
-                UMCPCommandHandlerSelect umcpCommandHandlerSelect =
-                        handlerClass.getAnnotation(UMCPCommandHandlerSelect.class);
+                UMCPCMDHandlerMark UMCPCMDHandlerMark =
+                        handlerClass.getAnnotation(UMCPCMDHandlerMark.class);
                 // 实例化处理器
-                commandHandlers.put(umcpCommandHandlerSelect.command(),
-                        (UMCPCommandHandlerAdapter) ClassUtils.newInstance(handlerClass));
+                commandHandlers.put(UMCPCMDHandlerMark.cmd(),
+                        (UMCPCMDHandlerAdapter) ClassUtils.newInstance(handlerClass));
             }
         }
     }
@@ -92,8 +91,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        socketHandlerContext =
-                new SocketHandlerContext(ctx, configurableApplicationContext);
+        cchx = new ClientChannelHandlerContext(ctx, configurableApplicationContext);
     }
 
     /**
@@ -110,16 +108,42 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     private void selectUMCPCommandHandler(UMCProtocol umcp) {
         // 查找命令对应的处理器
-        UMCPCommandHandlerAdapter umcpCommandHandlerAdapter = commandHandlers.get(umcp.command());
-        if (umcpCommandHandlerAdapter != null) {
-            // 判断当前处理器是不是第一次调用
-            if (!umcpCommandHandlerAdapter.isActived()) {
-                umcpCommandHandlerAdapter.active(socketHandlerContext);
-                umcpCommandHandlerAdapter.actived();
+        UMCPCMDHandlerAdapter UMCPCMDHandlerAdapter = commandHandlers.get(umcp.cmd());
+        if (UMCPCMDHandlerAdapter != null) {
+            // 检查用户是否已经登录
+            if (umcp.cmd() != UMCPCMD.SIGN_IN_SEND &&
+                    !checkClientChannelHandlerContextValid(cchx)) {
+                cchx.notifyClientMarkedValidStatus("用户未认证");
+                return;
             }
+
+            // 判断用户是否重复登录
+            if (umcp.cmd() == UMCPCMD.SIGN_IN_SEND && cchx.isValid()) {
+                cchx.notifyClientMarkedValidStatus("请不要他妈的重复认证！");
+                return;
+            }
+
+            // 判断当前处理器是不是第一次调用
+            if (!UMCPCMDHandlerAdapter.isActived()) {
+                UMCPCMDHandlerAdapter.active(cchx);
+                UMCPCMDHandlerAdapter.actived();
+            }
+
             // 执行处理器函数
-            umcpCommandHandlerAdapter.handler(umcp, socketHandlerContext);
+            UMCPCMDHandlerAdapter.handler(umcp, cchx);
         }
+    }
+
+    /**
+     * 检查用户是否通过身份认证
+     */
+    private static boolean checkClientChannelHandlerContextValid(ClientChannelHandlerContext cchx) {
+        boolean retbool;
+        // 用户是否通过登录认证，如果未认证则强制断开连接
+        if (!(retbool = cchx.isValid()))
+            commandHandlers.get(UMCPCMD.DISCONNECT)
+                    .handler(UMCProtocol.DISCONNECT, cchx);
+        return retbool;
     }
 
 }

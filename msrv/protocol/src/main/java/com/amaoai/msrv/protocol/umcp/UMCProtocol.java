@@ -23,6 +23,7 @@ package com.amaoai.msrv.protocol.umcp;
 import com.amaoai.framework.generators.VersatileGenerator;
 import com.amaoai.framework.time.DateUtils;
 import lombok.Getter;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -32,13 +33,14 @@ import java.io.Serializable;
  *
  * @author Amaoai
  */
+@ToString
 public class UMCProtocol implements Serializable {
 
     /**
      * 命令类型
      */
     @NotNull
-    private UMCPCommand command;
+    private UMCPCMD cmd;
 
     /**
      * 当前数据包ID
@@ -55,33 +57,52 @@ public class UMCProtocol implements Serializable {
             DateUtils.currentTimestamp();
 
     /**
+     * 标志位
+     */
+    @Getter
+    private final int flags;
+
+    /**
      * 携带附件
      */
     private Object attach;
 
-    public static final UMCProtocol DISCONNECT = new UMCProtocol(null, UMCPCommand.DISCONNECT);
-    public static final UMCProtocol HEARTBEAT = new UMCProtocol(null, UMCPCommand.HEARTBEAT);
+    /* 默认标志位 */
+    public static final int NO_FLAGS = 0;
+
+    /* 断开连接 */
+    public static final UMCProtocol DISCONNECT = new UMCProtocol(NO_FLAGS, null, UMCPCMD.DISCONNECT);
+    /* 心跳包 */
+    public static final UMCProtocol HEARTBEAT = new UMCProtocol(NO_FLAGS, null, UMCPCMD.HEARTBEAT);
 
     /**
      * 空构造函数，默认指令是SEND
      */
     public UMCProtocol() {
-        this(null, UMCPCommand.SEND);
+        this(null);
     }
 
     /**
      * 带附件的造函数，默认指令是SEND
      */
     public UMCProtocol(Object attach) {
-        this(attach, UMCPCommand.SEND);
+        this(attach, UMCPCMD.SEND);
     }
 
     /**
      * 带附件和指令的构造函数
      */
-    public UMCProtocol(Object attach, @NotNull UMCPCommand command) {
+    public UMCProtocol(Object attach, @NotNull UMCPCMD cmd) {
+        this(NO_FLAGS, attach, cmd);
+    }
+
+    /**
+     * 全部参数构造函数
+     */
+    public UMCProtocol(int flags, Object attach, @NotNull UMCPCMD cmd) {
+        this.flags = flags;
         this.attach = attach;
-        this.command = command;
+        this.cmd = cmd;
     }
 
     /**
@@ -91,14 +112,14 @@ public class UMCProtocol implements Serializable {
         // 清空不必要的数据，减少带宽的占用
         timestamp = null;
         attach = null;
-        command = UMCPCommand.ACK;
+        cmd = UMCPCMD.ACK;
         // 返回当前对象
         return this;
     }
 
     @NotNull
-    public UMCPCommand command() {
-        return command;
+    public UMCPCMD cmd() {
+        return cmd;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.amaoai.msrv.handlers.umcphandlers;
+package com.amaoai.msrv.handlers.iface;
 
 /* ************************************************************************
  *
@@ -20,23 +20,24 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.SocketHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerAdapter;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerSelect;
-import com.amaoai.msrv.protocol.umcp.UMCPCommand;
-import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+import com.amaoai.msrv.handlers.UMCProtocolSocketHandler;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
+
+import java.lang.annotation.*;
 
 /**
- * 消息接收处理器
+ * 被注解的类表示是 UMCP 协议命令的处理器，当前注解只针对 com.amaoai.msrv.handlers.umcphandlers 包
+ * 下的类生效。并且类必须实现 UMCPCMDHandlerAdapter 接口。
  *
  * @author Vincent Luo
+ * @see UMCProtocolSocketHandler#loadUMCPCommandHandlers
+ * @see UMCPCMDHandlerAdapter
  */
-@UMCPCommandHandlerSelect(command = UMCPCommand.HEARTBEAT)
-public class HeartbeatUMCPCommandHandler extends UMCPCommandHandlerAdapter {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface UMCPCMDHandlerMark {
 
-    @Override
-    public void handler(UMCProtocol umcp, SocketHandlerContext ctx) {
-
-    }
+    UMCPCMD cmd();
 
 }

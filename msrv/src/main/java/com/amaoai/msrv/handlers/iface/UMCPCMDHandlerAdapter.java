@@ -20,7 +20,7 @@ package com.amaoai.msrv.handlers.iface;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.SocketHandlerContext;
+import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 
 /**
@@ -28,7 +28,7 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
  *
  * @author Vincent Luo
  */
-public abstract class UMCPCommandHandlerAdapter {
+public abstract class UMCPCMDHandlerAdapter {
 
     /**
      * 处理器是不是第一次进入活动状态
@@ -38,7 +38,7 @@ public abstract class UMCPCommandHandlerAdapter {
     /**
      * 当第一次进入处理器时
      */
-    public void active(SocketHandlerContext ctx) {
+    public void active(ClientChannelHandlerContext cchx) {
         // do nothing...
     }
 
@@ -59,6 +59,6 @@ public abstract class UMCPCommandHandlerAdapter {
     /**
      * 子类实现处理函数
      */
-    public abstract void handler(UMCProtocol umcp, SocketHandlerContext ctx);
+    public abstract void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx);
 
 }

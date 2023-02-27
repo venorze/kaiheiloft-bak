@@ -20,11 +20,11 @@ package com.amaoai;
 
 /* Creates on 2023/2/22. */
 
-import com.amaoai.msrv.protocol.umcp.UMCPCommand;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
-import com.amaoai.msrv.protocol.umcp.attch.UserToken;
+import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -60,7 +60,7 @@ public class ClientMain {
         }
     }
 
-    static UserToken userToken = new UserToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzUwNzY0Mn0.5acDaEd8pdvG2ILHY_nbcS2bcgx5lr7fw9wWSrFDl7M");
+    static UserAuthorization userAuthorization = new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzUwNzY0Mn0.5acDaEd8pdvG2ILHY_nbcS2bcgx5lr7fw9wWSrFDl7M");
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -82,7 +82,7 @@ public class ClientMain {
                                     .addLast(new ChannelInboundHandlerAdapter() {
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                            UMCProtocol umcp = new UMCProtocol(userToken, UMCPCommand.SIGN_IN_SEND);
+                                            UMCProtocol umcp = new UMCProtocol(userAuthorization, UMCPCMD.SIGN_IN_SEND);
                                             ctx.writeAndFlush(umcp);
                                         }
 

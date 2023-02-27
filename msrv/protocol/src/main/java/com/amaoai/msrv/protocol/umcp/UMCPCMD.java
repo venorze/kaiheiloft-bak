@@ -1,4 +1,4 @@
-package com.amaoai.msrv.protocol.umcp.attch;
+package com.amaoai.msrv.protocol.umcp;
 
 /* ************************************************************************
  *
@@ -20,20 +20,52 @@ package com.amaoai.msrv.protocol.umcp.attch;
 
 /* Creates on 2023/2/25. */
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 /**
  * @author Vincent Luo
  */
-@Data
-public class UserToken implements Serializable {
+public enum UMCPCMD implements Serializable {
 
-    private String token;
+    /**
+     * 用户登录，校验
+     */
+    SIGN_IN_SEND,
 
-    public UserToken(String token) {
-        this.token = token;
-    }
+    /**
+     * 收到消息后回复客户端
+     */
+    SIGN_IN_ACK,
+
+    /**
+     * 发送消息
+     */
+    SEND,
+
+    /**
+     * 收到消息后回复客户端
+     */
+    ACK,
+
+    /**
+     * 心跳包
+     */
+    HEARTBEAT,
+
+    /**
+     * 客户端申请断开连接
+     */
+    DISCONNECT,
+    ;
+
+    /**
+     * 用户认证成功
+     */
+    public static final int CMDFLAG_SIGN_IN_SUCCESS = 1;
+
+    /**
+     * 用户认证失败
+     */
+    public static final int CMDFLAG_SIGN_IN_FAILED = 0;
 
 }

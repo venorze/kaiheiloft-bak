@@ -20,10 +20,10 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.SocketHandlerContext;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerSelect;
-import com.amaoai.msrv.handlers.iface.UMCPCommandHandlerAdapter;
-import com.amaoai.msrv.protocol.umcp.UMCPCommand;
+import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerAdapter;
+import com.amaoai.msrv.handlers.iface.UMCPCMDHandlerMark;
+import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 
 /**
@@ -31,11 +31,11 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
  *
  * @author Vincent Luo
  */
-@UMCPCommandHandlerSelect(command = UMCPCommand.SEND)
-public class SendUMCPCommandHandler extends UMCPCommandHandlerAdapter {
+@UMCPCMDHandlerMark(cmd = UMCPCMD.HEARTBEAT)
+public class HeartbeatUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
     @Override
-    public void handler(UMCProtocol umcp, SocketHandlerContext ctx) {
+    public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
 
     }
 
