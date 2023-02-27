@@ -26,7 +26,6 @@ import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessageType;
 import io.netty.channel.ChannelHandlerContext;
-import lombok.SneakyThrows;
 
 /**
  * No Descript.
@@ -35,8 +34,20 @@ import lombok.SneakyThrows;
  */
 public class CMDHandler {
 
+    static UserAuthorization kaiheiloftAuthorization =
+          new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzYwMDU1NX0.-9eUvQ9c7FvvkWBp16keLu9e-O0VqRQdtv-cqKlEBOc");
+
+    static UserAuthorization vincentAuthorization =
+          new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzczODIwODYwMTQwNzQ4OCwidW5hbWUiOiJ2aW5jZW50In0sImV4cCI6MTY3NzYwMDU1M30.LWs5cZ94Z52f8BhTNZlSFPTeP83vqPGo9KxLxBDncb8");
+
     public static void login(ChannelHandlerContext ctx, String attach) {
-        ctx.writeAndFlush(new UMCProtocol(new UserAuthorization(attach), UMCPCMD.SIGN_IN_SEND));
+        UserAuthorization authorization = null;
+        if ("k".equals(attach))
+            authorization = kaiheiloftAuthorization;
+        else if ("v".equals(attach))
+            authorization = vincentAuthorization;
+
+        ctx.writeAndFlush(new UMCProtocol(authorization, UMCPCMD.SIGN_IN_SEND));
     }
 
     public static void send(ChannelHandlerContext ctx, String attach) {

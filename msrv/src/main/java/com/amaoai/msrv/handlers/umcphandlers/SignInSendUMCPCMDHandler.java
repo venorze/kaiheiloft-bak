@@ -23,7 +23,8 @@ package com.amaoai.msrv.handlers.umcphandlers;
 import com.amaoai.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
 import com.amaoai.export.opensso.modx.UserTokenPayload;
 import com.amaoai.framework.R;
-import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.framework.exception.OptionFailedException;
+import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
@@ -44,30 +45,44 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
     private UnifiedUserAuthenticationServiceAPI unifiedUserAuthenticationServiceAPI;
 
     @Override
-    public void active(ClientChannelHandlerContext cchx) {
+    public void active(SessionChannelHandlerContext schx) {
         unifiedUserAuthenticationServiceAPI =
-                cchx.springBeanFactory().getBean(UnifiedUserAuthenticationServiceAPI.class);
+                schx.springBeanFactory().getBean(UnifiedUserAuthenticationServiceAPI.class);
     }
 
     @Override
-    public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
-        UserAuthorization userAuthorization = umcp.attach();
-        // 处理用户登录
-        R<UserTokenPayload> payload =
-                unifiedUserAuthenticationServiceAPI.verifier(userAuthorization.getAuthorization());
+    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+        // 用户登录
+        UserTokenPayload userTokenPayload = sign_in(umcp, schx);
+        if (userTokenPayload != null) {
+            // 注册有效通道标识
+            String username = userTokenPayload.getUsername();
+            SessionChannelHandlerContext.markValidSessionChannelHandlerContext(username, schx);
+            schx.notifyClientMarkedValidStatus("认证成功，欢迎登录[{}]", username);
+        }
+    }
 
-        // 判断用户是否登录成功
-        if (!payload.isSuccess()) {
-            cchx.notifyClientMarkedValidStatus("认证失败");
-            cchx.close();
-            return;
+    /**
+     * 处理用户登录操作
+     */
+    private UserTokenPayload sign_in(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+        try {
+            UserAuthorization userAuthorization = umcp.attach();
+            // 处理用户登录
+            R<UserTokenPayload> payload =
+                  unifiedUserAuthenticationServiceAPI.verifier(userAuthorization.getAuthorization());
+            // 判断用户是否登录成功
+            if (!payload.isSuccess())
+                throw new OptionFailedException();
+
+            return payload.to(UserTokenPayload.class);
+        } catch (Throwable e) {
+            schx.notifyClientMarkedValidStatus("用户认证失败，认证信息错误或服务器异常");
+            schx.close();
+            e.printStackTrace();
         }
 
-        // 注册有效通道标识
-        UserTokenPayload userTokenPayload = payload.to(UserTokenPayload.class);
-        String username = userTokenPayload.getUsername();
-        ClientChannelHandlerContext.markValidClientChannelHandlerContext(username, cchx);
-        cchx.notifyClientMarkedValidStatus("认证成功，欢迎登录[{}]", username);
+        return null;
     }
 
 }

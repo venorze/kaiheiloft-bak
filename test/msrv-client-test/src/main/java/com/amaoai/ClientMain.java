@@ -47,10 +47,7 @@ import java.util.Scanner;
  */
 public class ClientMain {
 
-    static UserAuthorization userAuthorization = new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzUwNzY0Mn0.5acDaEd8pdvG2ILHY_nbcS2bcgx5lr7fw9wWSrFDl7M");
-
     static Scanner stdin = new Scanner(System.in);
-
 
     /**
      * channel处理器

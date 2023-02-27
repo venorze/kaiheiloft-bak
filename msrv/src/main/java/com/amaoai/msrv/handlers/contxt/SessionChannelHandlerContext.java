@@ -27,7 +27,6 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
-import lombok.Data;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -37,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author Vincent Luo
  */
-public class ClientChannelHandlerContext {
+public class SessionChannelHandlerContext {
 
     /**
      * channel处理器上下文
@@ -57,11 +56,11 @@ public class ClientChannelHandlerContext {
     /**
      * 已经通过登录认证注册好的用户Channel
      */
-    private static final Map<String, ClientChannelHandlerContext>
-            markedValidClientChannelHandlerContext = new ConcurrentHashMap<>(1024);
+    private static final Map<String, SessionChannelHandlerContext>
+            markedValidSessionChannelHandlerContext = new ConcurrentHashMap<>(1024);
 
-    public ClientChannelHandlerContext(ChannelHandlerContext ctx,
-                                       ConfigurableApplicationContext configurableApplicationContext) {
+    public SessionChannelHandlerContext(ChannelHandlerContext ctx,
+                                        ConfigurableApplicationContext configurableApplicationContext) {
         this.channelHandlerContext = ctx;
         this.configurableApplicationContext = configurableApplicationContext;
     }
@@ -103,7 +102,7 @@ public class ClientChannelHandlerContext {
      * @return 用户是否通过了登录认证
      */
     public boolean isValid() {
-        return user != null && markedValidClientChannelHandlerContext.containsKey(user);
+        return user != null && markedValidSessionChannelHandlerContext.containsKey(user);
     }
 
     /**
@@ -119,11 +118,11 @@ public class ClientChannelHandlerContext {
      *
      * @see SignInSendUMCPCMDHandler#handler
      */
-    public static void markValidClientChannelHandlerContext(String user, ClientChannelHandlerContext cchx) {
-        synchronized (markedValidClientChannelHandlerContext) {
-            markedValidClientChannelHandlerContext.put(user, cchx);
+    public static void markValidSessionChannelHandlerContext(String user, SessionChannelHandlerContext schx) {
+        synchronized (markedValidSessionChannelHandlerContext) {
+            markedValidSessionChannelHandlerContext.put(user, schx);
             // 设置当前客户端通道的所属用户
-            cchx.user = user;
+            schx.user = user;
         }
     }
 
@@ -132,19 +131,19 @@ public class ClientChannelHandlerContext {
      *
      * @see SignInSendUMCPCMDHandler#handler
      */
-    public static void markUnValidClientChannelHandlerContext(ClientChannelHandlerContext cchx) {
-        synchronized (markedValidClientChannelHandlerContext) {
-            cchx.close();
-            if (cchx.user != null)
-                markedValidClientChannelHandlerContext.remove(cchx.user);
+    public static void markUnValidSessionChannelHandlerContext(SessionChannelHandlerContext schx) {
+        synchronized (markedValidSessionChannelHandlerContext) {
+            schx.close();
+            if (schx.user != null)
+                markedValidSessionChannelHandlerContext.remove(schx.user);
         }
     }
 
     /**
      * 获取在线的客户端
      */
-    public static ClientChannelHandlerContext online(String user) {
-        return markedValidClientChannelHandlerContext.get(user);
+    public static SessionChannelHandlerContext online(String user) {
+        return markedValidSessionChannelHandlerContext.get(user);
     }
 
 

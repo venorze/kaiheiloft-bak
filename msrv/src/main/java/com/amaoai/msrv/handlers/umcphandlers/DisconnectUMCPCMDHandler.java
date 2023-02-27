@@ -20,7 +20,7 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
@@ -35,9 +35,9 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 public class DisconnectUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
     @Override
-    public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
+    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
         // 断开与客户端的连接
-        ClientChannelHandlerContext.markUnValidClientChannelHandlerContext(cchx);
+        SessionChannelHandlerContext.markUnValidSessionChannelHandlerContext(schx);
     }
 
 }

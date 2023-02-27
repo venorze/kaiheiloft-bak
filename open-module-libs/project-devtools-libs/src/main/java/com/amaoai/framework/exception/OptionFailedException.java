@@ -1,4 +1,4 @@
-package com.amaoai.msrv.handlers.umcphandlers;
+package com.amaoai.framework.exception;
 
 /* ************************************************************************
  *
@@ -18,25 +18,26 @@ package com.amaoai.msrv.handlers.umcphandlers;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/27. */
-
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
-import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
-import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
-import com.amaoai.msrv.protocol.umcp.UMCPCMD;
-import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+/* Creates on 2023/2/28. */
 
 /**
- * 消息接收处理器
- *
  * @author Vincent Luo
  */
-@UMCPCMDHandlerMark(cmd = UMCPCMD.HEARTBEAT)
-public class HeartbeatUMCPCMDHandler extends UMCPCMDHandlerAdapter {
+public class OptionFailedException extends FmtRuntimeException {
 
-    @Override
-    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+    public OptionFailedException() {
+    }
 
+    public OptionFailedException(String message, Object... args) {
+        super(message, args);
+    }
+
+    public OptionFailedException(String message, Throwable cause, Object... args) {
+        super(message, cause, args);
+    }
+
+    public OptionFailedException(Throwable cause) {
+        super(cause);
     }
 
 }

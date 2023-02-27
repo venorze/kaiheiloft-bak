@@ -20,7 +20,7 @@ package com.amaoai.msrv.handlers;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 
@@ -39,7 +39,7 @@ public abstract class UMCPCMDHandlerAdapter {
     /**
      * 当第一次进入处理器时
      */
-    public void active(ClientChannelHandlerContext cchx) {
+    public void active(SessionChannelHandlerContext schx) {
         // do nothing...
     }
 
@@ -60,13 +60,13 @@ public abstract class UMCPCMDHandlerAdapter {
     /**
      * 自动回复
      */
-    public static void autoack(UMCProtocol umcp, UMCPCMD ackcmd, ClientChannelHandlerContext cchx) {
-        cchx.writeAndFlush(umcp.ack(ackcmd));
+    public static void autoack(UMCProtocol umcp, UMCPCMD ackcmd, SessionChannelHandlerContext schx) {
+        schx.writeAndFlush(umcp.ack(ackcmd));
     }
 
     /**
      * 子类实现处理函数
      */
-    public abstract void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx);
+    public abstract void handler(UMCProtocol umcp, SessionChannelHandlerContext schx);
 
 }

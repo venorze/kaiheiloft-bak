@@ -20,15 +20,14 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.ClientChannelHandlerContext;
-import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
+import com.amaoai.framework.logging.Logger;
+import com.amaoai.framework.logging.LoggerFactory;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
+import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
+import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import lombok.SneakyThrows;
 
 /**
  * 消息接收处理器
@@ -38,19 +37,23 @@ import lombok.SneakyThrows;
 @UMCPCMDHandlerMark(cmd = UMCPCMD.SEND)
 public class SendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
+    private static final Logger LOG = LoggerFactory.getLogger(SendUMCPCMDHandler.class);
+
     @Override
-    @SneakyThrows
-    public void handler(UMCProtocol umcp, ClientChannelHandlerContext cchx) {
-        // 拿到聊天消息
-        UserMessage message = umcp.attach();
-        message.setSender(cchx.user());
-        // 获取在线的客户端
-        var onlinecchx = ClientChannelHandlerContext.online(message.getReceiver());
-        if (onlinecchx != null) {
-            onlinecchx.writeAndFlush(umcp).sync();
+    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+        try {
+            // 拿到聊天消息
+            UserMessage message = umcp.attach();
+            message.setSender(schx.user());
+            // 获取在线的客户端
+            var onlineschx = SessionChannelHandlerContext.online(message.getReceiver());
+            if (onlineschx != null)
+                onlineschx.writeAndFlush(umcp).sync();
+            // 回复客户端服务器已收到消息
+            autoack(umcp, UMCPCMD.ACK, schx);
+        } catch (Throwable e) {
+            LOG.error("SendUMCPCMDHandler", e);
         }
-        // 回复客户端服务器已收到消息
-        autoack(umcp, UMCPCMD.ACK, cchx);
     }
 
 }
