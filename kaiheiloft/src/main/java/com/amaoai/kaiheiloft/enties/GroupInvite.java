@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,27 +18,40 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 俱乐部成员邀请新成员加入表
+ *
  * @author Vincent Luo
  */
 @Data
-public class InviteModx {
+@EqualsAndHashCode(callSuper = true)
+@TableName("khl_group_invite")
+public class GroupInvite extends SuperModel<GroupInvite> {
 
     /**
      * 俱乐部ID
      */
-    @NotNull(message = "俱乐部ID不能为空")
     private Long groupId;
 
     /**
-     * 俱乐部名称
+     * 用户ID
      */
-    @NotNull(message = "用户ID不能为空")
     private Long userId;
+
+    /**
+     * 邀请人ID
+     */
+    private Long inviterId;
+
+    /**
+     * 是否同意加入
+     */
+    private String agreeStatus;
 
 }

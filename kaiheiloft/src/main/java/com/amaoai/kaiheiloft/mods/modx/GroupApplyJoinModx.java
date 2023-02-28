@@ -18,16 +18,17 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/4. */
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author Vincent Luo
  */
 @Data
-public class InviteModx {
+public class GroupApplyJoinModx {
 
     /**
      * 俱乐部ID
@@ -36,9 +37,9 @@ public class InviteModx {
     private Long groupId;
 
     /**
-     * 俱乐部名称
+     * 申请备注
      */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
+    @Length(max = 50, message = "申请备注字符长度不能大于50个字符")
+    private String requestRemark;
 
 }

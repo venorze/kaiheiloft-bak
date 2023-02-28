@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.mapper;
 
 /* ************************************************************************
  *
@@ -18,27 +18,24 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/1/13. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.amaoai.kaiheiloft.enties.GroupMember;
+import com.amaoai.kaiheiloft.mods.modv.GroupMemberInfoModv;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author Vincent Luo
  */
-@Data
-public class InviteModx {
+@Mapper
+public interface GroupMemberMapper extends BaseMapper<GroupMember> {
 
     /**
-     * 俱乐部ID
+     * 分页查询俱乐部成员
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long groupId;
-
-    /**
-     * 俱乐部名称
-     */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
+    IPage<GroupMemberInfoModv> queryPageMember(@Param("page") IPage<?> page, @Param("groupId") Long groupId);
 
 }

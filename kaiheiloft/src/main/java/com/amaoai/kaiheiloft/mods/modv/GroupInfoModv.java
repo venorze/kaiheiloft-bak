@@ -18,29 +18,53 @@ package com.amaoai.kaiheiloft.mods.modv;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/6. */
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.amaoai.kaiheiloft.enties.Group;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Date;
+import java.util.List;
 
 /**
+ * 俱乐部全量信息对象
+ *
  * @author Vincent Luo
  */
 @Data
-public class InviteModv {
+@EqualsAndHashCode(callSuper = true)
+public class GroupInfoModv extends Group {
 
     /**
-     * 俱乐部名称
+     * 俱乐部频道
      */
-    private String groupNickname;
+    @Data
+    public static class Channel {
+        // 频道ID
+        private Long id;
+        // 频道名称
+        private String name;
+        // 频道类型
+        private String type;
+    }
 
     /**
-     * 用户名称
+     * 更新时间（这个字段不需要json序列化）
      */
-    private String userNickname;
+    @JsonIgnore
+    private Date updateTime;
 
     /**
-     * 邀请人名称
+     * 俱乐部频道列表
      */
-    private String inviterNickname;
+    private List<Channel> channels;
+
+    /**
+     * 俱乐部成员列表（分页数据）
+     */
+    private IPage<GroupMemberInfoModv> members;
 
 }

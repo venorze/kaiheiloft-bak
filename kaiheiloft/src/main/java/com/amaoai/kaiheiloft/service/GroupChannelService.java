@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.service;
 
 /* ************************************************************************
  *
@@ -18,27 +18,25 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.amaoai.kaiheiloft.enties.GroupChannel;
+
+import java.util.List;
 
 /**
  * @author Vincent Luo
  */
-@Data
-public class InviteModx {
+public interface GroupChannelService extends IService<GroupChannel> {
 
     /**
-     * 俱乐部ID
+     * 创建频道
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long groupId;
+    void create(Long groupId, String channelName, String channelType);
 
     /**
-     * 俱乐部名称
+     * 查询所有频道
      */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
-
+    List<GroupChannel> queryChannels(Long groupId);
 }

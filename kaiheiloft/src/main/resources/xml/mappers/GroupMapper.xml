@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amaoai.kaiheiloft.mapper.GroupMapper">
+
+    <select id="queryGroupsByUserId" resultType="com.amaoai.kaiheiloft.enties.Group">
+        select kc.* from khl_group kc left join khl_group_member kcm on kc.id = kcm.group_id
+                    where kcm.user_id = #{userId}
+    </select>
+
+</mapper>

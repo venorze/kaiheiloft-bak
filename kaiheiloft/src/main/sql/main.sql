@@ -74,8 +74,8 @@ CREATE TABLE `khl_user_friend`
 -- ---------------------------------
 -- 俱乐部表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club`;
-CREATE TABLE `khl_club`
+DROP TABLE IF EXISTS `khl_group`;
+CREATE TABLE `khl_group`
 (
     `id`          varchar(32)  NOT NULL COMMENT '主键ID',
     `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -92,14 +92,14 @@ CREATE TABLE `khl_club`
 -- ---------------------------------
 -- 俱乐部频道表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club_channel`;
-CREATE TABLE `khl_club_channel`
+DROP TABLE IF EXISTS `khl_group_channel`;
+CREATE TABLE `khl_group_channel`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `name`        varchar(20) NOT NULL COMMENT '俱乐部频道名称',
-    `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `group_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
     `type`        char(1) not null comment '频道类型，T文字频道，V语音频道',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -109,13 +109,13 @@ CREATE TABLE `khl_club_channel`
 -- ---------------------------------
 -- 俱乐部公告表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club_announcement`;
-CREATE TABLE `khl_club_announcement`
+DROP TABLE IF EXISTS `khl_group_announcement`;
+CREATE TABLE `khl_group_announcement`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `group_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
     `content`     varchar(562) COMMENT '公告内容',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -125,13 +125,13 @@ CREATE TABLE `khl_club_announcement`
 -- ---------------------------------
 -- 俱乐部成员表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club_member`;
-CREATE TABLE `khl_club_member`
+DROP TABLE IF EXISTS `khl_group_member`;
+CREATE TABLE `khl_group_member`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `group_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`     varchar(32) NOT NULL COMMENT '用户ID',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -141,13 +141,13 @@ CREATE TABLE `khl_club_member`
 -- ---------------------------------
 -- 俱乐部管理员表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club_admin`;
-CREATE TABLE `khl_club_admin`
+DROP TABLE IF EXISTS `khl_group_admin`;
+CREATE TABLE `khl_group_admin`
 (
     `id`          varchar(32) NOT NULL COMMENT '主键ID',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `group_id`     varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`     varchar(32) NOT NULL COMMENT '用户ID',
     `superadmin`  char(1)     NOT NULL DEFAULT 'N' COMMENT '是否超级管理员，N否 Y是，默认：N',
     PRIMARY KEY (`id`)
@@ -158,13 +158,13 @@ CREATE TABLE `khl_club_admin`
 -- ---------------------------------
 -- 俱乐部成员申请加入表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club_agree_status`;
-CREATE TABLE `khl_club_agree_status`
+DROP TABLE IF EXISTS `khl_group_agree_status`;
+CREATE TABLE `khl_group_agree_status`
 (
     `id`             varchar(32) NOT NULL COMMENT '主键ID',
     `create_time`    timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id`        varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `group_id`        varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`        varchar(32) NOT NULL COMMENT '用户ID',
     `request_remark` varchar(50) COMMENT '申请备注',
     `agree_status`   char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
@@ -177,13 +177,13 @@ CREATE TABLE `khl_club_agree_status`
 -- ---------------------------------
 -- 俱乐部成员邀请新成员加入表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_club_invite`;
-CREATE TABLE `khl_club_invite`
+DROP TABLE IF EXISTS `khl_group_invite`;
+CREATE TABLE `khl_group_invite`
 (
     `id`           varchar(32) NOT NULL COMMENT '主键ID',
     `create_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `club_id`      varchar(32) NOT NULL COMMENT '俱乐部ID',
+    `group_id`      varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`      varchar(32) NOT NULL COMMENT '用户ID',
     `inviter_id`   varchar(32) NOT NULL COMMENT '邀请人ID',
     `agree_status` char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',

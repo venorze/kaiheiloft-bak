@@ -22,12 +22,12 @@ package com.amaoai.kaiheiloft.controller;
 
 import com.amaoai.framework.BeanUtils;
 import com.amaoai.framework.R;
-import com.amaoai.kaiheiloft.enties.Club;
-import com.amaoai.kaiheiloft.mods.modv.ClubModv;
+import com.amaoai.kaiheiloft.enties.Group;
+import com.amaoai.kaiheiloft.mods.modv.GroupModv;
 import com.amaoai.kaiheiloft.mods.modx.EditMailModx;
 import com.amaoai.kaiheiloft.mods.modx.EditPasswordModx;
 import com.amaoai.kaiheiloft.mods.modx.UserProfileModx;
-import com.amaoai.kaiheiloft.service.ClubService;
+import com.amaoai.kaiheiloft.service.GroupService;
 import com.amaoai.kaiheiloft.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class UserController extends SuperController {
     private UserService userService;
 
     @Autowired
-    private ClubService clubService;
+    private GroupService groupService;
 
     /**
      * 获取用户个人信息
@@ -88,10 +88,10 @@ public class UserController extends SuperController {
     /**
      * @return 查询用户加入的俱乐部列表
      */
-    @GetMapping("/clubs")
-    public R<List<ClubModv>> queryClubsByUserId() {
-        List<Club> clubs = clubService.queryClubsByUserId(getCurrentUserId());
-        return R.ok(BeanUtils.copyProperties(clubs, ClubModv.class));
+    @GetMapping("/groups")
+    public R<List<GroupModv>> queryGroupsByUserId() {
+        List<Group> groups = groupService.queryGroupsByUserId(getCurrentUserId());
+        return R.ok(BeanUtils.copyProperties(groups, GroupModv.class));
     }
 
 }

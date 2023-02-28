@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.mapper;
 
 /* ************************************************************************
  *
@@ -18,27 +18,15 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.amaoai.kaiheiloft.enties.GroupApplyJoin;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Vincent Luo
  */
-@Data
-public class InviteModx {
-
-    /**
-     * 俱乐部ID
-     */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long groupId;
-
-    /**
-     * 俱乐部名称
-     */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
-
+@Mapper
+public interface GroupApplyJoinMapper extends BaseMapper<GroupApplyJoin> {
 }

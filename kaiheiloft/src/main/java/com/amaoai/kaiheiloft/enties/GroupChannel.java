@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.enties;
 
 /* ************************************************************************
  *
@@ -18,27 +18,35 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/6. */
 
-import jakarta.validation.constraints.NotNull;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 俱乐部频道表
+ *
  * @author Vincent Luo
  */
 @Data
-public class InviteModx {
+@EqualsAndHashCode(callSuper = true)
+@TableName("khl_group_channel")
+public class GroupChannel extends SuperModel<GroupChannel> {
+
+    /**
+     * 频道名称
+     */
+    private String name;
 
     /**
      * 俱乐部ID
      */
-    @NotNull(message = "俱乐部ID不能为空")
     private Long groupId;
 
     /**
-     * 俱乐部名称
+     * 频道类型，V表示语音频道，T表示文字频道
      */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
+    private String type;
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amaoai.kaiheiloft.mapper.GroupMemberMapper">
+
+    <select id="queryPageMember" resultType="com.amaoai.kaiheiloft.mods.modv.GroupMemberInfoModv">
+        select kui.id as id,
+               kui.username as username,
+               kui.nickname as nickname,
+               kui.avatar as avatar,
+               ifnull(kca.superadmin, 'M') as superadmin
+        from khl_group_member kcm
+            left join khl_user_info kui on kcm.user_id = kui.id
+            left join khl_group_admin kca on kcm.user_id = kca.user_id
+        where kcm.group_id = #{groupId}
+    </select>
+
+</mapper>

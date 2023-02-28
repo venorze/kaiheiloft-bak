@@ -18,27 +18,25 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/6. */
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * No Descript.
+ *
  * @author Vincent Luo
  */
 @Data
-public class InviteModx {
+@EqualsAndHashCode(callSuper = true)
+public class GroupMemberPageModx extends PageModx {
 
     /**
-     * 俱乐部ID
+     * 俱乐部Id
      */
     @NotNull(message = "俱乐部ID不能为空")
     private Long groupId;
-
-    /**
-     * 俱乐部名称
-     */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
 
 }

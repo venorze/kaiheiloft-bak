@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.service;
 
 /* ************************************************************************
  *
@@ -20,25 +20,39 @@ package com.amaoai.kaiheiloft.mods.modx;
 
 /* Creates on 2023/2/5. */
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.amaoai.kaiheiloft.enties.GroupInvite;
+import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+
+import java.util.List;
 
 /**
  * @author Vincent Luo
  */
-@Data
-public class InviteModx {
+public interface GroupInviteService extends IService<GroupInvite> {
 
     /**
-     * 俱乐部ID
+     * 查询用户邀请列表
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long groupId;
+    GroupInvite queryUserInvite(Long inviteId, Long userId);
 
     /**
-     * 俱乐部名称
+     * 邀请新成员加入
      */
-    @NotNull(message = "用户ID不能为空")
-    private Long userId;
+    void invite(Long groupId, Long userId, Long inviterId);
 
+    /**
+     * 查询用户邀请列表
+     */
+    List<InviteModv> queryInvitesByUserId(Long userId);
+
+    /**
+     * 同意邀请
+     */
+    void agree(Long inviteId);
+
+    /**
+     * 拒绝邀请
+     */
+    void refuse(Long inviteId);
 }
