@@ -58,7 +58,7 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
             // 注册有效通道标识
             String username = userTokenPayload.getUsername();
             SessionChannelHandlerContext.markValidSessionChannelHandlerContext(username, schx);
-            schx.notifyClientMarkedValidStatus("认证成功，欢迎登录[{}]", username);
+            schx.notifySessionMarkedValidStatus("认证成功，欢迎登录[{}]", username);
         }
     }
 
@@ -77,7 +77,7 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
             return payload.to(UserTokenPayload.class);
         } catch (Throwable e) {
-            schx.notifyClientMarkedValidStatus("用户认证失败，认证信息错误或服务器异常");
+            schx.notifySessionMarkedValidStatus("用户认证失败，认证信息错误或服务器异常");
             schx.close();
             e.printStackTrace();
         }

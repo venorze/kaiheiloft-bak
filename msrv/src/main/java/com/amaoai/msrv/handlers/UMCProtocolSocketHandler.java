@@ -135,7 +135,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
             if (umcp.cmd() != UMCPCMD.SIGN_IN_SEND &&
                   !schx.isValid()) {
                 // 通知客户端
-                schx.notifyClientMarkedValidStatus("用户未认证！");
+                schx.notifySessionMarkedValidStatus("用户未认证！");
                 // 断开连接
                 selectUMCPCMDHandler(UMCProtocol.DISCONNECT)
                       .handler(UMCProtocol.DISCONNECT, schx);
@@ -144,7 +144,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
 
             // 判断用户是否重复登录
             if (umcp.cmd() == UMCPCMD.SIGN_IN_SEND && schx.isValid()) {
-                schx.notifyClientMarkedValidStatus("请勿重复认证！");
+                schx.notifySessionMarkedValidStatus("请勿重复认证！");
                 return;
             }
 

@@ -108,7 +108,7 @@ public class SessionChannelHandlerContext {
     /**
      * 通知客户端用户认证状态
      */
-    public void notifyClientMarkedValidStatus(String fmt, Object... args) {
+    public void notifySessionMarkedValidStatus(String fmt, Object... args) {
         writeAndFlush(new UMCProtocol(user != null ? UMCPCMD.CMDFLAG_SIGN_IN_SUCCESS : UMCPCMD.CMDFLAG_SIGN_IN_FAILED,
                 ("SIGN IN ACK - " + StringUtils.vfmt(fmt, args)), UMCPCMD.SIGN_IN_ACK));
     }

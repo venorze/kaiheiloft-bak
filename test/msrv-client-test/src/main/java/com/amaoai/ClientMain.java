@@ -21,11 +21,11 @@ package com.amaoai;
 /* Creates on 2023/2/22. */
 
 import com.amaoai.framework.StringUtils;
+import com.amaoai.framework.io.IOUtils;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
-import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -47,7 +47,7 @@ import java.util.Scanner;
  */
 public class ClientMain {
 
-    static Scanner stdin = new Scanner(System.in);
+    static Scanner stdin = new Scanner(IOUtils.stdin);
 
     /**
      * channel处理器
