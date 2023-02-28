@@ -34,6 +34,11 @@ import kotlin.math.abs
 object DateUtils {
 
     /**
+     * 获取当前时间
+     */
+    @JvmStatic fun currentDate(): Date = Date()
+
+    /**
      * 获取当前时间戳
      */
     @JvmStatic fun currentTimestamp(): Long = System.currentTimeMillis()

@@ -21,6 +21,8 @@ package com.amaoai.msrv.handlers;
 /* Creates on 2023/2/27. */
 
 import com.amaoai.framework.collections.Maps;
+import com.amaoai.framework.redis.RedisOperationPool;
+import com.amaoai.framework.redis.RedisSessionFactory;
 import com.amaoai.framework.refection.ClassLoaders;
 import com.amaoai.framework.refection.ClassUtils;
 import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
@@ -58,6 +60,12 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
     private final static Map<UMCPCMD, UMCPCMDHandlerAdapter> commandHandlers =
             Maps.newHashMap();
 
+    /**
+     * redis会话
+     */
+    private final static RedisOperationPool redisOperationPool =
+          RedisSessionFactory.connect("123.60.211.203", 6379);
+
     static {
         // 加载 UMCP 命令处理器
         autoloadUMCPCommandHandlers();
@@ -91,7 +99,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        schx = new SessionChannelHandlerContext(ctx, configurableApplicationContext);
+        schx = new SessionChannelHandlerContext(ctx, redisOperationPool, configurableApplicationContext);
     }
 
     @Override

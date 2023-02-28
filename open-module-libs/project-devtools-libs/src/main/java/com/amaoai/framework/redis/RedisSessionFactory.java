@@ -1,4 +1,4 @@
-package com.amaoai.msrv.handlers.umcphandlers;
+package com.amaoai.framework.redis;
 
 /* ************************************************************************
  *
@@ -18,28 +18,22 @@ package com.amaoai.msrv.handlers.umcphandlers;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/27. */
+/* Creates on 2023/2/28. */
 
-import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
-import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
-import com.amaoai.msrv.protocol.umcp.UMCPCMD;
-import com.amaoai.msrv.protocol.umcp.UMCProtocol;
+import redis.clients.jedis.JedisPool;
 
 /**
- * 处理客户端连接断开
+ * 创建Redis连接
  *
  * @author Vincent Luo
  */
-@UMCPCMDHandlerMark(cmd = UMCPCMD.DISCONNECT)
-public class DisconnectUMCPCMDHandler extends UMCPCMDHandlerAdapter {
+public class RedisSessionFactory {
 
-    @Override
-    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
-        // 删除redis缓存中的内容
-        schx.executeRedisOperation(ops -> ops.delete(schx.user()));
-        // 断开与客户端的连接
-        SessionChannelHandlerContext.markUnValidSessionChannelHandlerContext(schx);
+    /**
+     * 连接redis
+     */
+    public static RedisOperationPool connect(String addr, int port) {
+        return new RedisOperationPool(new JedisPool(addr, port));
     }
 
 }

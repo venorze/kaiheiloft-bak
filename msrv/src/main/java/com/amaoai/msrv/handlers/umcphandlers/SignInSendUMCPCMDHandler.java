@@ -24,12 +24,13 @@ import com.amaoai.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
 import com.amaoai.export.opensso.modx.UserTokenPayload;
 import com.amaoai.framework.R;
 import com.amaoai.framework.exception.OptionFailedException;
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
+import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
+import com.amaoai.msrv.user.UserStatus;
 
 /**
  * 用户登录处理器
@@ -55,10 +56,13 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
         // 用户登录
         UserTokenPayload userTokenPayload = sign_in(umcp, schx);
         if (userTokenPayload != null) {
-            // 注册有效通道标识
             String username = userTokenPayload.getUsername();
+            // 注册有效通道标识
             SessionChannelHandlerContext.markValidSessionChannelHandlerContext(username, schx);
             schx.notifySessionMarkedValidStatus("认证成功，欢迎登录[{}]", username);
+            // 用户状态存入redis缓存中
+            UserStatus userStatus = new UserStatus(username, UserStatus.USER_STATUS_ONLINE);
+            schx.executeRedisOperation(ops -> ops.put(schx.user(), userStatus));
         }
     }
 

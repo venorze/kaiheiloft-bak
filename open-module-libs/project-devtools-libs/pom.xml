@@ -19,9 +19,10 @@
         <okhttp.version>4.10.0</okhttp.version>
         <java-jwt.version>4.2.2</java-jwt.version>
         <slf4j.version>1.7.36</slf4j.version>
-        <logback.version>1.2.3</logback.version>
+        <logback.version>1.2.9</logback.version>
         <slf4j.version>1.7.21</slf4j.version>
         <javax.mail.version>1.6.0</javax.mail.version>
+        <jedis.version>4.4.0-m2</jedis.version>
     </properties>
 
     <dependencies>
@@ -83,6 +84,12 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>${javax.mail.version}</version>
+        </dependency>
+        <!-- jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
     </dependencies>
 

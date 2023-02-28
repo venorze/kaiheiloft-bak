@@ -103,7 +103,7 @@ inline fun toLong(arr: ByteArray): Long = IOUtils.toLong(arr)
 /**
  * 将 [String] 类型转换为 [ByteArray] 类型
  */
-inline fun toByteArray(str: String): ByteArray = str.toByteArray()
+inline fun toByteArray(str: String): ByteArray = IOUtils.toByteArray(str)
 
 /**
  * 将 [Char] 类型转换为 [ByteArray] 类型

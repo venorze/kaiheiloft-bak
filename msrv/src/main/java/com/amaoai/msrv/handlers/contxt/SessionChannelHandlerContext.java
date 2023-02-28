@@ -21,6 +21,8 @@ package com.amaoai.msrv.handlers.contxt;
 /* Creates on 2023/2/27. */
 
 import com.amaoai.framework.StringUtils;
+import com.amaoai.framework.redis.RedisOperation;
+import com.amaoai.framework.redis.RedisOperationPool;
 import com.amaoai.msrv.handlers.umcphandlers.SignInSendUMCPCMDHandler;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
@@ -54,14 +56,25 @@ public class SessionChannelHandlerContext {
     private String user;
 
     /**
+     * redis会话
+     */
+    private final RedisOperationPool redisOperationPool;
+
+    /**
      * 已经通过登录认证注册好的用户Channel
      */
     private static final Map<String, SessionChannelHandlerContext>
             markedValidSessionChannelHandlerContext = new ConcurrentHashMap<>(1024);
 
+    public interface RedisOperationFunction {
+        void apply(RedisOperation ops);
+    }
+
     public SessionChannelHandlerContext(ChannelHandlerContext ctx,
+                                        RedisOperationPool redisOperationPool,
                                         ConfigurableApplicationContext configurableApplicationContext) {
         this.channelHandlerContext = ctx;
+        this.redisOperationPool = redisOperationPool;
         this.configurableApplicationContext = configurableApplicationContext;
     }
 
@@ -152,6 +165,16 @@ public class SessionChannelHandlerContext {
      */
     public void close() {
         channelHandlerContext.channel().close();
+    }
+
+    /**
+     * 获取 Jedis 对象，使用完必须close()
+     */
+    public void executeRedisOperation(RedisOperationFunction function) {
+        try (RedisOperation resource = redisOperationPool.getResource()) {
+            resource.select(RedisOperation.REDIS_DATABASE_IDX_1);
+            function.apply(resource);
+        }
     }
 
 }
