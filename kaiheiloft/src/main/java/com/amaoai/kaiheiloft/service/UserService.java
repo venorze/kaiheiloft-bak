@@ -22,10 +22,10 @@ package com.amaoai.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.amaoai.kaiheiloft.enties.User;
-import com.amaoai.kaiheiloft.mods.modx.EditMailModx;
-import com.amaoai.kaiheiloft.mods.modx.EditPasswordModx;
-import com.amaoai.kaiheiloft.mods.modx.UserSignUpModx;
-import com.amaoai.kaiheiloft.mods.modx.UserProfileModx;
+import com.amaoai.kaiheiloft.modobj.modx.EditMailModx;
+import com.amaoai.kaiheiloft.modobj.modx.EditPasswordModx;
+import com.amaoai.kaiheiloft.modobj.modx.UserSignUpModx;
+import com.amaoai.kaiheiloft.modobj.modx.UserProfileModx;
 
 /**
  * @author Vincent Luo

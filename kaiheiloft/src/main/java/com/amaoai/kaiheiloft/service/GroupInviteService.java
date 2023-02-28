@@ -22,7 +22,7 @@ package com.amaoai.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.amaoai.kaiheiloft.enties.GroupInvite;
-import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public interface GroupInviteService extends IService<GroupInvite> {
     /**
      * 同意邀请
      */
-    void agree(Long inviteId);
+    void allow(Long inviteId);
 
     /**
      * 拒绝邀请

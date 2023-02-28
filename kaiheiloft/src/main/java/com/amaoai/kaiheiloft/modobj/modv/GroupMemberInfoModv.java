@@ -1,3 +1,5 @@
+package com.amaoai.kaiheiloft.modobj.modv;
+
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
@@ -18,15 +20,37 @@
 
 /* Creates on 2023/2/6. */
 
+import lombok.Data;
+
 /**
- * 与前后端交互模块，格式有：*Modx, *Modv
- *
- *   - *Modx
- *     如果后缀为Modx，表示这个对象是前端提交给后端数据的对象
- *
- *  - *Modv
- *    如果后缀是Modv，表示这个对象是后端返回给前端的对象
- *
  * @author Vincent Luo
  */
-package com.amaoai.kaiheiloft.mods.modx;
+@Data
+public class GroupMemberInfoModv {
+
+    /**
+     * 成员ID
+     */
+    private Long id;
+
+    /**
+     * 成员用户名
+     */
+    private String username;
+
+    /**
+     * 成员昵称
+     */
+    private String nickname;
+
+    /**
+     * 成员头像
+     */
+    private String avatar;
+
+    /**
+     * 是否是管理员, Y超级管理员，N普通管理员，M普通成员
+     */
+    private String superadmin;
+
+}

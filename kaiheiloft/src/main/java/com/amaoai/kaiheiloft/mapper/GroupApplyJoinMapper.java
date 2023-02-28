@@ -21,12 +21,12 @@ package com.amaoai.kaiheiloft.mapper;
 /* Creates on 2023/2/4. */
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.amaoai.kaiheiloft.enties.GroupApplyJoin;
+import com.amaoai.kaiheiloft.enties.GroupApply;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Vincent Luo
  */
 @Mapper
-public interface GroupApplyJoinMapper extends BaseMapper<GroupApplyJoin> {
+public interface GroupApplyJoinMapper extends BaseMapper<GroupApply> {
 }

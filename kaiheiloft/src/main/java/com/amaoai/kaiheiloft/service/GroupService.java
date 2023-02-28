@@ -22,11 +22,11 @@ package com.amaoai.kaiheiloft.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.amaoai.kaiheiloft.enties.Group;
-import com.amaoai.kaiheiloft.mods.modv.GroupInfoModv;
-import com.amaoai.kaiheiloft.mods.modx.GroupApplyJoinModx;
-import com.amaoai.kaiheiloft.mods.modx.CreateGroupModx;
-import com.amaoai.kaiheiloft.mods.modx.EditGroupModx;
-import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+import com.amaoai.kaiheiloft.modobj.modv.GroupInfoModv;
+import com.amaoai.kaiheiloft.modobj.modx.GroupApplyModx;
+import com.amaoai.kaiheiloft.modobj.modx.CreateGroupModx;
+import com.amaoai.kaiheiloft.modobj.modx.EditGroupModx;
+import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
 
 import java.util.List;
 
@@ -78,21 +78,21 @@ public interface GroupService extends IService<Group> {
     /**
      * 申请加入俱乐部
      */
-    void join(GroupApplyJoinModx groupApplyJoinModx, Long userId);
+    void join(GroupApplyModx groupApplyModx, Long userId);
 
     /**
      * 同意新成员吧加入俱乐部
      *
      * @param applyId 申请ID
      */
-    void agreeJoin(Long applyId, Long operatorId);
+    void allow(Long applyId, Long operatorId);
 
     /**
      * 拒绝新成员吧加入俱乐部
      *
      * @param applyId 申请ID
      */
-    void refuseJoin(Long applyId, String reason, Long operatorId);
+    void refuse(Long applyId, String reason, Long operatorId);
 
     /**
      * 踢出俱乐部
@@ -122,7 +122,7 @@ public interface GroupService extends IService<Group> {
     /**
      * 同意邀请
      */
-    void agreeInvite(Long inviteId, Long userId, Long operatorId);
+    void allowInvite(Long inviteId, Long userId, Long operatorId);
 
     /**
      * 拒绝邀请

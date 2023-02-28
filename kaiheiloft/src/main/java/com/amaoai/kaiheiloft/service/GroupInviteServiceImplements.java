@@ -25,7 +25,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.GroupInvite;
 import com.amaoai.kaiheiloft.mapper.GroupInviteMapper;
-import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
 import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -66,16 +66,16 @@ public class GroupInviteServiceImplements extends ServiceImpl<GroupInviteMapper,
     }
 
     @Override
-    public void agree(Long inviteId) {
+    public void allow(Long inviteId) {
         var invite = getById(inviteId);
-        invite.setAgreeStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES);
+        invite.setAllowedStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES);
         updateById(invite);
     }
 
     @Override
     public void refuse(Long inviteId) {
         var invite = getById(inviteId);
-        invite.setAgreeStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO);
+        invite.setAllowedStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO);
         updateById(invite);
     }
 }

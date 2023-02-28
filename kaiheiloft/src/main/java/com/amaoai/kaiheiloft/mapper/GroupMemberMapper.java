@@ -23,7 +23,7 @@ package com.amaoai.kaiheiloft.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.amaoai.kaiheiloft.enties.GroupMember;
-import com.amaoai.kaiheiloft.mods.modv.GroupMemberInfoModv;
+import com.amaoai.kaiheiloft.modobj.modv.GroupMemberInfoModv;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

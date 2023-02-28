@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.enties;
+package com.amaoai.kaiheiloft.modobj.modx;
 
 /* ************************************************************************
  *
@@ -18,23 +18,27 @@ package com.amaoai.kaiheiloft.enties;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/2/5. */
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * @author Vincent Luo
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class GroupApplyRefuseModx extends GroupApplyIdModx {
+public class InviteModx {
 
     /**
-     * 申请加入ID
+     * 俱乐部ID
      */
-    @Length(max = 50, message = "拒绝愿意不能超过50个字符")
-    private String reason;
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long groupId;
+
+    /**
+     * 俱乐部名称
+     */
+    @NotNull(message = "用户ID不能为空")
+    private Long userId;
 
 }

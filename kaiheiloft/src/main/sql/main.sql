@@ -158,8 +158,8 @@ CREATE TABLE `khl_group_admin`
 -- ---------------------------------
 -- 俱乐部成员申请加入表
 -- ---------------------------------
-DROP TABLE IF EXISTS `khl_group_agree_status`;
-CREATE TABLE `khl_group_agree_status`
+DROP TABLE IF EXISTS `khl_group_apply`;
+CREATE TABLE `khl_group_apply`
 (
     `id`             varchar(32) NOT NULL COMMENT '主键ID',
     `create_time`    timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -167,7 +167,7 @@ CREATE TABLE `khl_group_agree_status`
     `group_id`        varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`        varchar(32) NOT NULL COMMENT '用户ID',
     `request_remark` varchar(50) COMMENT '申请备注',
-    `agree_status`   char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
+    `allowed_status`   char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
     `refusal_reason` varchar(50) COMMENT '拒绝原因',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -186,7 +186,7 @@ CREATE TABLE `khl_group_invite`
     `group_id`      varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`      varchar(32) NOT NULL COMMENT '用户ID',
     `inviter_id`   varchar(32) NOT NULL COMMENT '邀请人ID',
-    `agree_status` char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
+    `allowed_status` char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb3

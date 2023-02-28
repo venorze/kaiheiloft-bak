@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.modobj.modv;
 
 /* ************************************************************************
  *
@@ -20,28 +20,51 @@ package com.amaoai.kaiheiloft.mods.modx;
 
 /* Creates on 2023/2/6. */
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.amaoai.kaiheiloft.enties.Group;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
+import java.util.List;
 
 /**
+ * 俱乐部全量信息对象
+ *
  * @author Vincent Luo
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CreateGroupChannelModx extends GroupIdModx {
+public class GroupInfoModv extends Group {
 
     /**
-     * 频道名称
+     * 俱乐部频道
      */
-    @NotBlank(message = "频道名称不能为空")
-    @Length(min = 2, max = 20, message = "频道名称范围 2 - 8 个字符")
-    private String name;
+    @Data
+    public static class Channel {
+        // 频道ID
+        private Long id;
+        // 频道名称
+        private String name;
+        // 频道类型
+        private String type;
+    }
 
-    @NotBlank(message = "频道类型不能为空")
-    @Pattern(regexp = "^|T|V|$", message = "频道类型不合法")
-    private String type;
+    /**
+     * 更新时间（这个字段不需要json序列化）
+     */
+    @JsonIgnore
+    private Date updateTime;
+
+    /**
+     * 俱乐部频道列表
+     */
+    private List<Channel> channels;
+
+    /**
+     * 俱乐部成员列表（分页数据）
+     */
+    private IPage<GroupMemberInfoModv> members;
 
 }

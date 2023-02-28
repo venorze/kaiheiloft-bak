@@ -52,6 +52,6 @@ public class GroupInvite extends SuperModel<GroupInvite> {
     /**
      * 是否同意加入
      */
-    private String agreeStatus;
+    private String allowedStatus;
 
 }

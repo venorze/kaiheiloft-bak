@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.modobj.modx;
 
 /* ************************************************************************
  *
@@ -18,30 +18,21 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/6. */
+/* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 分页查询
- *
  * @author Vincent Luo
  */
 @Data
-public class PageModx {
+public class GroupIdModx {
 
     /**
-     * 索引
+     * 俱乐部ID
      */
-    @Min(value = 1, message = "索引能小于1")
-    private Integer pageNo;
-
-    /**
-     * 条数
-     */
-    @Max(value = 100, message = "每页条数不能大于100")
-    private Integer pageSize;
+    @NotNull(message = "俱乐部ID不能为空")
+    private Long groupId;
 
 }

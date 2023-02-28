@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modv;
+package com.amaoai.kaiheiloft.modobj.modx;
 
 /* ************************************************************************
  *
@@ -20,37 +20,28 @@ package com.amaoai.kaiheiloft.mods.modv;
 
 /* Creates on 2023/2/6. */
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 /**
+ * 分页查询
+ *
  * @author Vincent Luo
  */
 @Data
-public class GroupMemberInfoModv {
+public class PageModx {
 
     /**
-     * 成员ID
+     * 索引
      */
-    private Long id;
+    @Min(value = 1, message = "索引能小于1")
+    private Integer pageNo;
 
     /**
-     * 成员用户名
+     * 条数
      */
-    private String username;
-
-    /**
-     * 成员昵称
-     */
-    private String nickname;
-
-    /**
-     * 成员头像
-     */
-    private String avatar;
-
-    /**
-     * 是否是管理员, Y超级管理员，N普通管理员，M普通成员
-     */
-    private String superadmin;
+    @Max(value = 100, message = "每页条数不能大于100")
+    private Integer pageSize;
 
 }

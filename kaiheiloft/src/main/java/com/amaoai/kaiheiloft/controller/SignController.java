@@ -20,7 +20,7 @@ package com.amaoai.kaiheiloft.controller;
 
 /* Creates on 2023/1/16. */
 
-import com.amaoai.kaiheiloft.mods.modx.UserSignUpModx;
+import com.amaoai.kaiheiloft.modobj.modx.UserSignUpModx;
 import com.amaoai.kaiheiloft.service.UserService;
 import com.amaoai.framework.BeanUtils;
 import com.amaoai.framework.R;

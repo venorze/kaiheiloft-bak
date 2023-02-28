@@ -21,30 +21,30 @@ package com.amaoai.kaiheiloft.service;
 /* Creates on 2023/2/4. */
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.amaoai.kaiheiloft.enties.GroupApplyJoin;
-import com.amaoai.kaiheiloft.mods.modx.GroupApplyJoinModx;
+import com.amaoai.kaiheiloft.enties.GroupApply;
+import com.amaoai.kaiheiloft.modobj.modx.GroupApplyModx;
 
 import java.util.List;
 
 /**
  * @author Vincent Luo
  */
-public interface GroupApplyJoinService extends IService<GroupApplyJoin> {
+public interface GroupApplyJoinService extends IService<GroupApply> {
 
     /**
      * @return 根据ID查询申请对象
      */
-    GroupApplyJoin queryByApplyId(Long applyId);
+    GroupApply queryByApplyId(Long applyId);
 
     /**
      * 查询申请请求
      */
-    GroupApplyJoin queryJoinRequest(Long groupId, Long userId);
+    GroupApply queryJoinRequest(Long groupId, Long userId);
 
     /**
      * 提交申请请求
      */
-    void submit(GroupApplyJoinModx groupApplyJoinModx, Long userId, Long inviterId);
+    void submit(GroupApplyModx groupApplyModx, Long userId, Long inviterId);
 
     /**
      * 提交申请请求
@@ -59,16 +59,16 @@ public interface GroupApplyJoinService extends IService<GroupApplyJoin> {
     /**
      * @return 获取所有待处理申请请求
      */
-    List<GroupApplyJoin> pendingRequests(Long groupId);
+    List<GroupApply> pendingRequests(Long groupId);
 
     /**
      * 同意成员加入
      */
-    void agree(GroupApplyJoin groupApplyJoin);
+    void allow(GroupApply groupApply);
 
     /**
      * 拒绝成员加入
      */
-    void refuse(GroupApplyJoin groupApplyJoin);
+    void refuse(GroupApply groupApply);
 
 }

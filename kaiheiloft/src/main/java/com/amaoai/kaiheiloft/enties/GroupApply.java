@@ -20,19 +20,43 @@ package com.amaoai.kaiheiloft.enties;
 
 /* Creates on 2023/2/4. */
 
-import jakarta.validation.constraints.NotNull;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
+ * 俱乐部成员申请表
+ *
  * @author Vincent Luo
  */
 @Data
-public class GroupApplyIdModx {
+@EqualsAndHashCode(callSuper = true)
+@TableName("khl_group_apply")
+public class GroupApply extends SuperModel<GroupApply> {
 
     /**
-     * 申请加入ID
+     * 俱乐部ID
      */
-    @NotNull(message = "申请ID不能为空")
-    private Long id;
+    private Long groupId;
+
+    /**
+     * 用户ID
+     */
+    private Long userId;
+
+    /**
+     * 请求备注
+     */
+    private String requestRemark;
+
+    /**
+     * 是否同意加入
+     */
+    private String allowedStatus;
+
+    /**
+     * 拒绝原因
+     */
+    private String refusalReason;
 
 }

@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modv;
+package com.amaoai.kaiheiloft.modobj.modv;
 
 /* ************************************************************************
  *
@@ -18,7 +18,7 @@ package com.amaoai.kaiheiloft.mods.modv;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/5. */
+/* Creates on 2023/2/4. */
 
 import lombok.Data;
 
@@ -26,21 +26,21 @@ import lombok.Data;
  * @author Vincent Luo
  */
 @Data
-public class InviteModv {
+public class UserFriendModv {
 
     /**
-     * 俱乐部名称
+     * 用户ID
      */
-    private String groupNickname;
+    private Long id;
 
     /**
-     * 用户名称
+     * 用户昵称
      */
-    private String userNickname;
+    private String nickname;
 
     /**
-     * 邀请人名称
+     * 用户头像
      */
-    private String inviterNickname;
+    private String avatar;
 
 }

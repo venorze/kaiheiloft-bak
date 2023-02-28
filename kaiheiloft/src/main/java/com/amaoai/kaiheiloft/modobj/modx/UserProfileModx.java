@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.modobj.modx;
 
 /* ************************************************************************
  *
@@ -21,23 +21,47 @@ package com.amaoai.kaiheiloft.mods.modx;
 /* Creates on 2023/1/10. */
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import java.util.Date;
 
 /**
- * No Descript.
- *
  * @author Vincent Luo
  */
 @Data
-public class EditMailModx {
+public class UserProfileModx {
 
     /**
-     * 用户密码
+     * 用户昵称
      */
-    @NotBlank(message = "邮箱不能为空")
-    @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$", message = "邮箱格式不正确")
-    private String mail;
+    @NotBlank(message = "用户昵称不能为空")
+    @Length(max = 16, message = "用户昵称超出规定长度")
+    private String nickname;
+
+    /**
+     * 用户头像
+     */
+    @NotBlank(message = "用户头像不能为空")
+    private String avatar;
+
+    /**
+     * 用户生日
+     */
+    @NotNull(message = "用户生日不能为空")
+    private Date birthday;
+
+    /**
+     * 自我介绍
+     */
+    private String bio;
+
+    /**
+     * 用户性别, M 男， W 女
+     */
+    @Pattern(regexp = "^|M|W|$", message = "用户性别不正确")
+    private String gender;
 
 }

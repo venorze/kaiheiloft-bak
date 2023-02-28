@@ -27,7 +27,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.GroupMember;
-import com.amaoai.kaiheiloft.mods.modv.GroupMemberInfoModv;
+import com.amaoai.kaiheiloft.modobj.modv.GroupMemberInfoModv;
 import com.amaoai.kaiheiloft.mapper.GroupMemberMapper;
 import org.springframework.stereotype.Service;
 

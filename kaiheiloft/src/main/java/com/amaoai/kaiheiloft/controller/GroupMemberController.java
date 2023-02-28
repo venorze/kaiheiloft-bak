@@ -22,8 +22,8 @@ package com.amaoai.kaiheiloft.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.amaoai.framework.R;
-import com.amaoai.kaiheiloft.mods.modv.GroupMemberInfoModv;
-import com.amaoai.kaiheiloft.mods.modx.GroupMemberPageModx;
+import com.amaoai.kaiheiloft.modobj.modv.GroupMemberInfoModv;
+import com.amaoai.kaiheiloft.modobj.modx.GroupMemberPageModx;
 import com.amaoai.kaiheiloft.service.GroupMemberService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

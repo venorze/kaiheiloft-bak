@@ -22,7 +22,7 @@ package com.amaoai.kaiheiloft.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.amaoai.kaiheiloft.enties.GroupInvite;
-import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

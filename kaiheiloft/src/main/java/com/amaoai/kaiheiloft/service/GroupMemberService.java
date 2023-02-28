@@ -23,7 +23,7 @@ package com.amaoai.kaiheiloft.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.amaoai.kaiheiloft.enties.GroupMember;
-import com.amaoai.kaiheiloft.mods.modv.GroupMemberInfoModv;
+import com.amaoai.kaiheiloft.modobj.modv.GroupMemberInfoModv;
 import org.springframework.stereotype.Service;
 
 /**

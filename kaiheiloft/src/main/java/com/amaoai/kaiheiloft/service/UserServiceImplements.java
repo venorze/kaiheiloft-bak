@@ -25,10 +25,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.User;
 import com.amaoai.kaiheiloft.mapper.UserMapper;
-import com.amaoai.kaiheiloft.mods.modx.EditMailModx;
-import com.amaoai.kaiheiloft.mods.modx.EditPasswordModx;
-import com.amaoai.kaiheiloft.mods.modx.UserProfileModx;
-import com.amaoai.kaiheiloft.mods.modx.UserSignUpModx;
+import com.amaoai.kaiheiloft.modobj.modx.EditMailModx;
+import com.amaoai.kaiheiloft.modobj.modx.EditPasswordModx;
+import com.amaoai.kaiheiloft.modobj.modx.UserProfileModx;
+import com.amaoai.kaiheiloft.modobj.modx.UserSignUpModx;
 import com.amaoai.framework.BeanUtils;
 import org.springframework.stereotype.Service;
 

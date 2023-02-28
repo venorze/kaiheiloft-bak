@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.enties;
+package com.amaoai.kaiheiloft.modobj.modv;
 
 /* ************************************************************************
  *
@@ -20,43 +20,32 @@ package com.amaoai.kaiheiloft.enties;
 
 /* Creates on 2023/2/4. */
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * 俱乐部成员申请表
- *
  * @author Vincent Luo
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("khl_CLUB_AGREE_STATUS")
-public class GroupApplyJoin extends SuperModel<GroupApplyJoin> {
+public class GroupModv {
 
     /**
      * 俱乐部ID
      */
-    private Long groupId;
+    private Long id;
 
     /**
-     * 用户ID
+     * 俱乐部名称
      */
-    private Long userId;
+    private String name;
 
     /**
-     * 请求备注
+     * 俱乐部头像
      */
-    private String requestRemark;
+    private String avatar;
 
     /**
-     * 是否同意加入
+     * 俱乐部介绍
      */
-    private String agreeStatus;
-
-    /**
-     * 拒绝原因
-     */
-    private String refusalReason;
+    private String introduce;
 
 }

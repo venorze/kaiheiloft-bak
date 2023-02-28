@@ -26,16 +26,16 @@ import com.amaoai.framework.BeanUtils;
 import com.amaoai.framework.StringUtils;
 import com.amaoai.framework.exception.BusinessException;
 import com.amaoai.kaiheiloft.enties.Group;
-import com.amaoai.kaiheiloft.enties.GroupApplyJoin;
+import com.amaoai.kaiheiloft.enties.GroupApply;
 import com.amaoai.kaiheiloft.enties.GroupInvite;
 import com.amaoai.kaiheiloft.enties.User;
-import com.amaoai.kaiheiloft.mods.modv.GroupInfoModv;
+import com.amaoai.kaiheiloft.modobj.modv.GroupInfoModv;
 import com.amaoai.kaiheiloft.mapper.GroupAnnouncementMapper;
 import com.amaoai.kaiheiloft.mapper.GroupMapper;
-import com.amaoai.kaiheiloft.mods.modx.GroupApplyJoinModx;
-import com.amaoai.kaiheiloft.mods.modx.CreateGroupModx;
-import com.amaoai.kaiheiloft.mods.modx.EditGroupModx;
-import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+import com.amaoai.kaiheiloft.modobj.modx.GroupApplyModx;
+import com.amaoai.kaiheiloft.modobj.modx.CreateGroupModx;
+import com.amaoai.kaiheiloft.modobj.modx.EditGroupModx;
+import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
 import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -149,27 +149,27 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     }
 
     @Override
-    public void join(GroupApplyJoinModx groupApplyJoinModx, Long userId) {
-        Long groupId = groupApplyJoinModx.getGroupId();
+    public void join(GroupApplyModx groupApplyModx, Long userId) {
+        Long groupId = groupApplyModx.getGroupId();
         // 判断用户是否已经在俱乐部
         checkAlreadyExist(groupId, userId);
         // 提交请求
-        groupApplyJoinService.submit(groupApplyJoinModx, userId, null);
+        groupApplyJoinService.submit(groupApplyModx, userId, null);
     }
 
     @Override
     @Transactional
-    public void agreeJoin(Long applyId, Long operatorId) {
-        GroupApplyJoin groupApply = groupApplyJoinService.queryByApplyId(applyId);
+    public void allow(Long applyId, Long operatorId) {
+        GroupApply groupApply = groupApplyJoinService.queryByApplyId(applyId);
         Assert.throwIfBool(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
-        groupApplyJoinService.agree(groupApply);
+        groupApplyJoinService.allow(groupApply);
         // 添加成员
         groupMemberService.addMember(groupApply.getGroupId(), groupApply.getUserId());
     }
 
     @Override
-    public void refuseJoin(Long applyId, String reason, Long operatorId) {
-        GroupApplyJoin groupApply = groupApplyJoinService.queryByApplyId(applyId);
+    public void refuse(Long applyId, String reason, Long operatorId) {
+        GroupApply groupApply = groupApplyJoinService.queryByApplyId(applyId);
         Assert.throwIfBool(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
         groupApply.setRefusalReason(reason);
         groupApplyJoinService.refuse(groupApply);
@@ -221,7 +221,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
 
     @Override
     @Transactional
-    public void agreeInvite(Long inviteId, Long userId, Long operatorId) {
+    public void allowInvite(Long inviteId, Long userId, Long operatorId) {
         // 查询邀请信息
         GroupInvite groupInvite = groupInviteService.queryUserInvite(inviteId, userId);
         Long groupId = groupInvite.getGroupId();
@@ -229,11 +229,11 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
 
         // 判断用户是否有权限同意
         Assert.throwIfBool(groupAdminService.isAdmin(groupId, operatorId), "用户无权限同意/拒绝");
-        if (groupInvite.getAgreeStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES))
+        if (groupInvite.getAllowedStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES))
             throw new BusinessException("已同意邀请请求，请勿重复点击");
 
         // 同意邀请
-        groupInviteService.agree(inviteId);
+        groupInviteService.allow(inviteId);
 
         // 加入申请列表
         User inviter = userService.queryByUserId(inviterId);
@@ -246,7 +246,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
         GroupInvite groupInvite = groupInviteService.queryUserInvite(inviteId, userId);
         // 判断用户是否有权限拒绝
         Assert.throwIfBool(groupAdminService.isAdmin(groupInvite.getGroupId(), operatorId), "用户无权限同意/拒绝");
-        if (groupInvite.getAgreeStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO))
+        if (groupInvite.getAllowedStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO))
             throw new BusinessException("已拒绝邀请请求，请勿重复点击");
 
         // 拒绝邀请

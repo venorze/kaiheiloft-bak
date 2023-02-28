@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modx;
+package com.amaoai.kaiheiloft.modobj.modv;
 
 /* ************************************************************************
  *
@@ -18,21 +18,29 @@ package com.amaoai.kaiheiloft.mods.modx;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/2/5. */
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
  * @author Vincent Luo
  */
 @Data
-public class GroupIdModx {
+public class InviteModv {
 
     /**
-     * 俱乐部ID
+     * 俱乐部名称
      */
-    @NotNull(message = "俱乐部ID不能为空")
-    private Long groupId;
+    private String groupNickname;
+
+    /**
+     * 用户名称
+     */
+    private String userNickname;
+
+    /**
+     * 邀请人名称
+     */
+    private String inviterNickname;
 
 }

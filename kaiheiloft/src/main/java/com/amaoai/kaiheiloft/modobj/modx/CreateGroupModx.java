@@ -1,3 +1,5 @@
+package com.amaoai.kaiheiloft.modobj.modx;
+
 /* ************************************************************************
  *
  * Copyright (C) 2020 Vincent Luo All rights reserved.
@@ -18,9 +20,31 @@
 
 /* Creates on 2023/1/13. */
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
 /**
- * 视图展示数据对象
+ * 创建俱乐部请求对象
  *
  * @author Vincent Luo
  */
-package com.amaoai.kaiheiloft.mods.modv;
+@Data
+public class CreateGroupModx {
+
+    /**
+     * 俱乐部名称
+     */
+    @NotBlank(message = "俱乐部名称是必填项")
+    @Length(min = 2, max = 20, message = "俱乐部名称范围 2 - 8 个字符")
+    private String name;
+
+    /**
+     * 俱乐部头像
+     */
+    private String avatar;
+
+    @Length(max = 180, message = "俱乐部介绍不能超过180个字符")
+    private String introduce;
+
+}

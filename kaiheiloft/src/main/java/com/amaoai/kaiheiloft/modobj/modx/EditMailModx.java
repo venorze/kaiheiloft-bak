@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.mods.modv;
+package com.amaoai.kaiheiloft.modobj.modx;
 
 /* ************************************************************************
  *
@@ -18,29 +18,26 @@ package com.amaoai.kaiheiloft.mods.modv;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/4. */
+/* Creates on 2023/1/10. */
 
 import lombok.Data;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 /**
+ * No Descript.
+ *
  * @author Vincent Luo
  */
 @Data
-public class UserFriendModv {
+public class EditMailModx {
 
     /**
-     * 用户ID
+     * 用户密码
      */
-    private Long id;
-
-    /**
-     * 用户昵称
-     */
-    private String nickname;
-
-    /**
-     * 用户头像
-     */
-    private String avatar;
+    @NotBlank(message = "邮箱不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$", message = "邮箱格式不正确")
+    private String mail;
 
 }

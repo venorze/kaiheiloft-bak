@@ -21,10 +21,10 @@ package com.amaoai.kaiheiloft.controller;
 /* Creates on 2023/1/13. */
 
 import com.amaoai.framework.R;
-import com.amaoai.kaiheiloft.enties.GroupApplyIdModx;
-import com.amaoai.kaiheiloft.enties.GroupApplyRefuseModx;
-import com.amaoai.kaiheiloft.mods.modx.*;
-import com.amaoai.kaiheiloft.mods.modv.InviteModv;
+import com.amaoai.kaiheiloft.modobj.modx.GroupApplyIdModx;
+import com.amaoai.kaiheiloft.modobj.modx.GroupApplyRefuseModx;
+import com.amaoai.kaiheiloft.modobj.modx.*;
+import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
 import com.amaoai.kaiheiloft.service.GroupService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,26 +90,26 @@ public class GroupController extends SuperController {
      * 申请加入俱乐部
      */
     @PostMapping("/join")
-    public R<Void> join(@RequestBody @Valid GroupApplyJoinModx groupApplyJoinModx) {
-        groupService.join(groupApplyJoinModx, getCurrentUserId());
+    public R<Void> join(@RequestBody @Valid GroupApplyModx groupApplyModx) {
+        groupService.join(groupApplyModx, getCurrentUserId());
         return R.ok();
     }
 
     /**
      * 同意加入俱乐部申请请求
      */
-    @PostMapping("/apply/agree")
-    public R<Void> applyAgree(@RequestBody @Valid GroupApplyIdModx groupApplyIdModx) {
-        groupService.agreeJoin(groupApplyIdModx.getId(), getCurrentUserId());
+    @PostMapping("/allow")
+    public R<Void> allow(@RequestBody @Valid GroupApplyIdModx groupApplyIdModx) {
+        groupService.allow(groupApplyIdModx.getId(), getCurrentUserId());
         return R.ok();
     }
 
     /**
      * 拒绝加入俱乐部申请请求
      */
-    @PostMapping("/apply/refuse")
-    public R<Void> applyRefuse(@RequestBody @Valid GroupApplyRefuseModx groupApplyRefuseModx) {
-        groupService.refuseJoin(groupApplyRefuseModx.getId(), groupApplyRefuseModx.getReason(), getCurrentUserId());
+    @PostMapping("/refuse")
+    public R<Void> refuse(@RequestBody @Valid GroupApplyRefuseModx groupApplyRefuseModx) {
+        groupService.refuse(groupApplyRefuseModx.getId(), groupApplyRefuseModx.getReason(), getCurrentUserId());
         return R.ok();
     }
 
@@ -133,9 +133,9 @@ public class GroupController extends SuperController {
     /**
      * 同意邀请加入俱乐部
      */
-    @PostMapping("/invite/agree")
-    public R<Void> inviteAgree(@RequestBody @Valid InviteIdModx inviteIdModx) {
-        groupService.agreeInvite(inviteIdModx.getInviteId(), inviteIdModx.getUserId(), getCurrentUserId());
+    @PostMapping("/invite/allow")
+    public R<Void> allowInvite(@RequestBody @Valid InviteIdModx inviteIdModx) {
+        groupService.allowInvite(inviteIdModx.getInviteId(), inviteIdModx.getUserId(), getCurrentUserId());
         return R.ok();
     }
 
