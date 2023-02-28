@@ -21,10 +21,9 @@ package com.amaoai.msrv.handlers;
 /* Creates on 2023/2/27. */
 
 import com.amaoai.framework.collections.Maps;
-import com.amaoai.framework.redis.RedisOperationPool;
-import com.amaoai.framework.redis.RedisSessionFactory;
 import com.amaoai.framework.refection.ClassLoaders;
 import com.amaoai.framework.refection.ClassUtils;
+import com.amaoai.msrv.handlers.contxt.ConfigurableHandlerAdapterContext;
 import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
@@ -32,7 +31,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 import java.util.Map;
@@ -47,7 +45,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
     /**
      * springboot上下文对象
      */
-    private final ConfigurableApplicationContext configurableApplicationContext;
+    private final ConfigurableHandlerAdapterContext configurableHandlerAdapterContext;
 
     /**
      * 每个处理器的上下文对象
@@ -59,12 +57,6 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     private final static Map<UMCPCMD, UMCPCMDHandlerAdapter> commandHandlers =
             Maps.newHashMap();
-
-    /**
-     * redis会话
-     */
-    private final static RedisOperationPool redisOperationPool =
-          RedisSessionFactory.connect("123.60.211.203", 6379);
 
     static {
         // 加载 UMCP 命令处理器
@@ -90,8 +82,8 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    public UMCProtocolSocketHandler(ConfigurableApplicationContext configurableApplicationContext) {
-        this.configurableApplicationContext = configurableApplicationContext;
+    public UMCProtocolSocketHandler(ConfigurableHandlerAdapterContext configurableHandlerAdapterContext) {
+        this.configurableHandlerAdapterContext = configurableHandlerAdapterContext;
     }
 
     /**
@@ -99,7 +91,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        schx = new SessionChannelHandlerContext(ctx, redisOperationPool, configurableApplicationContext);
+        schx = new SessionChannelHandlerContext(ctx, configurableHandlerAdapterContext);
     }
 
     @Override

@@ -20,9 +20,12 @@ package com.amaoai.msrv;
 
 /* Creates on 2023/2/27. */
 
+import com.amaoai.framework.redis.RedisOperationFactory;
 import com.amaoai.msrv.handlers.UMCProtocolSocketHandler;
+import com.amaoai.msrv.handlers.contxt.ConfigurableHandlerAdapterContext;
 import com.amaoai.msrv.protocol.umcp.UMCPDecoder;
 import com.amaoai.msrv.protocol.umcp.UMCPEncoder;
+import com.amaoai.msrv.spring.RedisConnectProperties;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -40,7 +43,7 @@ import java.net.InetSocketAddress;
 /**
  * @author Vincent Luo
  */
-public class NettyBootstrap {
+public class NettyApplicationBootstrap {
 
     /**
      * 处理Channel的线程组
@@ -50,21 +53,20 @@ public class NettyBootstrap {
 
     /**
      * 启动Netty服务
-     *
-     * @param configurableApplicationContext springboot上下文
-     * @param args                           保留参数
      */
-    public static void run(ConfigurableApplicationContext configurableApplicationContext,
-                           String[] args) {
-        new NettyBootstrap().run0(args, configurableApplicationContext);
+    public static void run(String[] args,
+                           ConfigurableApplicationContext configurableApplicationContext) {
+        // 初始化 configurableHandlerAdapterContext 上下文
+        ConfigurableHandlerAdapterContext configurableHandlerAdapterContext =
+              initializationConfigurableHandlerAdapterContext(args, configurableApplicationContext);
+        // 启动Netty服务
+        new NettyApplicationBootstrap().poll(configurableHandlerAdapterContext);
     }
 
     /**
      * 启动ServerSocket服务
-     *
-     * @param args 保留参数
      */
-    private void run0(String[] args, ConfigurableApplicationContext configurableApplicationContext) {
+    private void poll(ConfigurableHandlerAdapterContext configurableHandlerAdapterContext) {
         try {
             ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(BOSS_EVENT_LOOP_GROUP, WORKER_EVENT_LOOP_GROUP)
@@ -79,7 +81,7 @@ public class NettyBootstrap {
                                 .addLast(new IdleStateHandler(120, 0, 0))
                                 .addLast(new UMCPEncoder())
                                 .addLast(new UMCPDecoder())
-                                .addLast(new UMCProtocolSocketHandler(configurableApplicationContext));
+                                .addLast(new UMCProtocolSocketHandler(configurableHandlerAdapterContext));
                         }
                     });
             ChannelFuture channelFuture = bootstrap.bind(new InetSocketAddress(11451)).sync();
@@ -89,6 +91,23 @@ public class NettyBootstrap {
         } finally {
             shutdownGracefully(BOSS_EVENT_LOOP_GROUP, WORKER_EVENT_LOOP_GROUP);
         }
+    }
+
+    /**
+     * 初始化上下文
+     */
+    private static ConfigurableHandlerAdapterContext
+      initializationConfigurableHandlerAdapterContext(String[] args,
+                                                      ConfigurableApplicationContext configurableApplicationContext) {
+        ConfigurableHandlerAdapterContext configurableHandlerAdapterContext =
+              new ConfigurableHandlerAdapterContext(args, configurableApplicationContext);
+        // 获取Redis配置
+        RedisConnectProperties redisConnectProperties =
+              configurableHandlerAdapterContext.getRequiredBean(RedisConnectProperties.class);
+        // 连接Redis
+        configurableHandlerAdapterContext.setRedisOperationPool(
+              RedisOperationFactory.connect(redisConnectProperties.getAddr(), redisConnectProperties.getPort()));
+        return configurableHandlerAdapterContext;
     }
 
     /**

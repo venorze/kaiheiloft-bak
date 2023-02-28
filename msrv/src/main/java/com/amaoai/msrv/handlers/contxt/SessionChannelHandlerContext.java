@@ -22,7 +22,6 @@ package com.amaoai.msrv.handlers.contxt;
 
 import com.amaoai.framework.StringUtils;
 import com.amaoai.framework.redis.RedisOperation;
-import com.amaoai.framework.redis.RedisOperationPool;
 import com.amaoai.msrv.handlers.umcphandlers.SignInSendUMCPCMDHandler;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
@@ -48,17 +47,12 @@ public class SessionChannelHandlerContext {
     /**
      * springboot上下文
      */
-    private final ConfigurableApplicationContext configurableApplicationContext;
+    private final ConfigurableHandlerAdapterContext configurableHandlerAdapterContext;
 
     /**
      * 用户名
      */
     private String user;
-
-    /**
-     * redis会话
-     */
-    private final RedisOperationPool redisOperationPool;
 
     /**
      * 已经通过登录认证注册好的用户Channel
@@ -71,11 +65,9 @@ public class SessionChannelHandlerContext {
     }
 
     public SessionChannelHandlerContext(ChannelHandlerContext ctx,
-                                        RedisOperationPool redisOperationPool,
-                                        ConfigurableApplicationContext configurableApplicationContext) {
+                                        ConfigurableHandlerAdapterContext configurableHandlerAdapterContext) {
         this.channelHandlerContext = ctx;
-        this.redisOperationPool = redisOperationPool;
-        this.configurableApplicationContext = configurableApplicationContext;
+        this.configurableHandlerAdapterContext = configurableHandlerAdapterContext;
     }
 
     /**
@@ -90,7 +82,7 @@ public class SessionChannelHandlerContext {
      * @return 提供SpringBoot上下文对象
      */
     public ConfigurableApplicationContext springConfigurableApplicationContext() {
-        return configurableApplicationContext;
+        return configurableHandlerAdapterContext.getConfigurableApplicationContext();
     }
 
     /**
@@ -171,7 +163,7 @@ public class SessionChannelHandlerContext {
      * 获取 Jedis 对象，使用完必须close()
      */
     public void executeRedisOperation(RedisOperationFunction function) {
-        try (RedisOperation resource = redisOperationPool.getResource()) {
+        try (RedisOperation resource = configurableHandlerAdapterContext.redisOperationResource()) {
             resource.select(RedisOperation.REDIS_DATABASE_IDX_1);
             function.apply(resource);
         }

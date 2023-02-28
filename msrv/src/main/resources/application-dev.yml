@@ -15,3 +15,8 @@ spring:
 
 rocketmq:
   name-server: 123.60.211.203:9876
+
+socket:
+  redis:
+    addr: 123.60.211.203
+    port: 6379

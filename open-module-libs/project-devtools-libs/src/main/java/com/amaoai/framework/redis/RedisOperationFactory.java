@@ -1,4 +1,4 @@
-package com.amaoai.msrv;
+package com.amaoai.framework.redis;
 
 /* ************************************************************************
  *
@@ -18,31 +18,22 @@ package com.amaoai.msrv;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/8. */
+/* Creates on 2023/2/28. */
 
-import com.amaoai.export.opensso.OpenSSOFeignPackage;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import redis.clients.jedis.JedisPool;
 
 /**
- * 消息服务器
+ * 创建Redis连接
  *
  * @author Vincent Luo
  */
-@EnableDiscoveryClient
-@EnableFeignClients(basePackages = {
-        OpenSSOFeignPackage.PACKAGE
-})
-@SpringBootApplication
-public class MsrvBootstrap {
+public class RedisOperationFactory {
 
-    public static void main(String[] args) {
-        // 启动Spring服务
-        var configurableApplicationContext = SpringApplication.run(MsrvBootstrap.class, args);
-        // 启动长连接服务
-        NettyBootstrap.run(configurableApplicationContext, args);
+    /**
+     * 连接redis
+     */
+    public static RedisOperationPool connect(String addr, int port) {
+        return new RedisOperationPool(new JedisPool(addr, port));
     }
 
 }

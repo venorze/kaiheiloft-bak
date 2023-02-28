@@ -1,4 +1,4 @@
-package com.amaoai.framework.redis;
+package com.amaoai.msrv.spring;
 
 /* ************************************************************************
  *
@@ -20,20 +20,26 @@ package com.amaoai.framework.redis;
 
 /* Creates on 2023/2/28. */
 
-import redis.clients.jedis.JedisPool;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * 创建Redis连接
- *
  * @author Vincent Luo
  */
-public class RedisSessionFactory {
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "socket.redis")
+public class RedisConnectProperties {
 
     /**
-     * 连接redis
+     * redis连接地址
      */
-    public static RedisOperationPool connect(String addr, int port) {
-        return new RedisOperationPool(new JedisPool(addr, port));
-    }
+    private String addr;
+
+    /**
+     * redis端口
+     */
+    private Integer port;
 
 }
