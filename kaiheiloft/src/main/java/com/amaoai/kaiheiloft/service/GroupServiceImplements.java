@@ -257,7 +257,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
      * 检查用户是否在俱俱乐部
      */
     void checkMemberExist(Long groupId, Long userId) {
-        Assert.throwIfBool(!groupMemberService.hasMember(groupId, userId), "成员不在该俱乐部");
+        Assert.throwIfBool(groupMemberService.hasMember(groupId, userId), "成员不在该俱乐部");
     }
 
     /**

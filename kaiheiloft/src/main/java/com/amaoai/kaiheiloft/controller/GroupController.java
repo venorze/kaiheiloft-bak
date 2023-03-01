@@ -159,4 +159,13 @@ public class GroupController extends SuperController {
         return R.ok();
     }
 
+    /**
+     * 退出俱乐部
+     */
+    @PostMapping("/quit")
+    public R<Void> quit(@RequestBody @Valid GroupIdModx groupIdModx) {
+        groupService.quit(groupIdModx.getGroupId(), getCurrentUserId());
+        return R.ok();
+    }
+
 }

@@ -10,7 +10,7 @@
                ifnull(kca.superadmin, 'M') as superadmin
         from khl_group_member kcm
             left join khl_user_info kui on kcm.user_id = kui.id
-            left join khl_group_admin kca on kcm.user_id = kca.user_id
+            left join khl_group_admin kca on kca.group_id = kcm.group_id and kca.user_id = kui.id
         where kcm.group_id = #{groupId}
     </select>
 
