@@ -45,12 +45,12 @@ public class UserMessage
     /**
      * 发送者
      */
-    private String sender;
+    private Long sender;
 
     /**
      * 接收者
      */
-    private String receiver;
+    private Long receiver;
 
     /**
      * 消息类型

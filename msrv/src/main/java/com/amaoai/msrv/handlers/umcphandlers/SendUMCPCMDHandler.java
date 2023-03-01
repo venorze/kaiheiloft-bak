@@ -44,11 +44,11 @@ public class SendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
         try {
             // 拿到聊天消息
             UserMessage message = umcp.attach();
-            message.setSender(schx.user());
+            message.setSender(schx.owner());
             // 获取在线的客户端
-            var onlineschx = SessionChannelHandlerContext.online(message.getReceiver());
-            if (onlineschx != null)
-                onlineschx.writeAndFlush(umcp).sync();
+            var onlinesession = SessionChannelHandlerContext.online(message.getReceiver());
+            if (onlinesession != null)
+                onlinesession.writeAndFlush(umcp).sync();
             // 回复客户端服务器已收到消息
             autoack(umcp, UMCPCMD.ACK, schx);
         } catch (Throwable e) {

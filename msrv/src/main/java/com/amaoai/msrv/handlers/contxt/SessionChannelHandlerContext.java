@@ -50,14 +50,14 @@ public class SessionChannelHandlerContext {
     private final ConfigurableHandlerAdapterContext configurableHandlerAdapterContext;
 
     /**
-     * 用户名
+     * 当前会话所有者（用户ID）
      */
-    private String user;
+    private Long owner;
 
     /**
      * 已经通过登录认证注册好的用户Channel
      */
-    private static final Map<String, SessionChannelHandlerContext>
+    private static final Map<Long, SessionChannelHandlerContext>
             markedValidSessionChannelHandlerContext = new ConcurrentHashMap<>(1024);
 
     public interface RedisOperationFunction {
@@ -95,8 +95,8 @@ public class SessionChannelHandlerContext {
     /**
      * @return 所属用户
      */
-    public String user() {
-        return user;
+    public Long owner() {
+        return owner;
     }
 
     public Channel channel() {
@@ -107,14 +107,14 @@ public class SessionChannelHandlerContext {
      * @return 用户是否通过了登录认证
      */
     public boolean isValid() {
-        return user != null && markedValidSessionChannelHandlerContext.containsKey(user);
+        return owner != null && markedValidSessionChannelHandlerContext.containsKey(owner);
     }
 
     /**
      * 通知客户端用户认证状态
      */
     public void notifySessionMarkedValidStatus(String fmt, Object... args) {
-        writeAndFlush(new UMCProtocol(user != null ? UMCPCMD.CMDFLAG_SIGN_IN_SUCCESS : UMCPCMD.CMDFLAG_SIGN_IN_FAILED,
+        writeAndFlush(new UMCProtocol(owner != null ? UMCPCMD.CMDFLAG_SIGN_IN_SUCCESS : UMCPCMD.CMDFLAG_SIGN_IN_FAILED,
                 ("SIGN IN ACK - " + StringUtils.vfmt(fmt, args)), UMCPCMD.SIGN_IN_ACK));
     }
 
@@ -123,11 +123,11 @@ public class SessionChannelHandlerContext {
      *
      * @see SignInSendUMCPCMDHandler#handler
      */
-    public static void markValidSessionChannelHandlerContext(String user, SessionChannelHandlerContext schx) {
+    public static void markValidSessionChannelHandlerContext(Long owner, SessionChannelHandlerContext schx) {
         synchronized (markedValidSessionChannelHandlerContext) {
-            markedValidSessionChannelHandlerContext.put(user, schx);
+            markedValidSessionChannelHandlerContext.put(owner, schx);
             // 设置当前客户端通道的所属用户
-            schx.user = user;
+            schx.owner = owner;
         }
     }
 
@@ -139,16 +139,16 @@ public class SessionChannelHandlerContext {
     public static void markUnValidSessionChannelHandlerContext(SessionChannelHandlerContext schx) {
         synchronized (markedValidSessionChannelHandlerContext) {
             schx.close();
-            if (schx.user != null)
-                markedValidSessionChannelHandlerContext.remove(schx.user);
+            if (schx.owner != null)
+                markedValidSessionChannelHandlerContext.remove(schx.owner);
         }
     }
 
     /**
      * 获取在线的客户端
      */
-    public static SessionChannelHandlerContext online(String user) {
-        return markedValidSessionChannelHandlerContext.get(user);
+    public static SessionChannelHandlerContext online(Long owner) {
+        return markedValidSessionChannelHandlerContext.get(owner);
     }
 
 

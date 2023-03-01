@@ -56,13 +56,13 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
         // 用户登录
         UserTokenPayload userTokenPayload = sign_in(umcp, schx);
         if (userTokenPayload != null) {
-            String username = userTokenPayload.getUsername();
+            Long userid = userTokenPayload.getUserId();
             // 注册有效通道标识
-            SessionChannelHandlerContext.markValidSessionChannelHandlerContext(username, schx);
-            schx.notifySessionMarkedValidStatus("认证成功，欢迎登录[{}]", username);
+            SessionChannelHandlerContext.markValidSessionChannelHandlerContext(userid, schx);
+            schx.notifySessionMarkedValidStatus("认证成功，欢迎登录[{}]", userid);
             // 用户状态存入redis缓存中
-            UserStatus userStatus = new UserStatus(username, UserStatus.USER_STATUS_ONLINE);
-            schx.executeRedisOperation(ops -> ops.put(schx.user(), userStatus));
+            UserStatus userStatus = new UserStatus(userid, UserStatus.USER_STATUS_ONLINE);
+            schx.executeRedisOperation(ops -> ops.setByte(schx.owner(), userStatus));
         }
     }
 

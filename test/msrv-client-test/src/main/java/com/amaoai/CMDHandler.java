@@ -35,10 +35,10 @@ import io.netty.channel.ChannelHandlerContext;
 public class CMDHandler {
 
     static UserAuthorization kaiheiloftAuthorization =
-          new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzM0ODU3MDM3NjI3MzkyMCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3NzYwMDU1NX0.-9eUvQ9c7FvvkWBp16keLu9e-O0VqRQdtv-cqKlEBOc");
+          new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4ODEwMDc4MDg4MjE2NTc2MCwidW5hbWUiOiJrYWloZWlsb2Z0In0sImV4cCI6MTY3Nzc5MDMxNH0.d_RJmuNuUd-olF8R9t0BgMdLElKbQ5srgb-m0LIXUnY");
 
     static UserAuthorization vincentAuthorization =
-          new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4NzczODIwODYwMTQwNzQ4OCwidW5hbWUiOiJ2aW5jZW50In0sImV4cCI6MTY3NzYwMDU1M30.LWs5cZ94Z52f8BhTNZlSFPTeP83vqPGo9KxLxBDncb8");
+          new UserAuthorization("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImNsYWltcyI6eyJ1aWQiOjI4ODEwMDcxMjU2NTM0MjIwOCwidW5hbWUiOiJ2aW5jZW50In0sImV4cCI6MTY3Nzc5MDMxMn0.ZumkMaoetG1UX-AP4t1k1ZOWTSNVYPWM8tbRc09qHuk");
 
     public static void login(ChannelHandlerContext ctx, String attach) {
         UserAuthorization authorization = null;
@@ -54,7 +54,7 @@ public class CMDHandler {
         String rec = attach.substring(0, attach.indexOf(" "));
         String msg = attach.substring(attach.indexOf(" ") + 1);
         UserMessage userMessage = new UserMessage();
-        userMessage.setReceiver(rec);
+        userMessage.setReceiver(Long.valueOf(rec));
         userMessage.setType(UserMessageType.TEXT);
         userMessage.setMessage(msg);
         ctx.writeAndFlush(new UMCProtocol(userMessage, UMCPCMD.SEND));

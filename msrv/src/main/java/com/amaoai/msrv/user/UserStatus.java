@@ -36,7 +36,7 @@ public class UserStatus {
     /**
      * 用户名
      */
-    private String username;
+    private Long userId;
 
     /**
      * 上线时间
@@ -51,8 +51,8 @@ public class UserStatus {
     public static final int USER_STATUS_ONLINE = 1;
     public static final int USER_STATUS_OFFLINE = 0;
 
-    public UserStatus(String username, Integer status) {
-        this.username = username;
+    public UserStatus(Long userId, Integer status) {
+        this.userId = userId;
         this.status = status;
     }
 

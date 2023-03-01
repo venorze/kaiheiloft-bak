@@ -37,7 +37,7 @@ public class DisconnectUMCPCMDHandler extends UMCPCMDHandlerAdapter {
     @Override
     public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
         // 删除redis缓存中的内容
-        schx.executeRedisOperation(ops -> ops.delete(schx.user()));
+        schx.executeRedisOperation(ops -> ops.delByte(schx.owner()));
         // 断开与客户端的连接
         SessionChannelHandlerContext.markUnValidSessionChannelHandlerContext(schx);
     }
