@@ -55,7 +55,7 @@ public class KaiheiloftSystemConsts {
     /**
      * 等待管理员通过
      */
-    public static final String GROUP_ALLOW_STATUS_WAIT = "T";
+    public static final String GROUP_ALLOW_STATUS_WAIT = "X";
 
     /**
      * 申请通过

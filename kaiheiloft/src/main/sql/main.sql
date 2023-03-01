@@ -167,7 +167,7 @@ CREATE TABLE `khl_group_apply`
     `group_id`        varchar(32) NOT NULL COMMENT '俱乐部ID',
     `user_id`        varchar(32) NOT NULL COMMENT '用户ID',
     `request_remark` varchar(50) COMMENT '申请备注',
-    `allowed_status`   char(1)     NOT NULL DEFAULT 'T' COMMENT 'T待处理，Y同意，N拒绝',
+    `allowed_status`   char(1)     NOT NULL DEFAULT 'T' COMMENT 'X待处理，Y同意，N拒绝',
     `refusal_reason` varchar(50) COMMENT '拒绝原因',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
