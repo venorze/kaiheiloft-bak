@@ -26,7 +26,7 @@ import com.amaoai.framework.R;
 import com.amaoai.framework.exception.OptionFailedException;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionConnectionHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserAuthorization;
@@ -46,30 +46,30 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
     private UnifiedUserAuthenticationServiceAPI unifiedUserAuthenticationServiceAPI;
 
     @Override
-    public void active(SessionChannelHandlerContext schx) {
+    public void active(SessionConnectionHandlerContext session) {
         unifiedUserAuthenticationServiceAPI =
-                schx.springBeanFactory().getBean(UnifiedUserAuthenticationServiceAPI.class);
+                session.springBeanFactory().getBean(UnifiedUserAuthenticationServiceAPI.class);
     }
 
     @Override
-    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+    public void handler(UMCProtocol umcp, SessionConnectionHandlerContext session) {
         // 用户登录
-        UserTokenPayload userTokenPayload = sign_in(umcp, schx);
+        UserTokenPayload userTokenPayload = sign_in(umcp, session);
         if (userTokenPayload != null) {
             Long userid = userTokenPayload.getUserId();
             // 注册有效通道标识
-            SessionChannelHandlerContext.markValidSessionChannelHandlerContext(userid, schx);
-            schx.notifySessionMarkedValidStatus("认证成功，欢迎登录[{}]", userid);
+            SessionConnectionHandlerContext.markValidSessionChannelHandlerContext(userid, session);
+            session.notifySessionMarkedValidStatus("认证成功，欢迎登录[{}]", userid);
             // 用户状态存入redis缓存中
             UserStatus userStatus = new UserStatus(userid, UserStatus.USER_STATUS_ONLINE);
-            schx.executeRedisOperation(ops -> ops.setByte(schx.owner(), userStatus));
+            session.executeRedisOperation(ops -> ops.setByte(session.owner(), userStatus));
         }
     }
 
     /**
      * 处理用户登录操作
      */
-    private UserTokenPayload sign_in(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+    private UserTokenPayload sign_in(UMCProtocol umcp, SessionConnectionHandlerContext session) {
         try {
             UserAuthorization userAuthorization = umcp.attach();
             // 处理用户登录
@@ -81,8 +81,8 @@ public class SignInSendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
             return payload.to(UserTokenPayload.class);
         } catch (Throwable e) {
-            schx.notifySessionMarkedValidStatus("用户认证失败，认证信息错误或服务器异常");
-            schx.close();
+            session.notifySessionMarkedValidStatus("用户认证失败，认证信息错误或服务器异常");
+            session.close();
             e.printStackTrace();
         }
 

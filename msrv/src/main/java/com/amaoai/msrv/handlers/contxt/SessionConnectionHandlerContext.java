@@ -37,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author Vincent Luo
  */
-public class SessionChannelHandlerContext {
+public class SessionConnectionHandlerContext {
 
     /**
      * channel处理器上下文
@@ -57,15 +57,15 @@ public class SessionChannelHandlerContext {
     /**
      * 已经通过登录认证注册好的用户Channel
      */
-    private static final Map<Long, SessionChannelHandlerContext>
+    private static final Map<Long, SessionConnectionHandlerContext>
             markedValidSessionChannelHandlerContext = new ConcurrentHashMap<>(1024);
 
     public interface RedisOperationFunction {
         void apply(RedisOperation ops);
     }
 
-    public SessionChannelHandlerContext(ChannelHandlerContext ctx,
-                                        ConfigurableHandlerAdapterContext configurableHandlerAdapterContext) {
+    public SessionConnectionHandlerContext(ChannelHandlerContext ctx,
+                                           ConfigurableHandlerAdapterContext configurableHandlerAdapterContext) {
         this.channelHandlerContext = ctx;
         this.configurableHandlerAdapterContext = configurableHandlerAdapterContext;
     }
@@ -123,11 +123,11 @@ public class SessionChannelHandlerContext {
      *
      * @see SignInSendUMCPCMDHandler#handler
      */
-    public static void markValidSessionChannelHandlerContext(Long owner, SessionChannelHandlerContext schx) {
+    public static void markValidSessionChannelHandlerContext(Long owner, SessionConnectionHandlerContext session) {
         synchronized (markedValidSessionChannelHandlerContext) {
-            markedValidSessionChannelHandlerContext.put(owner, schx);
+            markedValidSessionChannelHandlerContext.put(owner, session);
             // 设置当前客户端通道的所属用户
-            schx.owner = owner;
+            session.owner = owner;
         }
     }
 
@@ -136,18 +136,18 @@ public class SessionChannelHandlerContext {
      *
      * @see SignInSendUMCPCMDHandler#handler
      */
-    public static void markUnValidSessionChannelHandlerContext(SessionChannelHandlerContext schx) {
+    public static void markUnValidSessionChannelHandlerContext(SessionConnectionHandlerContext session) {
         synchronized (markedValidSessionChannelHandlerContext) {
-            schx.close();
-            if (schx.owner != null)
-                markedValidSessionChannelHandlerContext.remove(schx.owner);
+            session.close();
+            if (session.owner != null)
+                markedValidSessionChannelHandlerContext.remove(session.owner);
         }
     }
 
     /**
      * 获取在线的客户端
      */
-    public static SessionChannelHandlerContext online(Long owner) {
+    public static SessionConnectionHandlerContext online(Long owner) {
         return markedValidSessionChannelHandlerContext.get(owner);
     }
 

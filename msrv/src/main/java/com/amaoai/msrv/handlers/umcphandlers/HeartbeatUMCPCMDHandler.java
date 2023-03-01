@@ -20,7 +20,7 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 /* Creates on 2023/2/27. */
 
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionConnectionHandlerContext;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
@@ -35,7 +35,7 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 public class HeartbeatUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
     @Override
-    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+    public void handler(UMCProtocol umcp, SessionConnectionHandlerContext session) {
 
     }
 

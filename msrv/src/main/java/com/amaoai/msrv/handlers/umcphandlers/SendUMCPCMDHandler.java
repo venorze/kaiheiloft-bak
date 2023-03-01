@@ -24,7 +24,7 @@ import com.amaoai.framework.logging.Logger;
 import com.amaoai.framework.logging.LoggerFactory;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionConnectionHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import com.amaoai.msrv.protocol.umcp.attch.UserMessage;
@@ -40,17 +40,17 @@ public class SendUMCPCMDHandler extends UMCPCMDHandlerAdapter {
     private static final Logger LOG = LoggerFactory.getLogger(SendUMCPCMDHandler.class);
 
     @Override
-    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+    public void handler(UMCProtocol umcp, SessionConnectionHandlerContext session) {
         try {
             // 拿到聊天消息
             UserMessage message = umcp.attach();
-            message.setSender(schx.owner());
+            message.setSender(session.owner());
             // 获取在线的客户端
-            var onlinesession = SessionChannelHandlerContext.online(message.getReceiver());
+            var onlinesession = SessionConnectionHandlerContext.online(message.getReceiver());
             if (onlinesession != null)
                 onlinesession.writeAndFlush(umcp).sync();
             // 回复客户端服务器已收到消息
-            autoack(umcp, UMCPCMD.ACK, schx);
+            autoack(umcp, UMCPCMD.ACK, session);
         } catch (Throwable e) {
             LOG.error("SendUMCPCMDHandler", e);
         }

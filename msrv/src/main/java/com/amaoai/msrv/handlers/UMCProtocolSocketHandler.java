@@ -24,7 +24,7 @@ import com.amaoai.framework.collections.Maps;
 import com.amaoai.framework.refection.ClassLoaders;
 import com.amaoai.framework.refection.ClassUtils;
 import com.amaoai.msrv.handlers.contxt.ConfigurableHandlerAdapterContext;
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionConnectionHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 import io.netty.channel.ChannelHandlerContext;
@@ -50,7 +50,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
     /**
      * 每个处理器的上下文对象
      */
-    private SessionChannelHandlerContext schx;
+    private SessionConnectionHandlerContext session;
 
     /**
      * 协议命令处理器集合
@@ -91,12 +91,12 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        schx = new SessionChannelHandlerContext(ctx, configurableHandlerAdapterContext);
+        session = new SessionConnectionHandlerContext(ctx, configurableHandlerAdapterContext);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, schx);
+        selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, session);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
         if (evt instanceof IdleStateEvent event &&
             event.state() == IdleState.READER_IDLE) {
             // 如果写空闲事件被触发表示用户可能连接已经断开
-            selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, schx);
+            selectAndRunUMCPCMDHandler(UMCProtocol.DISCONNECT, session);
         }
     }
 
@@ -127,35 +127,35 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
         if (UMCPCMDHandlerAdapter != null) {
             // 处理心跳包
             if (umcp.cmd() == UMCPCMD.HEARTBEAT) {
-                selectAndRunUMCPCMDHandler(umcp, schx);
+                selectAndRunUMCPCMDHandler(umcp, session);
                 return;
             }
 
             // 检查用户是否已经登录
             if (umcp.cmd() != UMCPCMD.SIGN_IN_SEND &&
-                  !schx.isValid()) {
+                  !session.isValid()) {
                 // 通知客户端
-                schx.notifySessionMarkedValidStatus("用户未认证！");
+                session.notifySessionMarkedValidStatus("用户未认证！");
                 // 断开连接
                 selectUMCPCMDHandler(UMCProtocol.DISCONNECT)
-                      .handler(UMCProtocol.DISCONNECT, schx);
+                      .handler(UMCProtocol.DISCONNECT, session);
                 return;
             }
 
             // 判断用户是否重复登录
-            if (umcp.cmd() == UMCPCMD.SIGN_IN_SEND && schx.isValid()) {
-                schx.notifySessionMarkedValidStatus("请勿重复认证！");
+            if (umcp.cmd() == UMCPCMD.SIGN_IN_SEND && session.isValid()) {
+                session.notifySessionMarkedValidStatus("请勿重复认证！");
                 return;
             }
 
             // 判断当前处理器是不是第一次调用
             if (!UMCPCMDHandlerAdapter.isActived()) {
-                UMCPCMDHandlerAdapter.active(schx);
+                UMCPCMDHandlerAdapter.active(session);
                 UMCPCMDHandlerAdapter.actived();
             }
 
             // 执行处理器函数
-            UMCPCMDHandlerAdapter.handler(umcp, schx);
+            UMCPCMDHandlerAdapter.handler(umcp, session);
         }
     }
 
@@ -169,8 +169,8 @@ public class UMCProtocolSocketHandler extends ChannelInboundHandlerAdapter {
     /**
      * 选择并运行 UMCP CMD 处理器
      */
-    public static void selectAndRunUMCPCMDHandler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
-        selectUMCPCMDHandler(umcp).handler(umcp, schx);
+    public static void selectAndRunUMCPCMDHandler(UMCProtocol umcp, SessionConnectionHandlerContext session) {
+        selectUMCPCMDHandler(umcp).handler(umcp, session);
     }
 
 }

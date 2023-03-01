@@ -22,7 +22,7 @@ package com.amaoai.msrv.handlers.umcphandlers;
 
 import com.amaoai.msrv.handlers.UMCPCMDHandlerAdapter;
 import com.amaoai.msrv.handlers.UMCPCMDHandlerMark;
-import com.amaoai.msrv.handlers.contxt.SessionChannelHandlerContext;
+import com.amaoai.msrv.handlers.contxt.SessionConnectionHandlerContext;
 import com.amaoai.msrv.protocol.umcp.UMCPCMD;
 import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 
@@ -35,11 +35,11 @@ import com.amaoai.msrv.protocol.umcp.UMCProtocol;
 public class DisconnectUMCPCMDHandler extends UMCPCMDHandlerAdapter {
 
     @Override
-    public void handler(UMCProtocol umcp, SessionChannelHandlerContext schx) {
+    public void handler(UMCProtocol umcp, SessionConnectionHandlerContext session) {
         // 删除redis缓存中的内容
-        schx.executeRedisOperation(ops -> ops.delByte(schx.owner()));
+        session.executeRedisOperation(ops -> ops.delByte(session.owner()));
         // 断开与客户端的连接
-        SessionChannelHandlerContext.markUnValidSessionChannelHandlerContext(schx);
+        SessionConnectionHandlerContext.markUnValidSessionChannelHandlerContext(session);
     }
 
 }
