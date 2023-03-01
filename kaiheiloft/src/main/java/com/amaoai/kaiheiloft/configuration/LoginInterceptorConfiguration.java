@@ -25,7 +25,7 @@ import com.amaoai.export.opensso.api.feign.UnifiedUserAuthenticationServiceAPI;
 import com.amaoai.framework.StringUtils;
 import com.amaoai.kaiheiloft.KaiheiloftBootstrap;
 import com.amaoai.framework.R;
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import com.amaoai.export.opensso.modx.UserTokenPayload;
 import com.amaoai.spring.framework.WebRequests;
 import com.amaoai.spring.framework.annotation.OpenAPI;
@@ -82,8 +82,8 @@ public class LoginInterceptorConfiguration implements HandlerInterceptor {
         R<UserTokenPayload> claimsRet = unifiedUserAuthenticationServiceAPI.verifier(authorization);
         if (claimsRet.isSuccess()) {
             var payload = (UserTokenPayload) claimsRet.to(UserTokenPayload.class);
-            WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID, payload.getUserId());
-            WebRequests.setAttribute(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME, payload.getUsername());
+            WebRequests.setAttribute(KaiheiloftSystemConsts.WEB_REQUEST_ATTRIBUTE_USER_ID, payload.getUserId());
+            WebRequests.setAttribute(KaiheiloftSystemConsts.WEB_REQUEST_ATTRIBUTE_USERNAME, payload.getUsername());
             return true;
         }
 

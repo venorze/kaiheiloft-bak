@@ -27,7 +27,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.mapper.GroupAdminMapper;
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import org.springframework.stereotype.Service;
 
 /**
@@ -65,12 +65,12 @@ public class GroupAdminServiceImplements extends ServiceImpl<GroupAdminMapper, G
 
     @Override
     public void addAdmin(Long groupId, Long userId) {
-        addAnyAdmin(groupId, userId, KaiheiloftApplicationContext.DB_BOOL_OF_FALSE);
+        addAnyAdmin(groupId, userId, KaiheiloftSystemConsts.DB_BOOL_OF_FALSE);
     }
 
     @Override
     public void addSuperAdmin(Long groupId, Long userId) {
-        addAnyAdmin(groupId, userId, KaiheiloftApplicationContext.DB_BOOL_OF_TRUE);
+        addAnyAdmin(groupId, userId, KaiheiloftSystemConsts.DB_BOOL_OF_TRUE);
     }
 
     private void addAnyAdmin(Long groupId, Long userId, String superadmin) {
@@ -108,7 +108,7 @@ public class GroupAdminServiceImplements extends ServiceImpl<GroupAdminMapper, G
         bit |= ADMIN_FLAG_BIT;
 
         // 如果 superadmin 成员为 true，那么就代表是个超级管理员
-        if (groupAdmin.getSuperadmin().equals(KaiheiloftApplicationContext.DB_BOOL_OF_TRUE))
+        if (groupAdmin.getSuperadmin().equals(KaiheiloftSystemConsts.DB_BOOL_OF_TRUE))
             bit |= SUPER_ADMIN_FLAG_BIT;
 
         return bit;

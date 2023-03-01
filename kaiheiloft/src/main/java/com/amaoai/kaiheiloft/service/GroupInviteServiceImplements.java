@@ -22,11 +22,12 @@ package com.amaoai.kaiheiloft.service;
 
 import com.amaoai.framework.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.GroupInvite;
 import com.amaoai.kaiheiloft.mapper.GroupInviteMapper;
 import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class GroupInviteServiceImplements extends ServiceImpl<GroupInviteMapper,
         implements GroupInviteService {
 
     @Override
-    public GroupInvite queryUserInvite(Long inviteId, Long userId) {
+    public GroupInvite queryInvite(Long inviteId, Long userId) {
         // 查询邀请
         var groupInvite = getOne(
                 new LambdaQueryWrapper<GroupInvite>()
@@ -49,6 +50,16 @@ public class GroupInviteServiceImplements extends ServiceImpl<GroupInviteMapper,
 
         Assert.throwIfNull(groupInvite, "邀请不存在");
         return groupInvite;
+    }
+
+    @Override
+    public GroupInvite queryWaitAllowInvite(Long groupId, Long userId, Long inviterId) {
+        QueryWrapper<GroupInvite> wrapper = new QueryWrapper<>();
+        wrapper.eq("group_id", groupId);
+        wrapper.eq("user_id", userId);
+        wrapper.eq("inviter_id", inviterId);
+        wrapper.eq("allowed_status", KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_WAIT);
+        return getOne(wrapper);
     }
 
     @Override
@@ -68,14 +79,14 @@ public class GroupInviteServiceImplements extends ServiceImpl<GroupInviteMapper,
     @Override
     public void allow(Long inviteId) {
         var invite = getById(inviteId);
-        invite.setAllowedStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES);
+        invite.setAllowedStatus(KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_YES);
         updateById(invite);
     }
 
     @Override
     public void refuse(Long inviteId) {
         var invite = getById(inviteId);
-        invite.setAllowedStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO);
+        invite.setAllowedStatus(KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_NO);
         updateById(invite);
     }
 }

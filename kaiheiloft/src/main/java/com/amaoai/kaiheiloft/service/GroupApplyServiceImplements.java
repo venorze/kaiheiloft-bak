@@ -26,7 +26,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.kaiheiloft.enties.GroupApply;
 import com.amaoai.kaiheiloft.mapper.GroupApplyJoinMapper;
 import com.amaoai.kaiheiloft.modobj.modx.GroupApplyModx;
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +35,8 @@ import java.util.List;
  * @author Vincent Luo
  */
 @Service
-public class GroupApplyJoinServiceImplements extends ServiceImpl<GroupApplyJoinMapper, GroupApply>
-        implements GroupApplyJoinService {
+public class GroupApplyServiceImplements extends ServiceImpl<GroupApplyJoinMapper, GroupApply>
+        implements GroupApplyService {
 
     @Override
     public GroupApply queryByApplyId(Long applyId) {
@@ -44,7 +44,7 @@ public class GroupApplyJoinServiceImplements extends ServiceImpl<GroupApplyJoinM
     }
 
     @Override
-    public GroupApply queryJoinRequest(Long groupId, Long userId) {
+    public GroupApply queryApplyRequest(Long groupId, Long userId) {
         QueryWrapper<GroupApply> wrapper = new QueryWrapper<>();
         wrapper.eq("group_id", groupId);
         wrapper.eq("user_id", userId);
@@ -59,7 +59,7 @@ public class GroupApplyJoinServiceImplements extends ServiceImpl<GroupApplyJoinM
     @Override
     public void submit(Long groupId, String requestRemark, Long userId, Long inviterId) {
         // 是否重复申请
-        Assert.throwIfNotNull(queryJoinRequest(groupId, userId), "您已申请过加入该俱乐部，请勿重复申请");
+        Assert.throwIfNotNull(queryApplyRequest(groupId, userId), "您已申请过加入该俱乐部，请勿重复申请");
         // 构建申请加入对象
         GroupApply groupApply = new GroupApply();
         groupApply.setGroupId(groupId);
@@ -73,19 +73,19 @@ public class GroupApplyJoinServiceImplements extends ServiceImpl<GroupApplyJoinM
     public List<GroupApply> pendingRequests(Long groupId) {
         QueryWrapper<GroupApply> wrapper = new QueryWrapper<>();
         wrapper.eq("group_id", groupId);
-        wrapper.eq("agree_status", KaiheiloftApplicationContext.CLUB_AGREE_STATUS_WAIT);
+        wrapper.eq("allowed_status", KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_WAIT);
         return list(wrapper);
     }
 
     @Override
     public void allow(GroupApply groupApply) {
-        groupApply.setAllowedStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES);
+        groupApply.setAllowedStatus(KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_YES);
         updateById(groupApply);
     }
 
     @Override
     public void refuse(GroupApply groupApply) {
-        groupApply.setAllowedStatus(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO);
+        groupApply.setAllowedStatus(KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_NO);
         updateById(groupApply);
     }
 

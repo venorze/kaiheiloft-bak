@@ -20,6 +20,8 @@ package com.amaoai.kaiheiloft.service;
 
 /* Creates on 2023/1/13. */
 
+import com.amaoai.kaiheiloft.modobj.modv.GroupApplyModv;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.amaoai.kaiheiloft.enties.Group;
 import com.amaoai.kaiheiloft.modobj.modv.GroupInfoModv;
@@ -122,16 +124,21 @@ public interface GroupService extends IService<Group> {
     /**
      * 同意邀请
      */
-    void allowInvite(Long inviteId, Long userId, Long operatorId);
+    void allowInvite(Long inviteId, Long userId);
 
     /**
      * 拒绝邀请
      */
-    void refuseInvite(Long inviteId, Long userId, Long operatorId);
+    void refuseInvite(Long inviteId, Long userId);
 
     /**
      * 创建俱乐部频道
      */
     void createChannel(Long groupId, String channelName, String channelType, Long operatorId);
+
+    /**
+     * 查询申请列表
+     */
+    IPage<GroupApplyModv> pageQueryApplys(Long groupId, Integer pageNo, Integer pageSize);
 
 }

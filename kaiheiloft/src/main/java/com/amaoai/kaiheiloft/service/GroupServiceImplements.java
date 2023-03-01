@@ -21,6 +21,8 @@ package com.amaoai.kaiheiloft.service;
 /* Creates on 2023/1/13. */
 
 import com.amaoai.framework.Assert;
+import com.amaoai.kaiheiloft.modobj.modv.GroupApplyModv;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.amaoai.framework.BeanUtils;
 import com.amaoai.framework.StringUtils;
@@ -36,7 +38,7 @@ import com.amaoai.kaiheiloft.modobj.modx.GroupApplyModx;
 import com.amaoai.kaiheiloft.modobj.modx.CreateGroupModx;
 import com.amaoai.kaiheiloft.modobj.modx.EditGroupModx;
 import com.amaoai.kaiheiloft.modobj.modv.InviteModv;
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,7 +61,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     private GroupAdminService groupAdminService;
 
     @Autowired
-    private GroupApplyJoinService groupApplyJoinService;
+    private GroupApplyService groupApplyService;
 
     @Autowired
     private GroupInviteService groupInviteService;
@@ -144,6 +146,9 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     public void invite(Long groupId, Long userId, Long inviterId) {
         // 判断用户是否已经在俱乐部
         checkAlreadyExist(groupId, userId);
+        // 判断是否已经邀请过了
+        Assert.throwIfNotNull(groupInviteService.queryWaitAllowInvite(groupId, userId, inviterId),
+              "您已邀请过该用户了，请勿重复邀请");
         // 邀请成员加入
         groupInviteService.invite(groupId, userId, inviterId);
     }
@@ -154,25 +159,25 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
         // 判断用户是否已经在俱乐部
         checkAlreadyExist(groupId, userId);
         // 提交请求
-        groupApplyJoinService.submit(groupApplyModx, userId, null);
+        groupApplyService.submit(groupApplyModx, userId, null);
     }
 
     @Override
     @Transactional
     public void allow(Long applyId, Long operatorId) {
-        GroupApply groupApply = groupApplyJoinService.queryByApplyId(applyId);
+        GroupApply groupApply = groupApplyService.queryByApplyId(applyId);
         Assert.throwIfBool(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
-        groupApplyJoinService.allow(groupApply);
+        groupApplyService.allow(groupApply);
         // 添加成员
         groupMemberService.addMember(groupApply.getGroupId(), groupApply.getUserId());
     }
 
     @Override
     public void refuse(Long applyId, String reason, Long operatorId) {
-        GroupApply groupApply = groupApplyJoinService.queryByApplyId(applyId);
+        GroupApply groupApply = groupApplyService.queryByApplyId(applyId);
         Assert.throwIfBool(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
         groupApply.setRefusalReason(reason);
-        groupApplyJoinService.refuse(groupApply);
+        groupApplyService.refuse(groupApply);
     }
 
     @Override
@@ -221,15 +226,12 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
 
     @Override
     @Transactional
-    public void allowInvite(Long inviteId, Long userId, Long operatorId) {
+    public void allowInvite(Long inviteId, Long userId) {
         // 查询邀请信息
-        GroupInvite groupInvite = groupInviteService.queryUserInvite(inviteId, userId);
+        GroupInvite groupInvite = groupInviteService.queryInvite(inviteId, userId);
         Long groupId = groupInvite.getGroupId();
         Long inviterId = groupInvite.getInviterId();
-
-        // 判断用户是否有权限同意
-        Assert.throwIfBool(groupAdminService.isAdmin(groupId, operatorId), "用户无权限同意/拒绝");
-        if (groupInvite.getAllowedStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_YES))
+        if (groupInvite.getAllowedStatus().equals(KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_YES))
             throw new BusinessException("已同意邀请请求，请勿重复点击");
 
         // 同意邀请
@@ -237,16 +239,14 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
 
         // 加入申请列表
         User inviter = userService.queryByUserId(inviterId);
-        groupApplyJoinService.submit(groupId,
+        groupApplyService.submit(groupId,
                 StringUtils.vfmt("来自{}用户邀请", inviter.getNickname()), userId, inviterId);
     }
 
     @Override
-    public void refuseInvite(Long inviteId, Long userId, Long operatorId) {
-        GroupInvite groupInvite = groupInviteService.queryUserInvite(inviteId, userId);
-        // 判断用户是否有权限拒绝
-        Assert.throwIfBool(groupAdminService.isAdmin(groupInvite.getGroupId(), operatorId), "用户无权限同意/拒绝");
-        if (groupInvite.getAllowedStatus().equals(KaiheiloftApplicationContext.CLUB_AGREE_STATUS_NO))
+    public void refuseInvite(Long inviteId, Long userId) {
+        GroupInvite groupInvite = groupInviteService.queryInvite(inviteId, userId);
+        if (groupInvite.getAllowedStatus().equals(KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_NO))
             throw new BusinessException("已拒绝邀请请求，请勿重复点击");
 
         // 拒绝邀请
@@ -267,7 +267,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
         // 检查俱乐部是否存在
         Assert.throwIfBool(hasGroup(groupId), "俱乐部不存在");
         // 检查成员是否已经在俱乐部内
-        Assert.throwIfBool(groupMemberService.hasMember(groupId, userId), "成员已经在俱乐部内了");
+        Assert.throwIfBool(!groupMemberService.hasMember(groupId, userId), "成员已经在俱乐部内了");
     }
 
     @Override
@@ -275,6 +275,12 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
         // 判断是不是管理员
         Assert.throwIfBool(groupAdminService.isAdmin(groupId, operatorId), "用户无权限创建频道");
         groupChannelService.create(groupId, channelName, channelType);
+    }
+
+    @Override
+    public IPage<GroupApplyModv> pageQueryApplys(Long groupId, Integer pageNo, Integer pageSize) {
+        // TODO
+        return null;
     }
 
 }

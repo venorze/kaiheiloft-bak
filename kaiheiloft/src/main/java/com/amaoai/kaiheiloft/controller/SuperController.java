@@ -20,7 +20,7 @@ package com.amaoai.kaiheiloft.controller;
 
 /* Creates on 2023/1/27. */
 
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import com.amaoai.spring.framework.WebRequests;
 
 /**
@@ -34,14 +34,14 @@ public class SuperController {
      * @return 获取当前请求用户ID
      */
     protected Long getCurrentUserId() {
-        return Long.valueOf(WebRequests.getString(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USER_ID));
+        return Long.valueOf(WebRequests.getString(KaiheiloftSystemConsts.WEB_REQUEST_ATTRIBUTE_USER_ID));
     }
 
     /**
      * @return 获取当前请求用户名称
      */
     protected String getCurrentUsername() {
-        return WebRequests.getString(KaiheiloftApplicationContext.WEB_REQUEST_ATTRIBUTE_USERNAME);
+        return WebRequests.getString(KaiheiloftSystemConsts.WEB_REQUEST_ATTRIBUTE_USERNAME);
     }
 
 }

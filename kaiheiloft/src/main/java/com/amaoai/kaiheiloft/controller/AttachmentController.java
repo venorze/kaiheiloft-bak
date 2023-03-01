@@ -21,7 +21,7 @@ package com.amaoai.kaiheiloft.controller;
 /* Creates on 2023/1/9. */
 
 import com.amaoai.adapter.SourcePolicy;
-import com.amaoai.kaiheiloft.system.KaiheiloftApplicationContext;
+import com.amaoai.kaiheiloft.system.KaiheiloftSystemConsts;
 import com.amaoai.framework.R;
 import com.amaoai.framework.exception.BusinessException;
 import com.amaoai.framework.generators.VersatileGenerator;
@@ -60,7 +60,7 @@ public class AttachmentController {
 
             // 上传文件
             String region = fileSha256.substring(i, i + 2);
-            return R.ok(sourcePolicy.putBytes(byteBuf, "{}/{}/{}", KaiheiloftApplicationContext.ATTACHMENT_OF_AVATAR, region, fileSha256));
+            return R.ok(sourcePolicy.putBytes(byteBuf, "{}/{}/{}", KaiheiloftSystemConsts.ATTACHMENT_OF_AVATAR, region, fileSha256));
         } catch (Exception e) {
             throw new BusinessException("文件上传失败，请重试", e);
         }

@@ -1,4 +1,4 @@
-package com.amaoai.kaiheiloft.system;
+package com.amaoai.kaiheiloft.modobj.modv;
 
 /* ************************************************************************
  *
@@ -18,52 +18,44 @@ package com.amaoai.kaiheiloft.system;
  *
  * ************************************************************************/
 
-/* Creates on 2023/1/16. */
+/* Creates on 2023/3/1. */
+
+import lombok.Data;
 
 /**
- * 当前应用系统上下文
- *
  * @author Vincent Luo
  */
-public class KaiheiloftApplicationContext {
+@Data
+public class GroupApplyModv {
 
     /**
-     * 头像附件保存根路径
+     * 申请ID
      */
-    public static final String ATTACHMENT_OF_AVATAR = "/v1";
-
-    /***
-     * web请求用户ID属性
-     */
-    public static final String WEB_REQUEST_ATTRIBUTE_USER_ID = "uid";
-
-    /***
-     * web请求用户名称属性
-     */
-    public static final String WEB_REQUEST_ATTRIBUTE_USERNAME = "uname";
+    private Long applyId;
 
     /**
-     * 数据库True表示
+     * 俱乐部名称
      */
-    public static final String DB_BOOL_OF_TRUE = "Y";
+    private String groupName;
 
     /**
-     * 数据库False表示
+     * 俱乐部头像
      */
-    public static final String DB_BOOL_OF_FALSE = "N";
+    private String groupAvatar;
 
     /**
-     * 等待管理员通过
+     * 申请用户
      */
-    public static final String CLUB_AGREE_STATUS_WAIT = "T";
+    private String userNickname;
 
     /**
-     * 申请通过
+     * 申请备注
      */
-    public static final String CLUB_AGREE_STATUS_YES = "Y";
+    private String requestRemark;
 
     /**
-     * 申请拒绝
+     * 是否同意
      */
-    public static final String CLUB_AGREE_STATUS_NO = "N";
+    private String allowedStatus;
+
 }

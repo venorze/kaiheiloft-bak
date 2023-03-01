@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * @author Vincent Luo
  */
-public interface GroupApplyJoinService extends IService<GroupApply> {
+public interface GroupApplyService extends IService<GroupApply> {
 
     /**
      * @return 根据ID查询申请对象
@@ -39,7 +39,7 @@ public interface GroupApplyJoinService extends IService<GroupApply> {
     /**
      * 查询申请请求
      */
-    GroupApply queryJoinRequest(Long groupId, Long userId);
+    GroupApply queryApplyRequest(Long groupId, Long userId);
 
     /**
      * 提交申请请求

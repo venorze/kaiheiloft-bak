@@ -33,6 +33,6 @@ public class GroupApplyIdModx {
      * 申请加入ID
      */
     @NotNull(message = "申请ID不能为空")
-    private Long id;
+    private Long applyId;
 
 }

@@ -34,7 +34,12 @@ public interface GroupInviteService extends IService<GroupInvite> {
     /**
      * 查询用户邀请列表
      */
-    GroupInvite queryUserInvite(Long inviteId, Long userId);
+    GroupInvite queryInvite(Long inviteId, Long userId);
+
+    /**
+     * 查询等待处理的邀请数据
+     */
+    GroupInvite queryWaitAllowInvite(Long groupId, Long userId, Long inviterId);
 
     /**
      * 邀请新成员加入

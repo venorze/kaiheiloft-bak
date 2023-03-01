@@ -29,6 +29,11 @@ import lombok.Data;
 public class InviteModv {
 
     /**
+     * 邀请ID
+     */
+    private String inviteId;
+
+    /**
      * 俱乐部名称
      */
     private String groupNickname;

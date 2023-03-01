@@ -45,7 +45,7 @@ public class GroupMemberController {
     /**
      * 分页查询俱乐部成员列表
      */
-    @GetMapping("/page/query")
+    @GetMapping("/pquery")
     public R<IPage<GroupMemberInfoModv>> page(@RequestBody @Valid GroupMemberPageModx pageModx) {
         return R.ok(groupMemberService.queryPageMember(pageModx.getGroupId(), pageModx.getPageNo(), pageModx.getPageSize()));
     }

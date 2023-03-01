@@ -4,6 +4,7 @@
 
     <select id="queryInvitesByUserId" resultType="com.amaoai.kaiheiloft.modobj.modv.InviteModv">
         select
+            kci.id as inviteId,
             ku0.nickname as userNickname,
             ku1.nickname as inviterNickname,
             kc.name as groupNickname
