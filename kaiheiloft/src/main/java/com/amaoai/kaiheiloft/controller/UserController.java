@@ -55,7 +55,7 @@ public class UserController extends SuperController {
      */
     @GetMapping("/profile")
     public R<UserProfileModx> profile() {
-        return R.ok(userService.profile(getCurrentUsername()));
+        return R.ok(userService.profile(currentUsername()));
     }
 
     /**
@@ -63,7 +63,7 @@ public class UserController extends SuperController {
      */
     @PostMapping("/edit/profile")
     public R<Void> editProfile(@RequestBody @Valid UserProfileModx userProfileModx) {
-        userService.editProfile(getCurrentUserId(), userProfileModx);
+        userService.editProfile(currentUserId(), userProfileModx);
         return R.ok();
     }
 
@@ -72,7 +72,7 @@ public class UserController extends SuperController {
      */
     @PostMapping("/edit/passwd")
     public R<Void> editPassword(@RequestBody @Valid EditPasswordModx editPasswordModx) {
-        userService.editPassword(getCurrentUserId(), editPasswordModx);
+        userService.editPassword(currentUserId(), editPasswordModx);
         return R.ok();
     }
 
@@ -81,7 +81,7 @@ public class UserController extends SuperController {
      */
     @PostMapping("/edit/mail")
     public R<Void> editMail(@RequestBody @Valid EditMailModx editMailModx) {
-        userService.editMail(getCurrentUserId(), editMailModx);
+        userService.editMail(currentUserId(), editMailModx);
         return R.ok();
     }
 
@@ -90,7 +90,7 @@ public class UserController extends SuperController {
      */
     @GetMapping("/groups")
     public R<List<GroupModv>> queryGroupsByUserId() {
-        List<Group> groups = groupService.queryGroupsByUserId(getCurrentUserId());
+        List<Group> groups = groupService.queryGroupsByUserId(currentUserId());
         return R.ok(BeanUtils.copyProperties(groups, GroupModv.class));
     }
 

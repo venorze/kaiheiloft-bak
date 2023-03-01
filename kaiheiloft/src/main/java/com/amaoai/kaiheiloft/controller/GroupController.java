@@ -49,7 +49,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/create")
     public R<Long> create(@RequestBody @Valid CreateGroupModx createGroupModx) {
-        return R.ok(groupService.create(createGroupModx, getCurrentUserId()));
+        return R.ok(groupService.create(createGroupModx, currentUserId()));
     }
 
     /**
@@ -58,7 +58,7 @@ public class GroupController extends SuperController {
     @PostMapping("/new/channel")
     public R<Void> channelCreate(@RequestBody @Valid CreateGroupChannelModx createGroupChannelModx) {
         groupService.createChannel(createGroupChannelModx.getGroupId(), createGroupChannelModx.getName(),
-                createGroupChannelModx.getType(), getCurrentUserId());
+                createGroupChannelModx.getType(), currentUserId());
         return R.ok();
     }
 
@@ -75,7 +75,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/edit")
     public R<Void> edit(@RequestBody @Valid EditGroupModx editGroupModx) {
-        groupService.edit(editGroupModx, getCurrentUserId());
+        groupService.edit(editGroupModx, currentUserId());
         return R.ok();
     }
 
@@ -84,7 +84,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/disband")
     public R<Void> disband(@RequestBody @Valid GroupIdModx groupIdModx) {
-        groupService.disband(groupIdModx.getGroupId(), getCurrentUserId());
+        groupService.disband(groupIdModx.getGroupId(), currentUserId());
         return R.ok();
     }
 
@@ -93,7 +93,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/join")
     public R<Void> join(@RequestBody @Valid GroupApplyModx groupApplyModx) {
-        groupService.join(groupApplyModx, getCurrentUserId());
+        groupService.join(groupApplyModx, currentUserId());
         return R.ok();
     }
 
@@ -111,7 +111,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/allow/apply")
     public R<Void> allow(@RequestBody @Valid GroupApplyIdModx groupApplyIdModx) {
-        groupService.allow(groupApplyIdModx.getApplyId(), getCurrentUserId());
+        groupService.allow(groupApplyIdModx.getApplyId(), currentUserId());
         return R.ok();
     }
 
@@ -120,7 +120,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/refuse/apply")
     public R<Void> refuse(@RequestBody @Valid GroupApplyRefuseModx groupApplyRefuseModx) {
-        groupService.refuse(groupApplyRefuseModx.getApplyId(), groupApplyRefuseModx.getReason(), getCurrentUserId());
+        groupService.refuse(groupApplyRefuseModx.getApplyId(), groupApplyRefuseModx.getReason(), currentUserId());
         return R.ok();
     }
 
@@ -129,7 +129,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/invite")
     public R<Void> invite(@RequestBody @Valid InviteModx inviteModx) {
-        groupService.invite(inviteModx.getGroupId(), inviteModx.getUserId(), getCurrentUserId());
+        groupService.invite(inviteModx.getGroupId(), inviteModx.getUserId(), currentUserId());
         return R.ok();
     }
 
@@ -138,7 +138,7 @@ public class GroupController extends SuperController {
      */
     @GetMapping("/query/invite")
     public R<List<InviteModv>> queryInvites() {
-        return R.ok(groupService.queryInvites(getCurrentUserId()));
+        return R.ok(groupService.queryInvites(currentUserId()));
     }
 
     /**
@@ -146,7 +146,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/allow/invite")
     public R<Void> allowInvite(@RequestBody @Valid InviteIdModx inviteIdModx) {
-        groupService.allowInvite(inviteIdModx.getInviteId(), getCurrentUserId());
+        groupService.allowInvite(inviteIdModx.getInviteId(), currentUserId());
         return R.ok();
     }
 
@@ -155,7 +155,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/refuse/invite")
     public R<Void> inviteRefuse(@RequestBody @Valid InviteIdModx inviteIdModx) {
-        groupService.refuseInvite(inviteIdModx.getInviteId(), getCurrentUserId());
+        groupService.refuseInvite(inviteIdModx.getInviteId(), currentUserId());
         return R.ok();
     }
 
@@ -164,7 +164,7 @@ public class GroupController extends SuperController {
      */
     @PostMapping("/quit")
     public R<Void> quit(@RequestBody @Valid GroupIdModx groupIdModx) {
-        groupService.quit(groupIdModx.getGroupId(), getCurrentUserId());
+        groupService.quit(groupIdModx.getGroupId(), currentUserId());
         return R.ok();
     }
 
