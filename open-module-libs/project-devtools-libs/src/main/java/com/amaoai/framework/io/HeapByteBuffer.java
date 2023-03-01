@@ -83,7 +83,7 @@ class HeapByteBuffer extends ByteBuffer implements Serializable {
     @Override
     public void clear(int off, int len) {
         int clearsize = off + len;
-        Assert.throwIfBool(!(clearsize > buf.length), "清空缓冲区长度超出缓冲区大小，清空大小：{}、缓冲区大小：{}",
+        Assert.throwIfTrue((clearsize > buf.length), "清空缓冲区长度超出缓冲区大小，清空大小：{}、缓冲区大小：{}",
                 len, capacity);
 
         // 拷贝数组
@@ -97,7 +97,7 @@ class HeapByteBuffer extends ByteBuffer implements Serializable {
 
     @Override
     public void read(byte[] a, int off, int len) {
-        Assert.throwIfBool(!((off + len) > buf.length), "读取的数据超出缓冲区大小，读取大小：{}、数组大小：{}",
+        Assert.throwIfTrue(((off + len) > buf.length), "读取的数据超出缓冲区大小，读取大小：{}、数组大小：{}",
                 len, a.length);
 
         System.arraycopy(this.buf, this.position, a, off, len);

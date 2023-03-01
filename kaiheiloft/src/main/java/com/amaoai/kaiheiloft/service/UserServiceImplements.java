@@ -68,7 +68,7 @@ public class UserServiceImplements extends ServiceImpl<UserMapper, User> impleme
     @Override
     public void sign_up(UserSignUpModx userSignUpModx) {
         // 判断用户名是否已被注册
-        Assert.throwIfBool(queryByUsername(userSignUpModx.getUsername()) == null, "当前用户名已被注册");
+        Assert.throwIfFalse(queryByUsername(userSignUpModx.getUsername()) == null, "当前用户名已被注册");
         // 注册成功
         save(BeanUtils.copyProperties(userSignUpModx, User.class));
     }

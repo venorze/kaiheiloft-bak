@@ -48,7 +48,7 @@ public class GroupMemberServiceImplements extends ServiceImpl<GroupMemberMapper,
 
     @Override
     public void addMember(Long groupId, Long userId) {
-        Assert.throwIfBool(!hasMember(groupId, userId), "用户已经在俱乐部内了");
+        Assert.throwIfTrue(hasMember(groupId, userId), "用户已经在俱乐部内了");
         var groupMember = new GroupMember();
         groupMember.setGroupId(groupId);
         groupMember.setUserId(userId);

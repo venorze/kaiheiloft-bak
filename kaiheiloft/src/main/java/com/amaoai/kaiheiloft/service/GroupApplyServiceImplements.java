@@ -48,6 +48,7 @@ public class GroupApplyServiceImplements extends ServiceImpl<GroupApplyJoinMappe
         QueryWrapper<GroupApply> wrapper = new QueryWrapper<>();
         wrapper.eq("group_id", groupId);
         wrapper.eq("user_id", userId);
+        wrapper.eq("allowed_status", KaiheiloftSystemConsts.GROUP_ALLOW_STATUS_WAIT);
         return getOne(wrapper);
     }
 

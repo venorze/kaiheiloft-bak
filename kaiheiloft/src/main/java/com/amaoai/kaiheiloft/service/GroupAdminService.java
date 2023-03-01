@@ -41,14 +41,29 @@ public interface GroupAdminService extends IService<GroupAdmin> {
     void addSuperAdmin(Long groupId, Long userId);
 
     /**
+     * 获取管理员标志位
+     */
+    int adminFlags(Long groupId, Long userId);
+
+    /**
      * 是否是管理员
      */
     boolean isAdmin(Long groupId, Long userId);
 
     /**
+     * 是否是管理员，传入管理员Flags标志位
+     */
+    boolean isAdmin(int flags);
+
+    /**
      * 是否是超级管理员
      */
     boolean isSuperAdmin(Long groupId, Long userId);
+
+    /**
+     * 是否是超级管理员，传入管理员Flags标志位
+     */
+    boolean isSuperAdmin(int flags);
 
     /**
      * 移除所有管理员

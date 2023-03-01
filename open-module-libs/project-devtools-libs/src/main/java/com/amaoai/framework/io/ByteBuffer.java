@@ -138,7 +138,7 @@ public abstract class ByteBuffer {
             case SEEK_END -> this.position = capacity - position;
         }
 
-        Assert.throwIfBool(!(this.position < 0 || this.position > capacity),
+        Assert.throwIfTrue(this.position < 0 || this.position > capacity,
                 "偏移量超出范围：{}， 数组大小：{}", this.position, capacity);
     }
 

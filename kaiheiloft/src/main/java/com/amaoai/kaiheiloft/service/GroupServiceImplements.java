@@ -123,7 +123,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     public void edit(EditGroupModx editGroupModx, Long operatorId) {
         Group group = queryByGroupId(editGroupModx.getId());
         // 管理员有权限修改
-        Assert.throwIfBool(groupAdminService.isAdmin(editGroupModx.getId(), operatorId), "用户无权限修改");
+        Assert.throwIfFalse(groupAdminService.isAdmin(editGroupModx.getId(), operatorId), "用户无权限修改");
         BeanUtils.copyProperties(editGroupModx, group);
         updateById(group);
     }
@@ -133,7 +133,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     public void disband(Long groupId, Long operatorId) {
         // 判断俱乐部ID是否正确
         queryByGroupId(groupId);
-        Assert.throwIfBool(groupAdminService.isSuperAdmin(groupId, operatorId), "用户无权限解散");
+        Assert.throwIfFalse(groupAdminService.isSuperAdmin(groupId, operatorId), "用户无权限解散");
         // 删除所有成员
         groupMemberService.removeAllMember(groupId);
         // 删除所有管理员
@@ -166,7 +166,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     @Transactional
     public void allow(Long applyId, Long operatorId) {
         GroupApply groupApply = groupApplyService.queryByApplyId(applyId);
-        Assert.throwIfBool(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
+        Assert.throwIfFalse(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
         groupApplyService.allow(groupApply);
         // 添加成员
         groupMemberService.addMember(groupApply.getGroupId(), groupApply.getUserId());
@@ -175,7 +175,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     @Override
     public void refuse(Long applyId, String reason, Long operatorId) {
         GroupApply groupApply = groupApplyService.queryByApplyId(applyId);
-        Assert.throwIfBool(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
+        Assert.throwIfFalse(groupAdminService.isSuperAdmin(groupApply.getGroupId(), operatorId), "用户无权限同意/拒绝");
         groupApply.setRefusalReason(reason);
         groupApplyService.refuse(groupApply);
     }
@@ -188,7 +188,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
 
         // 判断用户是否是管理员, 如果是管理员需要超级管理员踢出
         if (groupAdminService.isAdmin(groupId, userId)) {
-            Assert.throwIfBool(groupAdminService.isSuperAdmin(groupId, operatorId), "用户无权踢出管理员");
+            Assert.throwIfFalse(groupAdminService.isSuperAdmin(groupId, operatorId), "用户无权踢出管理员");
             groupAdminService.removeAdmin(groupId, userId);
         }
 
@@ -200,9 +200,17 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
         // 判断成员是否在俱乐部
         checkMemberExist(groupId, userId);
 
+        // 获取当前用户的管理员标志位
+        int adminFlags = groupAdminService.adminFlags(groupId, userId);
+
         // 判断用户是否是管理员, 如果是管理员需要移除管理员权限
-        if (groupAdminService.isAdmin(groupId, userId))
+        if (groupAdminService.isAdmin(adminFlags)) {
+            // 如果是超级管理员则不能退出，只能解散或转让权限
+            Assert.throwIfTrue(groupAdminService.isSuperAdmin(adminFlags),
+                  "俱乐部群主不能退出自己的群聊，您可以选择解散或转移权限。");
+            // 移除管理员
             groupAdminService.removeAdmin(groupId, userId);
+        }
 
         groupMemberService.removeMember(groupId, userId); // 移除成员
     }
@@ -210,7 +218,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
     @Override
     public void transfer(Long groupId, Long srcSuperAdminId, Long destSuperAdminId) {
         // 判断用户是否在俱乐部内
-        Assert.throwIfNull(groupMemberService.queryMember(groupId, destSuperAdminId), "转让用户不在俱乐部内");
+        Assert.throwIfNull(groupMemberService.queryMember(groupId, destSuperAdminId), "转让用户不在俱乐部内。");
         groupAdminService.transfer(groupId, srcSuperAdminId, destSuperAdminId);
     }
 
@@ -257,7 +265,7 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
      * 检查用户是否在俱俱乐部
      */
     void checkMemberExist(Long groupId, Long userId) {
-        Assert.throwIfBool(groupMemberService.hasMember(groupId, userId), "成员不在该俱乐部");
+        Assert.throwIfFalse(groupMemberService.hasMember(groupId, userId), "成员不在该俱乐部");
     }
 
     /**
@@ -265,15 +273,15 @@ public class GroupServiceImplements extends ServiceImpl<GroupMapper, Group> impl
      */
     void checkAlreadyExist(Long groupId, Long userId) {
         // 检查俱乐部是否存在
-        Assert.throwIfBool(hasGroup(groupId), "俱乐部不存在");
+        Assert.throwIfFalse(hasGroup(groupId), "俱乐部不存在");
         // 检查成员是否已经在俱乐部内
-        Assert.throwIfBool(!groupMemberService.hasMember(groupId, userId), "成员已经在俱乐部内了");
+        Assert.throwIfTrue(groupMemberService.hasMember(groupId, userId), "成员已经在俱乐部内了");
     }
 
     @Override
     public void createChannel(Long groupId, String channelName, String channelType, Long operatorId) {
         // 判断是不是管理员
-        Assert.throwIfBool(groupAdminService.isAdmin(groupId, operatorId), "用户无权限创建频道");
+        Assert.throwIfFalse(groupAdminService.isAdmin(groupId, operatorId), "用户无权限创建频道");
         groupChannelService.create(groupId, channelName, channelType);
     }
 

@@ -79,16 +79,34 @@ object Assert {
     }
 
     /**
-     * 断言一个布尔类型的结果，如果结果是False则抛出异常（自定义异常信息）
+     * 断言一个布尔类型的结果，如果结果是True则抛出异常（自定义异常信息）
      */
     @JvmStatic
-    fun throwIfBool(bool: Boolean) = throwIfBool(bool, "result is false!")
+    fun throwIfTrue(bool: Boolean) = throwIfTrue(bool, "assert object == true")
+
+    /**
+     * 断言一个布尔类型的结果，如果结果是True则抛出异常（自定义异常信息）
+     */
+    @JvmStatic
+    fun throwIfTrue(bool: Boolean, fmt: String, vararg args: Any) = throwIfBool(!bool, fmt, *args)
 
     /**
      * 断言一个布尔类型的结果，如果结果是False则抛出异常（自定义异常信息）
      */
     @JvmStatic
-    fun throwIfBool(bool: Boolean, fmt: String, vararg args: Any) {
+    fun throwIfFalse(bool: Boolean) = throwIfFalse(bool, "assert object == false")
+
+    /**
+     * 断言一个布尔类型的结果，如果结果是False则抛出异常（自定义异常信息）
+     */
+    @JvmStatic
+    fun throwIfFalse(bool: Boolean, fmt: String, vararg args: Any) = throwIfBool(bool, fmt, *args)
+
+    /**
+     * 断言一个布尔类型的结果，如果结果是False则抛出异常（自定义异常信息）
+     */
+    @JvmStatic
+    private fun throwIfBool(bool: Boolean, fmt: String, vararg args: Any) {
         if (!bool)
             throw IllegalArgumentException(vfmt(fmt, *args))
     }

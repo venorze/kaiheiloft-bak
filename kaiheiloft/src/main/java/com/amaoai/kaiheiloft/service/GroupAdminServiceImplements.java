@@ -73,32 +73,15 @@ public class GroupAdminServiceImplements extends ServiceImpl<GroupAdminMapper, G
         addAnyAdmin(groupId, userId, KaiheiloftSystemConsts.DB_BOOL_OF_TRUE);
     }
 
-    private void addAnyAdmin(Long groupId, Long userId, String superadmin) {
-        var groupAdmin = new GroupAdmin();
-        groupAdmin.setGroupId(groupId);
-        groupAdmin.setUserId(userId);
-        groupAdmin.setSuperadmin(superadmin); // 创建人默认为超级管理员
-        save(groupAdmin);
-    }
-
     @Override
-    public boolean isAdmin(Long groupId, Long userId) {
-        return Bits.compare(adminFlag(groupId, userId) & ADMIN_FLAG_BIT);
-    }
-
-    @Override
-    public boolean isSuperAdmin(Long groupId, Long userId) {
-        return Bits.compare(adminFlag(groupId, userId) & SUPER_ADMIN_FLAG_BIT);
-    }
-
-    private int adminFlag(Long groupId, Long userId) {
-        return adminFlag(queryGroupAdmin(groupId, userId));
+    public int adminFlags(Long groupId, Long userId) {
+        return adminFlags(queryGroupAdmin(groupId, userId));
     }
 
     /**
      * 使用标志位判断
      */
-    private int adminFlag(GroupAdmin groupAdmin) {
+    private int adminFlags(GroupAdmin groupAdmin) {
         int bit = MEMBER_FLAG_BIT;
 
         if (groupAdmin == null)
@@ -112,6 +95,34 @@ public class GroupAdminServiceImplements extends ServiceImpl<GroupAdminMapper, G
             bit |= SUPER_ADMIN_FLAG_BIT;
 
         return bit;
+    }
+
+    private void addAnyAdmin(Long groupId, Long userId, String superadmin) {
+        var groupAdmin = new GroupAdmin();
+        groupAdmin.setGroupId(groupId);
+        groupAdmin.setUserId(userId);
+        groupAdmin.setSuperadmin(superadmin); // 创建人默认为超级管理员
+        save(groupAdmin);
+    }
+
+    @Override
+    public boolean isAdmin(Long groupId, Long userId) {
+        return Bits.compare(adminFlags(groupId, userId) & ADMIN_FLAG_BIT);
+    }
+
+    @Override
+    public boolean isAdmin(int flags) {
+        return Bits.compare(flags & ADMIN_FLAG_BIT);
+    }
+
+    @Override
+    public boolean isSuperAdmin(int flags) {
+        return Bits.compare(flags & SUPER_ADMIN_FLAG_BIT);
+    }
+
+    @Override
+    public boolean isSuperAdmin(Long groupId, Long userId) {
+        return Bits.compare(adminFlags(groupId, userId) & SUPER_ADMIN_FLAG_BIT);
     }
 
     @Override
@@ -130,7 +141,7 @@ public class GroupAdminServiceImplements extends ServiceImpl<GroupAdminMapper, G
     @Override
     public void transfer(Long groupId, Long srcSuperAdminId, Long destSuperAdminId) {
         var groupAdmin = queryGroupAdmin(groupId, srcSuperAdminId);
-        Assert.throwIfBool(Bits.compare(adminFlag(groupAdmin) & SUPER_ADMIN_FLAG_BIT), "用户非超级管理员，无转让权限");
+        Assert.throwIfFalse(Bits.compare(adminFlags(groupAdmin) & SUPER_ADMIN_FLAG_BIT), "用户非超级管理员，无转让权限");
         groupAdmin.setUserId(destSuperAdminId);
         updateById(groupAdmin);
     }
