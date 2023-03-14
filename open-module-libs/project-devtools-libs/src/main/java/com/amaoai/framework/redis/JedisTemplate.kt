@@ -1,4 +1,4 @@
-package com.amaoai.framework.test;
+package com.amaoai.framework.redis
 
 /* ************************************************************************
  *
@@ -18,20 +18,15 @@ package com.amaoai.framework.test;
  *
  * ************************************************************************/
 
-/* Creates on 2023/2/22. */
+/* Creates on 2023/2/28. */
 
-import com.amaoai.framework.io.IOUtils;
-
-import java.io.FileNotFoundException;
-import java.util.Arrays;
+import redis.clients.jedis.Jedis
 
 /**
+ * Jedis操作模板
+ *
  * @author Amaoai
  */
-public class FileUtilsTest {
-
-    public static void main(String[] args) throws FileNotFoundException g'i{
-        System.out.println(Arrays.toString(IOUtils.toByteArray(94194176L)));
-    }
+class JedisTemplate<T>(val ops: Jedis) {
 
 }
